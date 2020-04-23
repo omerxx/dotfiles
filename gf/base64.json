@@ -1,0 +1,6 @@
+{
+    "flags": "-HnroE",
+    "pattern": "([^A-Za-z0-9+/]|^)(eyJ|YTo|Tzo|PD[89]|aHR0cHM6L|aHR0cDo|rO0)[%a-zA-Z0-9+/]+={0,2}"
+}
+
+

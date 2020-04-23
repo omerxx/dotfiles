@@ -1,0 +1,17 @@
+{
+    "flags": "-HnriE",
+    "patterns": [
+        "php warning",
+        "php error",
+        "fatal error",
+        "uncaught exception",
+        "include_path",
+        "undefined index",
+        "undefined variable",
+        "\\?php",
+        "<\\?[^x]",
+        "stack trace\\:",
+        "expects parameter [0-9]*",
+        "Debug Trace"
+    ]
+}

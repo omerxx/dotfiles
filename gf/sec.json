@@ -1,0 +1,4 @@
+{
+    "flags": "-HanriE",
+    "pattern": "(aws_access|aws_secret|api[_-]?key|ListBucketResult|S3_ACCESS_KEY|Authorization:|RSA PRIVATE|Index of|aws_|secret|ssh-rsa AA)"
+}

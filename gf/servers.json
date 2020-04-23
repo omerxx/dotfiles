@@ -1,0 +1,5 @@
+{
+    "flags": "-hri",
+    "pattern": "server: ",
+    "unique": true
+}

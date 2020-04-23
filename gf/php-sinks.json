@@ -1,0 +1,4 @@
+{
+    "flags": "-HnriE",
+    "pattern": "[^a-z0-9_](system|shell_exec|exec|popen|pcntl_exec|eval|create_function|unserialize|file_exists|md5_file|filemtime|filesize|assert) ?\\("
+}
