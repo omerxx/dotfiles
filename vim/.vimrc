@@ -69,6 +69,7 @@ filetype plugin indent on    " required
 " set luadll=/usr/local/Cellar/lua52/5.2.1/lib/liblua.dylib
 
 syntax on
+nnoremap <leader>sr :syntax sync fromstart<CR>
 set number
 let mapleader = ","
 colorscheme onedark
