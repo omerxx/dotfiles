@@ -195,6 +195,9 @@ command! E e
 cabbrev ew :wq
 cabbrev qw :wq
 
+" Sudo!
+command Sudow :w !sudo -A tee %
+
 " Widescreen - bring code to 2/3 screen towards the middle
 function! ComeCloser()
   :vnew<CR>
