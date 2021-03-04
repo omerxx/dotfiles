@@ -28,7 +28,19 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'Yggdroot/indentLine'
 Plugin 'junegunn/goyo.vim'
+" language-specific plugins
 Plugin 'fatih/vim-go'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'python-mode/python-mode'
+Plugin 'hashivim/vim-terraform'
+Plugin 'nvim-lua/popup.nvim'
+Plugin 'nvim-lua/plenary.nvim'
+Plugin 'nvim-telescope/telescope.nvim'
+
+
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
+
 let vim_markdown_preview_github=1
 let g:gitgutter_async=0
 " The following are examples of different formats supported.
