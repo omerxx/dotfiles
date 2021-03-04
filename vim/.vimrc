@@ -81,7 +81,6 @@ filetype plugin indent on    " required
 " set luadll=/usr/local/Cellar/lua52/5.2.1/lib/liblua.dylib
 
 syntax on
-nnoremap <leader>sr :syntax sync fromstart<CR>
 set number
 let mapleader = ","
 colorscheme onedark
@@ -101,6 +100,7 @@ set clipboard=unnamed
 set updatetime=400
 set list listchars=tab:»·,trail:·
 set backspace=indent,eol,start
+nnoremap <leader>sr :syntax sync fromstart<CR>
 nnoremap dD ""dd
 nnoremap j gj
 nnoremap k gk
