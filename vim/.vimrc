@@ -177,7 +177,6 @@ nmap ga <Plug>(EasyAlign)
 "TypeScript YCM
 nnoremap <leader>gtd :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>dd :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>fi :YcmCompleter FixIt<CR>
 nmap <leader>ygt :YcmCompleter GoTo<CR>
 nmap <leader>yo :YcmCompleter OrganizeImports<CR>
 nmap <leader>yr :YcmCompleter RefactorRename<SPACE><C-R><C-W>
