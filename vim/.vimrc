@@ -182,6 +182,10 @@ nmap <leader>yo :YcmCompleter OrganizeImports<CR>
 nmap <leader>yr :YcmCompleter RefactorRename<SPACE><C-R><C-W>
 nmap <leader>rr :YcmCompleter RefactorRename<SPACE><C-R><C-W>
 
+" Sessions
+nnoremap <leader>mks :mksession<CR>
+nnoremap <leader>mkS :mksession!<CR>
+
 "Ale
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
