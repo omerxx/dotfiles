@@ -131,10 +131,10 @@ nnoremap :tt :terminal<CR>
 nnoremap <leader>l :GFiles<CR>
 nnoremap <leader>L :Files<CR>
 nnoremap <leader>bu :Buffers<CR>
-nnoremap <leader>f :Ag<CR>
 nnoremap <leader>c :Commits<CR>
-nnoremap <leader>F
-  \ :call fzf#vim#ag('', fzf#vim#with_preview({'options': ['--query', expand('<cword>')]}))<cr>
+" nnoremap <leader>f :Ag<CR>
+" nnoremap <leader>F
+"   \ :call fzf#vim#ag('', fzf#vim#with_preview({'options': ['--query', expand('<cword>')]}))<cr>
 
 " Vim Fugitive
 nnoremap <leader>gb :Gblame<CR>
