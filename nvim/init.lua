@@ -158,7 +158,11 @@ require('packer').startup(function(use)
   })
   use 'ray-x/go.nvim'
   use 'ray-x/guihua.lua'
-
+  use { "catppuccin/nvim", as = "catppuccin" }
+  use {
+    "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup {} end
+  }
 
   -- Package manager
   use 'wbthomason/packer.nvim'
