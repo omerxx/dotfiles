@@ -1,11 +1,18 @@
--- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
-  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  vim.cmd [[packadd packer.nvim]]
+vim.o.termguicolors = true
+
+-- Install lazy
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
 vim.api.nvim_set_keymap("i", "jj", "<Esc>", {noremap=false})
 vim.api.nvim_set_keymap("n", "tk", ":bnext<enter>", {noremap=false})
@@ -25,11 +32,12 @@ vim.api.nvim_set_keymap("n", "<C-W>,", ":vertical resize -10<CR>", {noremap=true
 vim.api.nvim_set_keymap("n", "<C-W>.", ":vertical resize +10<CR>", {noremap=true})
 vim.keymap.set('n', '<space><space>', "<cmd>set nohlsearch<CR>")
 
-require('packer').startup(function(use)
-	use 'chrisbra/csv.vim'
-  use 'tpope/vim-surround'
-  use 'xiyaowong/nvim-transparent'
-  use { 'numToStr/FTerm.nvim',
+require('lazy').setup({
+	'chrisbra/csv.vim',
+  'tpope/vim-surround',
+  'xiyaowong/nvim-transparent',
+  { 
+    'numToStr/FTerm.nvim',
     config = function()
     local map = vim.api.nvim_set_keymap
     local opts = { noremap = true, silent = true }
@@ -46,9 +54,9 @@ require('packer').startup(function(use)
       }
     })
     end
-  }
+  },
 
-  use {
+  {
     'rmagatti/goto-preview',
     config = function()
       require('goto-preview').setup {
@@ -72,11 +80,11 @@ require('packer').startup(function(use)
         preview_window_title = { enable = true, position = "left" }, -- Whether 
       }
     end
-  }
+  },
 
-  use {
+  {
     "folke/trouble.nvim",
-    requires = "nvim-tree/nvim-web-devicons",
+    dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       require("trouble").setup {
         -- your configuration comes here
@@ -84,11 +92,11 @@ require('packer').startup(function(use)
         -- refer to the configuration section below
       }
     end
-  }
+  },
 
-  use {
+  {
     "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("todo-comments").setup {
         -- your configuration comes here
@@ -96,19 +104,18 @@ require('packer').startup(function(use)
         -- refer to the configuration section below
       }
     end
-  }
+  },
 
-  use {
+  {
     "rcarriga/nvim-notify",
     config = function()
       require("notify").setup({
         background_colour = "#000000",
       })
     end
-  }   
+  },   
 
-
-  use({
+  {
     "folke/noice.nvim",
     config = function()
       require("noice").setup({
@@ -121,7 +128,7 @@ require('packer').startup(function(use)
         -- },
       })
     end,
-    requires = {
+    dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
       -- OPTIONAL:
@@ -129,110 +136,74 @@ require('packer').startup(function(use)
       --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     }
-  })
+  },
 
-  use({
-      "iamcco/markdown-preview.nvim",
-      run = function() vim.fn["mkdp#util#install"]() end,
-  })
-  use 'ray-x/go.nvim'
-  use 'ray-x/guihua.lua'
-  use { "catppuccin/nvim", as = "catppuccin" }
-  use {
+  'ray-x/go.nvim',
+  'ray-x/guihua.lua',
+  { "catppuccin/nvim", as = "catppuccin" },
+  {
     "windwp/nvim-autopairs",
       config = function() require("nvim-autopairs").setup {} end
-  }
+  },
 
-  -- Package manager
-  use 'wbthomason/packer.nvim'
 
-  use { -- LSP Configuration & Plugins
+  { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
-    requires = {
+    dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
-    },
-  }
+    }
+  },
 
-  use { -- Autocompletion
+  { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  }
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+  },
 
-  use { -- Highlight, edit, and navigate code
+  { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    build = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
-  }
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    }
+  },
 
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
-
-  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-  use 'theHamsta/nvim-dap-virtual-text'
-  use 'leoluz/nvim-dap-go'
-  require('dapui').setup()
-  require('dap-go').setup()
-  require('nvim-dap-virtual-text').setup()
-  vim.fn.sign_define('DapBreakpoint', { text='🔴', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl='DapBreakpoint' })
+  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"} },
+  'theHamsta/nvim-dap-virtual-text',
+  'leoluz/nvim-dap-go',
 
 
   -- Git related plugins
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'lewis6991/gitsigns.nvim'
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+  'lewis6991/gitsigns.nvim',
 
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  'navarasu/onedark.nvim', -- Theme inspired by Atom
+  'nvim-lualine/lualine.nvim', -- Fancier statusline
+  'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
+  'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines 'tpope/vim-sleuth',, -- Detect tabstop and shiftwidth automatically
   -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-  use 'ThePrimeagen/harpoon'
-  require("telescope").load_extension('harpoon')
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  'ThePrimeagen/harpoon',
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
-
-  -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
-  local has_plugins, plugins = pcall(require, 'custom.plugins')
-  if has_plugins then
-    plugins(use)
-  end
-
-  if is_bootstrap then
-    require('packer').sync()
-  end
-end)
-
--- When we are bootstrapping a configuration, it doesn't
--- make sense to execute the rest of the init.lua.
---
--- You'll need to restart nvim, and then it will work.
-if is_bootstrap then
-  print '=================================='
-  print '    Plugins are being installed'
-  print '    Wait until Packer completes,'
-  print '       then restart nvim'
-  print '=================================='
-  return
-end
-
--- Automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | PackerCompile',
-  group = packer_group,
-  pattern = vim.fn.expand '$MYVIMRC',
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = vim.fn.executable 'make' == 1 },
 })
 
+--  require('dapui').setup()
+--  require('dap-go').setup()
+--  require('nvim-dap-virtual-text').setup()
+--  vim.fn.sign_define('DapBreakpoint', { text='🔴', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl='DapBreakpoint' })
+--  require("telescope").load_extension('harpoon')
+--
+--
+--  
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
@@ -261,8 +232,8 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
-vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
+--vim.cmd [[colorscheme onedark]]
+vim.cmd.colorscheme "catppuccin"
 
 
 --vim.cmd()
@@ -303,7 +274,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'onedark',
     component_separators = '|',
     section_separators = '',
   },
@@ -324,7 +294,7 @@ require('lualine').setup {
 }
 
 -- Enable Comment.nvim
-require('Comment').setup()
+-- require('Comment').setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
@@ -425,7 +395,7 @@ vim.keymap.set('n', '<leader>sm', ":Telescope harpoon marks<CR>", { desc = 'Harp
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'regex', 'bash', 'markdown', 'markdown_inline', 'kdl' },
+  ensure_installed = { 'go', 'lua', 'python', 'rust', 'typescript', 'regex', 'bash', 'markdown', 'markdown_inline', 'kdl' },
 
   highlight = { enable = true },
   indent = { enable = true },
