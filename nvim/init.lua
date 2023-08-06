@@ -196,23 +196,34 @@ require('lazy').setup({
   'navarasu/onedark.nvim', -- Theme inspired by Atom
   'nvim-lualine/lualine.nvim', -- Fancier statusline
   'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
-  'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines 'tpope/vim-sleuth',, -- Detect tabstop and shiftwidth automatically
+  'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines 
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
   'ThePrimeagen/harpoon',
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = vim.fn.executable 'make' == 1 },
+  {
+    "folke/twilight.nvim",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
 })
 
---  require('dapui').setup()
---  require('dap-go').setup()
---  require('nvim-dap-virtual-text').setup()
---  vim.fn.sign_define('DapBreakpoint', { text='🔴', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl='DapBreakpoint' })
---  require("telescope").load_extension('harpoon')
---
---
---  
+  require('dapui').setup()
+  require('dap-go').setup()
+  require('nvim-dap-virtual-text').setup()
+  vim.fn.sign_define('DapBreakpoint', { text='🔴', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl='DapBreakpoint' })
+  require("telescope").load_extension('harpoon')
+
+  -- worktree settings
+  require('git-worktree').setup()
+  require('telescope').load_extension('git_worktree')
+  
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
