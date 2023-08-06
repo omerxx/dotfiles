@@ -15,11 +15,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.api.nvim_set_keymap("i", "jj", "<Esc>", {noremap=false})
-vim.api.nvim_set_keymap("n", "tk", ":bnext<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "tj", ":bprev<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "th", ":bfirst<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "tl", ":blast<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "td", ":bdelete<enter>", {noremap=false})
+-- tabs
+vim.api.nvim_set_keymap("n", "tk", ":tNext<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tj", ":tprevious<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "th", ":tfirst<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tl", ":tlast<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tc", ":tabclose<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tn", ":tabnew<enter>", {noremap=false})
+-- twilight
+vim.api.nvim_set_keymap("n", "tw", ":Twilight<enter>", {noremap=false})
+-- buffers
+vim.api.nvim_set_keymap("n", "bk", ":bnext<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "bj", ":bprev<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "bh", ":bfirst<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "bl", ":blast<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "bd", ":bdelete<enter>", {noremap=false})
+-- files
 vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", {noremap=false})
 vim.api.nvim_set_keymap("n", "WW", ":w!<enter>", {noremap=false})
 vim.api.nvim_set_keymap("n", "E", "$", {noremap=false})
@@ -33,6 +44,7 @@ vim.api.nvim_set_keymap("n", "<C-W>.", ":vertical resize +10<CR>", {noremap=true
 vim.keymap.set('n', '<space><space>', "<cmd>set nohlsearch<CR>")
 
 require('lazy').setup({
+  'ThePrimeagen/git-worktree.nvim',
 	'chrisbra/csv.vim',
   'tpope/vim-surround',
   'xiyaowong/nvim-transparent',
@@ -41,11 +53,8 @@ require('lazy').setup({
     config = function()
     local map = vim.api.nvim_set_keymap
     local opts = { noremap = true, silent = true }
-
-    map('n', '<leader>tt', '<CMD>lua require("FTerm").toggle()<CR>', opts)
-    map('t', '<leader>tt', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
     require 'FTerm'.setup({
-      blend = 18,
+      blend = 5,
       dimensions = {
         height = 0.90,
         width = 0.90,
