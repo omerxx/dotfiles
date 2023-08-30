@@ -39,6 +39,22 @@ vim.api.nvim_set_keymap("n", "<C-W>.", ":vertical resize +10<CR>", {noremap=true
 vim.keymap.set('n', '<space><space>', "<cmd>set nohlsearch<CR>")
 
 require('lazy').setup({
+  'tpope/vim-dadbod',
+  'kristijanhusak/vim-dadbod-ui',
+  'kristijanhusak/vim-dadbod-completion',
+  -- Database
+  {
+    "tpope/vim-dadbod",
+    opt = true,
+    requires = {
+      "kristijanhusak/vim-dadbod-ui",
+      "kristijanhusak/vim-dadbod-completion",
+    },
+    config = function()
+      require("config.dadbod").setup()
+    end,
+  },
+
   'ThePrimeagen/git-worktree.nvim',
 	'chrisbra/csv.vim',
   'tpope/vim-surround',
