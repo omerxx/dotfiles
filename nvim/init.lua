@@ -686,6 +686,9 @@ vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
 vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
   {silent = true, noremap = true}
 )
+vim.keymap.set("n", "<leader>ee", "<cmd>GoIfErr<cr>",
+  {silent = true, noremap = true}
+)
 
 -- Debugger
 vim.api.nvim_set_keymap("n", "<leader>dt", ":DapUiToggle<CR>", {noremap=true})
