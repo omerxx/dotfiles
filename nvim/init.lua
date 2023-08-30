@@ -15,21 +15,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.api.nvim_set_keymap("i", "jj", "<Esc>", {noremap=false})
--- tabs
-vim.api.nvim_set_keymap("n", "tk", ":tNext<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "tj", ":tprevious<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "th", ":tfirst<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "tl", ":tlast<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "tc", ":tabclose<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "tn", ":tabnew<enter>", {noremap=false})
+-- func
+vim.api.nvim_set_keymap("n", "FF", "?func (<enter><bar>:noh<enter>", {noremap=false})
 -- twilight
 vim.api.nvim_set_keymap("n", "tw", ":Twilight<enter>", {noremap=false})
 -- buffers
-vim.api.nvim_set_keymap("n", "bk", ":bnext<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "bj", ":bprev<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "bh", ":bfirst<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "bl", ":blast<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "bd", ":bdelete<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tk", ":bnext<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tj", ":bprev<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "th", ":bfirst<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tl", ":blast<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "td", ":bdelete<enter>", {noremap=false})
 -- files
 vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", {noremap=false})
 vim.api.nvim_set_keymap("n", "WW", ":w!<enter>", {noremap=false})
