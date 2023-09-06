@@ -705,6 +705,9 @@ vim.api.nvim_set_keymap("t", "<leader>tt", '<C-\\><C-n>:lua require("FTerm").tog
 -- Noice
 vim.api.nvim_set_keymap("n", "<leader>nn", ":NoiceDismiss<CR>", {noremap=true})
 
+-- Copying functions
+vim.api.nvim_set_keymap("n", "<leader>tf", "va{oVd", {noremap=true})
+
 -- Diagnostic signs
 -- https://github.com/folke/trouble.nvim/issues/52
 local signs = {
