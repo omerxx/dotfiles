@@ -114,6 +114,9 @@ local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
 cmp.setup {
+  view = {
+  	entries = "native"
+  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
