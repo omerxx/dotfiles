@@ -30,7 +30,7 @@ detect_files = ['k8s', 'Dockerfile']
 detect_extensions = ['yaml']
 format = '[$symbol$context( \($namespace\))]($style) '
 [kubernetes.context_aliases]
-'arn:aws:eks:us-west-2:123:cluster/gal-kub-demo-cluster' = 'gal'
+'arn:aws:eks:us-west-2:577926974532:cluster/gal-kub-demo-cluster' = 'gal'
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"

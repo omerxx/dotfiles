@@ -1,3 +1,6 @@
+# APPS #
+#
+#
 # Slack
 alt - s : open -a /Applications/Slack.app/Contents/MacOS/Slack
 
@@ -13,48 +16,101 @@ alt - t : open -a /Applications/Telegram.app/Contents/MacOS/Telegram
 # Spotify
 lalt - m : open -a /Applications/Spotify.app/Contents/MacOS/Spotify
 
-# Zoom
-alt - z : open -a /Applications/zoom.us.app/Contents/MacOS/zoom.us
-
 # Alacritty
 alt - a : open -a /Applications/Alacritty.app/Contents/MacOS/alacritty
-
-# Cron
-alt - c : open -a /Applications/Cron.app/Contents/MacOS/cron
+# Wezterm
+alt - w : open -a /Applications/Wezterm.app/Contents/MacOS/wezterm
 
 # Normal dev setting with slack + music on left 1/4
 # Terminal on center 1/2
 # Brave on right 1/4
-lalt - x : open -a /Applications/Slack.app/Contents/MacOS/Slack \
-          && osascript -e "tell application \"System Events\" to key code 12 using {option down, control down, shift down}" \
-          && open -a /Applications/Spotify.app/Contents/MacOS/Spotify \
-          && osascript -e "tell application \"System Events\" to key code 0 using {option down, control down, shift down}" \
-          && open -a /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser \
-          && osascript -e "tell application \"System Events\" to key code 124 using {command down, shift down, control down}" \
-          && open -a /Applications/Alacritty.app/Contents/MacOS/alacritty \
-          && osascript -e "tell application \"System Events\" to key code 126 using {command down, shift down}"
+# lalt - x : open -a /Applications/Slack.app/Contents/MacOS/Slack \
+#           && osascript -e "tell application \"System Events\" to key code 12 using {option down, control down, shift down}" \
+#           && open -a /Applications/Spotify.app/Contents/MacOS/Spotify \
+#           && osascript -e "tell application \"System Events\" to key code 0 using {option down, control down, shift down}" \
+#           && open -a /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser \
+#           && osascript -e "tell application \"System Events\" to key code 124 using {command down, shift down, control down}" \
+#           && open -a /Applications/Alacritty.app/Contents/MacOS/alacritty \
+#           && osascript -e "tell application \"System Events\" to key code 126 using {command down, shift down}"
 
 # Show date
 ralt - d : osascript ~/.config/skhd/applescripts/pop.scpt
-
 # Close notifications
-lalt - n : osascript ~/.config/skhd/applescripts/notifications.scpt
-
+ralt - n : osascript ~/.config/skhd/applescripts/notifications.scpt
 # Notion
-ralt - n : open -a /Applications/Notion.app/Contents/MacOS/Notion
-
+lalt - n : open -a /Applications/Notion.app/Contents/MacOS/Notion
 # LGHUB
-alt - l : open -a /Applications/lghub.app/Contents/MacOS/lghub
-
+# Using Litra driver - https://github.com/kharyam/litra-driver
+# And setting NOPASSWD sudo -  sudo visudo +  %admin ALL = (ALL) NOPASSWD: ALL
+lalt - l : sudo lc on
+ralt - l : sudo lc off
 # Min
 ralt - m : open -a /Applications/Min.app/Contents/MacOS/Min
-
 # QuickTime
 ralt - q : open -a /System/Applications/QuickTime\ Player.app/Contents/MacOS/QuickTime\ Player
-
-# Kitty
-alt - k : open -a /Applications/Kitty.app/Contents/MacOS/Kitty
-
 # FinalCut
-alt - k : open -a /Applications/Final Cut Pro Trial.app/Contents/MacOS
+alt - f : open -a /Applications/Final\ Cut\ Pro.app/Contents/MacOS/Final\ Cut\ Pro
 
+# Spotify Controls
+ralt - z : osascript -e "tell application \"Spotify\" to play" 
+ralt - x : osascript -e "tell application \"Spotify\" to pause"
+
+# tell application "Spotify"
+#     play
+# end tell
+
+############################
+# YABAI CONFIGURATION ---> #
+############################
+##############
+# Navigation #
+##############
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+##################
+# Moving Windows #
+##################
+shift + alt - h : yabai -m window --warp west
+shift + alt - j : yabai -m window --warp south
+shift + alt - k : yabai -m window --warp north
+shift + alt - l : yabai -m window --warp east
+##################
+# Resize windows #
+##################
+cmd + alt - h : yabai -m window --resize left:-50:0; \
+                  yabai -m window --resize right:-50:0
+cmd + alt - j : yabai -m window --resize bottom:0:50; \
+                  yabai -m window --resize top:0:50
+cmd + alt - k : yabai -m window --resize top:0:-50; \
+                  yabai -m window --resize bottom:0:-50
+cmd + alt - l : yabai -m window --resize right:50:0; \
+                  yabai -m window --resize left:50:0
+cmd + alt - x : yabai -m window --resize right:50:0; \
+                  yabai -m window --resize left:50:0
+# Equalize size of windows
+cmd + alt - e : yabai -m space --balance
+# Enable / Disable gaps in current workspace
+cmd + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+# Restart Yabai
+shift + cmd + alt - r : brew services restart yabai
+# Float / Unfloat window
+shift + alt - space : \
+    yabai -m window --toggle float; \
+    yabai -m window --toggle border
+# Make window native fullscreen
+# alt - f         : yabai -m window --toggle zoom-fullscreen
+alt - f : yabai -m window --toggle float --grid 1:4:1:0:2:1
+shift + cmd - f : yabai -m window --grid 1:4:1:0:2:1
+shift + cmd - a : yabai -m window --toggle float --grid 1:8:1:0:3:1
+shift + cmd - d : yabai -m window --toggle float --grid 1:8:4:0:3:1
+shift + alt - f : yabai -m window --toggle zoom-fullscreen
+alt - d : yabai -m window --toggle zoom-fullscreen; \
+			yabai -m space --toggle padding; \
+			yabai -m window 
+shift + ctrl - f : yabai -m window --toggle native-fullscreen
+shift + cmd - s : yabai -m window --toggle split
+# Kill border
+
+shift + alt - b : yabai -m window --toggle border

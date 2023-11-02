@@ -15,8 +15,8 @@ k9s:
     fullScreenLogs: false
     textWrap: false
     showTime: false
-  currentContext: k3d-mycluster
-  currentCluster: k3d-mycluster
+  currentContext: arn:aws:eks:us-west-2:577926974532:cluster/gal-kub-demo-cluster
+  currentCluster: arn:aws:eks:us-west-2:577926974532:cluster/gal-kub-demo-cluster
   clusters:
     arn:aws:eks:us-east-1:577926974532:cluster/extravagant-hideout-1659958643:
       namespace:
@@ -39,7 +39,27 @@ k9s:
           cpu: 100m
           memory: 100Mi
       portForwardAddress: localhost
-    k3d-mycluster:
+    arn:aws:eks:us-west-2:577926974532:cluster/alexey-omer-tests:
+      namespace:
+        active: crane-system
+        lockFavorites: false
+        favorites:
+        - crane-system
+        - default
+      view:
+        active: pvc
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.31
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    arn:aws:eks:us-west-2:577926974532:cluster/gal-kub-demo-cluster:
       namespace:
         active: all
         lockFavorites: false
@@ -47,7 +67,7 @@ k9s:
         - all
         - default
       view:
-        active: po
+        active: pvc
       featureGates:
         nodeShell: false
       shellPod:
