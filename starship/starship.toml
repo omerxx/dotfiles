@@ -1,15 +1,9 @@
-# format = '$all$directory$character'
 add_newline = false
 # A minimal left prompt
 format = """$directory$character"""
 palette = "catppuccin_mocha"
 # move the rest of the prompt to the right
 right_format = """$all"""
-
-# [directory]
-# truncation_length = 2
-# truncation_symbol = '…/'
-# disabled = true
 
 [directory.substitutions]
 '~/tests/starship-custom' = 'work-project'
@@ -21,16 +15,18 @@ style = 'bold blue'
 symbol = "  "
 
 [golang]
-format = '[ $version](bold cyan) '
+format = '[ ](bold cyan)'
 
 [kubernetes]
-symbol = '☸'
+symbol = '☸ '
 disabled = false
-detect_files = ['k8s', 'Dockerfile']
-detect_extensions = ['yaml']
-format = '[$symbol$context( \($namespace\))]($style) '
+detect_files = ['Dockerfile']
+format = '[$context(\[$namespace\])]($style) '
 [kubernetes.context_aliases]
 'arn:aws:eks:us-west-2:577926974532:cluster/gal-kub-demo-cluster' = 'gal'
+
+[docker_context]
+disabled = true
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
