@@ -2,11 +2,8 @@
 
 ALERT_IF_IN_NEXT_MINUTES=10
 ALERT_POPUP_BEFORE_SECONDS=10
-CATPUCCIN_BG=#1e1e2e
-CATPUCCIN_RED=#f38ba8
-NERD_FONT_FREE="󱁕"
+NERD_FONT_FREE="󱁕 "
 NERD_FONT_MEETING="󰤙"
-NERD_FONT_SEPARATOR="" 
 
 get_attendees() {
 	attendees=$(
@@ -102,15 +99,12 @@ display_popup() {
 }
 
 print_tmux_status() {
-		# && $number_of_attendees -gt 1  \
 	if [[ $minutes_till_meeting -lt $ALERT_IF_IN_NEXT_MINUTES \
 		&& $minutes_till_meeting -gt -60 ]]; then
-		echo "#[fg=$CATPUCCIN_RED,bold,bg=$CATPUCCIN_BG] \
-			$NERD_FONT_SEPARATOR \
-			$NERD_FONT_MEETING \
+		echo "$NERD_FONT_MEETING \
 			$time $title ($minutes_till_meeting minutes)"
 	else
-		echo "#[bold,bg=$CATPUCCIN_BG] $NERD_FONT_SEPARATOR $NERD_FONT_FREE"
+		echo "$NERD_FONT_FREE"
 	fi
 
 	if [[ $epoc_diff -gt $ALERT_POPUP_BEFORE_SECONDS && epoc_diff -lt $ALERT_POPUP_BEFORE_SECONDS+10 ]]; then
