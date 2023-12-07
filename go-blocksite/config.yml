@@ -1,0 +1,15 @@
+app:
+  blockRoute: "0.0.0.0"
+  hostsfile: "/etc/hosts"
+  state: "/tmp/state.json"
+
+blocklist:
+  enabled: true
+  sites:
+    - facebook.com
+    - ynet.co.il
+    - instagram.com
+    - ecosia.org
+    - twitter.com
+    - linkedin.com
+    - cnn.com
