@@ -45,9 +45,25 @@ require('lazy').setup({
       }
     end,
   },
+  'folke/zen-mode.nvim',
+  'David-Kunz/gen.nvim',
   'tpope/vim-dadbod',
+  'tpope/vim-obsession',
   'kristijanhusak/vim-dadbod-ui',
   'kristijanhusak/vim-dadbod-completion',
+
+  -- Tree
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    requires = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup {}
+    end,
+  },
   -- Database
   {
     "tpope/vim-dadbod",
