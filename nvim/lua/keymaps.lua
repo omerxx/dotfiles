@@ -2,10 +2,10 @@ vim.api.nvim_set_keymap("i", "jj", "<Esc>", {noremap=false})
 -- twilight
 vim.api.nvim_set_keymap("n", "tw", ":Twilight<enter>", {noremap=false})
 -- buffers
-vim.api.nvim_set_keymap("n", "tk", ":bnext<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "tj", ":bprev<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "th", ":bfirst<enter>", {noremap=false})
-vim.api.nvim_set_keymap("n", "tl", ":blast<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tk", ":blast<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tj", ":bfirst<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "th", ":bprev<enter>", {noremap=false})
+vim.api.nvim_set_keymap("n", "tl", ":bnext<enter>", {noremap=false})
 vim.api.nvim_set_keymap("n", "td", ":bdelete<enter>", {noremap=false})
 -- files
 vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", {noremap=false})
