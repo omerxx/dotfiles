@@ -56,35 +56,6 @@ require('lazy').setup({
     opts = {
     },
   },
-  {
-    "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    lazy = false,
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {}, -- Loads default behaviour
-          ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.summary"] = {},
-          ["core.completion"] = {
-            config = {
-              engine = "nvim-cmp"
-            }
-          },
-          ["core.dirman"] = { -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                notes = "~/notes",
-                youtube = "~/notes/youtube",
-              },
-            },
-          },
-          ["core.export"] = {},
-        },
-      }
-    end,
-  },
   'folke/zen-mode.nvim',
   'David-Kunz/gen.nvim',
   'tpope/vim-dadbod',
