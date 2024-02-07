@@ -95,9 +95,9 @@ alias http="xh"
 # VI Mode!!!
 bindkey jj vi-cmd-mode
 
-# Exa
-alias l="exa -l --icons --git -a"
-alias lt="exa --tree --level=2 --long --icons --git"
+# Eza
+alias l="eza -l --icons --git -a"
+alias lt="eza --tree --level=2 --long --icons --git"
 
 # SEC STUFF
 alias gobust='gobuster dir --wordlist ~/security/wordlists/diccnoext.txt --wildcard --url'
