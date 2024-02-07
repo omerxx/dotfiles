@@ -1,5 +1,10 @@
-# .tmux.conf
+# ~/.config/tmux/tmux.conf
 
-Sits on ~/
-For auto config with this repo on the machine use `ln -s ~/my-dotfiles-repo/tmux/.tmux.conf .`
+## Install
+Once everything has been installed it's time to run TPM, install first:
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
 
+## Run
+`Ctrl+I`
