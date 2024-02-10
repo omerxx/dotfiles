@@ -1,41 +1,60 @@
 require("obsidian").setup({
   workspaces = {
+    -- {
+    --   name = "OmerVault",
+    --   path = "/Users/omerhamerman/Obsidian/Omervault",
+    -- },
     {
-      name = "Notes",
-      -- path = "~/second-brain",
-      path = "/Users/omerhamerman/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes",
-    },
+      name = "workshopvault",
+      path = "~/Obsidian/workshopvault",
+    }
   },
   completion = {
-    -- Set to false to disable completion.
     nvim_cmp = true,
-
     -- Trigger completion at 2 chars.
     min_chars = 2,
-
-    -- Where to put new notes created from completion. Valid options are
     --  * "current_dir" - put new notes in same directory as the current buffer.
     --  * "notes_subdir" - put new notes in the default notes subdirectory.
     new_notes_location = "current_dir",
-
-    -- Control how wiki links are completed with these (mutually exclusive) options:
-    --
     -- 1. Whether to add the note ID during completion.
     -- E.g. "[[Foo" completes to "[[foo|Foo]]" assuming "foo" is the ID of the note.
-    -- Mutually exclusive with 'prepend_note_path' and 'use_path_only'.
     prepend_note_id = true,
-    -- 2. Whether to add the note path during completion.
-    -- E.g. "[[Foo" completes to "[[notes/foo|Foo]]" assuming "notes/foo.md" is the path of the note.
-    -- Mutually exclusive with 'prepend_note_id' and 'use_path_only'.
-    prepend_note_path = false,
-    -- 3. Whether to only use paths during completion.
-    -- E.g. "[[Foo" completes to "[[notes/foo]]" assuming "notes/foo.md" is the path of the note.
-    -- Mutually exclusive with 'prepend_note_id' and 'prepend_note_path'.
-    use_path_only = false,
   },
+  mappings = {
+    -- "Obsidian follow"
+    ["<leader>of"] = {
+      action = function()
+        return require("obsidian").util.gf_passthrough()
+      end,
+      opts = { noremap = false, expr = true, buffer = true },
+    },
+    -- Toggle check-boxes "obsidian done"
+    ["<leader>od"] = {
+      action = function()
+        return require("obsidian").util.toggle_checkbox()
+      end,
+      opts = { buffer = true },
+    },
+  },
+
+  note_frontmatter_func = function(note)
+    -- This is equivalent to the default frontmatter function.
+    local out = { id = note.id, aliases = note.aliases, tags = note.tags, area = "", project = "" }
+
+    -- `note.metadata` contains any manually added fields in the frontmatter.
+    -- So here we just make sure those fields are kept in the frontmatter.
+    if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+      for k, v in pairs(note.metadata) do
+        out[k] = v
+      end
+    end
+    return out
+  end,
+
   templates = {
       subdir = "Templates",
       date_format = "%Y-%m-%d-%a",
       time_format = "%H:%M",
+      tags = "",
   },
 })
