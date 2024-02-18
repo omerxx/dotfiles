@@ -5,21 +5,25 @@ require("obsidian").setup({
     --   path = "/Users/omerhamerman/Obsidian/Omervault",
     -- },
     {
-      name = "workshopvault",
-      path = "~/Obsidian/workshopvault",
-    }
+      name = "Notes",
+      path = "/Users/omerxx/Obsidian/Notes",
+    },
   },
   completion = {
     nvim_cmp = true,
-    -- Trigger completion at 2 chars.
     min_chars = 2,
-    --  * "current_dir" - put new notes in same directory as the current buffer.
-    --  * "notes_subdir" - put new notes in the default notes subdirectory.
-    new_notes_location = "current_dir",
-    -- 1. Whether to add the note ID during completion.
-    -- E.g. "[[Foo" completes to "[[foo|Foo]]" assuming "foo" is the ID of the note.
-    prepend_note_id = true,
   },
+  new_notes_location = "current_dir",
+  wiki_link_func = function(opts)
+    if opts.id == nil then
+      return string.format("[[%s]]", opts.label)
+    elseif opts.label ~= opts.id then
+      return string.format("[[%s|%s]]", opts.id, opts.label)
+    else
+      return string.format("[[%s]]", opts.id)
+    end
+  end,
+
   mappings = {
     -- "Obsidian follow"
     ["<leader>of"] = {
@@ -35,6 +39,22 @@ require("obsidian").setup({
       end,
       opts = { buffer = true },
     },
+<<<<<<< HEAD
+=======
+    -- Create a new newsletter issue
+    ["<leader>onn"] = {
+      action = function()
+        return require("obsidian").commands.new_note("Newsletter-Issue")
+      end,
+      opts = { buffer = true },
+    },
+    ["<leader>ont"] = {
+      action = function()
+        return require("obsidian").util.insert_template("Newsletter-Issue")
+      end,
+      opts = { buffer = true },
+    },
+>>>>>>> 4858de4 (Obsidian new plugin syntex for config)
   },
 
   note_frontmatter_func = function(note)
@@ -51,6 +71,26 @@ require("obsidian").setup({
     return out
   end,
 
+<<<<<<< HEAD
+=======
+  note_id_func = function(title)
+    -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+    -- In this case a note with the title 'My new note' will be given an ID that looks
+    -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
+    local suffix = ""
+    if title ~= nil then
+      -- If title is given, transform it into valid file name.
+      suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+    else
+      -- If title is nil, just add 4 random uppercase letters to the suffix.
+      for _ = 1, 4 do
+        suffix = suffix .. string.char(math.random(65, 90))
+      end
+    end
+    return tostring(os.time()) .. "-" .. suffix
+  end,
+
+>>>>>>> 4858de4 (Obsidian new plugin syntex for config)
   templates = {
       subdir = "Templates",
       date_format = "%Y-%m-%d-%a",
