@@ -5,6 +5,16 @@ require('telescope').load_extension('git_worktree')
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    layout_strategy = "vertical",
+    layout_config = {
+      preview_height = 0.7,
+      vertical = {
+        size = {
+          width = "95%",
+          height = "95%",
+        },
+      },
+    },
     mappings = {
       i = {
         ['<C-u>'] = false,
