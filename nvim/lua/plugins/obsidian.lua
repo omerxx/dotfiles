@@ -39,8 +39,6 @@ require("obsidian").setup({
       end,
       opts = { buffer = true },
     },
-<<<<<<< HEAD
-=======
     -- Create a new newsletter issue
     ["<leader>onn"] = {
       action = function()
@@ -54,7 +52,6 @@ require("obsidian").setup({
       end,
       opts = { buffer = true },
     },
->>>>>>> 4858de4 (Obsidian new plugin syntex for config)
   },
 
   note_frontmatter_func = function(note)
@@ -71,8 +68,6 @@ require("obsidian").setup({
     return out
   end,
 
-<<<<<<< HEAD
-=======
   note_id_func = function(title)
     -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
     -- In this case a note with the title 'My new note' will be given an ID that looks
@@ -90,7 +85,6 @@ require("obsidian").setup({
     return tostring(os.time()) .. "-" .. suffix
   end,
 
->>>>>>> 4858de4 (Obsidian new plugin syntex for config)
   templates = {
       subdir = "Templates",
       date_format = "%Y-%m-%d-%a",
