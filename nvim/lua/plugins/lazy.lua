@@ -16,6 +16,19 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 require('lazy').setup({
+  { 
+    "mistricky/codesnap.nvim", 
+    build = "make",
+  },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",         -- required
+      "sindrets/diffview.nvim",        -- optional - Diff integration
+      "nvim-telescope/telescope.nvim", -- optional
+    },
+    config = true
+  },
   'jackMort/ChatGPT.nvim',
   {
     'Exafunction/codeium.vim',
