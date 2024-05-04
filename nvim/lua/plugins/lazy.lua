@@ -16,6 +16,11 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 require('lazy').setup({
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
+  },
   { 
     "mistricky/codesnap.nvim", 
     build = "make",
@@ -29,7 +34,6 @@ require('lazy').setup({
     },
     config = true
   },
-  'jackMort/ChatGPT.nvim',
   {
     'Exafunction/codeium.vim',
     config = function ()
@@ -65,24 +69,12 @@ require('lazy').setup({
       { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Show location list of backlinks", mode = "n" },
       { "<leader>ot", "<cmd>ObsidianTemplate<cr>", desc = "Follow link under cursor", mode = "n" },
     },
-    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-    -- event = {
-    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-    --   "BufReadPre path/to/my-vault/**.md",
-    --   "BufNewFile path/to/my-vault/**.md",
-    -- },
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
   },
   'folke/zen-mode.nvim',
-  'David-Kunz/gen.nvim',
-  'tpope/vim-dadbod',
   'tpope/vim-obsession',
-  'kristijanhusak/vim-dadbod-ui',
-  'kristijanhusak/vim-dadbod-completion',
-
   -- Tree
   {
     "nvim-tree/nvim-tree.lua",
@@ -96,6 +88,8 @@ require('lazy').setup({
     end,
   },
   -- Database
+  'kristijanhusak/vim-dadbod-ui',
+  'kristijanhusak/vim-dadbod-completion',
   {
     "tpope/vim-dadbod",
     opt = true,
@@ -109,7 +103,7 @@ require('lazy').setup({
   },
 
   'ThePrimeagen/git-worktree.nvim',
-  'tpope/vim-surround',
+  "tpope/vim-surround",
   'xiyaowong/nvim-transparent',
   { 
     'numToStr/FTerm.nvim',
@@ -171,11 +165,7 @@ require('lazy').setup({
     dependencies = "nvim-lua/plenary.nvim",
     lazy = false,
     config = function()
-      require("todo-comments").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
+      require("todo-comments").setup {}
     end
   },
 
@@ -229,7 +219,6 @@ require('lazy').setup({
       config = function() require("nvim-autopairs").setup {} end
   },
 
-
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -241,6 +230,7 @@ require('lazy').setup({
       'j-hui/fidget.nvim',
     }
   },
+
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
@@ -260,21 +250,18 @@ require('lazy').setup({
   'theHamsta/nvim-dap-virtual-text',
   'leoluz/nvim-dap-go',
 
-
   -- Git related plugins
   'tpope/vim-fugitive',
   'lewis6991/gitsigns.nvim',
 
-  'navarasu/onedark.nvim', -- Theme inspired by Atom
   'nvim-lualine/lualine.nvim', -- Fancier statusline
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
   'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
   'nvim-telescope/telescope-symbols.nvim',
-  -- 'ThePrimeagen/harpoon',
-
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = vim.fn.executable 'make' == 1 },
   {
@@ -285,12 +272,4 @@ require('lazy').setup({
       -- refer to the configuration section below
     }
   },
-}
--- {
---   defaults = {
---     lazy = true,
---   }
--- }
-)
-
-
+})

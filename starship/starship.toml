@@ -9,11 +9,14 @@ command_timeout = 1000
 [directory.substitutions]
 '~/tests/starship-custom' = 'work-project'
 
+[git_branch]
+format =  '[$symbol$branch(:$remote_branch)]($style)'
 
 [aws]
-format = 'on [$symbol($profile )(\($region\) )]($style)'
+format = '[$symbol(profile: "$profile" )(\(region: $region\) )]($style)'
+disabled = false
 style = 'bold blue'
-symbol = "  "
+symbol = " "
 
 [golang]
 format = '[ ](bold cyan)'
@@ -22,9 +25,10 @@ format = '[ ](bold cyan)'
 symbol = '☸ '
 disabled = false
 detect_files = ['Dockerfile']
-format = '[$context(\[$namespace\])]($style) '
-[kubernetes.context_aliases]
-'arn:aws:eks:us-west-2:577926974532:cluster/gal-kub-demo-cluster' = 'gal'
+format = '[$symbol$context( \($namespace\))]($style) '
+contexts = [
+  { context_pattern = "arn:aws:eks:us-west-2:577926974532:cluster/zd-pvc-omer", style = "green", context_alias = "omerxx", symbol = " " },
+]
 
 [docker_context]
 disabled = true

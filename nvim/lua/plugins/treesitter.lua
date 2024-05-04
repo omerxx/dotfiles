@@ -5,6 +5,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = { 
     'go', 'lua', 'python', 'rust', 'typescript', 'regex', 
     'bash', 'markdown', 'markdown_inline', 'kdl', 'sql', 'org', 'terraform',
+    'html', 'css', 'javascript', 'yaml', 'json', 'toml',
   },
 
   highlight = { enable = true },
@@ -41,27 +42,21 @@ require('nvim-treesitter.configs').setup {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
-        [']m'] = '@function.outer',
+        [']f'] = '@function.outer',
         [']]'] = '@class.outer',
       },
       goto_next_end = {
-        [']M'] = '@function.outer',
+        [']F'] = '@function.outer',
         [']['] = '@class.outer',
       },
       goto_previous_start = {
-        ['[m'] = '@function.outer',
+        ['[f'] = '@function.outer',
         ['[['] = '@class.outer',
       },
       goto_previous_end = {
-        ['[M'] = '@function.outer',
+        ['[F'] = '@function.outer',
         ['[]'] = '@class.outer',
       },
-      -- goto_next = {
-      --   [']i'] = "@conditional.inner",
-      -- },
-      -- goto_previous = {
-      --   ['[i'] = "@conditional.inner",
-      -- }
     },
     swap = {
       enable = true,
