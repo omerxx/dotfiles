@@ -25,6 +25,11 @@ return {
 			mods = 'CTRL',
 			action = wezterm.action.ToggleFullScreen,
 		},
+		{
+			key = '\'',
+			mods = 'CTRL',
+			action = wezterm.action.ClearScrollback 'ScrollbackAndViewport',
+		},
 	},
 	mouse_bindings = {
 	  -- Ctrl-click will open the link under the mouse cursor

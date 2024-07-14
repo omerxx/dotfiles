@@ -1,5 +1,5 @@
 {
-  description = "Example Darwin system flake";
+  description = "My Darwin system flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -14,12 +14,20 @@
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
         [ 
-        pkgs.vim
+	pkgs.vim
         ];
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
       # nix.package = pkgs.nix;
+
+      services.spacebar.enable = true;
+      services.spacebar.package = pkgs.spacebar;
+      services.spacebar.config = {
+        clock_format     = "%R";
+        background_color = "0xff202020";
+        foreground_color = "0xffa8a8a8";
+      };
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
@@ -45,18 +53,30 @@
         dock.mru-spaces = false;
         finder.AppleShowAllExtensions = true;
         finder.FXPreferredViewStyle = "clmv";
-        loginwindow.LoginwindowText = "nixcademy.com";
+        loginwindow.LoginwindowText = "devops-toolbox";
         screencapture.location = "~/Pictures/screenshots";
         screensaver.askForPasswordDelay = 10;
       };
 
+      # Homebrew needs to be installed on its own!
+      homebrew.enable = true;
+      homebrew.casks = [
+	      "wireshark"
+              "google-chrome"
+      ];
+      homebrew.brews = [
+	      "imagemagick"
+      ];
+      services.redis.enable = true;
     };
   in
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Omers-MacBook-Pro
     darwinConfigurations."Omers-MacBook-Pro" = nix-darwin.lib.darwinSystem {
-      modules = [ configuration ];
+      modules = [ 
+	configuration
+      ];
     };
 
     # Expose the package set, including overlays, for convenience.
