@@ -111,6 +111,10 @@ alias gr='~/go/src/github.com/tomnomnom/gf/gf'
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# FZF, open selected file in nvim with preview!
+alias of="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' | xargs nvim"
+
+
 
 export PATH=/opt/homebrew/bin:$PATH
 
