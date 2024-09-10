@@ -1,5 +1,4 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/omerhamerman/.oh-my-zsh
 # Reevaluate the prompt string each time it's displaying a prompt
 setopt prompt_subst
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -60,15 +59,15 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
 # GO
-export GOPATH='/Users/omerhamerman/go'
+export GOPATH='/Users/omerxx/go'
 
 # VIM
-alias v="/opt/homebrew/bin/nvim"
+alias v="/Users/omerxx/.nix-profile/bin/nvim"
 
 # Nmap
 alias nm="nmap -sC -sV -oN nmap"
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/omer/.vimpkg/bin:${GOPATH}/bin:/Users/omerhamerman/.cargo/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/omer/.vimpkg/bin:${GOPATH}/bin:/Users/omerxx/.cargo/bin
 
 alias cl='clear'
 
@@ -98,6 +97,7 @@ bindkey jj vi-cmd-mode
 # Eza
 alias l="eza -l --icons --git -a"
 alias lt="eza --tree --level=2 --long --icons --git"
+alias ltree="eza --tree --level=2  --icons --git"
 
 # SEC STUFF
 alias gobust='gobuster dir --wordlist ~/security/wordlists/diccnoext.txt --wildcard --url'
@@ -108,7 +108,7 @@ alias tunnel='ngrok http 4445'
 alias fuzz='ffuf -w ~/hacking/SecLists/content_discovery_all.txt -mc all -u'
 alias gr='~/go/src/github.com/tomnomnom/gf/gf'
 
-# FZF
+### FZF ###
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -118,6 +118,7 @@ alias mat='osascript -e "tell application \"System Events\" to key code 126 usin
 
 # Nix!
 export NIX_CONF_DIR=$HOME/.config/nix
+export PATH=/run/current-system/sw/bin:$PATH
 
 function ranger {
 	local IFS=$'\t\n'
@@ -142,4 +143,12 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && l; }
 f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
 fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 
+ # Nix
+ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+	 . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+ fi
+ # End Nix
+
 eval "$(zoxide init zsh)"
+eval "$(atuin init zsh)"
+eval "$(direnv hook zsh)"
