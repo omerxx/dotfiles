@@ -24,6 +24,7 @@
     ".config/nix".source = ~/dotfiles/nix;
     ".config/nix-darwin".source = ~/dotfiles/nix-darwin;
     ".config/tmux".source = ~/dotfiles/tmux;
+    ".config/ghostty".source = ~/dotfiles/ghostty;
   };
 
   home.sessionVariables = {
