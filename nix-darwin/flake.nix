@@ -20,11 +20,7 @@
         [ 
           pkgs.vim
           pkgs.direnv
-          pkgs.age
           pkgs.sshs
-          pkgs.atac
-          pkgs.termshark
-          pkgs.portal
           pkgs.glow
         ];
       services.nix-daemon.enable = true;
