@@ -17,6 +17,13 @@ vim.o.termguicolors = true
 
 require('lazy').setup({
   {
+    'MeanderingProgrammer/markdown.nvim',
+    main = "render-markdown",
+    opts = {},
+    name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you use the mini.nvim suite
+  },
+  {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" }
