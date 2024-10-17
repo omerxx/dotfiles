@@ -1,15 +1,6 @@
 # Dotfiles symlinked on my machine
 
-### Install with stow:
+### Install with [Nix Home Manager](https://youtu.be/k9yKm_k5cVA?si=uFvIYe9VYWNLuseo):
 ```bash
-stow --target .
-```
-
-### Homebrew installation:
-```bash
-# Leaving a machine
-brew leaves > leaves.txt
-
-# Fresh installation
-xargs brew install < leaves.txt
+home-manager switch
 ```
