@@ -1,6 +1,6 @@
 # Nushell Environment Config File
 #
-# version = "0.99.0"
+# version = "0.95.0"
 
 def create_left_prompt [] {
     let dir = match (do --ignore-shell-errors { $env.PWD | path relative-to $nu.home-path }) {
@@ -11,7 +11,7 @@ def create_left_prompt [] {
 
     let path_color = (if (is-admin) { ansi red_bold } else { ansi green_bold })
     let separator_color = (if (is-admin) { ansi light_red_bold } else { ansi light_green_bold })
-    let path_segment = $"($path_color)($dir)(ansi reset)"
+    let path_segment = $"($path_color)($dir)"
 
     $path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
 }
@@ -90,19 +90,23 @@ $env.NU_PLUGIN_DIRS = [
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 # An alternate way to add entries to $env.PATH is to use the custom command `path add`
 # which is built into the nushell stdlib:
-# use std "path add"
+use std "path add"
 # $env.PATH = ($env.PATH | split row (char esep))
 # path add /some/path
 # path add ($env.CARGO_HOME | path join "bin")
 # path add ($env.HOME | path join ".local" "bin")
 # $env.PATH = ($env.PATH | uniq)
+path add /opt/homebrew/bin
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
+
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 zoxide init nushell | save -f ~/.zoxide.nu
 
+$env.STARSHIP_CONFIG = /Users/omerxx/.config/starship/starship.toml
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+
