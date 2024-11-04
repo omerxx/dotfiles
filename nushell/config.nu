@@ -884,17 +884,22 @@ $env.config = {
     ]
 }
 
-def cx [ dir ] {
-    cd $dir
-    ls
+def --env cx [arg] {
+    cd $arg
+    ls -l
 }
 
-alias l = ls
+alias l = ls --all
 alias c = clear
 alias ll = ls -l
 alias lt = eza --tree --level=2 --long --icons --git
 alias v = nvim
 alias hms = /nix/store/6kc5srg83nkyg21am089xx7pvq44kn2c-home-manager/bin/home-manager switch
+alias as = aerospace
+
+def ff [] {
+    aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
+}
 
 
 # Git
