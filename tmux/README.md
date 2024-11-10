@@ -7,4 +7,8 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
 ## Run
-`Ctrl+I`
+To install tpm and tpm plugins- prefix + I.
+
+In our case prefix is Ctrl+a
+
+`Ctrl+a I`
