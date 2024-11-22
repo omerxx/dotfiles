@@ -376,6 +376,13 @@ $env.config = {
 
     keybindings: [
         {
+            name: delete_one_word_backward
+            modifier: alt
+            keycode: backspace
+            mode: [emacs, vi_normal, vi_insert]
+            event: {edit: backspaceword}
+        }
+        {
             name: completion_menu
             modifier: none
             keycode: tab
@@ -938,4 +945,3 @@ source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
 source ~/.local/share/atuin/init.nu
 use ~/.cache/starship/init.nu
-

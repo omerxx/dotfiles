@@ -22,6 +22,8 @@
           pkgs.direnv
           pkgs.sshs
           pkgs.glow
+          pkgs.nushell
+          pkgs.carapace
         ];
       services.nix-daemon.enable = true;
       nix.settings.experimental-features = "nix-command flakes";

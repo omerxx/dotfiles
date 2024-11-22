@@ -6,6 +6,10 @@ palette = "catppuccin_mocha"
 right_format = """$all"""
 command_timeout = 1000
 
+[character]
+vicmd_symbol = "[N] >>>"
+success_symbol = '[➜](bold green)'
+
 [directory.substitutions]
 '~/tests/starship-custom' = 'work-project'
 
