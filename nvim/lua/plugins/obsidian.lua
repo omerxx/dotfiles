@@ -2,7 +2,7 @@ require("obsidian").setup({
   workspaces = {
     {
       name = "Notes",
-      path = "/Users/omerxx/Obsidian/Notes",
+      path = "/Users/admin/Obsidian/Notes",
     },
   },
 })
