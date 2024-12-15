@@ -156,8 +156,8 @@ alt-shift-enter = 'mode apps'
 alt-t = 'exec-and-forget open -a /System/Applications/Utilities/Terminal.app'
 alt-a = 'exec-and-forget open -a /Applications/Arc.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
-alt-b = 'exec-and-forget open -a Applications/Google Chrome.app'
-alt-c = 'exec-and-forget open -a /Applications/Visual Studio Code.app'
+alt-b = 'exec-and-forget open -a /Applications/Google\ Chrome.app'
+alt-c = 'exec-and-forget open -a /Applications/Visual\ Studio\ Code.app'
 
 
 # 'service' binding mode declaration.
