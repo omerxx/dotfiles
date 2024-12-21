@@ -313,8 +313,8 @@ theme "catppuccin-mocha"
 
 // The folder in which Zellij will look for layouts
 //
-// layout_dir "//Users/admin/Git/dotfiles/zellij/layouts"
+// layout_dir "/~/Git/dotfiles/zellij/layouts"
 
 // The folder in which Zellij will look for themes
 //
-theme_dir "/Users/admin/Git/dotfiles/zellij/themes"
+theme_dir "~/Git/dotfiles/zellij/themes"
