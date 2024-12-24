@@ -3,3 +3,6 @@ tmux/plugins/
 raycast
 fzf
 history.txt
+zshrc/.zsh_sessions
+zshrc/.zcompdump
+zshrc/.zsh_history

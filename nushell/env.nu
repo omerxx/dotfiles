@@ -102,13 +102,15 @@ path add /run/current-system/sw/bin
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
 
-mkdir ~/.cache/starship
-starship init nu | save -f ~/.cache/starship/init.nu
-zoxide init nushell | save -f ~/.zoxide.nu
+# Cant use the home dir (~ or $HOME) here for some reason, hardcoding it...
 
-$env.STARSHIP_CONFIG = '~/.config/starship/starship.toml'
-$env.NIX_CONF_DIR = '~/.config/nix'
+mkdir Users/anthonytr/.cache/starship
+starship init nu | save -f Users/anthonytr/.cache/starship/init.nu
+zoxide init nushell | save -f Users/anthonytr/.zoxide.nu
+
+$env.STARSHIP_CONFIG = 'Users/anthonytr/.config/starship/starship.toml'
+$env.NIX_CONF_DIR = 'Users/anthonytr/.config/nix'
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-mkdir ~/.cache/carapace
-carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+mkdir Users/anthonytr/.cache/carapace
+carapace _carapace nushell | save --force Users/anthonytr/.cache/carapace/init.nu
 
