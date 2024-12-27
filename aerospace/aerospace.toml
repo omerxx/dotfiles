@@ -55,6 +55,38 @@ run = 'layout floating'
 if.app-name-regex-substring = 'finder'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'safari'
+run = 'layout floating'
+ 
+[[on-window-detected]]
+if.app-name-regex-substring = 'camera'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'elgato'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'dicord'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'mail'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'trello'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'quicktime'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'discord'
+run = 'layout floating'
+
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
@@ -68,11 +100,11 @@ preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 40
-inner.vertical =   40
-outer.left =       40
-outer.bottom =     40
-outer.top =        40
+inner.horizontal = 20
+inner.vertical =   20
+outer.left =       20
+outer.bottom =     20
+outer.top =        10
 outer.right =      80
 
 # 'main' binding mode declaration
@@ -106,7 +138,7 @@ outer.right =      80
 # '''
 
 alt-ctrl-shift-f = 'fullscreen'
-alt-ctrl-f = 'layout floating'
+alt-ctrl-f = 'layout floating tiling'
 
 alt-shift-left = 'join-with left'
 alt-shift-down = 'join-with down'
@@ -158,6 +190,7 @@ alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 alt-g = 'exec-and-forget open -a /Applications/Ghostty.app'
 alt-s = 'exec-and-forget open -a /Applications/Safari.app'
 alt-q = 'exec-and-forget open -a /System/Applications/QuickTime Player.app'
+alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
 
 
 # 'service' binding mode declaration.

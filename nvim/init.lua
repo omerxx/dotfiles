@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 require('keymaps')
 require('plugins.lazy')
 require('plugins.misc')
@@ -15,5 +17,6 @@ require('plugins.zenmode')
 require('plugins.neogit')
 require('plugins.codesnap')
 require('plugins.harpoon')
+require('plugins.mini')
 
 -- vim: ts=8 sts=2 sw=2 et
