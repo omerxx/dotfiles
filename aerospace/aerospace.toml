@@ -56,6 +56,38 @@ run = 'layout floating'
 if.app-name-regex-substring = 'finder'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'safari'
+run = 'layout floating'
+ 
+[[on-window-detected]]
+if.app-name-regex-substring = 'camera'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'elgato'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'dicord'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'mail'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'trello'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'quicktime'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'discord'
+run = 'layout floating'
+
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
