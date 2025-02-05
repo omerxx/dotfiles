@@ -1,0 +1,12 @@
+.stowrc
+.DS_Store
+Brewfile
+.git
+.gitignore
+README.md
+install.sh
+zshrc
+archive.tar.gz
+push.sh
+private.sh
+op

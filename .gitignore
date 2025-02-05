@@ -1,5 +1,7 @@
-.DS_Store
-tmux/plugins/
+op
+github-copilot
 raycast
-fzf
-history.txt
+.DS_Store
+
+zed/conversations
+zed/prompts
