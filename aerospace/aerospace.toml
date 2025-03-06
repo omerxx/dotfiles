@@ -203,3 +203,11 @@ backspace = ['close-all-windows-but-current', 'mode main']
 
 [mode.apps.binding]
 alt-w = ['exec-and-forget open -a /Applications/WezTerm.app', 'mode main']
+
+# [workspace-to-monitor-force-assignment]
+#     1 = '^dell$'
+#     2 = '^dell$'
+#     3 = '^dell$'
+#     4 = '^dell$'
+#     5 = 'main'
+#     6 = '^elgato$'
