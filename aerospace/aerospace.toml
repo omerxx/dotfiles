@@ -3,7 +3,7 @@ after-startup-command = ['exec-and-forget sketchybar']
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = ['/bin/bash', '-c',
   'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
-  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=0'
 ]
 
 # Start AeroSpace at login
@@ -187,10 +187,11 @@ alt-shift-enter = 'mode apps'
 alt-t = 'exec-and-forget open -a /Applications/Telegram.app'
 alt-a = 'exec-and-forget open -a /Applications/Arc.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
-alt-g = 'exec-and-forget open -a /Applications/Ghostty.app'
-alt-s = 'exec-and-forget open -a /Applications/Safari.app'
+alt-b = 'exec-and-forget open -a /Applications/Brain.fm.app'
+alt-s = 'exec-and-forget open -a /Applications/Slack.app'
 alt-q = 'exec-and-forget open -a /System/Applications/QuickTime Player.app'
 alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
+alt-c = 'exec-and-forget open -a /Applications/Claude.app'
 
 
 # 'service' binding mode declaration.
@@ -204,10 +205,10 @@ backspace = ['close-all-windows-but-current', 'mode main']
 [mode.apps.binding]
 alt-w = ['exec-and-forget open -a /Applications/WezTerm.app', 'mode main']
 
-# [workspace-to-monitor-force-assignment]
-#     1 = '^dell$'
-#     2 = '^dell$'
-#     3 = '^dell$'
+[workspace-to-monitor-force-assignment]
+1 = '^Built-in.*$'
+2 = '^DELL U.*$'
+3 = '^DELL S.*$'
 #     4 = '^dell$'
 #     5 = 'main'
 #     6 = '^elgato$'
