@@ -154,3 +154,20 @@ export XDG_CONFIG_HOME="/Users/omerxx/.config"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
+
+#>>> GitHub Copilot aliases for Zsh
+eval "$(gh copilot alias -- zsh)"
+
+#>>> Alias configuration for GCC and G++
+alias gcc="gcc-14"
+alias g++="g++-14"
+
+#>>> Function to compile, run, and clean up C programs
+run_c() {
+    gcc-14 "$1" -o /tmp/a.out && /tmp/a.out
+}
+
+#>>> Alias to run JavaFX programs
+alias javafx_run="java --module-path $JAVAFX_PATH --add-modules javafx.controls,javafx.fxml -cp ."
+
+
