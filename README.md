@@ -1,6 +1,7 @@
 # Dotfiles symlinked on my machine
 
-### Install with stow:
+## Install with stow
+
 ```bash
 stow .
 ```
