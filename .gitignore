@@ -3,3 +3,5 @@ tmux/plugins/
 raycast
 fzf
 history.txt
+.github/**/*
+.specify/**/*
