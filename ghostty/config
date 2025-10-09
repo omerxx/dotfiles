@@ -1,15 +1,11 @@
 font-family = JetBrains Mono
-font-size = 19
-theme = catppuccin-mocha
+font-size = 14
+theme = Catppuccin Mocha
 background-opacity = 1.0
 window-padding-x = 10
 window-padding-y = 10
 cursor-style = block
-keybind = ctrl+a=tmux:send ctrl+a
 shell-integration = zsh
-enable-ligatures = true
-true-color = always
-graphics-protocol = kitty,sixel
 mouse-hide-while-typing = true
 window-decoration = true
 macos-option-as-alt = true
