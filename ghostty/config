@@ -1,8 +1,11 @@
+font-family = JetBrains Mono
+font-size = 14
 theme = Catppuccin Mocha
-font-size = 19
+window-padding-x = 10
+window-padding-y = 10
+cursor-style = block
 mouse-hide-while-typing = true
 window-decoration = true
 macos-option-as-alt = true
-# keybind = global:cmd+/=toggle_quick_terminal
 # background-opacity = 0.7
 # background-blur-radius = 20 
