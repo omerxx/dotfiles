@@ -5,6 +5,7 @@ fzf
 history.txt
 .github/**/*
 .specify/**/*
+.warp/
 
 # Specs and temporary files
 specs/
