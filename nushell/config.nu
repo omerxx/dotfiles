@@ -207,10 +207,8 @@ $env.config = {
         use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
     }
 
-    filesize: {
-        metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-        format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
-    }
+    # 'filesize.metric' and 'filesize.format' were removed/renamed in newer
+    # versions of nushell; leave filesize default or configure via theme above.
 
     cursor_shape: {
         emacs: block # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (line is the default)
@@ -219,8 +217,9 @@ $env.config = {
     }
 
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    use_grid_icons: true
-    footer_mode: "25" # always, never, number_of_rows, auto
+    # 'use_grid_icons' removed from newer nushell versions. If you rely on
+    # icon rendering, configure your terminal or third-party ls/eza icons.
+    footer_mode: 25 # can be: "always", "never", "auto", or an integer number_of_rows
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: "" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
@@ -940,10 +939,34 @@ alias kns = kubens
 alias kl = kubectl logs -f
 alias ke = kubectl exec -it
 
-source ~/.config/nushell/env.nu
-source ~/.zoxide.nu
-source ~/.cache/carapace/init.nu
-source ~/.local/share/atuin/init.nu
+# Conditionally source the user's env.nu. Some env.nu files run external
+# initializers (eg. `zoxide init`) which can fail if the external command is
+# not installed. We try to detect that case and skip sourcing to avoid startup
+# errors. If you prefer always loading your env, replace this with a plain
+# `source ~/.config/nushell/env.nu`.
+let _env_path = ($nu.home-path | path join '.config' 'nushell' 'env.nu')
+if ($_env_path | path exists) {
+    let _env_contents = (open $_env_path | lines | str join "\n")
+
+    # Detect invocations that require external tools and skip sourcing if
+    # those tools are missing. This prevents nushell from failing on startup
+    # when env.nu runs things like `zoxide init` or `carapace` while those
+    # binaries aren't installed.
+    let has_zoxide_init = ($_env_contents | str contains 'zoxide init')
+    let has_carapace_init = ($_env_contents | str contains 'carapace _carapace')
+
+    let zoxide_missing = (do --ignore-errors { which zoxide } | is-empty)
+    let carapace_missing = (do --ignore-errors { which carapace } | is-empty)
+
+    if (($has_zoxide_init and $zoxide_missing) or ($has_carapace_init and $carapace_missing)) {
+        echo 'Skipping ~/.config/nushell/env.nu: requires external tools that are not installed (zoxide/carapace)'
+    } else {
+        source env.nu
+    }
+}
+# source ~/.zoxide.nu
+# source ~/.cache/carapace/init.nu
+# source ~/.local/share/atuin/init.nu
 use ~/.cache/starship/init.nu
 
 let ruby_ver = "3.4.0"

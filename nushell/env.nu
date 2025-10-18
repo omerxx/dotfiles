@@ -3,7 +3,7 @@
 # version = "0.95.0"
 
 def create_left_prompt [] {
-    let dir = match (do --ignore-shell-errors { $env.PWD | path relative-to $nu.home-path }) {
+    let dir = match (do --ignore-errors { $env.PWD | path relative-to $nu.home-path }) {
         null => $env.PWD
         '' => '~'
         $relative_pwd => ([~ $relative_pwd] | path join)
@@ -98,19 +98,35 @@ use std "path add"
 # $env.PATH = ($env.PATH | uniq)
 path add /opt/homebrew/bin
 path add /run/current-system/sw/bin
-path add /Users/omerxx/.local/bin
+path add '~/.local/bin'
 path add /opt/homebrew/opt/ruby/bin:$PATH
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
 
-mkdir ~/.cache/starship
-starship init nu | save -f ~/.cache/starship/init.nu
-zoxide init nushell | save -f ~/.zoxide.nu
+# Ensure starship cache directory exists in a portable way
+let _starship_cache = ($nu.home-path | path join '.cache' 'starship')
+do { mkdir $_starship_cache }
+# Choose starship config based on terminal capabilities (set before init)
+let _starship_config = if ($env.TERM_PROGRAM == 'Apple_Terminal') {
+    ($nu.home-path | path join '.config' 'starship' 'starship-terminal.toml')
+} else {
+    ($nu.home-path | path join '.config' 'starship' 'starship.toml')
+}
 
-$env.STARSHIP_CONFIG = /Users/omerxx/.config/starship/starship.toml
-$env.NIX_CONF_DIR = /Users/omerxx/.config/nix
+$env.STARSHIP_CONFIG = $_starship_config
+
+# Generate and source Nushell init for Starship so the shell actually loads it
+starship init nu | save -f ($nu.home-path | path join '.cache' 'starship' 'init.nu')
+source ($nu.home-path | path join '.cache' 'starship' 'init.nu')
+
+# zoxide init nushell | save -f ~/.zoxide.nu
+$env.NIX_CONF_DIR = '~/.config/nix'
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-mkdir ~/.cache/carapace
-carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+let _carapace_cache = ($nu.home-path | path join '.cache' 'carapace')
+do { mkdir $_carapace_cache }
+carapace _carapace nushell | save --force ($nu.home-path | path join '.cache' 'carapace' 'init.nu')
+
+# Point Spaceship prompt to the custom configuration file in the user's config directory
+$env.SPACESHIP_CONFIG = ($nu.home-path | path join '.config' 'spaceship' 'spaceship.toml')
 
