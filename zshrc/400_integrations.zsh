@@ -1,6 +1,15 @@
 # External tool integrations
 
 # Starship prompt
+# Select Starship config based on terminal capabilities. Put this in an
+# interactive startup file (zshrc) rather than ~/.zshenv so non-interactive
+# shells and scripts won't inherit interactive-only environment variables.
+if [[ -n "$TERM_PROGRAM" && "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
+    export STARSHIP_CONFIG="$HOME/.config/starship/starship-terminal.toml"
+else
+    export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+fi
+
 eval "$(starship init zsh)"
 
 # Completions
