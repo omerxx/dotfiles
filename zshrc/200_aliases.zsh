@@ -47,16 +47,6 @@ alias kgd="kubectl get deployments"
 alias ke="kubectl exec -it"
 alias kcns='kubectl config set-context --current --namespace'
 
-# Smart shell switching
-# Switch to nushell, marking that we came from zsh
-tonush() {
-    echo "🚀 Launching nushell (type 'tozsh' to return to zsh)"
-    XDG_CONFIG_HOME="$HOME/.config" PARENT_SHELL=zsh exec nu
-}
-nushell() {
-    echo "🚀 Launching nushell (type 'tozsh' to return to zsh)"
-    XDG_CONFIG_HOME="$HOME/.config" PARENT_SHELL=zsh exec nu
-}
 
 # Navigation functions
 cx() { cd "$@" && l; }
