@@ -1,5 +1,5 @@
 add_newline = false
-# A minimal left prompt
+# A minimal left prompt (Terminal.app compatible)
 format = """$directory$character"""
 palette = "catppuccin_mocha"
 # move the rest of the prompt to the right
@@ -8,30 +8,32 @@ command_timeout = 1000
 
 [character]
 vicmd_symbol = "[N] >>>"
-success_symbol = '[➜](bold green)'
+success_symbol = '[>](bold green)'
 
 [directory.substitutions]
 '~/tests/starship-custom' = 'work-project'
 
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style) '
+symbol = "⎇ "
 
 [aws]
-format = '[$symbol(profile: "$profile" )(\(region: $region\) )]($style)'
+format = '[$symbol(profile: "$profile" )(\\(region: $region\\) )]($style)'
 disabled = true
 style = 'bold blue'
-symbol = " "
+symbol = "aws "
 
 [golang]
-format = '[ ](bold cyan)'
+format = '[go ](bold cyan)'
+symbol = "go "
 
 [kubernetes]
-symbol = '☸ '
+symbol = 'k8s '
 disabled = true
 detect_files = ['Dockerfile']
-format = '[$symbol$context( \($namespace\))]($style) '
+format = '[$symbol$context( \\($namespace\\))]($style) '
 # contexts = [
-#   { context_pattern = "arn:aws:eks:region:account:cluster/cluster-name", style = "green", context_alias = "alias", symbol = " " },
+#   { context_pattern = "arn:aws:eks:region:account:cluster/cluster-name", style = "green", context_alias = "alias", symbol = "k8s " },
 # ]
 
 [docker_context]
