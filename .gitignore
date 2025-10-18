@@ -5,3 +5,9 @@ fzf
 history.txt
 .github/**/*
 .specify/**/*
+
+# Specs and temporary files
+specs/
+migrate-report-*.json
+WARP.md
+copilot-instructions.md
