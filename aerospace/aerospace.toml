@@ -105,7 +105,7 @@ inner.vertical =   20
 outer.left =       20
 outer.bottom =     20
 outer.top =        10
-outer.right =      80
+outer.right =      20
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -184,14 +184,15 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 alt-shift-semicolon = 'mode service'
 alt-shift-enter = 'mode apps'
 
-alt-t = 'exec-and-forget open -a /Applications/Telegram.app'
-alt-a = 'exec-and-forget open -a /Applications/Arc.app'
+# alt-t = 'exec-and-forget open -a /Applications/Telegram.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 alt-b = 'exec-and-forget open -a /Applications/Brain.fm.app'
 alt-s = 'exec-and-forget open -a /Applications/Slack.app'
-alt-q = 'exec-and-forget open -a /System/Applications/QuickTime Player.app'
+alt-q = 'exec-and-forget open -a "/System/Applications/QuickTime Player.app"'
 alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
-alt-c = 'exec-and-forget open -a /Applications/Claude.app'
+alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
+alt-e = 'exec-and-forget open -a "/Applications/Final Cut Pro.app"'
+alt-z = 'exec-and-forget open -a /Applications/Zen.app'
 
 
 # 'service' binding mode declaration.
