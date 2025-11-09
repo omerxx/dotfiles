@@ -96,10 +96,26 @@ use std "path add"
 # path add ($env.CARGO_HOME | path join "bin")
 # path add ($env.HOME | path join ".local" "bin")
 # $env.PATH = ($env.PATH | uniq)
-path add /opt/homebrew/bin
-path add /run/current-system/sw/bin
-path add /Users/omerxx/.local/bin
-path add /opt/homebrew/opt/ruby/bin:$PATH
+
+if 'IN_NIX_SHELL' not-in $env and 'DEVBOX_SHELL_ENABLED' not-in $env {
+    $env.PATH = ($env.PATH | append [
+        /opt/homebrew/bin
+        /run/current-system/sw/bin
+        /Users/omerxx/.local/bin
+        /opt/homebrew/opt/ruby/bin
+        /opt/homebrew/sbin
+        /Users/omerxx/.opencode/bin
+    ])
+}
+
+devbox global shellenv --format nushell --preserve-path-stack -r
+  | lines 
+  | parse "$env.{name} = \"{value}\""
+  | where name != null 
+  | transpose -r 
+  | into record 
+  | load-env
+
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
@@ -114,3 +130,4 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 
+$env.EDITOR = "nvim"

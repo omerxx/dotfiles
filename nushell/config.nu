@@ -277,7 +277,17 @@ $env.config = {
     }
 
     hooks: {
-        pre_prompt: [{ null }] # run before the prompt is shown
+        pre_prompt: [{|| 
+            if (which direnv | is-empty) {
+                return
+            }
+            try {
+                direnv export json | from json | default {} | load-env
+                if 'PATH' in $env {
+                    $env.PATH = ($env.PATH | split row (char esep))
+                }
+            } catch {}
+        }]
         pre_execution: [{ null }] # run before the repl input is run
         env_change: {
             PWD: [{|before, after| null }] # run if the PWD environment is different since the last repl input
@@ -958,3 +968,5 @@ $env.GEM_PATH = $gem_home
 if ($gem_bin | path exists) {
   $env.PATH = ($env.PATH | prepend $gem_bin)
 }
+$env.DIRENV_LOG_FORMAT = ""
+
