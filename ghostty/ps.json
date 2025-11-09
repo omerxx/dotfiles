@@ -1,0 +1,7508 @@
+[
+  {
+    "pid": 28180,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3244032,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 28179,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3489792,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 28178,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4128768,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 28173,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3391488,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 28154,
+    "ppid": 1,
+    "name": "mdworker_shared",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 25640960,
+    "virtual": 437242429440
+  },
+  {
+    "pid": 28136,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3932160,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 28135,
+    "ppid": 1,
+    "name": "mdworker_shared",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 30113792,
+    "virtual": 437242429440
+  },
+  {
+    "pid": 28131,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2211840,
+    "virtual": 420461150208
+  },
+  {
+    "pid": 28129,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1458176,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 28122,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1458176,
+    "virtual": 420450664448
+  },
+  {
+    "pid": 28120,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1458176,
+    "virtual": 420473733120
+  },
+  {
+    "pid": 28119,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1458176,
+    "virtual": 420461150208
+  },
+  {
+    "pid": 28115,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 28114,
+    "ppid": 1,
+    "name": "dataaccessd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 45334528,
+    "virtual": 437311537152
+  },
+  {
+    "pid": 28097,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420465344512
+  },
+  {
+    "pid": 28096,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 28093,
+    "ppid": 1,
+    "name": "com.apple.Safari.SafeBrowsing.Service",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 9584640,
+    "virtual": 437320237056
+  },
+  {
+    "pid": 28088,
+    "ppid": 1,
+    "name": "CategoriesService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10518528,
+    "virtual": 437235908608
+  },
+  {
+    "pid": 28087,
+    "ppid": 1,
+    "name": "UsageTrackingAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 15433728,
+    "virtual": 437235777536
+  },
+  {
+    "pid": 28086,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420489461760
+  },
+  {
+    "pid": 28085,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 28083,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420486316032
+  },
+  {
+    "pid": 28082,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 28076,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 28075,
+    "ppid": 1,
+    "name": "routined",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 23838720,
+    "virtual": 437253980160
+  },
+  {
+    "pid": 28072,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 28069,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 28067,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 28064,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 28043,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 28040,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 28005,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420478976000
+  },
+  {
+    "pid": 28003,
+    "ppid": 1,
+    "name": "com.apple.accessibility.mediaaccessibilityd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3244032,
+    "virtual": 437187903488
+  },
+  {
+    "pid": 28001,
+    "ppid": 1,
+    "name": "com.apple.WebKit.GPU",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11927552,
+    "virtual": 441747374080
+  },
+  {
+    "pid": 28000,
+    "ppid": 1,
+    "name": "nsattributedstringagent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 68468736,
+    "virtual": 441919373312
+  },
+  {
+    "pid": 27988,
+    "ppid": 1,
+    "name": "mdworker_shared",
+    "status": "Sleep",
+    "cpu": 9.360497515164804,
+    "mem": 27754496,
+    "virtual": 437242429440
+  },
+  {
+    "pid": 27987,
+    "ppid": 1,
+    "name": "mdworker_shared",
+    "status": "Sleep",
+    "cpu": 2.199254814936577,
+    "mem": 26329088,
+    "virtual": 437242429440
+  },
+  {
+    "pid": 27983,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 27982,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420496801792
+  },
+  {
+    "pid": 27980,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0.11763525774888065,
+    "mem": 238272512,
+    "virtual": 1910492626944
+  },
+  {
+    "pid": 27979,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 125681664,
+    "virtual": 1910464233472
+  },
+  {
+    "pid": 27977,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 27976,
+    "ppid": 1,
+    "name": "naturallanguaged",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4177920,
+    "virtual": 437221310464
+  },
+  {
+    "pid": 27975,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 27974,
+    "ppid": 1,
+    "name": "replicatord",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 17727488,
+    "virtual": 437705228288
+  },
+  {
+    "pid": 27957,
+    "ppid": 1,
+    "name": "ManagedSettingsAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3801088,
+    "virtual": 437188968448
+  },
+  {
+    "pid": 27956,
+    "ppid": 1,
+    "name": "dmd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7012352,
+    "virtual": 437227569152
+  },
+  {
+    "pid": 27954,
+    "ppid": 1,
+    "name": "Terminal",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 77053952,
+    "virtual": 422454902784
+  },
+  {
+    "pid": 27953,
+    "ppid": 1,
+    "name": "MTLCompilerService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3735552,
+    "virtual": 437204795392
+  },
+  {
+    "pid": 27952,
+    "ppid": 1,
+    "name": "MTLCompilerService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3735552,
+    "virtual": 437204795392
+  },
+  {
+    "pid": 27950,
+    "ppid": 1,
+    "name": "iconservicesagent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 13910016,
+    "virtual": 437351858176
+  },
+  {
+    "pid": 27948,
+    "ppid": 1,
+    "name": "pbs",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2850816,
+    "virtual": 437221982208
+  },
+  {
+    "pid": 27945,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 27941,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1441792,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 27935,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420461150208
+  },
+  {
+    "pid": 27932,
+    "ppid": 1,
+    "name": "findmylocateagent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14417920,
+    "virtual": 437229600768
+  },
+  {
+    "pid": 27931,
+    "ppid": 1,
+    "name": "donotdisturbd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 24313856,
+    "virtual": 437242118144
+  },
+  {
+    "pid": 27913,
+    "ppid": 1,
+    "name": "IntelligencePlatformComputeService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10764288,
+    "virtual": 437227094016
+  },
+  {
+    "pid": 27911,
+    "ppid": 1,
+    "name": "extensionkitservice",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8798208,
+    "virtual": 437200388096
+  },
+  {
+    "pid": 27905,
+    "ppid": 1,
+    "name": "com.apple.iCloudHelper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6012928,
+    "virtual": 437222080512
+  },
+  {
+    "pid": 27904,
+    "ppid": 1,
+    "name": "remindd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 22134784,
+    "virtual": 437245263872
+  },
+  {
+    "pid": 27903,
+    "ppid": 1,
+    "name": "ContextService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11091968,
+    "virtual": 437333000192
+  },
+  {
+    "pid": 27902,
+    "ppid": 1,
+    "name": "knowledge-agent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 26640384,
+    "virtual": 437253275648
+  },
+  {
+    "pid": 27901,
+    "ppid": 1,
+    "name": "suggestd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 52674560,
+    "virtual": 437304000512
+  },
+  {
+    "pid": 27899,
+    "ppid": 1,
+    "name": "AppPredictionIntentsHelperService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 24477696,
+    "virtual": 421082316800
+  },
+  {
+    "pid": 27895,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 27876,
+    "ppid": 1,
+    "name": "com.apple.SiriTTSService.TrialProxy",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5226496,
+    "virtual": 420711546880
+  },
+  {
+    "pid": 27871,
+    "ppid": 1,
+    "name": "CarbonComponentScannerXPC",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1298432,
+    "virtual": 34855075840
+  },
+  {
+    "pid": 27870,
+    "ppid": 1,
+    "name": "AudioComponentRegistrar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3948544,
+    "virtual": 437187936256
+  },
+  {
+    "pid": 27859,
+    "ppid": 1,
+    "name": "contentlinkingd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8519680,
+    "virtual": 437222735872
+  },
+  {
+    "pid": 27855,
+    "ppid": 1,
+    "name": "cloudphotod",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14172160,
+    "virtual": 437237628928
+  },
+  {
+    "pid": 27854,
+    "ppid": 1,
+    "name": "com.apple.hiservices-xpcservice",
+    "status": "Sleep",
+    "cpu": 0.06463005023193212,
+    "mem": 3801088,
+    "virtual": 437188001792
+  },
+  {
+    "pid": 27853,
+    "ppid": 1,
+    "name": "inputanalyticsd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6242304,
+    "virtual": 437222293504
+  },
+  {
+    "pid": 27851,
+    "ppid": 1,
+    "name": "CoreServicesUIAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 38715392,
+    "virtual": 421432852480
+  },
+  {
+    "pid": 27850,
+    "ppid": 1,
+    "name": "AssetCacheLocatorService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4079616,
+    "virtual": 437222146048
+  },
+  {
+    "pid": 27848,
+    "ppid": 1,
+    "name": "mediaanalysisd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11927552,
+    "virtual": 437226094592
+  },
+  {
+    "pid": 27847,
+    "ppid": 1,
+    "name": "ScopedBookmarkAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5947392,
+    "virtual": 437223047168
+  },
+  {
+    "pid": 27846,
+    "ppid": 1,
+    "name": "photolibraryd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 20103168,
+    "virtual": 437246672896
+  },
+  {
+    "pid": 27845,
+    "ppid": 1,
+    "name": "photoanalysisd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 12566528,
+    "virtual": 437223309312
+  },
+  {
+    "pid": 27838,
+    "ppid": 1,
+    "name": "replayd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 18366464,
+    "virtual": 437247705088
+  },
+  {
+    "pid": 27836,
+    "ppid": 1,
+    "name": "syncdefaultsd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11796480,
+    "virtual": 437239578624
+  },
+  {
+    "pid": 27835,
+    "ppid": 1,
+    "name": "CommCenter",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 20561920,
+    "virtual": 437235974144
+  },
+  {
+    "pid": 27834,
+    "ppid": 1,
+    "name": "cdpd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6799360,
+    "virtual": 437221556224
+  },
+  {
+    "pid": 27832,
+    "ppid": 1,
+    "name": "Keychain Circle Notification",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 18759680,
+    "virtual": 437252489216
+  },
+  {
+    "pid": 27828,
+    "ppid": 1,
+    "name": "ctkd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10928128,
+    "virtual": 437234221056
+  },
+  {
+    "pid": 27826,
+    "ppid": 1,
+    "name": "MessagesBlastDoorService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 606208,
+    "virtual": 437223309312
+  },
+  {
+    "pid": 27825,
+    "ppid": 1,
+    "name": "businessservicesd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6799360,
+    "virtual": 437222047744
+  },
+  {
+    "pid": 27823,
+    "ppid": 1,
+    "name": "gamecontrolleragentd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5177344,
+    "virtual": 437187919872
+  },
+  {
+    "pid": 27819,
+    "ppid": 1,
+    "name": "SidecarRelay",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5554176,
+    "virtual": 420506370048
+  },
+  {
+    "pid": 27818,
+    "ppid": 1,
+    "name": "ndoagent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6356992,
+    "virtual": 437217951744
+  },
+  {
+    "pid": 27816,
+    "ppid": 1,
+    "name": "CloudTelemetryService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5767168,
+    "virtual": 421203017728
+  },
+  {
+    "pid": 27814,
+    "ppid": 1,
+    "name": "swtransparencyd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6422528,
+    "virtual": 437224177664
+  },
+  {
+    "pid": 27813,
+    "ppid": 1,
+    "name": "neagent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 12419072,
+    "virtual": 437233876992
+  },
+  {
+    "pid": 27811,
+    "ppid": 1,
+    "name": "networkserviceproxy",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 15417344,
+    "virtual": 437242609664
+  },
+  {
+    "pid": 27810,
+    "ppid": 1,
+    "name": "feedbackd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6766592,
+    "virtual": 437183758336
+  },
+  {
+    "pid": 27806,
+    "ppid": 1,
+    "name": "linkd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 18448384,
+    "virtual": 437245050880
+  },
+  {
+    "pid": 27801,
+    "ppid": 1,
+    "name": "intelligenceflowd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5193728,
+    "virtual": 437187313664
+  },
+  {
+    "pid": 27789,
+    "ppid": 1,
+    "name": "geodMachServiceBridge",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2539520,
+    "virtual": 437183709184
+  },
+  {
+    "pid": 27785,
+    "ppid": 1,
+    "name": "deleted",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 21102592,
+    "virtual": 437235220480
+  },
+  {
+    "pid": 27783,
+    "ppid": 1,
+    "name": "spotlightknowledged",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10125312,
+    "virtual": 437377368064
+  },
+  {
+    "pid": 27782,
+    "ppid": 1,
+    "name": "ContainerMetadataExtractor",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11845632,
+    "virtual": 437233991680
+  },
+  {
+    "pid": 27778,
+    "ppid": 1,
+    "name": "bird",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 20807680,
+    "virtual": 437237579776
+  },
+  {
+    "pid": 27776,
+    "ppid": 1,
+    "name": "siriactionsd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 28295168,
+    "virtual": 437251407872
+  },
+  {
+    "pid": 27761,
+    "ppid": 1,
+    "name": "secinitd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8192000,
+    "virtual": 437235105792
+  },
+  {
+    "pid": 27760,
+    "ppid": 1,
+    "name": "com.apple.geod",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10469376,
+    "virtual": 437225242624
+  },
+  {
+    "pid": 27759,
+    "ppid": 1,
+    "name": "calaccessd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 26476544,
+    "virtual": 437242150912
+  },
+  {
+    "pid": 27751,
+    "ppid": 1,
+    "name": "com.apple.FaceTime.FTConversationService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7913472,
+    "virtual": 420626677760
+  },
+  {
+    "pid": 27749,
+    "ppid": 1,
+    "name": "callservicesd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 25837568,
+    "virtual": 437252112384
+  },
+  {
+    "pid": 27745,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 27731,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420495753216
+  },
+  {
+    "pid": 27671,
+    "ppid": 1,
+    "name": "contactsd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10698752,
+    "virtual": 437228011520
+  },
+  {
+    "pid": 27666,
+    "ppid": 1,
+    "name": "triald",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14024704,
+    "virtual": 437223636992
+  },
+  {
+    "pid": 27612,
+    "ppid": 27582,
+    "name": "node",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 65454080,
+    "virtual": 422347472896
+  },
+  {
+    "pid": 27604,
+    "ppid": 1,
+    "name": "com.apple.WebKit.Networking",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14221312,
+    "virtual": 441728122880
+  },
+  {
+    "pid": 27603,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6373376,
+    "virtual": 511172640768
+  },
+  {
+    "pid": 27602,
+    "ppid": 1,
+    "name": "com.apple.WebKit.GPU",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14483456,
+    "virtual": 441934512128
+  },
+  {
+    "pid": 27582,
+    "ppid": 1,
+    "name": "Raycast",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 149585920,
+    "virtual": 427394859008
+  },
+  {
+    "pid": 27450,
+    "ppid": 1,
+    "name": "VTDecoderXPCService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5259264,
+    "virtual": 437155397632
+  },
+  {
+    "pid": 27438,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 27435,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 27431,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 27410,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 105381888,
+    "virtual": 1912020303872
+  },
+  {
+    "pid": 27403,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420484218880
+  },
+  {
+    "pid": 27397,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 27387,
+    "ppid": 1,
+    "name": "StocksWidget",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 36339712,
+    "virtual": 437502754816
+  },
+  {
+    "pid": 27383,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 27381,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 27371,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420489461760
+  },
+  {
+    "pid": 27370,
+    "ppid": 1,
+    "name": "NewsToday2",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 34816000,
+    "virtual": 437359509504
+  },
+  {
+    "pid": 27365,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 27353,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420498898944
+  },
+  {
+    "pid": 27348,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 190578688,
+    "virtual": 1910470574080
+  },
+  {
+    "pid": 27339,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 168902656,
+    "virtual": 1910506012672
+  },
+  {
+    "pid": 27335,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 27333,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1425408,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 26420,
+    "ppid": 1,
+    "name": "CoreLocationAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 18710528,
+    "virtual": 437385723904
+  },
+  {
+    "pid": 26262,
+    "ppid": 1,
+    "name": "Adobe Crash Processor",
+    "status": "Sleep",
+    "cpu": 1.494657008747349,
+    "mem": 8339456,
+    "virtual": 421348802560
+  },
+  {
+    "pid": 25826,
+    "ppid": 1,
+    "name": "StatusKitAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 9256960,
+    "virtual": 437228470272
+  },
+  {
+    "pid": 25809,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 86736896,
+    "virtual": 1910486024192
+  },
+  {
+    "pid": 25626,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420447518720
+  },
+  {
+    "pid": 25625,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420465344512
+  },
+  {
+    "pid": 25624,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 25623,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 25622,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 25620,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420497850368
+  },
+  {
+    "pid": 25619,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 25618,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 25614,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 25197,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420488413184
+  },
+  {
+    "pid": 25194,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 25170,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420487364608
+  },
+  {
+    "pid": 25166,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 24840,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 24824,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420498898944
+  },
+  {
+    "pid": 24821,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 24818,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 24779,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420455907328
+  },
+  {
+    "pid": 24778,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 22661,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420487364608
+  },
+  {
+    "pid": 22658,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 22655,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 22654,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 22619,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 22607,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 22595,
+    "ppid": 22594,
+    "name": "nu",
+    "status": "Running",
+    "cpu": 8.03209291875299,
+    "mem": 30097408,
+    "virtual": 421786386432
+  },
+  {
+    "pid": 22593,
+    "ppid": 1,
+    "name": "ghostty",
+    "status": "Sleep",
+    "cpu": 11.311013493410805,
+    "mem": 125714432,
+    "virtual": 423062487040
+  },
+  {
+    "pid": 20393,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 20377,
+    "ppid": 1,
+    "name": "ImageThumbnailExtension",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5898240,
+    "virtual": 437247164416
+  },
+  {
+    "pid": 20372,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420478976000
+  },
+  {
+    "pid": 20229,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 20220,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 20190,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 20180,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 20162,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 20152,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420497850368
+  },
+  {
+    "pid": 20150,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420486316032
+  },
+  {
+    "pid": 20147,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 20044,
+    "ppid": 1,
+    "name": "CloudTelemetryService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 13303808,
+    "virtual": 422060179456
+  },
+  {
+    "pid": 20041,
+    "ppid": 1,
+    "name": "com.apple.quicklook.ThumbnailsAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 13844480,
+    "virtual": 437771042816
+  },
+  {
+    "pid": 20024,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420486316032
+  },
+  {
+    "pid": 19948,
+    "ppid": 1,
+    "name": "pkd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 15237120,
+    "virtual": 437234368512
+  },
+  {
+    "pid": 19938,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 19937,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420498898944
+  },
+  {
+    "pid": 19893,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 19737,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 83574784,
+    "virtual": 1912230150144
+  },
+  {
+    "pid": 19718,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 19716,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 19705,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 19692,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 19477,
+    "ppid": 1,
+    "name": "tccd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11812864,
+    "virtual": 437235367936
+  },
+  {
+    "pid": 19449,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 19448,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420484218880
+  },
+  {
+    "pid": 19438,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 40271872,
+    "virtual": 1912384782336
+  },
+  {
+    "pid": 19361,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 19273,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 19263,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 19226,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420470587392
+  },
+  {
+    "pid": 19204,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 19172,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420486316032
+  },
+  {
+    "pid": 19154,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 19150,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 19144,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 19065,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 19024,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 19018,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 19016,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 18931,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420470587392
+  },
+  {
+    "pid": 18795,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 18756,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 18696,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420485267456
+  },
+  {
+    "pid": 18671,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 18667,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420465344512
+  },
+  {
+    "pid": 13202,
+    "ppid": 1,
+    "name": "Creative Cloud Content Manager.node",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 47611904,
+    "virtual": 422188187648
+  },
+  {
+    "pid": 12586,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 12587,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 12585,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 12478,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420483170304
+  },
+  {
+    "pid": 12466,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 12465,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420447518720
+  },
+  {
+    "pid": 12463,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 12458,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 12448,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 12438,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 12432,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 12428,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 12423,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 12416,
+    "ppid": 1,
+    "name": "mscamerad-xpc",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3211264,
+    "virtual": 420496408576
+  },
+  {
+    "pid": 12414,
+    "ppid": 1,
+    "name": "com.apple.appkit.xpc.openAndSavePanelService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 20627456,
+    "virtual": 420988846080
+  },
+  {
+    "pid": 12412,
+    "ppid": 1,
+    "name": "Preview",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 91406336,
+    "virtual": 422579896320
+  },
+  {
+    "pid": 12400,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 12396,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 12392,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 12390,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 12386,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 12381,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420485267456
+  },
+  {
+    "pid": 12369,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420461150208
+  },
+  {
+    "pid": 12350,
+    "ppid": 1,
+    "name": "PDFgear",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 43139072,
+    "virtual": 423385710592
+  },
+  {
+    "pid": 12337,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420485267456
+  },
+  {
+    "pid": 12075,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 12074,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 12073,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 12068,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420450664448
+  },
+  {
+    "pid": 11768,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 24346624,
+    "virtual": 1912035622912
+  },
+  {
+    "pid": 11741,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 66748416,
+    "virtual": 1910288728064
+  },
+  {
+    "pid": 11577,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 11575,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 11530,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 11529,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 11527,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 11526,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 11522,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 11516,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420484218880
+  },
+  {
+    "pid": 11512,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 11507,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 9475,
+    "ppid": 1,
+    "name": "com.apple.appkit.xpc.openAndSavePanelService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 21250048,
+    "virtual": 421002788864
+  },
+  {
+    "pid": 9094,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 9089,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 9009,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 9002,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 8985,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 8980,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 8960,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 8942,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 8465,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 8462,
+    "ppid": 1,
+    "name": "talagentd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 12615680,
+    "virtual": 437240168448
+  },
+  {
+    "pid": 8367,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 8267,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 8250,
+    "ppid": 1,
+    "name": "proactived",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14090240,
+    "virtual": 437238185984
+  },
+  {
+    "pid": 8190,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420455907328
+  },
+  {
+    "pid": 8186,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 8185,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 8182,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 8075,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 8072,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 8069,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 8049,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 8044,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 8025,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 7994,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 7912,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 7886,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 7745,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 7498,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420498898944
+  },
+  {
+    "pid": 7272,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420478976000
+  },
+  {
+    "pid": 7271,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 7234,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 7166,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420482121728
+  },
+  {
+    "pid": 7059,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420474781696
+  },
+  {
+    "pid": 6988,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 6802,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 6499,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 6304,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 6303,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 6295,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420480024576
+  },
+  {
+    "pid": 6284,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 6157,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 6142,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420485267456
+  },
+  {
+    "pid": 6135,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420461150208
+  },
+  {
+    "pid": 6129,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 6104,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 6092,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 6087,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 6084,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 5956,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420451713024
+  },
+  {
+    "pid": 5955,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 5785,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 5783,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420480024576
+  },
+  {
+    "pid": 5456,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 5455,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 5454,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 5440,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 5409,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 5406,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 5405,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 5400,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 5394,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 5388,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 5373,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 5372,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 5371,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420485267456
+  },
+  {
+    "pid": 5368,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 5366,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 5365,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 5364,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 5363,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 5346,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420486316032
+  },
+  {
+    "pid": 5290,
+    "ppid": 1,
+    "name": "duetexpertd",
+    "status": "Sleep",
+    "cpu": 0.046595103355129404,
+    "mem": 32292864,
+    "virtual": 437277229056
+  },
+  {
+    "pid": 5123,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 5021,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420496801792
+  },
+  {
+    "pid": 4969,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 4960,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 4938,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 4937,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 4869,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420461150208
+  },
+  {
+    "pid": 4859,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 4858,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 4855,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420451713024
+  },
+  {
+    "pid": 4849,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 4847,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 4825,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 4819,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 4807,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 4798,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 4792,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 4787,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 4786,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 4783,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 4775,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 4649,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 4602,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420490510336
+  },
+  {
+    "pid": 4598,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1327104,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 4407,
+    "ppid": 1,
+    "name": "BTLEServerAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6881280,
+    "virtual": 437221752832
+  },
+  {
+    "pid": 3777,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 3769,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 3540,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 3537,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 3531,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 3513,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 3459,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 3403,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420486316032
+  },
+  {
+    "pid": 3390,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 3352,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 3132,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420495753216
+  },
+  {
+    "pid": 3122,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 3103,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 3102,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 3101,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420480024576
+  },
+  {
+    "pid": 3100,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 3085,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 3071,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 3055,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 2984,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 2896,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 2894,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 2890,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420498898944
+  },
+  {
+    "pid": 2889,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 2671,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 2666,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 93327,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 93325,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 93315,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420478976000
+  },
+  {
+    "pid": 93307,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 93264,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 93243,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420489461760
+  },
+  {
+    "pid": 92862,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 92852,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 92833,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 92832,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 92400,
+    "ppid": 1,
+    "name": "QuickTime Player",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 20037632,
+    "virtual": 422445580288
+  },
+  {
+    "pid": 92167,
+    "ppid": 1,
+    "name": "ptpcamerad",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3129344,
+    "virtual": 437187690496
+  },
+  {
+    "pid": 90460,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 90421,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 90402,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 90395,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 90292,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 90263,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420474781696
+  },
+  {
+    "pid": 90250,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 90188,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420486316032
+  },
+  {
+    "pid": 90156,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420508336128
+  },
+  {
+    "pid": 90123,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 90118,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420447518720
+  },
+  {
+    "pid": 90002,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 89999,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 89934,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 89930,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 89929,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 89922,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 89916,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 89903,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 89229,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 89214,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 89204,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 89187,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420486316032
+  },
+  {
+    "pid": 89100,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 89091,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 89090,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420490510336
+  },
+  {
+    "pid": 89064,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 89026,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 89014,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420471635968
+  },
+  {
+    "pid": 88992,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420465344512
+  },
+  {
+    "pid": 88980,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420488413184
+  },
+  {
+    "pid": 88948,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420508336128
+  },
+  {
+    "pid": 88943,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420481073152
+  },
+  {
+    "pid": 88941,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 88914,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 88899,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 88891,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420488413184
+  },
+  {
+    "pid": 88890,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 88873,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 88741,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 88738,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 88724,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 88714,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 88712,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 88706,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420480024576
+  },
+  {
+    "pid": 88696,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 88688,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420447518720
+  },
+  {
+    "pid": 88685,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 88683,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 88649,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 88639,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 88638,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 88637,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 88636,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420465344512
+  },
+  {
+    "pid": 88635,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 88559,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420451713024
+  },
+  {
+    "pid": 88558,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 88484,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 88483,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 88476,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 88469,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420496801792
+  },
+  {
+    "pid": 88442,
+    "ppid": 1,
+    "name": "WeatherWidget",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 47759360,
+    "virtual": 437519187968
+  },
+  {
+    "pid": 88435,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420465344512
+  },
+  {
+    "pid": 88425,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420484218880
+  },
+  {
+    "pid": 88424,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 88418,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 88409,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 88406,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420496801792
+  },
+  {
+    "pid": 88359,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 88333,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 88073,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 88056,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 88003,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 87985,
+    "ppid": 87867,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1048576,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 87867,
+    "ppid": 1,
+    "name": "AeroSpace",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 41025536,
+    "virtual": 422190923776
+  },
+  {
+    "pid": 87176,
+    "ppid": 1,
+    "name": "CalendarWidgetExtension",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 22249472,
+    "virtual": 437659222016
+  },
+  {
+    "pid": 86901,
+    "ppid": 1,
+    "name": "ACCFinderSync",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10813440,
+    "virtual": 420292116480
+  },
+  {
+    "pid": 86900,
+    "ppid": 1,
+    "name": "Core Sync",
+    "status": "Sleep",
+    "cpu": 0.15021916264753973,
+    "mem": 22675456,
+    "virtual": 422254608384
+  },
+  {
+    "pid": 86513,
+    "ppid": 1,
+    "name": "lghub_agent",
+    "status": "Sleep",
+    "cpu": 0.11343050065876153,
+    "mem": 13500416,
+    "virtual": 37388247040
+  },
+  {
+    "pid": 86344,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 86342,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 86334,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 86305,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420478976000
+  },
+  {
+    "pid": 86299,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 86298,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 86296,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420485267456
+  },
+  {
+    "pid": 86295,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 86290,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 86220,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 86218,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 86082,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 86080,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420455907328
+  },
+  {
+    "pid": 86022,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420465344512
+  },
+  {
+    "pid": 86020,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 85910,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 85909,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 85901,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 85895,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 85893,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420486316032
+  },
+  {
+    "pid": 85892,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 85887,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 85886,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 85881,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 85868,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 85861,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 85860,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 85849,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 85848,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 85843,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420498898944
+  },
+  {
+    "pid": 85822,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 85789,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 85770,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 85575,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 85501,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 85495,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420478976000
+  },
+  {
+    "pid": 85494,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420485267456
+  },
+  {
+    "pid": 85493,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420478976000
+  },
+  {
+    "pid": 85492,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420470587392
+  },
+  {
+    "pid": 85360,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 85355,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 85264,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 85263,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 85261,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 85256,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 85254,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 85249,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 85243,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 85241,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 85239,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 85233,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 85195,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 85190,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 85157,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 85145,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 85079,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420450664448
+  },
+  {
+    "pid": 85065,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 85063,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 85060,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420487364608
+  },
+  {
+    "pid": 85021,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 85016,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420461150208
+  },
+  {
+    "pid": 85001,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 84979,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 84957,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 84944,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420470587392
+  },
+  {
+    "pid": 84945,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420490510336
+  },
+  {
+    "pid": 84943,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420472684544
+  },
+  {
+    "pid": 84909,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 84879,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 84878,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 84876,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 84867,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 84866,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 84857,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 84827,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 84822,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 84813,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420450664448
+  },
+  {
+    "pid": 84780,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 84776,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420485267456
+  },
+  {
+    "pid": 84765,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 84745,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420474781696
+  },
+  {
+    "pid": 84737,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 84732,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 83243,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 83239,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420487364608
+  },
+  {
+    "pid": 83236,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 83234,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 83232,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 83226,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420460101632
+  },
+  {
+    "pid": 83223,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420475830272
+  },
+  {
+    "pid": 83222,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420489461760
+  },
+  {
+    "pid": 83220,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 83219,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420461150208
+  },
+  {
+    "pid": 83216,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 83212,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 83208,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 83202,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 83076,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 83053,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420485267456
+  },
+  {
+    "pid": 82913,
+    "ppid": 1,
+    "name": "keyboardservicesd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6438912,
+    "virtual": 437227012096
+  },
+  {
+    "pid": 82838,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 82827,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420455907328
+  },
+  {
+    "pid": 82783,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 82780,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 82240,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 82239,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 81742,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 204619776,
+    "virtual": 1912333615104
+  },
+  {
+    "pid": 81680,
+    "ppid": 1,
+    "name": "ServiceExtension",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 18579456,
+    "virtual": 420421009408
+  },
+  {
+    "pid": 81404,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 63356928,
+    "virtual": 1910282158080
+  },
+  {
+    "pid": 81392,
+    "ppid": 1,
+    "name": "ShipIt",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3112960,
+    "virtual": 420784619520
+  },
+  {
+    "pid": 81378,
+    "ppid": 81363,
+    "name": "Slack Helper (Plugin)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 15679488,
+    "virtual": 454714818560
+  },
+  {
+    "pid": 81377,
+    "ppid": 81363,
+    "name": "Slack Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11927552,
+    "virtual": 454710018048
+  },
+  {
+    "pid": 81370,
+    "ppid": 81363,
+    "name": "Slack Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0.07821169613325145,
+    "mem": 414679040,
+    "virtual": 1910365290496
+  },
+  {
+    "pid": 81369,
+    "ppid": 81363,
+    "name": "Slack Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 31129600,
+    "virtual": 454740819968
+  },
+  {
+    "pid": 81368,
+    "ppid": 81363,
+    "name": "Slack Helper (GPU)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 46006272,
+    "virtual": 455232798720
+  },
+  {
+    "pid": 81366,
+    "ppid": 1,
+    "name": "chrome_crashpad_handler",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1835008,
+    "virtual": 454366314496
+  },
+  {
+    "pid": 81363,
+    "ppid": 1,
+    "name": "Slack",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 124633088,
+    "virtual": 1911087153152
+  },
+  {
+    "pid": 80659,
+    "ppid": 79819,
+    "name": "nu",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2113536,
+    "virtual": 421733957632
+  },
+  {
+    "pid": 80631,
+    "ppid": 79819,
+    "name": "nu",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2113536,
+    "virtual": 421760172032
+  },
+  {
+    "pid": 80509,
+    "ppid": 79819,
+    "name": "nu",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2867200,
+    "virtual": 421743394816
+  },
+  {
+    "pid": 80430,
+    "ppid": 79819,
+    "name": "nu",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2113536,
+    "virtual": 421750734848
+  },
+  {
+    "pid": 79819,
+    "ppid": 1,
+    "name": "tmux",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3112960,
+    "virtual": 422020169728
+  },
+  {
+    "pid": 79817,
+    "ppid": 87100,
+    "name": "tmux",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1015808,
+    "virtual": 420880105472
+  },
+  {
+    "pid": 76386,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 76383,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 76377,
+    "ppid": 1,
+    "name": "Telegram",
+    "status": "Sleep",
+    "cpu": 3.9197992869617004,
+    "mem": 177815552,
+    "virtual": 423881080832
+  },
+  {
+    "pid": 67518,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 67517,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 67484,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 67479,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 67433,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 67431,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 67429,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 67412,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 67392,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 67369,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 67367,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 67366,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1032192,
+    "virtual": 420478976000
+  },
+  {
+    "pid": 67312,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 983040,
+    "virtual": 420487364608
+  },
+  {
+    "pid": 67298,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420480024576
+  },
+  {
+    "pid": 67123,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 67120,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 67112,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 67096,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 67077,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 67063,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 67059,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 67056,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 67053,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 67049,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 67047,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420468490240
+  },
+  {
+    "pid": 67037,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 67036,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 67029,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 67026,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 67024,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 67003,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 67000,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420459053056
+  },
+  {
+    "pid": 66930,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 66927,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 62310,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 62307,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420465344512
+  },
+  {
+    "pid": 62290,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 62244,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420469538816
+  },
+  {
+    "pid": 62148,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 62144,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 62134,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420449615872
+  },
+  {
+    "pid": 62133,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 62128,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 62125,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420466393088
+  },
+  {
+    "pid": 62122,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420467441664
+  },
+  {
+    "pid": 62121,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420478976000
+  },
+  {
+    "pid": 62120,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420495753216
+  },
+  {
+    "pid": 62082,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420456955904
+  },
+  {
+    "pid": 62028,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 62016,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420477927424
+  },
+  {
+    "pid": 61934,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420448567296
+  },
+  {
+    "pid": 61930,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420476878848
+  },
+  {
+    "pid": 61916,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420474781696
+  },
+  {
+    "pid": 61915,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 966656,
+    "virtual": 420458004480
+  },
+  {
+    "pid": 61677,
+    "ppid": 1,
+    "name": "borders",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 86687744,
+    "virtual": 421965856768
+  },
+  {
+    "pid": 29193,
+    "ppid": 1,
+    "name": "AppleSpell",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 45858816,
+    "virtual": 437994405888
+  },
+  {
+    "pid": 89561,
+    "ppid": 1,
+    "name": "bluetoothuserd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7618560,
+    "virtual": 437224079360
+  },
+  {
+    "pid": 35794,
+    "ppid": 46874,
+    "name": "1Password-BrowserSupport",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2949120,
+    "virtual": 420716412928
+  },
+  {
+    "pid": 35793,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 55050240,
+    "virtual": 1912189960192
+  },
+  {
+    "pid": 35762,
+    "ppid": 1,
+    "name": "1Password Browser Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8650752,
+    "virtual": 421947490304
+  },
+  {
+    "pid": 35759,
+    "ppid": 35749,
+    "name": "1Password-Crash-Handler",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 917504,
+    "virtual": 420020043776
+  },
+  {
+    "pid": 35756,
+    "ppid": 35749,
+    "name": "1Password Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7012352,
+    "virtual": 454703431680
+  },
+  {
+    "pid": 35755,
+    "ppid": 35749,
+    "name": "1Password Helper (GPU)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 13959168,
+    "virtual": 455061012480
+  },
+  {
+    "pid": 35749,
+    "ppid": 1,
+    "name": "1Password",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 46317568,
+    "virtual": 1910770565120
+  },
+  {
+    "pid": 74126,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2064384,
+    "virtual": 511696617472
+  },
+  {
+    "pid": 74119,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7290880,
+    "virtual": 511737348096
+  },
+  {
+    "pid": 53469,
+    "ppid": 1,
+    "name": "kindaVim",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 30883840,
+    "virtual": 422292750336
+  },
+  {
+    "pid": 31344,
+    "ppid": 1,
+    "name": "cloudd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 28999680,
+    "virtual": 437335490560
+  },
+  {
+    "pid": 61510,
+    "ppid": 1264,
+    "name": "LogiTuneAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11583488,
+    "virtual": 421971574784
+  },
+  {
+    "pid": 36303,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 294912,
+    "virtual": 511710920704
+  },
+  {
+    "pid": 77755,
+    "ppid": 1,
+    "name": "QuickLookUIService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14893056,
+    "virtual": 437389312000
+  },
+  {
+    "pid": 38273,
+    "ppid": 1,
+    "name": "com.apple.WebKit.Networking",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2752512,
+    "virtual": 441754320896
+  },
+  {
+    "pid": 38269,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 884736,
+    "virtual": 511156715520
+  },
+  {
+    "pid": 38259,
+    "ppid": 1,
+    "name": "com.apple.WebKit.GPU",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5767168,
+    "virtual": 442013335552
+  },
+  {
+    "pid": 38143,
+    "ppid": 1,
+    "name": "mouseless",
+    "status": "Sleep",
+    "cpu": 0.07611149888427085,
+    "mem": 62570496,
+    "virtual": 428948979712
+  },
+  {
+    "pid": 90590,
+    "ppid": 1,
+    "name": "milod",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8241152,
+    "virtual": 437241462784
+  },
+  {
+    "pid": 46798,
+    "ppid": 1,
+    "name": "fly",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 27066368,
+    "virtual": 421892161536
+  },
+  {
+    "pid": 21128,
+    "ppid": 1,
+    "name": "assistantd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 9404416,
+    "virtual": 437233467392
+  },
+  {
+    "pid": 16274,
+    "ppid": 1,
+    "name": "ScreenTimeWidgetExtension",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 18595840,
+    "virtual": 437312978944
+  },
+  {
+    "pid": 16269,
+    "ppid": 1,
+    "name": "WorldClockWidget",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 9420800,
+    "virtual": 437261221888
+  },
+  {
+    "pid": 16252,
+    "ppid": 1,
+    "name": "chronod",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 21479424,
+    "virtual": 437276819456
+  },
+  {
+    "pid": 35654,
+    "ppid": 35640,
+    "name": "Brain.fm Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8290304,
+    "virtual": 454671794176
+  },
+  {
+    "pid": 35649,
+    "ppid": 35640,
+    "name": "Brain.fm Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 2.1186932657800295,
+    "mem": 55296000,
+    "virtual": 1635178283008
+  },
+  {
+    "pid": 35648,
+    "ppid": 35640,
+    "name": "Brain.fm Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7045120,
+    "virtual": 454677250048
+  },
+  {
+    "pid": 35646,
+    "ppid": 35640,
+    "name": "Brain.fm Helper (GPU)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 34734080,
+    "virtual": 454937608192
+  },
+  {
+    "pid": 35645,
+    "ppid": 1,
+    "name": "chrome_crashpad_handler",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 917504,
+    "virtual": 454375571456
+  },
+  {
+    "pid": 35640,
+    "ppid": 1,
+    "name": "Brain.fm",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 57671680,
+    "virtual": 1636482629632
+  },
+  {
+    "pid": 35576,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2015232,
+    "virtual": 511763070976
+  },
+  {
+    "pid": 5706,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 294912,
+    "virtual": 511880151040
+  },
+  {
+    "pid": 96020,
+    "ppid": 1,
+    "name": "webinspectord",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7176192,
+    "virtual": 437225635840
+  },
+  {
+    "pid": 70928,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 262144,
+    "virtual": 511207735296
+  },
+  {
+    "pid": 70925,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 294912,
+    "virtual": 511546130432
+  },
+  {
+    "pid": 70923,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2015232,
+    "virtual": 511495979008
+  },
+  {
+    "pid": 70914,
+    "ppid": 1,
+    "name": "com.apple.WebKit.WebContent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 737280,
+    "virtual": 511680692224
+  },
+  {
+    "pid": 70911,
+    "ppid": 1,
+    "name": "com.apple.WebKit.Networking",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5898240,
+    "virtual": 441722994688
+  },
+  {
+    "pid": 70899,
+    "ppid": 1,
+    "name": "com.apple.WebKit.GPU",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7094272,
+    "virtual": 442279591936
+  },
+  {
+    "pid": 70888,
+    "ppid": 1,
+    "name": "Mail",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 53772288,
+    "virtual": 428898500608
+  },
+  {
+    "pid": 46910,
+    "ppid": 1,
+    "name": "lghub_system_tray",
+    "status": "Sleep",
+    "cpu": 0.15840328958604288,
+    "mem": 14655488,
+    "virtual": 37000396800
+  },
+  {
+    "pid": 42419,
+    "ppid": 1,
+    "name": "com.apple.mail.SpotlightIndexExtension",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2752512,
+    "virtual": 437222391808
+  },
+  {
+    "pid": 41801,
+    "ppid": 1,
+    "name": "maild",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4145152,
+    "virtual": 437224259584
+  },
+  {
+    "pid": 92254,
+    "ppid": 1,
+    "name": "VTDecoderXPCService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2752512,
+    "virtual": 437155250176
+  },
+  {
+    "pid": 52515,
+    "ppid": 1,
+    "name": "trustd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 9486336,
+    "virtual": 437231288320
+  },
+  {
+    "pid": 47113,
+    "ppid": 21439,
+    "name": "Obsidian Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0.19628337768819318,
+    "mem": 435306496,
+    "virtual": 1642404790272
+  },
+  {
+    "pid": 47083,
+    "ppid": 46874,
+    "name": "Browser Helper (Plugin)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 28098560,
+    "virtual": 455034781696
+  },
+  {
+    "pid": 46976,
+    "ppid": 46874,
+    "name": "Browser Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 16646144,
+    "virtual": 455307902976
+  },
+  {
+    "pid": 46966,
+    "ppid": 46874,
+    "name": "Browser Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5603328,
+    "virtual": 454975078400
+  },
+  {
+    "pid": 46908,
+    "ppid": 1,
+    "name": "Updater",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7831552,
+    "virtual": 421980028928
+  },
+  {
+    "pid": 46907,
+    "ppid": 1,
+    "name": "Autoupdate",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1818624,
+    "virtual": 422037749760
+  },
+  {
+    "pid": 46891,
+    "ppid": 46874,
+    "name": "Browser Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 20971520,
+    "virtual": 1912083070976
+  },
+  {
+    "pid": 46882,
+    "ppid": 46874,
+    "name": "Browser Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 18300928,
+    "virtual": 454909804544
+  },
+  {
+    "pid": 46881,
+    "ppid": 46874,
+    "name": "Browser Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 89817088,
+    "virtual": 455085391872
+  },
+  {
+    "pid": 46880,
+    "ppid": 46874,
+    "name": "Browser Helper (GPU)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 106348544,
+    "virtual": 456206565376
+  },
+  {
+    "pid": 46874,
+    "ppid": 1,
+    "name": "Arc",
+    "status": "Sleep",
+    "cpu": 0.1568820356840488,
+    "mem": 722862080,
+    "virtual": 457078308864
+  },
+  {
+    "pid": 38998,
+    "ppid": 1,
+    "name": "appstorecomponentsd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7159808,
+    "virtual": 441738199040
+  },
+  {
+    "pid": 45436,
+    "ppid": 1,
+    "name": "com.elgato.CameraHub.CameraExtension",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3899392,
+    "virtual": 421313806336
+  },
+  {
+    "pid": 87100,
+    "ppid": 87098,
+    "name": "nu",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1392640,
+    "virtual": 421778194432
+  },
+  {
+    "pid": 87098,
+    "ppid": 1,
+    "name": "wezterm-gui",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 77070336,
+    "virtual": 423830175744
+  },
+  {
+    "pid": 76088,
+    "ppid": 1,
+    "name": "com.apple.Virtualization.VirtualMachine",
+    "status": "Sleep",
+    "cpu": 14.862563805467698,
+    "mem": 536461312,
+    "virtual": 428858376192
+  },
+  {
+    "pid": 76087,
+    "ppid": 17159,
+    "name": "com.docker.virtualization",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8093696,
+    "virtual": 423465484288
+  },
+  {
+    "pid": 69149,
+    "ppid": 1,
+    "name": "ssh-agent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 458752,
+    "virtual": 437090418688
+  },
+  {
+    "pid": 4933,
+    "ppid": 1,
+    "name": "terraform-provider-aws_v5.100.0_x5",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 63733760,
+    "virtual": 422532595712
+  },
+  {
+    "pid": 32929,
+    "ppid": 1,
+    "name": "BiomeAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 12091392,
+    "virtual": 437223587840
+  },
+  {
+    "pid": 29707,
+    "ppid": 1,
+    "name": "WallpaperImageExtension",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3096576,
+    "virtual": 420762681344
+  },
+  {
+    "pid": 29695,
+    "ppid": 1,
+    "name": "DisplayLinkUserAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 24870912,
+    "virtual": 422048514048
+  },
+  {
+    "pid": 7522,
+    "ppid": 1,
+    "name": "JavaApplicationStub",
+    "status": "Sleep",
+    "cpu": 0.3716054396268066,
+    "mem": 39059456,
+    "virtual": 439396597760
+  },
+  {
+    "pid": 68836,
+    "ppid": 1,
+    "name": "heard",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11485184,
+    "virtual": 437236678656
+  },
+  {
+    "pid": 17186,
+    "ppid": 17182,
+    "name": "Docker Desktop Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4767744,
+    "virtual": 421047812096
+  },
+  {
+    "pid": 17185,
+    "ppid": 17182,
+    "name": "Docker Desktop Helper (GPU)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6586368,
+    "virtual": 422488735744
+  },
+  {
+    "pid": 17182,
+    "ppid": 17159,
+    "name": "Docker Desktop",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 38125568,
+    "virtual": 1627676917760
+  },
+  {
+    "pid": 17170,
+    "ppid": 17159,
+    "name": "com.docker.build",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10682368,
+    "virtual": 421860982784
+  },
+  {
+    "pid": 17169,
+    "ppid": 17159,
+    "name": "com.docker.extensions",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 22413312,
+    "virtual": 421918064640
+  },
+  {
+    "pid": 17168,
+    "ppid": 17159,
+    "name": "docker",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11747328,
+    "virtual": 421260902400
+  },
+  {
+    "pid": 17167,
+    "ppid": 17159,
+    "name": "com.docker.dev-envs",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3276800,
+    "virtual": 421738119168
+  },
+  {
+    "pid": 17159,
+    "ppid": 1,
+    "name": "com.docker.backend",
+    "status": "Sleep",
+    "cpu": 2.102706350865511,
+    "mem": 58163200,
+    "virtual": 425918119936
+  },
+  {
+    "pid": 16525,
+    "ppid": 1,
+    "name": "logi_crashpad_handler",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 802816,
+    "virtual": 420545216512
+  },
+  {
+    "pid": 16493,
+    "ppid": 1,
+    "name": "logioptionsplus_agent",
+    "status": "Sleep",
+    "cpu": 0.18627299428041427,
+    "mem": 77873152,
+    "virtual": 426857922560
+  },
+  {
+    "pid": 4559,
+    "ppid": 1,
+    "name": "ContextStoreAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 15302656,
+    "virtual": 437245100032
+  },
+  {
+    "pid": 17912,
+    "ppid": 1,
+    "name": "searchpartyuseragent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 17989632,
+    "virtual": 437327183872
+  },
+  {
+    "pid": 3796,
+    "ppid": 1,
+    "name": "diskimages-helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1589248,
+    "virtual": 421340053504
+  },
+  {
+    "pid": 66235,
+    "ppid": 1,
+    "name": "TextEdit",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 24330240,
+    "virtual": 422612762624
+  },
+  {
+    "pid": 2190,
+    "ppid": 1,
+    "name": "cosoco",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 589824,
+    "virtual": 420046749696
+  },
+  {
+    "pid": 2149,
+    "ppid": 1,
+    "name": "chrome_crashpad_handler",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1507328,
+    "virtual": 454412763136
+  },
+  {
+    "pid": 1629,
+    "ppid": 1,
+    "name": "Itsycal",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 110379008,
+    "virtual": 422585794560
+  },
+  {
+    "pid": 94455,
+    "ppid": 1,
+    "name": "ScreenTimeAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7159808,
+    "virtual": 437242494976
+  },
+  {
+    "pid": 40924,
+    "ppid": 1,
+    "name": "mbuseragent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1245184,
+    "virtual": 437188100096
+  },
+  {
+    "pid": 29850,
+    "ppid": 1,
+    "name": "IMAutomaticHistoryDeletionAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4308992,
+    "virtual": 437223047168
+  },
+  {
+    "pid": 29797,
+    "ppid": 1,
+    "name": "PowerChime",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 9584640,
+    "virtual": 437312077824
+  },
+  {
+    "pid": 21441,
+    "ppid": 21439,
+    "name": "Obsidian Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14811136,
+    "virtual": 421350080512
+  },
+  {
+    "pid": 21440,
+    "ppid": 21439,
+    "name": "Obsidian Helper (GPU)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 56426496,
+    "virtual": 422242811904
+  },
+  {
+    "pid": 21439,
+    "ppid": 1,
+    "name": "Obsidian",
+    "status": "Sleep",
+    "cpu": 1.001758157645995,
+    "mem": 186204160,
+    "virtual": 1627692810240
+  },
+  {
+    "pid": 18363,
+    "ppid": 1,
+    "name": "UserNotificationCenter",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7487488,
+    "virtual": 437441396736
+  },
+  {
+    "pid": 15907,
+    "ppid": 1,
+    "name": "passd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10010624,
+    "virtual": 437310865408
+  },
+  {
+    "pid": 13658,
+    "ppid": 1,
+    "name": "Spotlight",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 40370176,
+    "virtual": 422080102400
+  },
+  {
+    "pid": 8144,
+    "ppid": 8143,
+    "name": "caffeinate",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1163264,
+    "virtual": 420536008704
+  },
+  {
+    "pid": 8143,
+    "ppid": 1,
+    "name": "bash",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 327680,
+    "virtual": 420450254848
+  },
+  {
+    "pid": 7817,
+    "ppid": 1,
+    "name": "sketchybar",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4636672,
+    "virtual": 421746098176
+  },
+  {
+    "pid": 7506,
+    "ppid": 1,
+    "name": "storeuid",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7618560,
+    "virtual": 437403729920
+  },
+  {
+    "pid": 3932,
+    "ppid": 1,
+    "name": "DiskUnmountWatcher",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1556480,
+    "virtual": 437188296704
+  },
+  {
+    "pid": 2895,
+    "ppid": 1,
+    "name": "USBAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1523712,
+    "virtual": 437239447552
+  },
+  {
+    "pid": 2852,
+    "ppid": 1,
+    "name": "PasswordBreachAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3588096,
+    "virtual": 437241577472
+  },
+  {
+    "pid": 2763,
+    "ppid": 1,
+    "name": "spotlightknowledged",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3309568,
+    "virtual": 420631183360
+  },
+  {
+    "pid": 1881,
+    "ppid": 1,
+    "name": "Karabiner-Menu",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 23363584,
+    "virtual": 422030868480
+  },
+  {
+    "pid": 1866,
+    "ppid": 1,
+    "name": "Karabiner-NotificationWindow",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11583488,
+    "virtual": 422176292864
+  },
+  {
+    "pid": 1808,
+    "ppid": 1,
+    "name": "siriinferenced",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7274496,
+    "virtual": 420977229824
+  },
+  {
+    "pid": 1596,
+    "ppid": 1567,
+    "name": "Creative Cloud Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 15220736,
+    "virtual": 422024609792
+  },
+  {
+    "pid": 1588,
+    "ppid": 1264,
+    "name": "LogiTune Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8536064,
+    "virtual": 1634813296640
+  },
+  {
+    "pid": 1587,
+    "ppid": 1264,
+    "name": "LogiTune Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 22331392,
+    "virtual": 1634805514240
+  },
+  {
+    "pid": 1584,
+    "ppid": 1264,
+    "name": "LogiTune Helper (Renderer)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 9060352,
+    "virtual": 1634817916928
+  },
+  {
+    "pid": 1583,
+    "ppid": 1264,
+    "name": "LogiTune Helper",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 6307840,
+    "virtual": 455160905728
+  },
+  {
+    "pid": 1581,
+    "ppid": 1264,
+    "name": "LogiTune Helper (GPU)",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 13189120,
+    "virtual": 455437729792
+  },
+  {
+    "pid": 1567,
+    "ppid": 1,
+    "name": "Adobe Desktop Service",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 28672000,
+    "virtual": 427722752000
+  },
+  {
+    "pid": 1562,
+    "ppid": 1,
+    "name": "peopled",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5701632,
+    "virtual": 437230895104
+  },
+  {
+    "pid": 1186,
+    "ppid": 1,
+    "name": "diagnostics_agent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7438336,
+    "virtual": 437224538112
+  },
+  {
+    "pid": 1517,
+    "ppid": 1,
+    "name": "mdwrite",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1867776,
+    "virtual": 437223374848
+  },
+  {
+    "pid": 1319,
+    "ppid": 1,
+    "name": "AdobeIPCBroker",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10223616,
+    "virtual": 421971722240
+  },
+  {
+    "pid": 1286,
+    "ppid": 1,
+    "name": "Hammerspoon",
+    "status": "Sleep",
+    "cpu": 0.07872602449225706,
+    "mem": 32768000,
+    "virtual": 422337495040
+  },
+  {
+    "pid": 1284,
+    "ppid": 1,
+    "name": "ctkahp",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1654784,
+    "virtual": 437187461120
+  },
+  {
+    "pid": 1283,
+    "ppid": 1,
+    "name": "universalAccessAuthWarn",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8896512,
+    "virtual": 422162956288
+  },
+  {
+    "pid": 1264,
+    "ppid": 1,
+    "name": "LogiTune",
+    "status": "Sleep",
+    "cpu": 0.553083223546473,
+    "mem": 41041920,
+    "virtual": 1626647347200
+  },
+  {
+    "pid": 1255,
+    "ppid": 1,
+    "name": "karabiner_console_user_server",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7176192,
+    "virtual": 421392236544
+  },
+  {
+    "pid": 1256,
+    "ppid": 1,
+    "name": "skhd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8667136,
+    "virtual": 422077431808
+  },
+  {
+    "pid": 1261,
+    "ppid": 1,
+    "name": "icdd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3096576,
+    "virtual": 437222326272
+  },
+  {
+    "pid": 1250,
+    "ppid": 1,
+    "name": "corespeechd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5963776,
+    "virtual": 437264498688
+  },
+  {
+    "pid": 1275,
+    "ppid": 1,
+    "name": "TextInputMenuAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 25460736,
+    "virtual": 422158090240
+  },
+  {
+    "pid": 1270,
+    "ppid": 1,
+    "name": "AirPlayUIAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7454720,
+    "virtual": 421827526656
+  },
+  {
+    "pid": 1138,
+    "ppid": 1,
+    "name": "seserviced",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4374528,
+    "virtual": 437223292928
+  },
+  {
+    "pid": 1067,
+    "ppid": 1,
+    "name": "mdbulkimport",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11288576,
+    "virtual": 437235777536
+  },
+  {
+    "pid": 1021,
+    "ppid": 1,
+    "name": "com.apple.CloudDocs.iCloudDriveFileProvider",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5505024,
+    "virtual": 437236252672
+  },
+  {
+    "pid": 876,
+    "ppid": 1,
+    "name": "MobileDeviceUpdater",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7897088,
+    "virtual": 437415182336
+  },
+  {
+    "pid": 874,
+    "ppid": 1,
+    "name": "lockoutagent",
+    "status": "Sleep",
+    "cpu": 0.08879755304913019,
+    "mem": 3915776,
+    "virtual": 437223194624
+  },
+  {
+    "pid": 822,
+    "ppid": 1,
+    "name": "UniversalControl",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 9322496,
+    "virtual": 437227962368
+  },
+  {
+    "pid": 818,
+    "ppid": 1,
+    "name": "PAH_Extension",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 12845056,
+    "virtual": 437302280192
+  },
+  {
+    "pid": 813,
+    "ppid": 1,
+    "name": "commerce",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5193728,
+    "virtual": 437229092864
+  },
+  {
+    "pid": 809,
+    "ppid": 1,
+    "name": "CursorUIViewService",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 24969216,
+    "virtual": 422008750080
+  },
+  {
+    "pid": 808,
+    "ppid": 1,
+    "name": "imklaunchagent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 3981312,
+    "virtual": 420848795648
+  },
+  {
+    "pid": 802,
+    "ppid": 1,
+    "name": "avconferenced",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4767744,
+    "virtual": 437225897984
+  },
+  {
+    "pid": 800,
+    "ppid": 1,
+    "name": "mediaremoteagent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 1687552,
+    "virtual": 437187297280
+  },
+  {
+    "pid": 784,
+    "ppid": 1,
+    "name": "useractivityd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8519680,
+    "virtual": 437225881600
+  },
+  {
+    "pid": 787,
+    "ppid": 1,
+    "name": "com.apple.dock.external.extra.arm64",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7782400,
+    "virtual": 421675712512
+  },
+  {
+    "pid": 786,
+    "ppid": 1,
+    "name": "com.apple.dock.extra",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 20611072,
+    "virtual": 420960190464
+  },
+  {
+    "pid": 778,
+    "ppid": 1,
+    "name": "corespotlightd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 27099136,
+    "virtual": 450190098432
+  },
+  {
+    "pid": 759,
+    "ppid": 1,
+    "name": "imagent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10108928,
+    "virtual": 437242888192
+  },
+  {
+    "pid": 755,
+    "ppid": 1,
+    "name": "WiFiAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 12746752,
+    "virtual": 437404778496
+  },
+  {
+    "pid": 752,
+    "ppid": 1,
+    "name": "WallpaperDynamicExtension",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5226496,
+    "virtual": 422206685184
+  },
+  {
+    "pid": 736,
+    "ppid": 1,
+    "name": "AMPDeviceDiscoveryAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2228224,
+    "virtual": 437234630656
+  },
+  {
+    "pid": 735,
+    "ppid": 1,
+    "name": "fileproviderd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 13254656,
+    "virtual": 437254946816
+  },
+  {
+    "pid": 732,
+    "ppid": 1,
+    "name": "akd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 13402112,
+    "virtual": 437231288320
+  },
+  {
+    "pid": 731,
+    "ppid": 1,
+    "name": "sharedfilelistd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4194304,
+    "virtual": 437224357888
+  },
+  {
+    "pid": 725,
+    "ppid": 1,
+    "name": "ViewBridgeAuxiliary",
+    "status": "Sleep",
+    "cpu": 0.10984473075652461,
+    "mem": 9895936,
+    "virtual": 421479055360
+  },
+  {
+    "pid": 722,
+    "ppid": 1,
+    "name": "WallpaperAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14073856,
+    "virtual": 422136414208
+  },
+  {
+    "pid": 717,
+    "ppid": 1,
+    "name": "fontworker",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 2179072,
+    "virtual": 437246148608
+  },
+  {
+    "pid": 713,
+    "ppid": 1,
+    "name": "Finder",
+    "status": "Sleep",
+    "cpu": 0.6417046418646711,
+    "mem": 182075392,
+    "virtual": 423323402240
+  },
+  {
+    "pid": 712,
+    "ppid": 1,
+    "name": "SystemUIServer",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8421376,
+    "virtual": 422111510528
+  },
+  {
+    "pid": 710,
+    "ppid": 1,
+    "name": "fontd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11026432,
+    "virtual": 437301264384
+  },
+  {
+    "pid": 708,
+    "ppid": 1,
+    "name": "ControlCenter",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 90472448,
+    "virtual": 422623657984
+  },
+  {
+    "pid": 707,
+    "ppid": 1,
+    "name": "Dock",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 29949952,
+    "virtual": 423266582528
+  },
+  {
+    "pid": 706,
+    "ppid": 1,
+    "name": "familycircled",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7258112,
+    "virtual": 437227225088
+  },
+  {
+    "pid": 697,
+    "ppid": 1,
+    "name": "NotificationCenter",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 38764544,
+    "virtual": 422855622656
+  },
+  {
+    "pid": 695,
+    "ppid": 1,
+    "name": "sharingd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 17874944,
+    "virtual": 437286944768
+  },
+  {
+    "pid": 694,
+    "ppid": 1,
+    "name": "usernoted",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14401536,
+    "virtual": 437245214720
+  },
+  {
+    "pid": 686,
+    "ppid": 1,
+    "name": "coreauthd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5488640,
+    "virtual": 437223489536
+  },
+  {
+    "pid": 675,
+    "ppid": 1,
+    "name": "homed",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11321344,
+    "virtual": 437241643008
+  },
+  {
+    "pid": 671,
+    "ppid": 1,
+    "name": "nsurlsessiond",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 14598144,
+    "virtual": 437304393728
+  },
+  {
+    "pid": 669,
+    "ppid": 1,
+    "name": "identityservicesd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 20529152,
+    "virtual": 437265399808
+  },
+  {
+    "pid": 667,
+    "ppid": 1,
+    "name": "rapportd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 11501568,
+    "virtual": 437234106368
+  },
+  {
+    "pid": 665,
+    "ppid": 1,
+    "name": "audioaccessoryd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 12058624,
+    "virtual": 437228617728
+  },
+  {
+    "pid": 658,
+    "ppid": 1,
+    "name": "usernotificationsd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10043392,
+    "virtual": 437225799680
+  },
+  {
+    "pid": 647,
+    "ppid": 1,
+    "name": "accountsd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 20578304,
+    "virtual": 437271052288
+  },
+  {
+    "pid": 641,
+    "ppid": 1,
+    "name": "secd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 13844480,
+    "virtual": 437279490048
+  },
+  {
+    "pid": 638,
+    "ppid": 1,
+    "name": "containermanagerd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4603904,
+    "virtual": 437221277696
+  },
+  {
+    "pid": 636,
+    "ppid": 1,
+    "name": "pboard",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 7962624,
+    "virtual": 437201616896
+  },
+  {
+    "pid": 622,
+    "ppid": 1,
+    "name": "UserEventAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 8126464,
+    "virtual": 437224914944
+  },
+  {
+    "pid": 633,
+    "ppid": 1,
+    "name": "ContinuityCaptureAgent",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10387456,
+    "virtual": 437259894784
+  },
+  {
+    "pid": 631,
+    "ppid": 1,
+    "name": "universalaccessd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 36667392,
+    "virtual": 422095437824
+  },
+  {
+    "pid": 627,
+    "ppid": 1,
+    "name": "WindowManager",
+    "status": "Sleep",
+    "cpu": 6.676365558438667,
+    "mem": 62210048,
+    "virtual": 422127566848
+  },
+  {
+    "pid": 618,
+    "ppid": 1,
+    "name": "cfprefsd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 5865472,
+    "virtual": 437193474048
+  },
+  {
+    "pid": 617,
+    "ppid": 1,
+    "name": "lsd",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 10567680,
+    "virtual": 437265416192
+  },
+  {
+    "pid": 615,
+    "ppid": 1,
+    "name": "distnoted",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 4538368,
+    "virtual": 437187805184
+  },
+  {
+    "pid": 381,
+    "ppid": 1,
+    "name": "loginwindow",
+    "status": "Sleep",
+    "cpu": 0,
+    "mem": 33882112,
+    "virtual": 422439124992
+  }
+]
