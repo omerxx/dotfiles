@@ -68,10 +68,6 @@ if.app-name-regex-substring = 'elgato'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'dicord'
-run = 'layout floating'
-
-[[on-window-detected]]
 if.app-name-regex-substring = 'mail'
 run = 'layout floating'
 
