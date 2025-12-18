@@ -101,10 +101,10 @@ if 'IN_NIX_SHELL' not-in $env and 'DEVBOX_SHELL_ENABLED' not-in $env {
     $env.PATH = ($env.PATH | append [
         /opt/homebrew/bin
         /run/current-system/sw/bin
-        /Users/omerxx/.local/bin
+        /Users/klaudioz/.local/bin
         /opt/homebrew/opt/ruby/bin
         /opt/homebrew/sbin
-        /Users/omerxx/.opencode/bin
+        /Users/klaudioz/.opencode/bin
     ])
 }
 
@@ -124,8 +124,8 @@ mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 zoxide init nushell | save -f ~/.zoxide.nu
 
-$env.STARSHIP_CONFIG = /Users/omerxx/.config/starship/starship.toml
-$env.NIX_CONF_DIR = /Users/omerxx/.config/nix
+$env.STARSHIP_CONFIG = /Users/klaudioz/.config/starship/starship.toml
+$env.NIX_CONF_DIR = /Users/klaudioz/.config/nix
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu

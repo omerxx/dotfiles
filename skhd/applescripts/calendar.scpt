@@ -5,7 +5,7 @@ tell application "Calendar"
 end tell
 
 tell application "Calendar"
-    tell calendar "omer.hamerman@zesty.co"
+    tell calendar "klaudioz@gmail.com"
       repeat with e in (events where start date > d and start date < d + 7200)
         properties of e
         d + 7200

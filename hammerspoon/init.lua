@@ -20,7 +20,7 @@ hs.alert.show("Config loaded")
 
 local calendar = hs.loadSpoon("GoMaCal")
 if calendar then
-    calendar:setCalendarPath('/Users/omerxx/dotfiles/hammerspoon/calendar-app/calapp')
+    calendar:setCalendarPath('/Users/klaudioz/dotfiles/hammerspoon/calendar-app/calapp')
     calendar:start()
 end
 
@@ -78,6 +78,6 @@ end
 --
 -- local calendar = hs.loadSpoon("GoMaCal")
 -- if calendar then
---     calendar:setCalendarPath('/Users/omerxx/dotfiles/hammerspoon/calendar-app/calapp')
+--     calendar:setCalendarPath('/Users/klaudioz/dotfiles/hammerspoon/calendar-app/calapp')
 --     calendar:start()
 -- end
