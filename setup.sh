@@ -59,6 +59,20 @@ verify_tools() {
     "skhd:skhd"
     "icalBuddy:ical-buddy"
     "go:go"
+    "node:nodejs"
+    "claude:claude-code"
+    "codex:codex-cli"
+    "gemini-cli:gemini-cli"
+    "aichat:aichat"
+    "lazygit:lazygit"
+    "uv:uv"
+    "delta:delta"
+    "kubectl:kubectl"
+    "aws:awscli"
+    "gcloud:gcloud"
+    "doctl:doctl"
+    "flyctl:flyctl"
+    "aicommit2:aicommit2"
   )
 
   missing=()

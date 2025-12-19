@@ -43,6 +43,10 @@ alias ga='git add -p'
 alias gcoall='git checkout -- .'
 alias gr='git remote'
 alias gre='git reset'
+alias lg='lazygit'
+
+# Git delta pager for better diffs
+export GIT_PAGER="delta"
 
 # Docker
 alias dco="docker compose"
@@ -124,6 +128,10 @@ export PATH=/run/current-system/sw/bin:$PATH
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 export PATH="/Applications/Cursor.app/Contents/Resources/app/bin:$PATH"
 export PATH="/Applications/Windsurf.app/Contents/Resources/app/bin:$PATH"
+
+# npm global packages (AI CLI tools: claude-code, codex-cli)
+export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 function ranger {
 	local IFS=$'\t\n'

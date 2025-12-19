@@ -37,6 +37,7 @@
         pkgs.eza
         pkgs.tree
         pkgs.go
+        pkgs.nodejs
         pkgs.rustup
         pkgs.xh
         pkgs.kubectx
@@ -49,6 +50,19 @@
         pkgs.gobuster
         pkgs.ffuf
         pkgs.ngrok
+
+        # Developer utilities
+        pkgs.aichat
+        pkgs.lazygit
+        pkgs.uv
+        pkgs.delta
+
+        # Cloud CLIs
+        pkgs.kubectl
+        pkgs.awscli2
+        pkgs.google-cloud-sdk
+        pkgs.doctl
+        pkgs.flyctl
       ];
       services.nix-daemon.enable = true;
       nix.settings.experimental-features = "nix-command flakes";
@@ -56,6 +70,7 @@
       system.configurationRevision = self.rev or self.dirtyRev or null;
       system.stateVersion = 4;
       nixpkgs.hostPlatform = "aarch64-darwin";
+      nixpkgs.config.allowUnfree = true;
       security.pam.enableSudoTouchIdAuth = true;
 
       users.users.klaudioz.home = "/Users/klaudioz";

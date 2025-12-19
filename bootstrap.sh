@@ -102,18 +102,40 @@ fi
 # Step 4: Nix
 print_step "Step 4/5: Nix Package Manager"
 
+# Helper function to source Nix
+source_nix() {
+  if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  fi
+}
+
+# Try sourcing Nix first in case it's installed but not in PATH
+source_nix
+
 if command -v nix &> /dev/null; then
   print_skip "Nix"
 else
   echo "Installing Nix (Determinate Systems installer)..."
+  echo ""
+  echo -e "${YELLOW}Note: The installer may prompt for sudo password and confirmation.${NC}"
+  echo ""
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
   # Source Nix for this session
-  if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-  fi
+  source_nix
 
-  print_success "Nix installed"
+  # Verify nix is now available
+  if command -v nix &> /dev/null; then
+    print_success "Nix installed"
+  else
+    echo ""
+    echo -e "${YELLOW}Nix installed but not in PATH for this session.${NC}"
+    echo "Please run the following command and restart the script:"
+    echo ""
+    echo -e "  ${GREEN}. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh${NC}"
+    echo ""
+    exit 1
+  fi
 fi
 
 # Step 5: Nix-Darwin
@@ -138,10 +160,12 @@ echo "Building and switching to nix-darwin configuration..."
 echo "This may take several minutes on first run..."
 echo ""
 
+# Use full flake reference for first-time installation
 if command -v darwin-rebuild &> /dev/null; then
   darwin-rebuild switch --flake .
 else
-  nix run nix-darwin -- switch --flake .
+  echo "Running nix-darwin for the first time..."
+  nix run nix-darwin/master#darwin-rebuild -- switch --flake ".#$CURRENT_HOSTNAME"
 fi
 
 print_success "Nix-Darwin configuration applied"

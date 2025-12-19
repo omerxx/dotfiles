@@ -110,6 +110,44 @@ Enable access for:
 
 Note: This step cannot be automated on macOS without disabling SIP.
 
+### 6. Install AI Coding CLI Tools
+
+After running `darwin-rebuild switch`, install the AI coding assistants:
+
+```bash
+# Configure npm global directory (one-time setup)
+mkdir -p ~/.npm-global
+npm config set prefix '~/.npm-global'
+
+# Install Claude Code (Anthropic)
+npm install -g @anthropic-ai/claude-code
+
+# Install Codex CLI (OpenAI)
+npm install -g @openai/codex
+
+# Install aicommit2 (AI commit messages)
+npm install -g aicommit2
+
+# Install Gemini CLI (Google)
+go install github.com/eliben/gemini-cli@latest
+```
+
+**Configure delta for git diffs:**
+
+```bash
+git config --global core.pager delta
+```
+
+**API Key Configuration:**
+
+Each tool requires an API key. Add these to your shell profile or export before use:
+
+```bash
+export ANTHROPIC_API_KEY="your-key-here"
+export OPENAI_API_KEY="your-key-here"
+export GEMINI_API_KEY="your-key-here"
+```
+
 ---
 
 ## Verify Installation
@@ -134,6 +172,25 @@ sketchybar --version
 
 # Window management
 aerospace --version
+
+# AI CLI tools
+claude --version
+codex --version
+gemini-cli --version
+aichat --version
+aicommit2 --version
+
+# Developer utilities
+lazygit --version
+uv --version
+delta --version
+
+# Cloud CLIs
+kubectl version --client
+aws --version
+gcloud --version
+doctl version
+flyctl version
 ```
 
 ---
@@ -151,6 +208,18 @@ aerospace --version
 
 ## Troubleshooting
 
+### Nix command not found after installation
+
+The Nix daemon needs to be sourced in your current shell:
+```bash
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+```
+
+Then retry the bootstrap script or run nix-darwin manually:
+```bash
+nix run nix-darwin/master#darwin-rebuild -- switch --flake ./nix-darwin#<your-hostname>
+```
+
 ### Homebrew not found after Nix install
 
 Restart your terminal or run:
@@ -165,10 +234,21 @@ Ensure `~/.config/nix/nix.conf` contains:
 experimental-features = nix-command flakes
 ```
 
+### Unfree package errors (ngrok, etc.)
+
+If you see errors about unfree licenses, the `nixpkgs.config.allowUnfree = true;` setting should be in your flake.nix configuration block.
+
 ### Stow conflicts
 
 Remove existing configs first:
 ```bash
 rm -rf ~/.config/nvim ~/.config/tmux
 cd ~/dotfiles && stow .
+```
+
+### $HOME ownership warning with sudo
+
+If you see `warning: $HOME is not owned by you`, this happens when running nix commands with sudo. Run without sudo when possible:
+```bash
+nix run nix-darwin/master#darwin-rebuild -- switch --flake ./nix-darwin#<hostname>
 ```
