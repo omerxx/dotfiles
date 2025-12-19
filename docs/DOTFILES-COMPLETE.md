@@ -52,9 +52,14 @@ brew install tmux neovim stow fzf fd ripgrep bat zoxide atuin direnv
 brew install --cask nikitabobko/tap/aerospace
 ```
 
-### Method 2: Nix-Darwin (Declarative)
+### Method 2: Nix-Darwin (Declarative) - Recommended
+
+This method installs ALL dependencies automatically via the flake.nix configuration.
 
 ```bash
+# Install Homebrew first
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 # Install Nix
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
@@ -66,12 +71,20 @@ cd ~/dotfiles/nix-darwin
 # Check your hostname: scutil --get ComputerName
 # Check your username: whoami
 
-# Initial build
+# Initial build (installs all packages automatically)
 nix run nix-darwin -- switch --flake .
 
 # Subsequent rebuilds
 darwin-rebuild switch --flake ~/dotfiles/nix-darwin
 ```
+
+**What gets installed automatically:**
+- Core tools: neovim, tmux, fzf, fd, ripgrep, bat, zoxide, atuin, eza, starship
+- Languages: go, rustup
+- Window management: aerospace, sketchybar, borders, skhd, hammerspoon
+- Terminals: ghostty, wezterm
+- Calendar integration: ical-buddy
+- Security tools: nmap, gobuster, ffuf, ngrok
 
 ### Post-Installation Setup
 
@@ -271,11 +284,11 @@ def ff [] { aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "ae
 |----------|-------|
 | `LANG` | `en_US.UTF-8` |
 | `EDITOR` | `/opt/homebrew/bin/nvim` |
-| `GOPATH` | `/Users/omerxx/go` |
+| `GOPATH` | `$HOME/go` |
 | `KUBECONFIG` | `~/.kube/config` |
 | `FZF_DEFAULT_COMMAND` | `fd --type f --hidden --follow` |
 | `NIX_CONF_DIR` | `$HOME/.config/nix` |
-| `XDG_CONFIG_HOME` | `/Users/omerxx/.config` |
+| `XDG_CONFIG_HOME` | `$HOME/.config` |
 
 #### PATH Order (highest to lowest precedence)
 1. Nix: `/run/current-system/sw/bin`
@@ -798,3 +811,70 @@ tmux
 nvim
 :Lazy update
 ```
+
+**Building calapp (GoMaCal Calendar)**:
+
+The Hammerspoon calendar notification feature requires building the calapp binary from source:
+
+```bash
+# Requires Go to be installed (included in nix-darwin setup)
+git clone https://github.com/omerxx/GoMaCal.git /tmp/GoMaCal
+cd /tmp/GoMaCal
+go build -o calapp
+mkdir -p ~/dotfiles/hammerspoon/calendar-app
+cp calapp ~/dotfiles/hammerspoon/calendar-app/
+```
+
+This enables desktop notifications for upcoming calendar events via Hammerspoon.
+
+---
+
+## Complete Dependency Reference
+
+All tools are installed automatically via nix-darwin. Here is the complete list:
+
+### Via Nix Packages (pkgs.*)
+| Package | Purpose |
+|---------|---------|
+| neovim | Text editor |
+| tmux | Terminal multiplexer |
+| fzf | Fuzzy finder |
+| fd | Fast file finder |
+| ripgrep | Fast grep |
+| bat | Cat with syntax highlighting |
+| zoxide | Smart directory jumper |
+| atuin | Shell history |
+| eza | Modern ls replacement |
+| tree | Directory tree display |
+| go | Go programming language |
+| rustup | Rust toolchain |
+| xh | HTTP client |
+| kubectx | K8s context switcher |
+| starship | Cross-shell prompt |
+| nmap | Network scanner |
+| gobuster | Directory brute-forcer |
+| ffuf | Web fuzzer |
+| ngrok | Tunnel utility |
+
+### Via Homebrew Taps
+| Tap | Provides |
+|-----|----------|
+| FelixKratz/formulae | sketchybar, borders |
+| koekeishiya/formulae | skhd |
+| nikitabobko/tap | aerospace |
+
+### Via Homebrew Casks
+| Cask | Purpose |
+|------|---------|
+| ghostty | Terminal emulator |
+| wezterm | Terminal emulator |
+| aerospace | Tiling window manager |
+| hammerspoon | macOS automation |
+
+### Via Homebrew Brews
+| Brew | Purpose |
+|------|---------|
+| ical-buddy | Calendar CLI (for tmux status) |
+| sketchybar | Custom status bar |
+| borders | Window border decorations |
+| skhd | Hotkey daemon |

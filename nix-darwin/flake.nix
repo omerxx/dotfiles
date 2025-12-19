@@ -16,15 +16,40 @@
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [ 
-          pkgs.vim
-          pkgs.direnv
-          pkgs.sshs
-          pkgs.glow
-          pkgs.nushell
-          pkgs.carapace
-        ];
+      environment.systemPackages = [
+        # Existing
+        pkgs.vim
+        pkgs.direnv
+        pkgs.sshs
+        pkgs.glow
+        pkgs.nushell
+        pkgs.carapace
+
+        # Core tools
+        pkgs.neovim
+        pkgs.tmux
+        pkgs.fzf
+        pkgs.fd
+        pkgs.ripgrep
+        pkgs.bat
+        pkgs.zoxide
+        pkgs.atuin
+        pkgs.eza
+        pkgs.tree
+        pkgs.go
+        pkgs.rustup
+        pkgs.xh
+        pkgs.kubectx
+        pkgs.starship
+        pkgs.jq
+        pkgs.yq
+
+        # Security tools
+        pkgs.nmap
+        pkgs.gobuster
+        pkgs.ffuf
+        pkgs.ngrok
+      ];
       services.nix-daemon.enable = true;
       nix.settings.experimental-features = "nix-command flakes";
       programs.zsh.enable = true;  # default shell on catalina
@@ -50,12 +75,28 @@
 
       # Homebrew needs to be installed on its own!
       homebrew.enable = true;
-      homebrew.casks = [
-	      "wireshark"
-              "google-chrome"
+
+      homebrew.taps = [
+        "FelixKratz/formulae"
+        "koekeishiya/formulae"
+        "nikitabobko/tap"
       ];
+
+      homebrew.casks = [
+        "wireshark"
+        "google-chrome"
+        "ghostty"
+        "wezterm"
+        "nikitabobko/tap/aerospace"
+        "hammerspoon"
+      ];
+
       homebrew.brews = [
-	      "imagemagick"
+        "imagemagick"
+        "ical-buddy"
+        "sketchybar"
+        "borders"
+        "skhd"
       ];
     };
   in
