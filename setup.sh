@@ -7,6 +7,38 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
+check_prerequisites() {
+  echo "Checking prerequisites..."
+  echo ""
+
+  missing_prereqs=()
+
+  # Check Xcode Command Line Tools
+  if ! xcode-select -p &> /dev/null; then
+    missing_prereqs+=("xcode-select --install")
+  else
+    echo -e "  ${GREEN}✓${NC} Xcode Command Line Tools"
+  fi
+
+  # Check Stow
+  if ! command -v stow &> /dev/null; then
+    missing_prereqs+=("brew install stow")
+  else
+    echo -e "  ${GREEN}✓${NC} stow"
+  fi
+
+  if [ ${#missing_prereqs[@]} -gt 0 ]; then
+    echo ""
+    echo -e "${RED}Missing prerequisites:${NC}"
+    for prereq in "${missing_prereqs[@]}"; do
+      echo -e "  ${YELLOW}Run:${NC} $prereq"
+    done
+    exit 1
+  fi
+
+  echo ""
+}
+
 verify_tools() {
   echo "Verifying installed tools..."
   echo ""
@@ -73,12 +105,14 @@ show_help() {
 
 case "$1" in
   --verify)
+    check_prerequisites
     verify_tools
     ;;
   --help|-h)
     show_help
     ;;
   *)
+    check_prerequisites
     echo "Symlinking dotfiles with stow..."
     stow .
     echo -e "${GREEN}Done!${NC}"

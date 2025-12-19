@@ -2,7 +2,31 @@
 
 Get your full development environment running in under 1 hour.
 
+## Quick Install
+
+```bash
+# 1. Install Xcode Command Line Tools (required for git)
+xcode-select --install
+
+# 2. Clone and run bootstrap
+git clone https://github.com/Klaudioz/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./bootstrap.sh
+```
+
+Or follow the manual steps below.
+
+---
+
 ## Prerequisites (5 min)
+
+### 0. Install Xcode Command Line Tools
+
+```bash
+xcode-select --install
+```
+
+This provides Git and essential build tools required by Homebrew and Nix.
 
 ### 1. Install Homebrew
 
@@ -106,6 +130,22 @@ go build -o calapp
 mkdir -p ~/dotfiles/hammerspoon/calendar-app
 cp calapp ~/dotfiles/hammerspoon/calendar-app/
 ```
+
+### 6. Grant Accessibility Permissions
+
+Window management tools require Accessibility access. Run this to open settings:
+
+```bash
+open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
+```
+
+Enable access for:
+- aerospace
+- skhd
+- Hammerspoon
+- sketchybar
+
+Note: This step cannot be automated on macOS without disabling SIP.
 
 ---
 

@@ -21,6 +21,30 @@ A complete macOS development environment configuration for https://github.com/Kl
 
 ## Installation
 
+### Quick Install
+
+```bash
+# 1. Install Xcode Command Line Tools (required for git)
+xcode-select --install
+
+# 2. Clone and run bootstrap
+git clone https://github.com/Klaudioz/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./bootstrap.sh
+```
+
+This handles Homebrew, Nix, nix-darwin, and stow automatically. Or follow the manual steps below.
+
+### Prerequisites
+
+Before installing, ensure you have Xcode Command Line Tools:
+
+```bash
+xcode-select --install
+```
+
+This provides Git and essential build tools required by Homebrew and Nix.
+
 ### Method 1: Stow (Simple Symlinks)
 
 ```bash
@@ -105,6 +129,22 @@ atuin register -u <username> -e <email>
 atuin login -u <username>
 atuin sync
 ```
+
+### Grant Accessibility Permissions
+
+Window management tools require Accessibility access. Run this to open settings:
+
+```bash
+open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
+```
+
+Enable access for:
+- aerospace
+- skhd
+- Hammerspoon
+- sketchybar
+
+Note: This step cannot be automated on macOS without disabling SIP.
 
 ---
 
