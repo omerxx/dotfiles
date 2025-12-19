@@ -21,23 +21,7 @@ A complete macOS development environment configuration for https://github.com/Kl
 
 ## Installation
 
-### Quick Install
-
-```bash
-# 1. Install Xcode Command Line Tools (required for git)
-xcode-select --install
-
-# 2. Clone and run bootstrap
-git clone https://github.com/Klaudioz/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-./bootstrap.sh
-```
-
-This handles Homebrew, Nix, nix-darwin, and stow automatically. Or follow the manual steps below.
-
-### Prerequisites
-
-Before installing, ensure you have Xcode Command Line Tools:
+### Step 1: Install Xcode Command Line Tools
 
 ```bash
 xcode-select --install
@@ -45,70 +29,38 @@ xcode-select --install
 
 This provides Git and essential build tools required by Homebrew and Nix.
 
-### Method 1: Stow (Simple Symlinks)
+### Step 2: Clone and Bootstrap
 
 ```bash
-# Prerequisites
-brew install stow
-
-# Install
 git clone https://github.com/Klaudioz/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./setup.sh  # or: stow .
+./bootstrap.sh
 ```
 
-This creates symlinks from repository directories to `~/.config/` based on `.stowrc`:
-- Target: `~/.config`
-- Ignores: `.stowrc`, `DS_Store`, `atuin/*`
+The bootstrap script installs everything automatically:
+- Rosetta 2 (for Intel compatibility)
+- Homebrew
+- Nix with flakes enabled
+- nix-darwin (declarative macOS configuration)
+- All packages and applications via `flake.nix`
+- Dotfile symlinks via stow
 
-After stowing, install applications manually:
+### Step 3: Configure for Your Machine
+
+Before the first nix-darwin build, update `nix-darwin/flake.nix` with your hostname:
+
 ```bash
-# Terminal Emulators
-brew install --cask ghostty wezterm
+# Check your hostname
+scutil --get ComputerName
 
-# Shells
-brew install nushell zsh starship
-
-# Tools
-brew install tmux neovim stow fzf fd ripgrep bat zoxide atuin direnv
-
-# Window Management
-brew install --cask nikitabobko/tap/aerospace
+# Edit flake.nix and update darwinConfigurations."YOUR-HOSTNAME"
 ```
 
-### Method 2: Nix-Darwin (Declarative) - Recommended
-
-This method installs ALL dependencies automatically via the flake.nix configuration.
+### Step 4: Rebuild (after any config changes)
 
 ```bash
-# Install Homebrew first
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install Nix
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-
-# Clone and configure
-git clone https://github.com/Klaudioz/dotfiles.git ~/dotfiles
-cd ~/dotfiles/nix-darwin
-
-# Update hostname and username in flake.nix before building
-# Check your hostname: scutil --get ComputerName
-# Check your username: whoami
-
-# Initial build (installs all packages automatically)
-nix run nix-darwin -- switch --flake .
-
-# Subsequent rebuilds
 darwin-rebuild switch --flake ~/dotfiles/nix-darwin
 ```
-
-**What gets installed automatically:**
-- Core tools: neovim, tmux, fzf, fd, ripgrep, bat, zoxide, atuin, eza, starship
-- Languages: go, rustup
-- Window management: aerospace, sketchybar, borders, skhd, hammerspoon
-- Terminals: ghostty, wezterm
-- Calendar integration: ical-buddy
-- Security tools: nmap, gobuster, ffuf, ngrok
 
 ### Post-Installation Setup
 
@@ -184,8 +136,20 @@ Layer 1: System        -> nix-darwin + home-manager
 - vim, direnv, sshs, glow, nushell, carapace
 
 ### Homebrew Integration
-- **Casks**: wireshark, google-chrome
-- **Brews**: imagemagick
+
+**Casks (28 applications):**
+
+| Category | Applications |
+|----------|-------------|
+| Communication | telegram, slack, discord, readdle-spark |
+| Browsers | google-chrome, firefox, arc |
+| Editors | cursor, windsurf, visual-studio-code |
+| Productivity | obsidian, devonthink, raycast, linear, granola |
+| Development | ghostty, wezterm, wireshark |
+| Utilities | 1password, gitify, linearmouse, itsycal, qspace-pro, qbittorrent, screen-studio, vial, hammerspoon |
+| Window Management | nikitabobko/tap/aerospace |
+
+**Brews**: imagemagick, ical-buddy, sketchybar, borders, skhd
 
 ### macOS System Defaults
 | Setting | Value |
@@ -904,12 +868,37 @@ All tools are installed automatically via nix-darwin. Here is the complete list:
 | nikitabobko/tap | aerospace |
 
 ### Via Homebrew Casks
-| Cask | Purpose |
-|------|---------|
-| ghostty | Terminal emulator |
-| wezterm | Terminal emulator |
-| aerospace | Tiling window manager |
-| hammerspoon | macOS automation |
+
+| Category | Cask | Purpose |
+|----------|------|---------|
+| **Communication** | telegram | Messaging |
+| | slack | Team communication |
+| | discord | Community chat |
+| | readdle-spark | Email client |
+| **Browsers** | google-chrome | Web browser |
+| | firefox | Web browser |
+| | arc | Web browser |
+| **Editors** | cursor | AI code editor |
+| | windsurf | AI code editor |
+| | visual-studio-code | Code editor |
+| **Productivity** | obsidian | Note-taking |
+| | devonthink | Document management |
+| | raycast | Launcher/productivity |
+| | linear | Issue tracking |
+| | granola | AI meeting notes |
+| **Development** | ghostty | Terminal emulator |
+| | wezterm | Terminal emulator |
+| | wireshark | Network analyzer |
+| **Utilities** | 1password | Password manager |
+| | gitify | GitHub notifications |
+| | linearmouse | Mouse customization |
+| | itsycal | Menu bar calendar |
+| | qspace-pro | File manager |
+| | qbittorrent | Torrent client |
+| | screen-studio | Screen recording |
+| | vial | Keyboard configurator |
+| | hammerspoon | macOS automation |
+| **Window Mgmt** | aerospace | Tiling window manager |
 
 ### Via Homebrew Brews
 | Brew | Purpose |

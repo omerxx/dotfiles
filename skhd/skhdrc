@@ -15,17 +15,8 @@ alt - d : osascript ~/.config/skhd/applescripts/pop.scpt
 # Close notifications
 ralt - n : osascript ~/.config/skhd/applescripts/notifications.scpt
 
-# Notion
-lalt - n : run-external "open" "-a" "/Applications/Notion.app/Contents/MacOS/Notion"
-
-# Min
-ralt - m : run-external "open" "-a" "/Applications/Min.app/Contents/MacOS/Min"
-
 # QuickTime
 alt - q : run-external "open" "-a" `/System/Applications/QuickTime Player.app/Contents/MacOS/QuickTime Player`
-
-# FinalCut
-alt - f : run-external "open" "-a" `/Applications/Final Cut Pro.app/Contents/MacOS/Final Cut Pro`
 
 # Ghostty
 alt - g : run-external "open" "-a" "/Applications/Ghostty.app"

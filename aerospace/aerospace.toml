@@ -64,19 +64,7 @@ if.app-name-regex-substring = 'camera'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'elgato'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'dicord'
-run = 'layout floating'
-
-[[on-window-detected]]
 if.app-name-regex-substring = 'mail'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'trello'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -186,13 +174,10 @@ alt-shift-enter = 'mode apps'
 
 # alt-t = 'exec-and-forget open -a /Applications/Telegram.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
-alt-b = 'exec-and-forget open -a /Applications/Brain.fm.app'
 alt-s = 'exec-and-forget open -a /Applications/Slack.app'
 alt-q = 'exec-and-forget open -a "/System/Applications/QuickTime Player.app"'
 alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
 alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
-alt-e = 'exec-and-forget open -a "/Applications/Final Cut Pro.app"'
-alt-z = 'exec-and-forget open -a /Applications/Zen.app'
 
 
 # 'service' binding mode declaration.

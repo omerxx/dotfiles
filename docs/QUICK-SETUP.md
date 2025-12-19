@@ -2,25 +2,9 @@
 
 Get your full development environment running in under 1 hour.
 
-## Quick Install
-
-```bash
-# 1. Install Xcode Command Line Tools (required for git)
-xcode-select --install
-
-# 2. Clone and run bootstrap
-git clone https://github.com/Klaudioz/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-./bootstrap.sh
-```
-
-Or follow the manual steps below.
-
 ---
 
-## Prerequisites (5 min)
-
-### 0. Install Xcode Command Line Tools
+## Step 1: Install Xcode Command Line Tools
 
 ```bash
 xcode-select --install
@@ -28,34 +12,29 @@ xcode-select --install
 
 This provides Git and essential build tools required by Homebrew and Nix.
 
-### 1. Install Homebrew
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-### 2. Install Nix
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-```
-
-Restart your terminal after installing Nix.
-
 ---
 
-## Automated Install (15 min)
-
-### 1. Clone the Repository
+## Step 2: Clone and Bootstrap
 
 ```bash
 git clone https://github.com/Klaudioz/dotfiles.git ~/dotfiles
-cd ~/dotfiles/nix-darwin
+cd ~/dotfiles
+./bootstrap.sh
 ```
 
-### 2. Configure for Your Machine
+The bootstrap script installs everything automatically:
+- Rosetta 2 (for Intel compatibility)
+- Homebrew
+- Nix with flakes enabled
+- nix-darwin (declarative macOS configuration)
+- All packages and applications via `flake.nix`
+- Dotfile symlinks via stow
 
-Check your hostname and update flake.nix if needed:
+---
+
+## Step 3: Configure for Your Machine
+
+Check your hostname and update `nix-darwin/flake.nix` if needed:
 
 ```bash
 scutil --get ComputerName  # Shows your machine name
@@ -65,51 +44,35 @@ The flake.nix includes configurations for:
 - `Claudios-MacBook-Pro`
 - `m4-mini`
 
-If your hostname differs, add a new configuration block or use the existing one.
+If your hostname differs, add a new `darwinConfigurations` block.
 
-### 3. Deploy
+---
+
+## Step 4: Rebuild (after config changes)
 
 ```bash
-# First time setup
-nix run nix-darwin -- switch --flake .
-
-# Future updates
 darwin-rebuild switch --flake ~/dotfiles/nix-darwin
 ```
-
-This installs all packages automatically:
-- Terminals: ghostty, wezterm
-- Tools: neovim, tmux, fzf, ripgrep, bat, eza, zoxide, atuin
-- Window management: aerospace, sketchybar, borders, skhd, hammerspoon
-- Languages: go, rustup
-- Security: nmap, gobuster, ffuf, ngrok
 
 ---
 
 ## Post-Install Setup (10 min)
 
-### 1. Symlink Dotfiles
-
-```bash
-cd ~/dotfiles
-./setup.sh
-```
-
-### 2. Install tmux Plugins
+### 1. Install tmux Plugins
 
 ```bash
 tmux
 # Press Ctrl-A then Shift-I
 ```
 
-### 3. Install Neovim Plugins
+### 2. Install Neovim Plugins
 
 ```bash
 nvim
 # Plugins auto-install, or run :Lazy install
 ```
 
-### 4. Initialize Tools
+### 3. Initialize Tools
 
 ```bash
 # Initialize zoxide database
@@ -121,7 +84,7 @@ atuin login -u <username>
 atuin sync
 ```
 
-### 5. Build calapp (Optional - Calendar Notifications)
+### 4. Build calapp (Optional - Calendar Notifications)
 
 ```bash
 git clone https://github.com/omerxx/GoMaCal.git /tmp/GoMaCal
@@ -131,7 +94,7 @@ mkdir -p ~/dotfiles/hammerspoon/calendar-app
 cp calapp ~/dotfiles/hammerspoon/calendar-app/
 ```
 
-### 6. Grant Accessibility Permissions
+### 5. Grant Accessibility Permissions
 
 Window management tools require Accessibility access. Run this to open settings:
 

@@ -120,6 +120,11 @@ alias mat='osascript -e "tell application \"System Events\" to key code 126 usin
 export NIX_CONF_DIR=$HOME/.config/nix
 export PATH=/run/current-system/sw/bin:$PATH
 
+# Code editors CLI (cursor, code, windsurf)
+export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+export PATH="/Applications/Cursor.app/Contents/Resources/app/bin:$PATH"
+export PATH="/Applications/Windsurf.app/Contents/Resources/app/bin:$PATH"
+
 function ranger {
 	local IFS=$'\t\n'
 	local tempfile="$(mktemp -t tmp.XXXXXX)"
