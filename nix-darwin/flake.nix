@@ -126,6 +126,7 @@
         "screen-studio"
         "visual-studio-code"
         "readdle-spark"
+        "xbar"
       ];
 
       homebrew.brews = [
