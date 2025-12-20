@@ -65,9 +65,6 @@
         pkgs.doctl
         pkgs.flyctl
       ];
-      # Let Determinate Systems installer manage nix daemon and config
-      nix.enable = false;
-
       programs.zsh.enable = true;  # default shell on catalina
       system.configurationRevision = self.rev or self.dirtyRev or null;
       system.stateVersion = 4;
