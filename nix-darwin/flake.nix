@@ -52,6 +52,7 @@
         pkgs.ngrok
 
         # Developer utilities
+        pkgs.stow
         pkgs.aichat
         pkgs.lazygit
         pkgs.uv
