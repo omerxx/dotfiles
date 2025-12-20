@@ -177,11 +177,8 @@ else
   sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ".#$CURRENT_HOSTNAME"
 fi
 
-# Source the new environment so nix-darwin tools are available
-export PATH="/run/current-system/sw/bin:$PATH"
-if [ -e '/etc/static/zshrc' ]; then
-  source /etc/static/zshrc 2>/dev/null || true
-fi
+# Add nix-darwin tools to PATH for this session
+export PATH="/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH"
 
 print_success "Nix-Darwin configuration applied"
 
