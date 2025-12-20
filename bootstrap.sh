@@ -165,7 +165,16 @@ if command -v darwin-rebuild &> /dev/null; then
   darwin-rebuild switch --flake .
 else
   echo "Running nix-darwin for the first time..."
-  nix run nix-darwin/master#darwin-rebuild -- switch --flake ".#$CURRENT_HOSTNAME"
+
+  # Backup existing config files that nix-darwin wants to manage
+  for file in /etc/nix/nix.conf /etc/zshenv; do
+    if [ -f "$file" ]; then
+      echo "Backing up $file to ${file}.before-nix-darwin"
+      sudo mv "$file" "${file}.before-nix-darwin"
+    fi
+  done
+
+  sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ".#$CURRENT_HOSTNAME"
 fi
 
 print_success "Nix-Darwin configuration applied"
