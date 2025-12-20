@@ -9,10 +9,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, determinate }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
@@ -87,6 +86,7 @@
 
       # Homebrew needs to be installed on its own!
       homebrew.enable = true;
+      homebrew.global.lockfiles = true;  # --no-lock was removed from brew bundle
 
       homebrew.taps = [
         "FelixKratz/formulae"
@@ -139,7 +139,6 @@
     darwinConfigurations."Claudios-MacBook-Pro" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
-        determinate.darwinModules.default
         configuration
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
@@ -152,7 +151,6 @@
     darwinConfigurations."m4-mini" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
-        determinate.darwinModules.default
         configuration
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
