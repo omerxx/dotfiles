@@ -64,8 +64,9 @@
         pkgs.doctl
         pkgs.flyctl
       ];
-      services.nix-daemon.enable = true;
-      nix.settings.experimental-features = "nix-command flakes";
+      # Let Determinate Systems installer manage nix daemon and config
+      nix.enable = false;
+
       programs.zsh.enable = true;  # default shell on catalina
       system.configurationRevision = self.rev or self.dirtyRev or null;
       system.stateVersion = 4;
@@ -75,8 +76,6 @@
 
       users.users.klaudioz.home = "/Users/klaudioz";
       home-manager.backupFileExtension = "backup";
-      nix.configureBuildUsers = true;
-      nix.useDaemon = true;
 
       system.defaults = {
         dock.autohide = true;
