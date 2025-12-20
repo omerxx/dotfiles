@@ -40,7 +40,7 @@
   programs.home-manager.enable = true;
   programs.zsh = {
     enable = true;
-    initExtra = ''
+    initContent = ''
       # Add any additional configurations here
       export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
@@ -48,4 +48,10 @@
       fi
     '';
   };
+
+  # Install global npm packages
+  home.activation.npmPackages = config.lib.dag.entryAfter ["writeBoundary"] ''
+    export PATH="${pkgs.nodejs}/bin:$PATH"
+    ${pkgs.nodejs}/bin/npm install -g @sourcegraph/amp 2>/dev/null || true
+  '';
 }

@@ -118,7 +118,7 @@
         "raycast"
         "gitify"
         "1password"
-        "linear"
+        "linear-linear"
         "linearmouse"
         "itsycal"
         "qbittorrent"
@@ -131,9 +131,9 @@
       homebrew.brews = [
         "imagemagick"
         "ical-buddy"
-        "sketchybar"
-        "borders"
-        "skhd"
+        "felixkratz/formulae/sketchybar"
+        "felixkratz/formulae/borders"
+        "koekeishiya/formulae/skhd"
       ];
     };
   in
