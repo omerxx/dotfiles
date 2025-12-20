@@ -177,6 +177,12 @@ else
   sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ".#$CURRENT_HOSTNAME"
 fi
 
+# Source the new environment so nix-darwin tools are available
+export PATH="/run/current-system/sw/bin:$PATH"
+if [ -e '/etc/static/zshrc' ]; then
+  source /etc/static/zshrc 2>/dev/null || true
+fi
+
 print_success "Nix-Darwin configuration applied"
 
 # Stow dotfiles
@@ -189,7 +195,7 @@ if command -v stow &> /dev/null; then
   ./setup.sh
   print_success "Dotfiles symlinked"
 else
-  print_error "Stow not found. Run: brew install stow"
+  print_error "Stow not found. Restart terminal and run: ./setup.sh"
 fi
 
 # Final step: Accessibility permissions
@@ -198,21 +204,25 @@ echo -e "${GREEN}╔════════════════════
 echo -e "${GREEN}║         Installation Complete!         ║${NC}"
 echo -e "${GREEN}╚════════════════════════════════════════╝${NC}"
 echo ""
-echo -e "${YELLOW}Manual step required:${NC}"
-echo "Grant Accessibility permissions to window management tools."
+echo -e "${YELLOW}Manual steps required:${NC}"
 echo ""
-echo "Opening System Settings > Privacy & Security > Accessibility..."
+echo "1. Start services (they will prompt for Accessibility permissions):"
+echo -e "   ${GREEN}brew services start skhd${NC}"
+echo -e "   ${GREEN}brew services start sketchybar${NC}"
 echo ""
-echo "Enable access for:"
-echo "  - aerospace"
-echo "  - skhd"
-echo "  - Hammerspoon"
-echo "  - sketchybar"
+echo "2. Grant Accessibility permissions in System Settings:"
+echo "   Opening System Settings > Privacy & Security > Accessibility..."
+echo ""
+echo "   Add these apps/binaries:"
+echo "   - Aerospace (from /Applications)"
+echo "   - Hammerspoon (from /Applications)"
+echo "   - skhd: /opt/homebrew/bin/skhd"
+echo "   - sketchybar: /opt/homebrew/bin/sketchybar"
 echo ""
 
 open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
 
-echo "After granting permissions, restart your terminal or run:"
+echo "3. Restart your terminal, then verify installation:"
 echo ""
-echo -e "  ${GREEN}cd $SCRIPT_DIR && ./setup.sh --verify${NC}"
+echo -e "   ${GREEN}cd $SCRIPT_DIR && ./setup.sh --verify${NC}"
 echo ""
