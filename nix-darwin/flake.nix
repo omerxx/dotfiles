@@ -69,8 +69,9 @@
       system.stateVersion = 4;
       nixpkgs.hostPlatform = "aarch64-darwin";
       nixpkgs.config.allowUnfree = true;
-      security.pam.enableSudoTouchIdAuth = true;
+      security.pam.services.sudo_local.touchIdAuth = true;
 
+      system.primaryUser = "klaudioz";
       users.users.klaudioz.home = "/Users/klaudioz";
       home-manager.backupFileExtension = "backup";
 
