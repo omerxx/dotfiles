@@ -64,6 +64,7 @@
         pkgs.doctl
         pkgs.flyctl
       ];
+      nix.enable = false;  # Let Determinate Systems manage Nix
       programs.zsh.enable = true;  # default shell on catalina
       system.configurationRevision = self.rev or self.dirtyRev or null;
       system.stateVersion = 4;
