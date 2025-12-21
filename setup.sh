@@ -133,17 +133,25 @@ run_update() {
 
   echo ""
   echo -e "${YELLOW}Rebuilding nix-darwin configuration...${NC}"
-  sudo darwin-rebuild switch --flake "$SCRIPT_DIR/nix-darwin"
+  # Use full path to darwin-rebuild in case PATH isn't configured yet
+  DARWIN_REBUILD="/run/current-system/sw/bin/darwin-rebuild"
+  if [ ! -x "$DARWIN_REBUILD" ]; then
+    DARWIN_REBUILD="darwin-rebuild"
+  fi
+  sudo "$DARWIN_REBUILD" switch --flake "$SCRIPT_DIR/nix-darwin"
 
   echo ""
   echo -e "${YELLOW}Symlinking dotfiles...${NC}"
   cd "$SCRIPT_DIR"
-  stow .
+  # Use full path to stow in case PATH isn't configured yet
+  STOW="/run/current-system/sw/bin/stow"
+  if [ ! -x "$STOW" ]; then
+    STOW="stow"
+  fi
+  "$STOW" .
 
   echo ""
-  echo -e "${GREEN}Update complete!${NC}"
-  echo ""
-  echo "Run './setup.sh --verify' to verify all tools are installed."
+  echo -e "${GREEN}Update complete! Restart your terminal for PATH changes.${NC}"
 }
 
 case "$1" in
