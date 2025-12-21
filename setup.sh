@@ -119,12 +119,37 @@ show_help() {
   echo "Usage: ./setup.sh [OPTION]"
   echo ""
   echo "Options:"
+  echo "  --update    Pull latest, rebuild nix-darwin, and stow dotfiles"
   echo "  --verify    Check if all required tools are installed"
   echo "  --help      Show this help message"
   echo "  (none)      Run stow to symlink dotfiles"
 }
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+run_update() {
+  echo -e "${YELLOW}Pulling latest changes...${NC}"
+  git pull
+
+  echo ""
+  echo -e "${YELLOW}Rebuilding nix-darwin configuration...${NC}"
+  sudo darwin-rebuild switch --flake "$SCRIPT_DIR/nix-darwin"
+
+  echo ""
+  echo -e "${YELLOW}Symlinking dotfiles...${NC}"
+  cd "$SCRIPT_DIR"
+  stow .
+
+  echo ""
+  echo -e "${GREEN}Update complete!${NC}"
+  echo ""
+  echo "Run './setup.sh --verify' to verify all tools are installed."
+}
+
 case "$1" in
+  --update)
+    run_update
+    ;;
   --verify)
     check_prerequisites
     verify_tools
