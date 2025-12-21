@@ -14,9 +14,13 @@ After editing, run `./setup.sh` to ensure symlinks are current.
 
 macOS development environment managed with Nix-Darwin, Homebrew, and GNU Stow. Configuration targets Apple Silicon Macs with a six-layer architecture: System (nix-darwin) → Window Management (AeroSpace) → Terminal (Ghostty/WezTerm) → Shell (Nushell/Zsh) → Multiplexer (tmux) → Editor (Neovim/LazyVim).
 
-## Key Commands
+## Workflow
+
+**After making changes, always commit and push immediately.** Then tell the user to run `./setup.sh --update`.
 
 **Always use `setup.sh` for updates. Never run `darwin-rebuild` directly.**
+
+## Key Commands
 
 ```bash
 # Bootstrap new machine (installs Homebrew, Nix, nix-darwin, stow)
