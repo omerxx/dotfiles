@@ -193,15 +193,11 @@ show_help() {
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 start_services() {
-  echo -e "${YELLOW}Starting brew services...${NC}"
+  echo -e "${YELLOW}Restarting brew services...${NC}"
 
   for service in sketchybar skhd borders; do
-    if brew services list | grep -q "^$service.*started"; then
-      echo -e "  ${GREEN}✓${NC} $service already running"
-    else
-      brew services start "$service" 2>/dev/null || true
-      echo -e "  ${GREEN}✓${NC} $service started"
-    fi
+    brew services restart "$service" 2>/dev/null || true
+    echo -e "  ${GREEN}✓${NC} $service restarted"
   done
 
   echo ""
