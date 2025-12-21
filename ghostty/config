@@ -1,3 +1,4 @@
+command = /run/current-system/sw/bin/nu
 font-size = 19
 background-blur-radius = 20
 mouse-hide-while-typing = true
