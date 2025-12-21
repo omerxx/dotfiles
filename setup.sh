@@ -44,6 +44,7 @@ verify_tools() {
   echo ""
 
   tools=(
+    # Core tools (nix)
     "nvim:neovim"
     "tmux:tmux"
     "fzf:fzf"
@@ -54,25 +55,31 @@ verify_tools() {
     "atuin:atuin"
     "eza:eza"
     "starship:starship"
+    "go:go"
+    "node:nodejs"
+    "stow:stow"
+    "jq:jq"
+    # Homebrew tools
     "sketchybar:sketchybar"
     "borders:borders"
     "skhd:skhd"
     "icalBuddy:ical-buddy"
-    "go:go"
-    "node:nodejs"
-    "claude:claude-code"
-    "codex:codex-cli"
-    "gemini-cli:gemini-cli"
+    # Developer utilities (nix)
     "aichat:aichat"
     "lazygit:lazygit"
     "uv:uv"
     "delta:delta"
+    # Cloud CLIs (nix)
     "kubectl:kubectl"
     "aws:awscli"
     "gcloud:gcloud"
     "doctl:doctl"
     "flyctl:flyctl"
-    "aicommit2:aicommit2"
+    # npm global packages
+    "claude:claude-code"
+    "amp:@sourcegraph/amp"
+    # GUI apps with CLI (manual setup required)
+    "code:vscode (run 'Install code command' from VS Code)"
   )
 
   missing=()

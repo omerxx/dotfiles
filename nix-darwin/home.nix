@@ -52,6 +52,6 @@
   # Install global npm packages
   home.activation.npmPackages = config.lib.dag.entryAfter ["writeBoundary"] ''
     export PATH="${pkgs.nodejs}/bin:$PATH"
-    ${pkgs.nodejs}/bin/npm install -g @sourcegraph/amp 2>/dev/null || true
+    ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code @sourcegraph/amp 2>/dev/null || true
   '';
 }
