@@ -192,6 +192,21 @@ show_help() {
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+start_services() {
+  echo -e "${YELLOW}Starting brew services...${NC}"
+
+  for service in sketchybar skhd borders; do
+    if brew services list | grep -q "^$service.*started"; then
+      echo -e "  ${GREEN}✓${NC} $service already running"
+    else
+      brew services start "$service" 2>/dev/null || true
+      echo -e "  ${GREEN}✓${NC} $service started"
+    fi
+  done
+
+  echo ""
+}
+
 run_update() {
   echo -e "${YELLOW}Pulling latest changes...${NC}"
   git pull
@@ -216,6 +231,8 @@ run_update() {
   "$STOW" .
 
   echo ""
+  start_services
+
   echo -e "${GREEN}Update complete! Restart your terminal for PATH changes.${NC}"
 }
 
