@@ -85,6 +85,9 @@
         loginwindow.LoginwindowText = "devops-toolbox";
         screencapture.location = "~/Pictures/screenshots";
         screensaver.askForPasswordDelay = 10;
+        # Keyboard: maximum fast key repeat and minimum delay
+        NSGlobalDomain.KeyRepeat = 1;           # Fastest (default: 6)
+        NSGlobalDomain.InitialKeyRepeat = 10;   # Shortest delay (default: 25)
       };
 
       # Homebrew needs to be installed on its own!
