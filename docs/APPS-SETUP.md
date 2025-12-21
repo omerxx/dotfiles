@@ -13,7 +13,7 @@ These apps are foundational - configure them before other apps since they unlock
 **Why first:** Stores all credentials and SSH keys needed for other app logins and GitHub.
 
 **Setup:**
-1. Download from App Store or use Homebrew cask
+1. Open 1Password (installed by nix-darwin)
 2. Sign in with your 1Password account
 3. Enable Safari/browser extension
 4. Enable "Unlock using Touch ID"
@@ -69,38 +69,30 @@ These apps are foundational - configure them before other apps since they unlock
 
 ---
 
+## Apps to Launch First (Enable Auto-Start)
+
+These apps are installed by nix-darwin but need to be opened once to enable "Start at Login":
+
+| App | Action |
+|-----|--------|
+| Raycast | Settings → Enable "Launch at Login" |
+| AeroSpace | Settings → Enable "Start at Login" |
+| Hammerspoon | Preferences → Enable "Launch Hammerspoon at login" |
+| Itsycal | Preferences → Enable "Launch at Login" |
+| Gitify | Settings → Enable auto-start |
+| LinearMouse | Settings → Enable "Launch at Login" |
+| xbar | Preferences → Enable "Start at Login" |
+
+**Managed by brew services (auto-start already configured):**
+- sketchybar
+- skhd
+- borders
+
+---
+
 ## Apps Requiring Manual Restoration
 
 These apps store configurations locally or use proprietary sync that needs setup.
-
-### Raycast
-
-**Backup location:** `~/.config/raycast/` (partial) + Raycast account sync
-
-**To backup:**
-1. Raycast → Settings → Advanced → Export
-2. Save the `.rayconfig` file somewhere safe (iCloud, Git, etc.)
-
-**To restore:**
-1. Raycast → Settings → Advanced → Import
-2. Select your `.rayconfig` file
-3. Re-authenticate extensions that require API keys:
-   - GitHub
-   - Linear
-   - Notion
-   - etc.
-
-**Extensions to reinstall:** Extensions are listed in the config but may need:
-- Manual re-installation from store
-- API key re-entry
-- OAuth re-authentication
-
-**Recommended extensions:** (document your preferred ones here)
-- Clipboard History
-- Window Management
-- ...
-
----
 
 ### Arc Browser
 
@@ -176,45 +168,17 @@ open "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles"
 
 ---
 
-## Configuration Backup Strategies
-
-### Option 1: Git (for config files)
-```bash
-# Add config files to dotfiles repo
-cp ~/.config/raycast/config.json ~/dotfiles/raycast/
-
-# For sensitive files, use git-crypt or store separately
-```
-
-### Option 2: iCloud Drive
-Store exports in: `~/Library/Mobile Documents/com~apple~CloudDocs/App Configs/`
-
-### Option 3: Mackup
-```bash
-brew install mackup
-mackup backup   # Backs up app configs to iCloud/Dropbox
-mackup restore  # Restores on new machine
-```
-
-**Mackup supported apps:** https://github.com/lra/mackup#supported-applications
-
-### Option 4: Export Files
-Keep a folder of `.rayconfig`, `.json` exports for manual restoration.
-
----
-
 ## Post-Install Checklist
 
 After running dotfiles bootstrap:
 
-- [ ] Sign into 1Password
+- [ ] Sign into 1Password + enable SSH agent
+- [ ] Run `./setup.sh --github`
 - [ ] Open Obsidian vault from iCloud
 - [ ] Sign into Telegram
-- [ ] Import Raycast config
-- [ ] Sign into browsers (Arc, Safari, Firefox)
+- [ ] Launch and enable auto-start: Raycast, AeroSpace, Hammerspoon, etc.
 - [ ] Grant Accessibility permissions
-- [ ] Sign into VS Code/Cursor for Settings Sync
-- [ ] Verify cloud apps are syncing (Notion, Figma, etc.)
+- [ ] Sign into browsers and other apps
 
 ---
 
