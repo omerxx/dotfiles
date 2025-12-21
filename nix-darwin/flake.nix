@@ -93,6 +93,11 @@
         NSGlobalDomain.InitialKeyRepeat = 10;   # Shortest delay (default: 25)
       };
 
+      # Set desktop wallpaper
+      system.activationScripts.postActivation.text = ''
+        osascript -e 'tell application "System Events" to tell every desktop to set picture to POSIX file "/Users/klaudioz/dotfiles/wallpaper.jpeg"'
+      '';
+
       # Homebrew needs to be installed on its own!
       homebrew.enable = true;
       homebrew.global.lockfiles = true;  # --no-lock was removed from brew bundle
