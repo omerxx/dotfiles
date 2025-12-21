@@ -192,6 +192,23 @@ show_help() {
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+setup_macos_configs() {
+  # Nushell on macOS uses ~/Library/Application Support/nushell/ instead of ~/.config/nushell/
+  NUSHELL_MACOS_DIR="$HOME/Library/Application Support/nushell"
+  NUSHELL_TARGET="$SCRIPT_DIR/nushell"
+
+  if [ -d "$NUSHELL_MACOS_DIR" ] && [ ! -L "$NUSHELL_MACOS_DIR" ]; then
+    echo "Setting up nushell config for macOS..."
+    rm -rf "$NUSHELL_MACOS_DIR"
+    ln -s "$NUSHELL_TARGET" "$NUSHELL_MACOS_DIR"
+    echo -e "  ${GREEN}✓${NC} nushell config linked"
+  elif [ ! -e "$NUSHELL_MACOS_DIR" ]; then
+    echo "Setting up nushell config for macOS..."
+    ln -s "$NUSHELL_TARGET" "$NUSHELL_MACOS_DIR"
+    echo -e "  ${GREEN}✓${NC} nushell config linked"
+  fi
+}
+
 start_services() {
   echo -e "${YELLOW}Restarting brew services...${NC}"
 
@@ -225,6 +242,7 @@ run_update() {
     STOW="stow"
   fi
   "$STOW" .
+  setup_macos_configs
 
   echo ""
   start_services
@@ -250,6 +268,7 @@ case "$1" in
     check_prerequisites
     echo "Symlinking dotfiles with stow..."
     stow .
+    setup_macos_configs
     echo -e "${GREEN}Done!${NC}"
     echo ""
     echo "Run './setup.sh --verify' to check if all tools are installed."
