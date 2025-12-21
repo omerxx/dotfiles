@@ -64,6 +64,7 @@
         pkgs.google-cloud-sdk
         pkgs.doctl
         pkgs.flyctl
+        pkgs.gh
       ];
       nix.enable = false;  # Let Determinate Systems manage Nix
       programs.zsh.enable = true;  # default shell on catalina
