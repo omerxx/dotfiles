@@ -38,6 +38,11 @@
       "$HOME/.nix-profile/bin"
   ];
   programs.home-manager.enable = true;
+  programs.git = {
+    enable = true;
+    settings.user.name = "Claudio Canales";
+    settings.user.email = "klaudioz@gmail.com";
+  };
   programs.zsh = {
     enable = true;
     initContent = ''
