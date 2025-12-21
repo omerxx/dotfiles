@@ -84,7 +84,7 @@
         finder.AppleShowAllExtensions = true;
         finder.FXPreferredViewStyle = "clmv";
         finder.CreateDesktop = false;           # Hide all desktop icons
-        loginwindow.LoginwindowText = "devops-toolbox";
+        loginwindow.LoginwindowText = "m4-mini";
         screencapture.location = "~/Pictures/screenshots";
         screencapture.target = "clipboard";     # Cmd+Shift+4 copies to clipboard
         screensaver.askForPasswordDelay = 10;
