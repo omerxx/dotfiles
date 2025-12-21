@@ -41,17 +41,27 @@
   programs.zsh = {
     enable = true;
     initContent = ''
-      # Add any additional configurations here
-      export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
+      # Homebrew (Apple Silicon)
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+
+      # Nix
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
+
+      # nix-darwin and nix-profile
+      export PATH="/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH"
+
+      # npm global packages
+      export PATH="$HOME/.npm-global/bin:$PATH"
     '';
   };
 
   # Install global npm packages
   home.activation.npmPackages = config.lib.dag.entryAfter ["writeBoundary"] ''
     export PATH="${pkgs.nodejs}/bin:$PATH"
+    mkdir -p $HOME/.npm-global
+    ${pkgs.nodejs}/bin/npm config set prefix $HOME/.npm-global
     ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code @sourcegraph/amp 2>/dev/null || true
   '';
 }
