@@ -1,19 +1,22 @@
 # APPS #
 
+# Safari
+alt - s : open -a "Safari"
+
 # Telegram
 alt - t : open -a "Telegram"
 
 # Obsidian
 alt - o : open -a "Obsidian"
 
-# Slack
-alt - s : open -a "Slack"
+# Show date
+alt - d : osascript ~/.config/skhd/applescripts/pop.scpt
+
+# Close notifications
+ralt - n : osascript ~/.config/skhd/applescripts/notifications.scpt
 
 # QuickTime
 alt - q : open -a "QuickTime Player"
 
 # Ghostty
 alt - g : open -a "Ghostty"
-
-# Finder
-alt - f : open -a "Finder"
