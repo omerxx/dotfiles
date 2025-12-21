@@ -64,4 +64,11 @@
     ${pkgs.nodejs}/bin/npm config set prefix $HOME/.npm-global
     ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code @sourcegraph/amp 2>/dev/null || true
   '';
+
+  # Install VS Code extensions
+  home.activation.vscodeExtensions = config.lib.dag.entryAfter ["writeBoundary"] ''
+    if command -v code &> /dev/null; then
+      code --install-extension ms-vscode-remote.remote-containers --force 2>/dev/null || true
+    fi
+  '';
 }
