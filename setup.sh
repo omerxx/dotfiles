@@ -115,11 +115,76 @@ verify_tools() {
   echo -e "${GREEN}All tools verified!${NC}"
 }
 
+setup_github_ssh() {
+  echo -e "${YELLOW}Setting up GitHub SSH authentication...${NC}"
+  echo ""
+
+  # Check if 1Password SSH agent socket exists
+  OP_AGENT="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  if [ ! -S "$OP_AGENT" ]; then
+    echo -e "${RED}1Password SSH agent not found.${NC}"
+    echo ""
+    echo "To enable it:"
+    echo "  1. Open 1Password → Settings → Developer"
+    echo "  2. Enable 'Use the SSH agent'"
+    echo "  3. Enable 'Integrate with 1Password CLI'"
+    echo ""
+    echo "Then add an SSH key in 1Password:"
+    echo "  1. Create new item → SSH Key"
+    echo "  2. Generate a new key or import existing"
+    echo "  3. Add the public key to GitHub: https://github.com/settings/ssh/new"
+    exit 1
+  fi
+
+  echo -e "${GREEN}✓${NC} 1Password SSH agent detected"
+
+  # Stow ssh config if not already done
+  if [ ! -L "$HOME/.ssh/config" ]; then
+    echo "Symlinking SSH config..."
+    cd "$SCRIPT_DIR"
+    stow ssh
+  fi
+  echo -e "${GREEN}✓${NC} SSH config linked"
+
+  # Test GitHub connection
+  echo ""
+  echo "Testing GitHub SSH connection..."
+  if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+    echo -e "${GREEN}✓${NC} GitHub SSH authentication successful!"
+  else
+    echo -e "${YELLOW}!${NC} GitHub connection test (this is normal if key is new):"
+    ssh -T git@github.com 2>&1 || true
+    echo ""
+    echo "If you see 'Permission denied', add your SSH public key to GitHub:"
+    echo "  https://github.com/settings/ssh/new"
+    echo ""
+    echo "To get your public key from 1Password:"
+    echo "  1. Open 1Password → find your SSH Key item"
+    echo "  2. Click 'public key' to copy it"
+  fi
+
+  # Switch this repo to SSH
+  echo ""
+  CURRENT_REMOTE=$(git remote get-url origin 2>/dev/null || echo "")
+  if [[ "$CURRENT_REMOTE" == https://github.com/* ]]; then
+    SSH_REMOTE=$(echo "$CURRENT_REMOTE" | sed 's|https://github.com/|git@github.com:|')
+    echo "Switching dotfiles remote to SSH..."
+    git remote set-url origin "$SSH_REMOTE"
+    echo -e "${GREEN}✓${NC} Remote updated: $SSH_REMOTE"
+  elif [[ "$CURRENT_REMOTE" == git@github.com:* ]]; then
+    echo -e "${GREEN}✓${NC} Remote already using SSH: $CURRENT_REMOTE"
+  fi
+
+  echo ""
+  echo -e "${GREEN}GitHub SSH setup complete!${NC}"
+}
+
 show_help() {
   echo "Usage: ./setup.sh [OPTION]"
   echo ""
   echo "Options:"
   echo "  --update    Pull latest, rebuild nix-darwin, and stow dotfiles"
+  echo "  --github    Set up GitHub SSH authentication via 1Password"
   echo "  --verify    Check if all required tools are installed"
   echo "  --help      Show this help message"
   echo "  (none)      Run stow to symlink dotfiles"
@@ -157,6 +222,9 @@ run_update() {
 case "$1" in
   --update)
     run_update
+    ;;
+  --github)
+    setup_github_ssh
     ;;
   --verify)
     check_prerequisites

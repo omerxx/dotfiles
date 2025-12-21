@@ -10,13 +10,29 @@ These apps are foundational - configure them before other apps since they unlock
 
 ### 1. 1Password
 
-**Why first:** Stores all credentials needed for other app logins.
+**Why first:** Stores all credentials and SSH keys needed for other app logins and GitHub.
 
 **Setup:**
 1. Download from App Store or use Homebrew cask
 2. Sign in with your 1Password account
 3. Enable Safari/browser extension
 4. Enable "Unlock using Touch ID"
+
+**Enable SSH Agent (for GitHub):**
+1. 1Password → Settings → Developer
+2. Enable "Use the SSH agent"
+3. Enable "Integrate with 1Password CLI"
+
+**Add SSH Key for GitHub:**
+1. In 1Password: Create new item → SSH Key
+2. Generate a new key or import existing
+3. Copy the public key
+4. Add to GitHub: https://github.com/settings/ssh/new
+
+**Then run:**
+```bash
+./setup.sh --github
+```
 
 **Backup/Restore:** Cloud-synced automatically via 1Password account.
 
