@@ -113,13 +113,16 @@ if 'IN_NIX_SHELL' not-in $env and 'DEVBOX_SHELL_ENABLED' not-in $env {
     ])
 }
 
-devbox global shellenv --format nushell --preserve-path-stack -r
-  | lines 
-  | parse "$env.{name} = \"{value}\""
-  | where name != null 
-  | transpose -r 
-  | into record 
-  | load-env
+# Load devbox environment if devbox is available
+if (which devbox | is-not-empty) {
+  devbox global shellenv --format nushell --preserve-path-stack -r
+    | lines
+    | parse "$env.{name} = \"{value}\""
+    | where name != null
+    | transpose -r
+    | into record
+    | load-env
+}
 
 
 # To load from a custom file you can use:
