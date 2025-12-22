@@ -220,11 +220,33 @@ start_services() {
   echo ""
 }
 
+update_external_repos() {
+  echo -e "${YELLOW}Updating external repositories...${NC}"
+
+  OH_MY_OPENCODE_DIR="$HOME/.local/share/oh-my-opencode"
+  OH_MY_OPENCODE_REPO="https://github.com/code-yeongyu/oh-my-opencode.git"
+
+  if [ ! -d "$OH_MY_OPENCODE_DIR" ]; then
+    echo "Cloning oh-my-opencode..."
+    mkdir -p "$(dirname "$OH_MY_OPENCODE_DIR")"
+    git clone "$OH_MY_OPENCODE_REPO" "$OH_MY_OPENCODE_DIR"
+    echo -e "  ${GREEN}✓${NC} oh-my-opencode cloned"
+  else
+    echo "Updating oh-my-opencode..."
+    git -C "$OH_MY_OPENCODE_DIR" pull
+    echo -e "  ${GREEN}✓${NC} oh-my-opencode updated"
+  fi
+
+  echo ""
+}
+
 run_update() {
   echo -e "${YELLOW}Pulling latest changes...${NC}"
   git pull
 
   echo ""
+  update_external_repos
+
   echo -e "${YELLOW}Rebuilding nix-darwin configuration...${NC}"
   # Use full path to darwin-rebuild in case PATH isn't configured yet
   DARWIN_REBUILD="/run/current-system/sw/bin/darwin-rebuild"
@@ -266,6 +288,7 @@ case "$1" in
     ;;
   *)
     check_prerequisites
+    update_external_repos
     echo "Symlinking dotfiles with stow..."
     stow .
     setup_macos_configs
