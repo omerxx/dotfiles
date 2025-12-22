@@ -57,6 +57,7 @@
         pkgs.lazygit
         pkgs.uv
         pkgs.delta
+        pkgs.cmatrix
 
         # Cloud CLIs
         pkgs.kubectl
