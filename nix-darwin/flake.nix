@@ -143,6 +143,7 @@
       homebrew.brews = [
         "imagemagick"
         "ical-buddy"
+        "opencode"
         "felixkratz/formulae/sketchybar"
         "felixkratz/formulae/borders"
         "koekeishiya/formulae/skhd"
