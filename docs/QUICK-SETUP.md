@@ -110,9 +110,32 @@ Enable access for:
 
 Note: This step cannot be automated on macOS without disabling SIP.
 
-### 6. Install AI Coding CLI Tools
+### 6. Configure AI Coding Tools
 
-After running `darwin-rebuild switch`, install the AI coding assistants:
+#### OpenCode with oh-my-opencode (Primary AI Tool)
+
+OpenCode is installed via Homebrew (included in flake.nix). The oh-my-opencode plugin is automatically cloned by `setup.sh` to `~/.local/share/oh-my-opencode`.
+
+**Required: Set your OpenAI API key** (oh-my-opencode uses OpenAI models by default):
+
+```bash
+export OPENAI_API_KEY="your-openai-api-key"
+```
+
+Add this to your shell profile (`~/.zshrc` or nushell config) for persistence.
+
+**Verify installation:**
+
+```bash
+opencode --version
+```
+
+**Configuration files:**
+- Global config: `~/.config/opencode/opencode.json` (managed by this repo)
+- User overrides: `~/.config/opencode/oh-my-opencode.json` (optional)
+- Project config: `.opencode/oh-my-opencode.json` (optional, per-project)
+
+#### Other AI CLI Tools (Optional)
 
 ```bash
 # Configure npm global directory (one-time setup)
@@ -138,13 +161,10 @@ go install github.com/eliben/gemini-cli@latest
 git config --global core.pager delta
 ```
 
-**API Key Configuration:**
-
-Each tool requires an API key. Add these to your shell profile or export before use:
+**API Keys for other tools:**
 
 ```bash
 export ANTHROPIC_API_KEY="your-key-here"
-export OPENAI_API_KEY="your-key-here"
 export GEMINI_API_KEY="your-key-here"
 ```
 
@@ -174,11 +194,12 @@ sketchybar --version
 aerospace --version
 
 # AI CLI tools
-claude --version
-codex --version
-gemini-cli --version
+opencode --version      # Primary (installed via brew)
+claude --version        # Optional
+codex --version         # Optional
+gemini-cli --version    # Optional
 aichat --version
-aicommit2 --version
+aicommit2 --version     # Optional
 
 # Developer utilities
 lazygit --version
