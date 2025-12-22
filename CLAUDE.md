@@ -20,6 +20,12 @@ macOS development environment managed with Nix-Darwin, Homebrew, and GNU Stow. C
 
 **Always use `setup.sh` for updates. Never run `darwin-rebuild` directly.**
 
+## Commit Rules
+
+- **NEVER add `Co-Authored-By` trailers to commit messages**
+- Keep commit messages concise and descriptive
+- Use conventional commit format: `type: description` (e.g., `feat:`, `fix:`, `docs:`)
+
 ## Key Commands
 
 ```bash
