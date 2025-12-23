@@ -142,6 +142,7 @@
       ];
 
       homebrew.brews = [
+        "cmake"
         "imagemagick"
         "ical-buddy"
         "opencode"
