@@ -133,7 +133,6 @@
         "1password"
         "linear-linear"
         "linearmouse"
-        "livewallpaper"
         "itsycal"
         "qbittorrent"
         "screen-studio"
