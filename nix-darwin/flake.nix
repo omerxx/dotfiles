@@ -82,6 +82,7 @@
       system.defaults = {
         dock.autohide = true;
         dock.mru-spaces = false;
+        dock.persistent-apps = [];  # Empty dock - no pinned apps
         finder.AppleShowAllExtensions = true;
         finder.FXPreferredViewStyle = "clmv";
         finder.CreateDesktop = false;           # Hide all desktop icons
