@@ -75,6 +75,9 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${GOPATH}/bin:/Users/kl
 
 alias cl='clear'
 
+# OpenCode
+alias o="opencode"
+
 # K8S
 export KUBECONFIG=~/.kube/config
 alias k="kubectl"
