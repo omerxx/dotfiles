@@ -58,6 +58,7 @@
         pkgs.uv
         pkgs.delta
         pkgs.cmatrix
+        pkgs.mactop
 
         # Fonts
         pkgs.nerd-fonts.jetbrains-mono
