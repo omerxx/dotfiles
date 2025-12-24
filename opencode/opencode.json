@@ -1,7 +1,7 @@
 {
   "plugin": [
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.2.2"
+    "opencode-antigravity-auth@1.2.4"
   ],
   "$schema": "https://opencode.ai/config.json",
   "provider": {
