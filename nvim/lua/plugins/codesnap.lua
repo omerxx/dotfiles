@@ -1,9 +1,9 @@
 return {
   "mistricky/codesnap.nvim",
   build = "make",
-  config = function()
-    require("codesnap").setup({
-      watermark = "",
-    })
-  end,
+  lazy = true,
+  cmd = { "CodeSnap", "CodeSnapSave", "CodeSnapHighlight", "CodeSnapSaveHighlight" },
+  opts = {
+    watermark = "",
+  },
 }

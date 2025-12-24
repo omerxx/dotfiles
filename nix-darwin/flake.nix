@@ -26,7 +26,6 @@
         pkgs.carapace
 
         # Core tools
-        pkgs.neovim
         pkgs.tmux
         pkgs.fzf
         pkgs.fd
@@ -150,6 +149,7 @@
       ];
 
       homebrew.brews = [
+        "neovim"
         "cmake"
         "imagemagick"
         "ical-buddy"
