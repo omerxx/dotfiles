@@ -1,0 +1,11 @@
+# VS Code Extensions - Auto-installed by setup.sh
+# One extension ID per line
+
+# Windsurf Theme (required for Windsurf look)
+berrydev-ai.windsurf-color-theme
+
+# Icon Theme
+PKief.material-icon-theme
+
+# Font with ligatures (install JetBrains Mono font separately)
+# Download from: https://www.jetbrains.com/lp/mono/

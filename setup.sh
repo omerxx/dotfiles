@@ -209,6 +209,53 @@ setup_macos_configs() {
   fi
 }
 
+setup_vscode_configs() {
+  echo -e "${YELLOW}Setting up VS Code configuration...${NC}"
+
+  VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
+  VSCODE_SETTINGS_SOURCE="$SCRIPT_DIR/vscode/settings.json"
+  VSCODE_EXTENSIONS_FILE="$SCRIPT_DIR/vscode/extensions.txt"
+
+  # Create VS Code User directory if it doesn't exist
+  mkdir -p "$VSCODE_USER_DIR"
+
+  # Symlink settings.json
+  VSCODE_SETTINGS_TARGET="$VSCODE_USER_DIR/settings.json"
+  if [ -L "$VSCODE_SETTINGS_TARGET" ]; then
+    echo -e "  ${GREEN}✓${NC} VS Code settings already linked"
+  elif [ -f "$VSCODE_SETTINGS_TARGET" ]; then
+    echo "  Backing up existing VS Code settings..."
+    mv "$VSCODE_SETTINGS_TARGET" "$VSCODE_SETTINGS_TARGET.backup"
+    ln -s "$VSCODE_SETTINGS_SOURCE" "$VSCODE_SETTINGS_TARGET"
+    echo -e "  ${GREEN}✓${NC} VS Code settings linked (backup created)"
+  else
+    ln -s "$VSCODE_SETTINGS_SOURCE" "$VSCODE_SETTINGS_TARGET"
+    echo -e "  ${GREEN}✓${NC} VS Code settings linked"
+  fi
+
+  # Install extensions if 'code' command is available
+  if command -v code &> /dev/null; then
+    echo "  Installing VS Code extensions..."
+    while IFS= read -r extension || [ -n "$extension" ]; do
+      # Skip comments and empty lines
+      [[ "$extension" =~ ^#.*$ || -z "$extension" ]] && continue
+      # Trim whitespace
+      extension=$(echo "$extension" | xargs)
+      if [ -n "$extension" ]; then
+        code --install-extension "$extension" --force 2>/dev/null && \
+          echo -e "    ${GREEN}✓${NC} $extension" || \
+          echo -e "    ${YELLOW}!${NC} $extension (may already be installed)"
+      fi
+    done < "$VSCODE_EXTENSIONS_FILE"
+  else
+    echo -e "  ${YELLOW}!${NC} 'code' command not found. Open VS Code and run:"
+    echo "      Command Palette > 'Shell Command: Install code command in PATH'"
+    echo "      Then run './setup.sh' again to install extensions."
+  fi
+
+  echo ""
+}
+
 start_services() {
   echo -e "${YELLOW}Restarting brew services...${NC}"
 
@@ -258,13 +305,13 @@ run_update() {
   echo ""
   echo -e "${YELLOW}Symlinking dotfiles...${NC}"
   cd "$SCRIPT_DIR"
-  # Use full path to stow in case PATH isn't configured yet
   STOW="/run/current-system/sw/bin/stow"
   if [ ! -x "$STOW" ]; then
     STOW="stow"
   fi
   "$STOW" .
   setup_macos_configs
+  setup_vscode_configs
 
   echo ""
   start_services
@@ -292,6 +339,7 @@ case "$1" in
     echo "Symlinking dotfiles with stow..."
     stow .
     setup_macos_configs
+    setup_vscode_configs
     echo -e "${GREEN}Done!${NC}"
     echo ""
     echo "Run './setup.sh --verify' to check if all tools are installed."

@@ -59,6 +59,9 @@
         pkgs.delta
         pkgs.cmatrix
 
+        # Fonts
+        pkgs.nerd-fonts.jetbrains-mono
+
         # Cloud CLIs
         pkgs.kubectl
         pkgs.awscli2

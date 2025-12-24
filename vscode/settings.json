@@ -1,0 +1,69 @@
+{
+  // ===========================================
+  // WINDSURF-LIKE APPEARANCE
+  // ===========================================
+  "workbench.colorTheme": "Windsurf",
+  "editor.fontFamily": "JetBrains Mono, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.fontLigatures": true,
+  "editor.lineHeight": 1.5,
+
+  // ===========================================
+  // EDITOR SETTINGS
+  // ===========================================
+  "editor.minimap.enabled": false,
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.renderWhitespace": "selection",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "off",
+  "editor.linkedEditing": true,
+  "editor.inlineSuggest.enabled": true,
+
+  // ===========================================
+  // WORKBENCH
+  // ===========================================
+  "workbench.startupEditor": "none",
+  "workbench.sideBar.location": "left",
+  "workbench.activityBar.location": "top",
+  "workbench.tree.indent": 16,
+  "workbench.iconTheme": "material-icon-theme",
+
+  // ===========================================
+  // TERMINAL
+  // ===========================================
+  "terminal.integrated.fontFamily": "JetBrains Mono",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.lineHeight": 1.4,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+
+  // ===========================================
+  // FILES
+  // ===========================================
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/__pycache__": true
+  },
+
+  // ===========================================
+  // GIT
+  // ===========================================
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+
+  // ===========================================
+  // EXTENSIONS SPECIFIC
+  // ===========================================
+  "extensions.ignoreRecommendations": false
+}
