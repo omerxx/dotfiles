@@ -261,6 +261,32 @@ setup_vscode_configs() {
   echo ""
 }
 
+install_uv_tools() {
+  echo -e "${YELLOW}Installing Python CLI tools via uv...${NC}"
+
+  UV="/run/current-system/sw/bin/uv"
+  if [ ! -x "$UV" ]; then
+    UV="uv"
+  fi
+
+  if ! command -v "$UV" &> /dev/null; then
+    echo -e "  ${YELLOW}!${NC} uv not found, skipping Python tools"
+    return
+  fi
+
+  tools=(
+    "sqlit-tui"
+  )
+
+  for tool in "${tools[@]}"; do
+    "$UV" tool install "$tool" 2>/dev/null && \
+      echo -e "  ${GREEN}✓${NC} $tool" || \
+      echo -e "  ${YELLOW}!${NC} $tool (may already be installed)"
+  done
+
+  echo ""
+}
+
 start_services() {
   echo -e "${YELLOW}Restarting brew services...${NC}"
 
@@ -317,6 +343,7 @@ run_update() {
   "$STOW" .
   setup_macos_configs
   setup_vscode_configs
+  install_uv_tools
 
   echo ""
   start_services
