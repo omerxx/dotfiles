@@ -38,6 +38,8 @@
         pkgs.tree
         pkgs.go
         pkgs.nodejs
+        pkgs.bun
+        pkgs.pnpm
         pkgs.rustup
         pkgs.xh
         pkgs.kubectx
