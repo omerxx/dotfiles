@@ -215,11 +215,11 @@ setup_vscode_configs() {
   VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
   VSCODE_SETTINGS_SOURCE="$SCRIPT_DIR/vscode/settings.json"
   VSCODE_EXTENSIONS_FILE="$SCRIPT_DIR/vscode/extensions.txt"
+  WINDSURF_VSIX_URL="https://github.com/berrydev-ai/windsurf-color-theme/raw/main/windsurf-color-theme-0.0.1.vsix"
+  WINDSURF_VSIX_PATH="/tmp/windsurf-color-theme.vsix"
 
-  # Create VS Code User directory if it doesn't exist
   mkdir -p "$VSCODE_USER_DIR"
 
-  # Symlink settings.json
   VSCODE_SETTINGS_TARGET="$VSCODE_USER_DIR/settings.json"
   if [ -L "$VSCODE_SETTINGS_TARGET" ]; then
     echo -e "  ${GREEN}✓${NC} VS Code settings already linked"
@@ -233,13 +233,18 @@ setup_vscode_configs() {
     echo -e "  ${GREEN}✓${NC} VS Code settings linked"
   fi
 
-  # Install extensions if 'code' command is available
   if command -v code &> /dev/null; then
     echo "  Installing VS Code extensions..."
+
+    echo "  Downloading Windsurf theme..."
+    curl -sL "$WINDSURF_VSIX_URL" -o "$WINDSURF_VSIX_PATH" && \
+      code --install-extension "$WINDSURF_VSIX_PATH" --force 2>/dev/null && \
+      echo -e "    ${GREEN}✓${NC} Windsurf theme" || \
+      echo -e "    ${YELLOW}!${NC} Windsurf theme (download or install failed)"
+    rm -f "$WINDSURF_VSIX_PATH"
+
     while IFS= read -r extension || [ -n "$extension" ]; do
-      # Skip comments and empty lines
       [[ "$extension" =~ ^#.*$ || -z "$extension" ]] && continue
-      # Trim whitespace
       extension=$(echo "$extension" | xargs)
       if [ -n "$extension" ]; then
         code --install-extension "$extension" --force 2>/dev/null && \
