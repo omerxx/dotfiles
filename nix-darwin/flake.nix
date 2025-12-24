@@ -139,6 +139,7 @@
         "visual-studio-code"
         "readdle-spark"
         "xbar"
+        "codex"
       ];
 
       homebrew.brews = [
