@@ -80,6 +80,8 @@
       nixpkgs.hostPlatform = "aarch64-darwin";
       nixpkgs.config.allowUnfree = true;
       security.pam.services.sudo_local.touchIdAuth = true;
+      security.pam.services.sudo_local.watchIdAuth = true;   # Apple Watch for sudo (Mac mini has no Touch ID)
+      security.pam.services.sudo_local.reattach = true;      # Fix auth inside tmux/screen
 
       system.primaryUser = "klaudioz";
       users.users.klaudioz.home = "/Users/klaudioz";
@@ -104,6 +106,12 @@
       # Set desktop wallpaper
       system.activationScripts.postActivation.text = ''
         osascript -e 'tell application "System Events" to tell every desktop to set picture to POSIX file "/Users/klaudioz/dotfiles/wallpaper.jpeg"'
+
+        # Deploy Chrome managed policies (force-install extensions)
+        mkdir -p "/Library/Managed Preferences"
+        cp /Users/klaudioz/dotfiles/chrome/com.google.Chrome.plist "/Library/Managed Preferences/"
+        chown root:wheel "/Library/Managed Preferences/com.google.Chrome.plist"
+        chmod 644 "/Library/Managed Preferences/com.google.Chrome.plist"
       '';
 
       # Homebrew needs to be installed on its own!
