@@ -34,6 +34,7 @@
         pkgs.zoxide
         pkgs.atuin
         pkgs.eza
+        pkgs.yazi
         pkgs.tree
         pkgs.go
         pkgs.nodejs
