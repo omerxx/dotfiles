@@ -90,9 +90,9 @@
         screencapture.location = "~/Pictures/screenshots";
         screencapture.target = "clipboard";     # Cmd+Shift+4 copies to clipboard
         screensaver.askForPasswordDelay = 10;
-        # Keyboard: maximum fast key repeat and minimum delay
-        NSGlobalDomain.KeyRepeat = 1;           # Fastest (default: 6)
-        NSGlobalDomain.InitialKeyRepeat = 10;   # Shortest delay (default: 25)
+        # Keyboard: fast but controllable key repeat
+        NSGlobalDomain.KeyRepeat = 2;           # Fast (default: 6)
+        NSGlobalDomain.InitialKeyRepeat = 15;   # Short delay (default: 25)
       };
 
       # Set desktop wallpaper
