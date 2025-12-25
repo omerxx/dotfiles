@@ -12,7 +12,6 @@
 - [03 - Terminal-Environment](03 - Terminal-Environment.md)
 - [03.a - Terminal-Emulators](03.a - Terminal-Emulators.md)
 - [03.a.1 - Ghostty-Configuration](03.a.1 - Ghostty-Configuration.md)
-- [03.a.2 - WezTerm-Configuration](03.a.2 - WezTerm-Configuration.md)
 - [03.b - Shell-Configuration](03.b - Shell-Configuration.md)
 - [03.b.1 - Nushell-Setup](03.b.1 - Nushell-Setup.md)
 - [03.b.2 - Zsh-Setup](03.b.2 - Zsh-Setup.md)

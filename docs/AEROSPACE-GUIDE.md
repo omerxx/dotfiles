@@ -92,7 +92,6 @@ All shortcuts use **Alt (Option)** as the main modifier.
 |----------|--------|
 | `Alt + O` | Open Obsidian |
 | `Alt + S` | Open Slack |
-| `Alt + W` | Open WezTerm |
 | `Alt + F` | Open Finder |
 | `Alt + Q` | Open QuickTime |
 

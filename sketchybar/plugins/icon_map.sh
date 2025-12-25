@@ -356,7 +356,7 @@ case "$1" in
 "Podcasts")
   icon_result=":podcasts:"
   ;;
-"Alacritty" | "Hyper" | "iTerm2" | "kitty" | "Terminal" | "WezTerm")
+"Alacritty" | "Hyper" | "iTerm2" | "kitty" | "Terminal")
   icon_result=":terminal:"
   ;;
 "Tor Browser")

@@ -12,7 +12,7 @@ After editing, run `./setup.sh` to ensure symlinks are current.
 
 ## Repository Overview
 
-macOS development environment managed with Nix-Darwin, Homebrew, and GNU Stow. Configuration targets Apple Silicon Macs with a six-layer architecture: System (nix-darwin) → Window Management (AeroSpace) → Terminal (Ghostty/WezTerm) → Shell (Nushell/Zsh) → Multiplexer (tmux) → Editor (Neovim/LazyVim).
+macOS development environment managed with Nix-Darwin, Homebrew, and GNU Stow. Configuration targets Apple Silicon Macs with a six-layer architecture: System (nix-darwin) → Window Management (AeroSpace) → Terminal (Ghostty) → Shell (Nushell/Zsh) → Multiplexer (tmux) → Editor (Neovim/LazyVim).
 
 ## Workflow
 

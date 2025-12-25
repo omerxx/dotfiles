@@ -62,6 +62,7 @@
         pkgs.delta
         pkgs.cmatrix
         pkgs.mactop
+        pkgs.yt-dlp
 
         # Fonts
         pkgs.nerd-fonts.jetbrains-mono
@@ -113,6 +114,9 @@
         cp /Users/klaudioz/dotfiles/chrome/com.google.Chrome.plist "/Library/Managed Preferences/"
         chown root:wheel "/Library/Managed Preferences/com.google.Chrome.plist"
         chmod 644 "/Library/Managed Preferences/com.google.Chrome.plist"
+
+        # Install gh-dash extension (runs as user, idempotent)
+        sudo -u klaudioz ${pkgs.gh}/bin/gh extension install dlvhdr/gh-dash 2>/dev/null || true
       '';
 
       # Homebrew needs to be installed on its own!
@@ -124,13 +128,13 @@
         "koekeishiya/formulae"
         "nikitabobko/tap"
         "steveyegge/beads"
+        "tw93/tap"
       ];
 
       homebrew.casks = [
         "wireshark"
         "google-chrome"
         "ghostty"
-        "wezterm"
         "nikitabobko/tap/aerospace"
         "hammerspoon"
         "telegram"
@@ -165,6 +169,7 @@
         "ical-buddy"
         "opencode"
         "steveyegge/beads/bd"
+        "tw93/tap/mole"
         "felixkratz/formulae/sketchybar"
         "felixkratz/formulae/borders"
         "koekeishiya/formulae/skhd"

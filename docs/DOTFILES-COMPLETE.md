@@ -108,7 +108,7 @@ Note: This step cannot be automated on macOS without disabling SIP.
 Layer 6: Editing       -> Neovim + LazyVim + 50+ plugins
 Layer 5: Multiplexing  -> tmux + tpm plugins
 Layer 4: Shell         -> Nushell / Zsh + Starship prompt
-Layer 3: Terminal      -> Ghostty / WezTerm
+Layer 3: Terminal      -> Ghostty
 Layer 2: Windows       -> AeroSpace + skhd
 Layer 1: System        -> nix-darwin + home-manager
 ```
@@ -122,7 +122,6 @@ Layer 1: System        -> nix-darwin + home-manager
 | **Nushell** | `nushell/config.nu`, `nushell/env.nu` | Modern shell |
 | **Zsh** | `zshrc/.zshrc` | Traditional shell |
 | **Ghostty** | `ghostty/config` | Primary terminal |
-| **WezTerm** | `wezterm/wezterm.lua` | Alternative terminal |
 | **AeroSpace** | `aerospace/aerospace.toml` | Tiling window manager |
 | **skhd** | `skhd/skhdrc` | Global hotkeys |
 | **Starship** | `starship/starship.toml` | Cross-shell prompt |
@@ -145,7 +144,7 @@ Layer 1: System        -> nix-darwin + home-manager
 | Browsers | google-chrome, firefox, arc |
 | Editors | cursor, windsurf, visual-studio-code |
 | Productivity | obsidian, devonthink, raycast, linear, granola |
-| Development | ghostty, wezterm, wireshark |
+| Development | ghostty, wireshark |
 | Utilities | 1password, gitify, linearmouse, itsycal, qspace-pro, qbittorrent, screen-studio, vial, hammerspoon |
 | Window Management | nikitabobko/tap/aerospace |
 
@@ -187,25 +186,6 @@ mouse-hide-while-typing = true
 window-decoration = false
 macos-option-as-alt = true
 ```
-
-### WezTerm (Alternative)
-
-**Config**: `wezterm/wezterm.lua`
-
-| Setting | Value |
-|---------|-------|
-| Color scheme | Catppuccin Mocha |
-| Font | JetBrains Mono 16pt |
-| Background blur | 30 |
-| Tab bar | Disabled |
-| Window decoration | RESIZE |
-
-**Keybindings**:
-| Key | Action |
-|-----|--------|
-| `Ctrl+q` | Toggle fullscreen |
-| `Ctrl+'` | Clear scrollback |
-| `Ctrl+Click` | Open links |
 
 ---
 
@@ -639,11 +619,6 @@ All keybindings use prefix (`Ctrl-A`) first, then the action key.
 | `f` | Toggle floating/tiling |
 | `backspace` | Close all windows but current |
 
-#### Apps Mode (`alt-shift-enter`)
-| Key | Action |
-|-----|--------|
-| `alt-w` | Open WezTerm |
-
 #### External Integrations
 - **Startup**: Launches Sketchybar
 - **Workspace change**: Notifies Sketchybar, updates borders
@@ -887,7 +862,6 @@ All tools are installed automatically via nix-darwin. Here is the complete list:
 | | linear | Issue tracking |
 | | granola | AI meeting notes |
 | **Development** | ghostty | Terminal emulator |
-| | wezterm | Terminal emulator |
 | | wireshark | Network analyzer |
 | **Utilities** | 1password | Password manager |
 | | gitify | GitHub notifications |
