@@ -335,7 +335,7 @@ update_external_repos() {
   else
     echo "Updating oh-my-opencode..."
     git -C "$OH_MY_OPENCODE_DIR" fetch origin
-    git -C "$OH_MY_OPENCODE_DIR" reset --hard origin/main
+    git -C "$OH_MY_OPENCODE_DIR" reset --hard origin/dev
     echo -e "  ${GREEN}✓${NC} oh-my-opencode updated"
   fi
 
