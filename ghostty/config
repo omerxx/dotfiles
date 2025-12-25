@@ -8,3 +8,4 @@ macos-option-as-alt = true
 copy-on-select = clipboard
 selection-clear-on-copy = false
 confirm-close-surface = false
+shell-integration-features = no-cursor
