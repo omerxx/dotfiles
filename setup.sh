@@ -290,17 +290,23 @@ install_uv_tools() {
 install_local_casks() {
   echo -e "${YELLOW}Installing local casks...${NC}"
 
-  LOCAL_CASKS_DIR="$SCRIPT_DIR/homebrew-tap/Casks"
+  LOCAL_TAP_DIR="$SCRIPT_DIR/homebrew-tap"
+  LOCAL_TAP_NAME="local/casks"
 
-  if [ -d "$LOCAL_CASKS_DIR" ]; then
-    for cask_file in "$LOCAL_CASKS_DIR"/*.rb; do
+  if [ -d "$LOCAL_TAP_DIR/Casks" ]; then
+    if ! brew tap | grep -q "^${LOCAL_TAP_NAME}$"; then
+      echo "  Registering local tap..."
+      brew tap "$LOCAL_TAP_NAME" "$LOCAL_TAP_DIR"
+    fi
+
+    for cask_file in "$LOCAL_TAP_DIR/Casks"/*.rb; do
       [ -f "$cask_file" ] || continue
       cask_name=$(basename "$cask_file" .rb)
       if brew list --cask "$cask_name" &>/dev/null; then
         echo -e "  ${GREEN}✓${NC} $cask_name already installed"
       else
         echo "  Installing $cask_name..."
-        brew install --cask "$cask_file" && \
+        brew install --cask "$LOCAL_TAP_NAME/$cask_name" && \
           echo -e "  ${GREEN}✓${NC} $cask_name installed" || \
           echo -e "  ${RED}✗${NC} $cask_name failed"
       fi
