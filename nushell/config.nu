@@ -909,6 +909,7 @@ alias hms = /nix/store/6kc5srg83nkyg21am089xx7pvq44kn2c-home-manager/bin/home-ma
 alias as = aerospace
 alias asr = atuin scripts run
 alias o = opencode
+alias tokscale = bunx tokscale
 
 def ff [] {
     aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
