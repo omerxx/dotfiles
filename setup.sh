@@ -308,7 +308,7 @@ install_local_casks() {
         echo -e "  ${GREEN}✓${NC} $cask_name already installed"
       else
         echo "  Installing $cask_name..."
-        brew install --cask "local/casks/$cask_name" && \
+        brew install --cask --force "local/casks/$cask_name" && \
           echo -e "  ${GREEN}✓${NC} $cask_name installed" || \
           echo -e "  ${RED}✗${NC} $cask_name failed"
       fi
