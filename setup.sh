@@ -78,6 +78,8 @@ verify_tools() {
     # npm global packages
     "claude:claude-code"
     "amp:@sourcegraph/amp"
+    # Go tools
+    "bv:beads-viewer"
     # GUI apps with CLI (manual setup required)
     "code:vscode (run 'Install code command' from VS Code)"
   )
@@ -287,6 +289,101 @@ install_uv_tools() {
   echo ""
 }
 
+install_go_tools() {
+  echo -e "${YELLOW}Installing Go CLI tools...${NC}"
+
+  GO="/run/current-system/sw/bin/go"
+  if [ ! -x "$GO" ]; then
+    GO="go"
+  fi
+
+  if ! command -v "$GO" &> /dev/null; then
+    echo -e "  ${YELLOW}!${NC} go not found, skipping Go tools"
+    return
+  fi
+
+  tools=(
+    "github.com/Dicklesworthstone/beads_viewer/cmd/bv@latest"
+  )
+
+  for tool in "${tools[@]}"; do
+    tool_name=$(basename "${tool%%@*}")
+    "$GO" install "$tool" 2>/dev/null && \
+      echo -e "  ${GREEN}✓${NC} $tool_name" || \
+      echo -e "  ${YELLOW}!${NC} $tool_name (install failed)"
+  done
+
+  echo ""
+}
+
+install_mcp_agent_mail() {
+  echo -e "${YELLOW}Setting up MCP Agent Mail...${NC}"
+
+  UV="/run/current-system/sw/bin/uv"
+  if [ ! -x "$UV" ]; then
+    UV="uv"
+  fi
+
+  if ! command -v "$UV" &> /dev/null; then
+    echo -e "  ${YELLOW}!${NC} uv not found, skipping MCP Agent Mail"
+    return
+  fi
+
+  MCP_MAIL_DIR="$HOME/.local/share/mcp-agent-mail"
+  MCP_MAIL_REPO="https://github.com/Dicklesworthstone/mcp_agent_mail.git"
+  LAUNCHAGENT_SOURCE="$SCRIPT_DIR/launchagents/com.klaudioz.mcp-agent-mail.plist"
+  LAUNCHAGENT_DEST="$HOME/Library/LaunchAgents/com.klaudioz.mcp-agent-mail.plist"
+
+  # Clone or update repository
+  if [ ! -d "$MCP_MAIL_DIR" ]; then
+    echo "  Cloning mcp_agent_mail..."
+    mkdir -p "$(dirname "$MCP_MAIL_DIR")"
+    git clone "$MCP_MAIL_REPO" "$MCP_MAIL_DIR"
+    echo -e "  ${GREEN}✓${NC} mcp_agent_mail cloned"
+  else
+    echo "  Updating mcp_agent_mail..."
+    git -C "$MCP_MAIL_DIR" fetch origin
+    git -C "$MCP_MAIL_DIR" reset --hard origin/main
+    echo -e "  ${GREEN}✓${NC} mcp_agent_mail updated"
+  fi
+
+  # Create logs directory
+  mkdir -p "$MCP_MAIL_DIR/logs"
+
+  # Install Python dependencies with uv
+  echo "  Installing Python dependencies..."
+  (cd "$MCP_MAIL_DIR" && "$UV" sync --quiet) && \
+    echo -e "  ${GREEN}✓${NC} dependencies installed" || \
+    echo -e "  ${YELLOW}!${NC} dependency install may have had issues"
+
+  # Generate bearer token if not exists
+  if [ ! -f "$MCP_MAIL_DIR/.env" ]; then
+    echo "  Generating bearer token..."
+    TOKEN=$(openssl rand -hex 32)
+    echo "HTTP_BEARER_TOKEN=$TOKEN" > "$MCP_MAIL_DIR/.env"
+    echo "HTTP_ALLOW_LOCALHOST_UNAUTHENTICATED=true" >> "$MCP_MAIL_DIR/.env"
+    echo -e "  ${GREEN}✓${NC} bearer token generated"
+  else
+    echo -e "  ${GREEN}✓${NC} .env already exists"
+  fi
+
+  # Copy LaunchAgent plist
+  if [ -f "$LAUNCHAGENT_SOURCE" ]; then
+    mkdir -p "$HOME/Library/LaunchAgents"
+    cp "$LAUNCHAGENT_SOURCE" "$LAUNCHAGENT_DEST"
+    echo -e "  ${GREEN}✓${NC} LaunchAgent installed"
+
+    # Unload if already loaded, then load
+    launchctl unload "$LAUNCHAGENT_DEST" 2>/dev/null || true
+    launchctl load "$LAUNCHAGENT_DEST"
+    echo -e "  ${GREEN}✓${NC} LaunchAgent loaded (server starting on port 8765)"
+  else
+    echo -e "  ${YELLOW}!${NC} LaunchAgent plist not found"
+  fi
+
+  echo ""
+}
+
 install_local_casks() {
   echo -e "${YELLOW}Installing local casks...${NC}"
 
@@ -378,6 +475,8 @@ run_update() {
   setup_macos_configs
   setup_vscode_configs
   install_uv_tools
+  install_go_tools
+  install_mcp_agent_mail
 
   echo ""
   start_services

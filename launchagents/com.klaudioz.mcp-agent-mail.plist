@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.klaudioz.mcp-agent-mail</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>cd ~/.local/share/mcp-agent-mail && /run/current-system/sw/bin/uv run python -m mcp_agent_mail.http --host 127.0.0.1 --port 8765</string>
+    </array>
+    
+    <key>WorkingDirectory</key>
+    <string>/Users/klaudioz/.local/share/mcp-agent-mail</string>
+    
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/run/current-system/sw/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>HOME</key>
+        <string>/Users/klaudioz</string>
+    </dict>
+    
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+    
+    <key>StandardOutPath</key>
+    <string>/Users/klaudioz/.local/share/mcp-agent-mail/logs/stdout.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/Users/klaudioz/.local/share/mcp-agent-mail/logs/stderr.log</string>
+    
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+</dict>
+</plist>

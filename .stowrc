@@ -4,3 +4,4 @@
 --ignore=atuin/*
 --ignore=vscode/*
 --ignore=chrome/*
+--ignore=launchagents/*
