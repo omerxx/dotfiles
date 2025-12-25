@@ -182,6 +182,28 @@ After running dotfiles bootstrap:
 
 ---
 
+## Screen Studio (Legacy 2.26.0)
+
+Screen Studio is installed manually using a custom local cask to preserve the lifetime license version (2.26.0).
+
+**Install:**
+```bash
+brew install --cask ~/dotfiles/homebrew-tap/Casks/screen-studio-legacy.rb
+```
+
+**Important:**
+- Do NOT update Screen Studio through the app or Homebrew
+- Version 2.26.0 is the last version covered by lifetime license
+- The cask has `auto_updates false` to prevent automatic upgrades
+
+**Reinstall if needed:**
+```bash
+brew uninstall --cask screen-studio-legacy
+brew install --cask ~/dotfiles/homebrew-tap/Casks/screen-studio-legacy.rb
+```
+
+---
+
 ## Notes
 
 _Add your app-specific notes here as you configure them._
