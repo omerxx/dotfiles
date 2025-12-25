@@ -123,6 +123,7 @@
         "FelixKratz/formulae"
         "koekeishiya/formulae"
         "nikitabobko/tap"
+        "steveyegge/beads"
       ];
 
       homebrew.casks = [
@@ -163,6 +164,7 @@
         "imagemagick"
         "ical-buddy"
         "opencode"
+        "steveyegge/beads/bd"
         "felixkratz/formulae/sketchybar"
         "felixkratz/formulae/borders"
         "koekeishiya/formulae/skhd"
