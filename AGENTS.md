@@ -2,6 +2,11 @@
 
 Guidelines for AI agents working in this dotfiles repository.
 
+## Environment
+
+- **Primary shell**: Nushell (`nushell/config.nu`, `nushell/env.nu`)
+- Zsh is available as fallback (`zshrc/.zshrc`)
+
 ## Critical Rules
 
 ### 1. This Repo is the Single Source of Truth
