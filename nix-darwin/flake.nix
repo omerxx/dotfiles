@@ -56,6 +56,7 @@
         # Developer utilities
         pkgs.stow
         pkgs.aichat
+        pkgs.gemini-cli
         pkgs.lazygit
         pkgs.uv
         pkgs.delta
