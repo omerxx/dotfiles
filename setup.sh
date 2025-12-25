@@ -334,7 +334,8 @@ update_external_repos() {
     echo -e "  ${GREEN}✓${NC} oh-my-opencode cloned"
   else
     echo "Updating oh-my-opencode..."
-    git -C "$OH_MY_OPENCODE_DIR" pull
+    git -C "$OH_MY_OPENCODE_DIR" fetch origin
+    git -C "$OH_MY_OPENCODE_DIR" reset --hard origin/main
     echo -e "  ${GREEN}✓${NC} oh-my-opencode updated"
   fi
 
