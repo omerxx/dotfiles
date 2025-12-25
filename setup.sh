@@ -291,12 +291,14 @@ install_local_casks() {
   echo -e "${YELLOW}Installing local casks...${NC}"
 
   LOCAL_TAP_DIR="$SCRIPT_DIR/homebrew-tap"
-  LOCAL_TAP_NAME="local/casks"
+  HOMEBREW_TAP_DIR="$(brew --prefix)/Library/Taps/local"
+  HOMEBREW_TAP_LINK="$HOMEBREW_TAP_DIR/homebrew-casks"
 
   if [ -d "$LOCAL_TAP_DIR/Casks" ]; then
-    if ! brew tap | grep -q "^${LOCAL_TAP_NAME}$"; then
-      echo "  Registering local tap..."
-      brew tap "$LOCAL_TAP_NAME" "$LOCAL_TAP_DIR"
+    if [ ! -L "$HOMEBREW_TAP_LINK" ]; then
+      echo "  Linking local tap..."
+      mkdir -p "$HOMEBREW_TAP_DIR"
+      ln -sf "$LOCAL_TAP_DIR" "$HOMEBREW_TAP_LINK"
     fi
 
     for cask_file in "$LOCAL_TAP_DIR/Casks"/*.rb; do
@@ -306,7 +308,7 @@ install_local_casks() {
         echo -e "  ${GREEN}✓${NC} $cask_name already installed"
       else
         echo "  Installing $cask_name..."
-        brew install --cask "$LOCAL_TAP_NAME/$cask_name" && \
+        brew install --cask "local/casks/$cask_name" && \
           echo -e "  ${GREEN}✓${NC} $cask_name installed" || \
           echo -e "  ${RED}✗${NC} $cask_name failed"
       fi
