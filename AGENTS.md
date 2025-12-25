@@ -2,6 +2,19 @@
 
 Guidelines for AI agents working in this dotfiles repository.
 
+## Core Purpose
+
+**This repository is a REPEATABLE AUTOMATION SYSTEM.**
+
+When the user asks to "install X" or "add tool Y", they mean:
+- Add it to `nix-darwin/flake.nix` so it's automatically installed on ANY machine
+- NOT run an install command that only affects the current machine
+
+Every tool, package, and configuration must be declaratively defined here so that running `./setup.sh --update` on a fresh machine produces an identical environment.
+
+**WRONG**: `brew install tool` / `bun add -g package` / any imperative install
+**RIGHT**: Add to `flake.nix` → commit → push → `./setup.sh --update`
+
 ## Environment
 
 - **Primary shell**: Nushell (`nushell/config.nu`, `nushell/env.nu`)
