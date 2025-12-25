@@ -136,6 +136,9 @@ export PATH="/Applications/Windsurf.app/Contents/Resources/app/bin:$PATH"
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
+# Local binaries (beads, etc.)
+export PATH="$HOME/.local/bin:$PATH"
+
 function ranger {
 	local IFS=$'\t\n'
 	local tempfile="$(mktemp -t tmp.XXXXXX)"
