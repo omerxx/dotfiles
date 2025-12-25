@@ -80,6 +80,8 @@ verify_tools() {
     "amp:@sourcegraph/amp"
     # Go tools
     "bv:beads-viewer"
+    # Bun tools
+    "tokscale:tokscale"
     # GUI apps with CLI (manual setup required)
     "code:vscode (run 'Install code command' from VS Code)"
   )
@@ -316,6 +318,32 @@ install_go_tools() {
   echo ""
 }
 
+install_bun_tools() {
+  echo -e "${YELLOW}Installing Bun global packages...${NC}"
+
+  BUN="/run/current-system/sw/bin/bun"
+  if [ ! -x "$BUN" ]; then
+    BUN="bun"
+  fi
+
+  if ! command -v "$BUN" &> /dev/null; then
+    echo -e "  ${YELLOW}!${NC} bun not found, skipping Bun tools"
+    return
+  fi
+
+  tools=(
+    "tokscale"
+  )
+
+  for tool in "${tools[@]}"; do
+    "$BUN" add -g "$tool" 2>/dev/null && \
+      echo -e "  ${GREEN}✓${NC} $tool" || \
+      echo -e "  ${YELLOW}!${NC} $tool (may already be installed)"
+  done
+
+  echo ""
+}
+
 install_mcp_agent_mail() {
   echo -e "${YELLOW}Setting up MCP Agent Mail...${NC}"
 
@@ -476,6 +504,7 @@ run_update() {
   setup_vscode_configs
   install_uv_tools
   install_go_tools
+  install_bun_tools
   install_mcp_agent_mail
 
   echo ""

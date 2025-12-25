@@ -78,9 +78,6 @@ alias cl='clear'
 # OpenCode
 alias o="opencode"
 
-# Token tools
-alias tokscale="bunx tokscale"
-
 # K8S
 export KUBECONFIG=~/.kube/config
 alias k="kubectl"
