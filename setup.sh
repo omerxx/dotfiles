@@ -287,6 +287,29 @@ install_uv_tools() {
   echo ""
 }
 
+install_local_casks() {
+  echo -e "${YELLOW}Installing local casks...${NC}"
+
+  LOCAL_CASKS_DIR="$SCRIPT_DIR/homebrew-tap/Casks"
+
+  if [ -d "$LOCAL_CASKS_DIR" ]; then
+    for cask_file in "$LOCAL_CASKS_DIR"/*.rb; do
+      [ -f "$cask_file" ] || continue
+      cask_name=$(basename "$cask_file" .rb)
+      if brew list --cask "$cask_name" &>/dev/null; then
+        echo -e "  ${GREEN}✓${NC} $cask_name already installed"
+      else
+        echo "  Installing $cask_name..."
+        brew install --cask "$cask_file" && \
+          echo -e "  ${GREEN}✓${NC} $cask_name installed" || \
+          echo -e "  ${RED}✗${NC} $cask_name failed"
+      fi
+    done
+  fi
+
+  echo ""
+}
+
 start_services() {
   echo -e "${YELLOW}Restarting brew services...${NC}"
 
@@ -334,6 +357,8 @@ run_update() {
   sudo "$DARWIN_REBUILD" switch --flake "$SCRIPT_DIR/nix-darwin"
 
   echo ""
+  install_local_casks
+
   echo -e "${YELLOW}Symlinking dotfiles...${NC}"
   cd "$SCRIPT_DIR"
   STOW="/run/current-system/sw/bin/stow"

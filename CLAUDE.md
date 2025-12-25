@@ -63,3 +63,14 @@ macOS development environment managed with Nix-Darwin, Homebrew, and GNU Stow. C
 - Shell integrations: Starship prompt, zoxide (directory jumping), Atuin (history sync), Carapace (completions)
 - Window management: AeroSpace tiling WM with skhd for hotkeys
 - After bootstrap, accessibility permissions needed for: AeroSpace, skhd, sketchybar, Hammerspoon
+
+## Local Homebrew Casks
+
+For apps that need version pinning (e.g., lifetime licenses), use local casks in `homebrew-tap/Casks/`.
+
+**To add a version-pinned app:**
+1. Create `homebrew-tap/Casks/<app-name>.rb` with the cask definition
+2. Remove the app from `nix-darwin/flake.nix` homebrew.casks (if present)
+3. Run `./setup.sh --update` - it auto-installs all `.rb` files in `homebrew-tap/Casks/`
+
+Example: `screen-studio-legacy.rb` pins Screen Studio to 2.26.0 for lifetime license.
