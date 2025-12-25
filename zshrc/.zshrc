@@ -136,6 +136,9 @@ export PATH="/Applications/Windsurf.app/Contents/Resources/app/bin:$PATH"
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
+# bun global packages
+export PATH="$HOME/.bun/bin:$PATH"
+
 # Python 3.14 via uv (takes precedence over system Python)
 export PATH="$HOME/.local/share/uv/python/cpython-3.14.2-macos-aarch64-none/bin:$PATH"
 alias pip="python3.14 -m pip"

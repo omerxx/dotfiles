@@ -106,6 +106,7 @@ if 'IN_NIX_SHELL' not-in $env and 'DEVBOX_SHELL_ENABLED' not-in $env {
         /opt/homebrew/sbin
         /Users/klaudioz/.opencode/bin
         /Users/klaudioz/.npm-global/bin
+        /Users/klaudioz/.bun/bin
         /Users/klaudioz/go/bin
         "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
         /Applications/Cursor.app/Contents/Resources/app/bin
