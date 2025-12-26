@@ -17,7 +17,6 @@
   home.file = {
     # ".zshrc".source = ~/dotfiles/zshrc/.zshrc;
     # ".config/starship".source = ~/dotfiles/starship;
-    # ".config/zellij".source = ~/dotfiles/zellij;
     # ".config/nvim".source = ~/dotfiles/nvim;
     # ".config/nix".source = ~/dotfiles/nix;
     # ".config/nix-darwin".source = ~/dotfiles/nix-darwin;
