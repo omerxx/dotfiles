@@ -62,7 +62,6 @@ verify_tools() {
     # Homebrew tools
     "sketchybar:sketchybar"
     "borders:borders"
-    "skhd:skhd"
     "icalBuddy:ical-buddy"
     # Developer utilities (nix)
     "aichat:aichat"
@@ -446,7 +445,7 @@ install_local_casks() {
 start_services() {
   echo -e "${YELLOW}Restarting brew services...${NC}"
 
-  for service in sketchybar skhd borders; do
+  for service in sketchybar borders; do
     brew services restart "$service" 2>/dev/null || true
     echo -e "  ${GREEN}✓${NC} $service restarted"
   done

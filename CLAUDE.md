@@ -61,8 +61,8 @@ macOS development environment managed with Nix-Darwin, Homebrew, and GNU Stow. C
 - Neovim uses LazyVim (`nvim/lua/config/lazy.lua`) with plugins in `nvim/lua/plugins/`
 - tmux prefix is `Ctrl-A` (not default `Ctrl-B`); uses tpm for plugins
 - Shell integrations: Starship prompt, zoxide (directory jumping), Atuin (history sync), Carapace (completions)
-- Window management: AeroSpace tiling WM with skhd for hotkeys
-- After bootstrap, accessibility permissions needed for: AeroSpace, skhd, sketchybar, Hammerspoon
+- Window management: AeroSpace tiling WM
+- After bootstrap, accessibility permissions needed for: AeroSpace, sketchybar, Hammerspoon
 
 ## Local Homebrew Casks
 

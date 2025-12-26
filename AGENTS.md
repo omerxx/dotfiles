@@ -88,7 +88,6 @@ dotfiles/
 ├── ghostty/                  # Ghostty terminal config
 ├── aerospace/                # AeroSpace window manager (TOML)
 ├── sketchybar/               # Status bar (shell scripts)
-├── skhd/                     # Hotkey daemon config
 ├── homebrew-tap/Casks/       # Local Homebrew casks (version pinning)
 └── setup.sh                  # Main setup script
 ```
@@ -237,6 +236,6 @@ docs: update AGENTS.md with nix patterns
 
 - **Nushell config**: Lives in `~/Library/Application Support/nushell/` on macOS, not `~/.config/`. Handled by `setup.sh`.
 - **VS Code config**: Special path handling in `setup.sh`, not stow-managed
-- **Accessibility permissions**: AeroSpace, skhd, sketchybar, Hammerspoon need manual permission grants
+- **Accessibility permissions**: AeroSpace, sketchybar, Hammerspoon need manual permission grants
 - **tmux prefix**: `Ctrl-A` (not default `Ctrl-B`)
 - **TPM (tmux plugins)**: Must be installed separately: `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`

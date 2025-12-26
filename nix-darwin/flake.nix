@@ -125,7 +125,6 @@
 
       homebrew.taps = [
         "FelixKratz/formulae"
-        "koekeishiya/formulae"
         "nikitabobko/tap"
         "steveyegge/beads"
         "tw93/tap"
@@ -172,7 +171,6 @@
         "tw93/tap/mole"
         "felixkratz/formulae/sketchybar"
         "felixkratz/formulae/borders"
-        "koekeishiya/formulae/skhd"
       ];
     };
   in

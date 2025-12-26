@@ -16,7 +16,6 @@
   # plain files is through 'home.file'.
   home.file = {
     # ".zshrc".source = ~/dotfiles/zshrc/.zshrc;
-    # ".config/skhd".source = ~/dotfiles/skhd;
     # ".config/starship".source = ~/dotfiles/starship;
     # ".config/zellij".source = ~/dotfiles/zellij;
     # ".config/nvim".source = ~/dotfiles/nvim;
