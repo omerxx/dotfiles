@@ -60,6 +60,7 @@
         pkgs.lazygit
         pkgs.uv
         pkgs.delta
+        pkgs.cloc
         pkgs.cmatrix
         pkgs.mactop
         pkgs.yt-dlp
