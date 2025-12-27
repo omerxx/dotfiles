@@ -450,6 +450,12 @@ start_services() {
     echo -e "  ${GREEN}✓${NC} $service restarted"
   done
 
+  if command -v aerospace &> /dev/null; then
+    aerospace reload-config 2>/dev/null && \
+      echo -e "  ${GREEN}✓${NC} aerospace config reloaded" || \
+      echo -e "  ${YELLOW}!${NC} aerospace not running (config will load on next start)"
+  fi
+
   echo ""
 }
 
