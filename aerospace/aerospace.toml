@@ -74,6 +74,10 @@ run = 'layout floating'
 if.app-name-regex-substring = 'discord'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'obsidian'
+run = 'move-node-to-workspace 2'
+
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
