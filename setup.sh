@@ -210,24 +210,6 @@ setup_macos_configs() {
     ln -s "$NUSHELL_TARGET" "$NUSHELL_MACOS_DIR"
     echo -e "  ${GREEN}✓${NC} nushell config linked"
   fi
-
-  # AeroSpace expects config at ~/.aerospace.toml (not ~/.config/aerospace/)
-  AEROSPACE_CONFIG="$HOME/.aerospace.toml"
-  AEROSPACE_SOURCE="$SCRIPT_DIR/aerospace/aerospace.toml"
-
-  if [ -f "$AEROSPACE_SOURCE" ]; then
-    if [ -L "$AEROSPACE_CONFIG" ]; then
-      echo -e "  ${GREEN}✓${NC} aerospace config already linked"
-    elif [ -f "$AEROSPACE_CONFIG" ]; then
-      echo "  Backing up existing aerospace config..."
-      mv "$AEROSPACE_CONFIG" "$AEROSPACE_CONFIG.backup"
-      ln -s "$AEROSPACE_SOURCE" "$AEROSPACE_CONFIG"
-      echo -e "  ${GREEN}✓${NC} aerospace config linked (backup created)"
-    else
-      ln -s "$AEROSPACE_SOURCE" "$AEROSPACE_CONFIG"
-      echo -e "  ${GREEN}✓${NC} aerospace config linked"
-    fi
-  fi
 }
 
 setup_vscode_configs() {

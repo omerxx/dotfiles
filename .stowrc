@@ -1,7 +1,6 @@
 --target=~/.config
 --ignore=.stowrc
 --ignore=DS_Store
---ignore=aerospace/*
 --ignore=atuin/*
 --ignore=vscode/*
 --ignore=chrome/*
