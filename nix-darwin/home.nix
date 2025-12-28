@@ -40,24 +40,7 @@
     settings.user.name = "Claudio Canales";
     settings.user.email = "klaudioz@gmail.com";
   };
-  programs.zsh = {
-    enable = true;
-    initContent = ''
-      # Homebrew (Apple Silicon)
-      eval "$(/opt/homebrew/bin/brew shellenv)"
 
-      # Nix
-      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-      fi
-
-      # nix-darwin and nix-profile
-      export PATH="/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH"
-
-      # npm global packages
-      export PATH="$HOME/.npm-global/bin:$PATH"
-    '';
-  };
 
   # Install global npm packages
   home.activation.npmPackages = config.lib.dag.entryAfter ["writeBoundary"] ''

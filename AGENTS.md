@@ -18,7 +18,6 @@ Every tool, package, and configuration must be declaratively defined here so tha
 ## Environment
 
 - **Primary shell**: Nushell (`nushell/config.nu`, `nushell/env.nu`)
-- Zsh is available as fallback (`zshrc/.zshrc`)
 
 ## Critical Rules
 

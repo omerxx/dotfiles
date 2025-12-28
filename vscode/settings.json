@@ -39,7 +39,7 @@
   "terminal.integrated.fontFamily": "JetBrains Mono",
   "terminal.integrated.fontSize": 14,
   "terminal.integrated.lineHeight": 1.4,
-  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.osx": "nu",
 
   // ===========================================
   // FILES
