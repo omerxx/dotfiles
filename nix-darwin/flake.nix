@@ -158,6 +158,7 @@
         "qbittorrent"
         "visual-studio-code"
         "readdle-spark"
+        "sf-symbols"
         "xbar"
         "codex"
       ];
