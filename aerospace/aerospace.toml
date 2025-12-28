@@ -66,10 +66,10 @@ run = 'layout floating'
 if.app-name-regex-substring = 'quicktime'
 run = 'layout floating'
 
-# Workspace assignments
+# Workspace assignments - Ghostty: max 3 windows per workspace, overflow to 5, 6, 7...
 [[on-window-detected]]
-if.app-name-regex-substring = 'ghostty'
-run = 'move-node-to-workspace 1'
+if.app-id = 'com.mitchellh.ghostty'
+run = 'exec-and-forget ~/.config/aerospace/ghostty-workspace-balance.sh'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'obsidian'
