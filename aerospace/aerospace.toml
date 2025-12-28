@@ -37,14 +37,13 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # Also see: https://nikitabobko.github.io/AeroSpace/goodness#disable-hide-app
 automatically-unhide-macos-hidden-apps = true
 
-# [[on-window-detected]]
-# if.app-id = 'com.apple.systempreferences'
-# if.app-name-regex-substring = 'settings'
-# if.window-title-regex-substring = 'substring'
-# if.workspace = 'workspace-name'
-# if.during-aerospace-startup = true
-# check-further-callbacks = true
-# run = ['layout floating', 'move-node-to-workspace S']  # The callback itself
+# Ensure all CLI tools are available in exec-and-forget commands
+# macOS GUI apps don't inherit shell PATH, so we must explicitly set it
+[exec]
+inherit-env-vars = true
+
+[exec.env-vars]
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:${HOME}/.local/bin:${HOME}/.nix-profile/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'
@@ -221,7 +220,6 @@ alt-q = 'exec-and-forget open -a "/System/Applications/QuickTime Player.app"'
 alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
 alt-c = 'exec-and-forget open -a "/Applications/Google Chrome.app"'
 alt-w = 'exec-and-forget open -a /Applications/Windsurf.app'
-
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
