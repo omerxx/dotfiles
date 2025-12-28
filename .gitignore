@@ -7,3 +7,6 @@ history.txt
 opencode/antigravity-accounts.json
 aerospace-source/
 yabai-repo/
+
+# bv (beads viewer) local config and caches
+.bv/

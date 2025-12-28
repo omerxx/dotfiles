@@ -80,6 +80,10 @@ if.app-name-regex-substring = 'arc'
 run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
+if.app-name-regex-substring = 'chrome'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
 if.app-name-regex-substring = 'slack'
 run = 'move-node-to-workspace 3'
 
@@ -93,6 +97,10 @@ run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'linear'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'code'
 run = 'move-node-to-workspace 4'
 
 # Possible values: (qwerty|dvorak)
