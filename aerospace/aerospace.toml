@@ -100,11 +100,11 @@ if.app-name-regex-substring = 'linear'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'code'
+if.app-id = 'com.microsoft.VSCode'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'windsurf'
+if.app-id = 'com.exafunction.windsurf'
 run = 'move-node-to-workspace 4'
 
 # Possible values: (qwerty|dvorak)
