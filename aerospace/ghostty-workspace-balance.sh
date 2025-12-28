@@ -6,7 +6,7 @@ GHOSTTY_ID="com.mitchellh.ghostty"
 WORKSPACES=(1 5 6 7 8 9)
 MAX_PER_WS=3
 
-$AEROSPACE move-node-to-workspace --window-id "$AEROSPACE_WINDOW_ID" __ghostty_hold__
+$AEROSPACE move-node-to-workspace --window-id "$AEROSPACE_WINDOW_ID" 0
 
 for ws in "${WORKSPACES[@]}"; do
     count=$($AEROSPACE list-windows --workspace "$ws" --app-bundle-id "$GHOSTTY_ID" --count 2>/dev/null || echo 0)
