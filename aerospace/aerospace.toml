@@ -103,6 +103,10 @@ run = 'move-node-to-workspace 4'
 if.app-name-regex-substring = 'code'
 run = 'move-node-to-workspace 4'
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'windsurf'
+run = 'move-node-to-workspace 4'
+
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
@@ -205,6 +209,8 @@ alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 alt-s = 'exec-and-forget open -a /Applications/Slack.app'
 alt-q = 'exec-and-forget open -a "/System/Applications/QuickTime Player.app"'
 alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
+alt-c = 'exec-and-forget open -a "/Applications/Google Chrome.app"'
+alt-w = 'exec-and-forget open -a /Applications/Windsurf.app'
 
 
 # 'service' binding mode declaration.
