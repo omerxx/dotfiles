@@ -138,7 +138,7 @@ if [ -x "/Applications/CMatrixWallpaper.app/Contents/MacOS/matrixdaemon" ]; then
                                       background.color=$SURFACE \
                                       background.drawing=on \
                                       update_freq=30 \
-                                      click_script="$RELPATH/plugins/matrix_wallpaper/script.sh" \
+                                      click_script="$RELPATH/plugins/matrix_wallpaper/click.sh" \
                                       script="$RELPATH/plugins/matrix_wallpaper/script.sh"
 fi
 

@@ -5,8 +5,37 @@ set -euo pipefail
 APP="/Applications/CMatrixWallpaper.app"
 DAEMON="$APP/Contents/MacOS/matrixdaemon"
 
+STATE_DOMAIN="com.klaudioz.dotfiles"
+STATE_KEY="MatrixWallpaperEnabled"
+
+ACTION="${1:-update}"
+ITEM_NAME="${NAME:-matrix_wallpaper}"
+
+find_sketchybar_bin() {
+  if [[ -x "/opt/homebrew/bin/sketchybar" ]]; then
+    echo "/opt/homebrew/bin/sketchybar"
+    return 0
+  fi
+
+  command -v sketchybar 2>/dev/null || true
+}
+
 is_running() {
   pgrep -f "$DAEMON" >/dev/null 2>&1
+}
+
+get_enabled() {
+  local value
+  value="$(defaults read "$STATE_DOMAIN" "$STATE_KEY" 2>/dev/null || true)"
+  case "$value" in
+  "" | 1 | true | TRUE | YES | yes) return 0 ;;
+  *) return 1 ;;
+  esac
+}
+
+set_enabled() {
+  local enabled="$1"
+  defaults write "$STATE_DOMAIN" "$STATE_KEY" -bool "$enabled" 2>/dev/null || true
 }
 
 get_display_ids() {
@@ -53,27 +82,42 @@ stop_daemon() {
   defaults write com.cmatrix.wallpaper MatrixLastEnabled -bool false 2>/dev/null || true
 }
 
-update_item() {
-  if [[ -z "${NAME:-}" ]] || ! command -v sketchybar >/dev/null 2>&1; then
-    return 0
-  fi
-
-  if is_running; then
-    sketchybar --set "$NAME" label="ON"
+ensure_state() {
+  if get_enabled; then
+    if ! is_running; then
+      start_daemon
+    fi
   else
-    sketchybar --set "$NAME" label="OFF"
+    if is_running; then
+      stop_daemon
+    fi
   fi
 }
 
-case "${SENDER:-}" in
-mouse.clicked)
-  if is_running; then
-    stop_daemon
+update_item() {
+  ensure_state
+
+  local sketchybar_bin
+  sketchybar_bin="$(find_sketchybar_bin)"
+  if [[ -z "$sketchybar_bin" ]]; then
+    return 0
+  fi
+
+if is_running; then
+    "$sketchybar_bin" --set "$ITEM_NAME" label="ON" 2>/dev/null || true
   else
-    start_daemon
+    "$sketchybar_bin" --set "$ITEM_NAME" label="OFF" 2>/dev/null || true
+  fi
+}
+
+case "$ACTION" in
+toggle)
+  if get_enabled; then
+    set_enabled false
+  else
+    set_enabled true
   fi
   ;;
 esac
 
 update_item
-
