@@ -84,8 +84,21 @@ sketchybar --add item calendar right \
                          background.color=$SURFACE \
                          background.drawing=on \
                          update_freq=30 \
-                         click_script="open -a Itsycal" \
+                         click_script="open -a Calendar" \
                          script="$RELPATH/plugins/calendar/script.sh"
+
+sketchybar --add item events right \
+           --set events icon=􀉉 \
+                       icon.color=$ACCENT \
+                       icon.font="$FONT:Bold:14.0" \
+                       label.font="$FONT:Regular:11.0" \
+                       label.color=$TEXT \
+                       label.max_chars=30 \
+                       background.color=$SURFACE \
+                       background.drawing=on \
+                       update_freq=300 \
+                       click_script="open -a Calendar" \
+                       script="$RELPATH/plugins/calendar/events.sh"
 
 sketchybar --add item wifi right \
            --set wifi icon=􀙇 \
