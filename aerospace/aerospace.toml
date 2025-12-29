@@ -127,7 +127,7 @@ inner.horizontal = 20
 inner.vertical =   20
 outer.left =       20
 outer.bottom =     20
-outer.top =        10
+outer.top =        55
 outer.right =      40
 
 # 'main' binding mode declaration
