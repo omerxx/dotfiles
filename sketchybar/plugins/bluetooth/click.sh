@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
-# Source: github.com/Kcraft059/sketchybar-config
 
-RELPATH="$HOME/.config/sketchybar"
+BLUEUTIL="/opt/homebrew/bin/blueutil"
 
-"$RELPATH/menubar" -s "Control Center,Bluetooth"
+if [ ! -x "$BLUEUTIL" ]; then
+    open "x-apple.systempreferences:com.apple.BluetoothSettings"
+    exit 0
+fi
+
+POWER=$("$BLUEUTIL" --power 2>/dev/null)
+
+if [ "$POWER" = "1" ]; then
+    "$BLUEUTIL" --power 0
+else
+    "$BLUEUTIL" --power 1
+fi
+
+sleep 0.5
+~/.config/sketchybar/plugins/bluetooth/script.sh

@@ -75,6 +75,14 @@ sketchybar --add item separator left \
                           label.drawing=off \
                           background.drawing=off
 
+sketchybar --add item front_app center \
+           --set front_app icon.drawing=off \
+                          label.font="$FONT:Semibold:13.0" \
+                          label.color=$TEXT \
+                          background.drawing=off \
+                          script="$RELPATH/plugins/front_app/script.sh" \
+           --subscribe front_app front_app_switched
+
 sketchybar --add item calendar right \
            --set calendar icon="$(date '+%a %d %b')" \
                          label="$(date '+%H:%M')" \
@@ -110,9 +118,16 @@ sketchybar --add item wifi right \
                      script="$RELPATH/plugins/wifi/script.sh" \
            --subscribe wifi wifi_change
 
-sketchybar --add alias "Control Center,Bluetooth" right \
-           --set "Control Center,Bluetooth" alias.color=$ACCENT \
-                                           background.drawing=off
+sketchybar --add item bluetooth right \
+           --set bluetooth icon=􀪷 \
+                          icon.color=$ACCENT \
+                          label.color=$TEXT \
+                          label.font="$FONT:Semibold:11.0" \
+                          background.color=$SURFACE \
+                          background.drawing=on \
+                          update_freq=30 \
+                          click_script="$RELPATH/plugins/bluetooth/click.sh" \
+                          script="$RELPATH/plugins/bluetooth/script.sh"
 
 sketchybar --update
 
