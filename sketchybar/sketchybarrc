@@ -5,74 +5,82 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:$HO
 
 RELPATH="$HOME/.config/sketchybar"
 
-source "$RELPATH/colors.sh"
-source "$RELPATH/log_handler.sh"
-source "$RELPATH/add_separator.sh"
 source "$RELPATH/plugins/icon_map.sh"
 
 FONT="SF Pro"
 BAR_HEIGHT=34
 BAR_MARGIN=5
 BAR_CORNER_RADIUS=13
-ZONE_CORNER_RADIUS=$((BAR_CORNER_RADIUS - 5))
-OUTER_PADDINGS=5
-INNER_PADDINGS=5
+PADDINGS=5
 
-bar=(
-    height=$BAR_HEIGHT
-    y_offset=$BAR_MARGIN
-    margin=$BAR_MARGIN
-    topmost=window
-    sticky=on
-    position=top
-    padding_left=10
-    padding_right=10
-    color="$BAR_COLOR"
-    border_width=1
-    border_color=$BORDER_COLOR
-    corner_radius=$BAR_CORNER_RADIUS
-    blur_radius=14
-)
+BAR_COLOR=0xff232136
+ICON_COLOR=0xffe0def4
+LABEL_COLOR=0xffe0def4
+HIGHLIGHT_COLOR=0xffeb6f92
 
-defaults=(
-    updates=when_shown
-    icon.font="$FONT:Regular:14.0"
-    icon.color=$ICON_COLOR
-    padding_left=$OUTER_PADDINGS
-    padding_right=$OUTER_PADDINGS
-    icon.padding_left=$INNER_PADDINGS
-    icon.padding_right=$INNER_PADDINGS
-    label.font="$FONT:Semibold:13.0"
-    label.color=$LABEL_COLOR
-    label.padding_left=$INNER_PADDINGS
-    label.padding_right=$INNER_PADDINGS
-    background.corner_radius=$ZONE_CORNER_RADIUS
-    popup.y_offset=4
-    popup.background.border_width=1
-    popup.background.corner_radius=6
-    popup.background.border_color=$POPUP_BORDER_COLOR
-    popup.background.color=$POPUP_BACKGROUND_COLOR
-    popup.blur_radius=20
-)
+sketchybar --bar height=$BAR_HEIGHT \
+                 y_offset=$BAR_MARGIN \
+                 margin=$BAR_MARGIN \
+                 position=top \
+                 sticky=on \
+                 padding_left=10 \
+                 padding_right=10 \
+                 color=$BAR_COLOR \
+                 corner_radius=$BAR_CORNER_RADIUS \
+                 blur_radius=20
 
-zones=(
-    background.height=$((BAR_HEIGHT - 8))
-    background.border_width=2
-    background.border_color=$HIGH_MED
-    background.color=$OVERLAY
-    background.corner_radius=$ZONE_CORNER_RADIUS
-)
+sketchybar --default updates=when_shown \
+                     icon.font="$FONT:Regular:14.0" \
+                     icon.color=$ICON_COLOR \
+                     label.font="$FONT:Semibold:13.0" \
+                     label.color=$LABEL_COLOR \
+                     padding_left=$PADDINGS \
+                     padding_right=$PADDINGS \
+                     icon.padding_left=$PADDINGS \
+                     icon.padding_right=$PADDINGS \
+                     label.padding_left=$PADDINGS \
+                     label.padding_right=$PADDINGS
 
-sketchybar --bar "${bar[@]}"
-sketchybar --default "${defaults[@]}"
+sketchybar --add event aerospace_workspace_change
 
-source "$RELPATH/items/spaces.sh"
-source "$RELPATH/items/calendar.sh"
-source "$RELPATH/items/wifi.sh"
-source "$RELPATH/items/bluetooth.sh"
+for sid in $(aerospace list-workspaces --all 2>/dev/null); do
+    sketchybar --add item space.$sid left \
+        --subscribe space.$sid aerospace_workspace_change mouse.clicked \
+        --set space.$sid \
+            icon="$sid" \
+            icon.highlight_color=$HIGHLIGHT_COLOR \
+            background.color=0x44ffffff \
+            background.corner_radius=5 \
+            background.height=20 \
+            background.drawing=off \
+            label.font="sketchybar-app-font:Regular:14.0" \
+            label.drawing=off \
+            click_script="aerospace workspace $sid" \
+            script="$RELPATH/plugins/spaces/aerospace/script-space.sh $sid"
+done
 
-sketchybar --add bracket base-controls wifi \
-    --set base-controls "${zones[@]}"
+sketchybar --add item separator left \
+           --set separator icon= \
+                          icon.font="$FONT:Semibold:14.0" \
+                          icon.color=0xff908caa \
+                          label.drawing=off
+
+sketchybar --add item calendar right \
+           --set calendar icon="$(date '+%a %d %b')" \
+                         label="$(date '+%H:%M')" \
+                         icon.font="$FONT:Bold:12.0" \
+                         update_freq=60 \
+                         click_script="open -a Itsycal" \
+                         script="$RELPATH/plugins/calendar/script.sh"
+
+sketchybar --add item wifi right \
+           --set wifi icon=􀙇 \
+                     label="WiFi" \
+                     script="$RELPATH/plugins/wifi/script.sh" \
+           --subscribe wifi wifi_change
+
+sketchybar --add alias "Control Center,Bluetooth" right \
+           --set "Control Center,Bluetooth" alias.color=0xff9ccfd8
 
 sketchybar --update
 
