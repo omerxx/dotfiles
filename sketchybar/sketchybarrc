@@ -14,6 +14,7 @@ TEXT=0xffcdd6f4
 SUBTLE=0xff6c7086
 SURFACE=0xff313244
 HIGHLIGHT=0xfff38ba8
+ACTIVE_BG=0xff45475a
 
 sketchybar --bar height=40 \
                  y_offset=6 \
@@ -59,7 +60,7 @@ for sid in $(aerospace list-workspaces --all 2>/dev/null); do
             background.drawing=off \
             label.font="sketchybar-app-font:Regular:14.0" \
             label.color=$TEXT \
-            label.padding_right=6 \
+            label.padding_right=12 \
             label.drawing=off \
             click_script="aerospace workspace $sid" \
             script="$RELPATH/plugins/spaces/aerospace/script-space.sh $sid"

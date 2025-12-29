@@ -19,10 +19,10 @@ update_workspace_windows() {
 
         FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused 2>/dev/null)
 
-        if ! [ "$FOCUSED_WORKSPACE" = "$workspace_id" ]; then
-            sketchybar --set space.$workspace_id background.drawing=on
+        if [ "$FOCUSED_WORKSPACE" = "$workspace_id" ]; then
+            sketchybar --set space.$workspace_id background.drawing=on background.color=0xffcba6f7
         else
-            sketchybar --set space.$workspace_id background.drawing=off
+            sketchybar --set space.$workspace_id background.drawing=on background.color=0xff313244
         fi
     else
         icon_strip=" -"

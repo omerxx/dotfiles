@@ -18,11 +18,19 @@ update() {
     WIDTH="dynamic"
     if [ "$SELECTED" = "true" ]; then
         WIDTH="0"
+        sketchybar --animate tanh 20 --set $NAME \
+            icon.highlight=true \
+            icon.color=0xffcdd6f4 \
+            background.color=0xffcba6f7 \
+            background.drawing=on \
+            label.width=$WIDTH
+    else
+        sketchybar --animate tanh 20 --set $NAME \
+            icon.highlight=false \
+            icon.color=0xff6c7086 \
+            background.color=0xff313244 \
+            label.width=$WIDTH
     fi
-
-    sketchybar --animate tanh 20 --set $NAME \
-        icon.highlight=$SELECTED \
-        label.width=$WIDTH
 }
 
 mouse_clicked() {
