@@ -51,7 +51,7 @@ for sid in $(aerospace list-workspaces --all 2>/dev/null); do
             icon="$sid" \
             icon.font="$FONT:Bold:13.0" \
             icon.color=$SUBTLE \
-            icon.highlight_color=$ACCENT \
+            icon.highlight_color=$BAR_COLOR \
             icon.padding_left=10 \
             icon.padding_right=10 \
             background.color=$SURFACE \
