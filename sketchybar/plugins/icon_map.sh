@@ -42,7 +42,7 @@ __icon_map() {
     "Spotify") icon_result=":spotify:" ;;
     "Figma") icon_result=":figma:" ;;
     "Music") icon_result=":music:" ;;
-    "Obsidian") icon_result=":obsidian:" ;;
+    Obsidian* | obsidian*) icon_result=":obsidian:" ;;
     "Reminders") icon_result=":reminders:" ;;
     "Preview" | "Skim") icon_result=":pdf:" ;;
     "1Password" | "1Password 7") icon_result=":one_password:" ;;
