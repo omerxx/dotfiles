@@ -104,6 +104,7 @@
         # Keyboard: fast but controllable key repeat
         NSGlobalDomain.KeyRepeat = 2;           # Fast (default: 6)
         NSGlobalDomain.InitialKeyRepeat = 15;   # Short delay (default: 25)
+        NSGlobalDomain._HIHideMenuBar = true;   # Hide macOS menu bar (using sketchybar)
       };
 
       # Set desktop wallpaper
