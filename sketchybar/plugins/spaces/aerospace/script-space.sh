@@ -15,9 +15,9 @@ else
 fi
 
 update() {
-    WIDTH="dynamic"
+    WIDTH="0"
     if [ "$SELECTED" = "true" ]; then
-        WIDTH="0"
+        WIDTH="dynamic"
         sketchybar --animate tanh 20 --set $NAME \
             icon.highlight=true \
             icon.color=0xff1e1e2e \
