@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+# Ensure all CLI tools are available (aerospace, nix-darwin packages, etc.)
+# GUI apps don't inherit shell PATH, so we must explicitly set it
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
 source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
 source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 
