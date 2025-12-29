@@ -106,6 +106,10 @@ run = 'move-node-to-workspace 4'
 if.app-id = 'com.exafunction.windsurf'
 run = 'move-node-to-workspace 4'
 
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'move-node-to-workspace 5'
+
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
