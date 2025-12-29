@@ -1,15 +1,21 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+# Source: github.com/Kcraft059/sketchybar-config
 
-sketchybar --add item     calendar right               \
-           --set calendar icon=cal                     \
-                          icon.color=$BLACK            \
-                          icon.font="$FONT:Black:12.0" \
-                          icon.padding_left=5          \
-                          icon.padding_right=5         \
-                          icon.drawing=off             \
-                          label.color=$BLACK           \
-                          label.padding_left=5         \
-                          label.padding_right=5        \
-                          background.color=0xffb8c0e0  \
-                          background.height=26         \
-                          background.corner_radius=11
+RELPATH="$HOME/.config/sketchybar"
+SCRIPT_CALENDAR="$RELPATH/plugins/calendar/script.sh"
+
+calendar=(
+    icon="$(date '+%a %d. %b')"
+    label="$(date '+%H:%M')"
+    icon.font="$FONT:Black:12.0"
+    icon.padding_right=0
+    label.width=50
+    label.align=center
+    label.padding_right=0
+    update_freq=60
+    script="$SCRIPT_CALENDAR"
+    click_script="open -a Itsycal"
+)
+
+sketchybar --add item calendar right \
+    --set calendar "${calendar[@]}"

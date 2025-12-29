@@ -159,6 +159,7 @@
         "visual-studio-code"
         "readdle-spark"
         "sf-symbols"
+        "font-sketchybar-app-font"
         "xbar"
         "codex"
       ];
