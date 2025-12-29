@@ -20,7 +20,7 @@ update() {
         WIDTH="0"
         sketchybar --animate tanh 20 --set $NAME \
             icon.highlight=true \
-            icon.color=0xffcdd6f4 \
+            icon.color=0xff1e1e2e \
             background.color=0xffcba6f7 \
             background.drawing=on \
             label.width=$WIDTH
