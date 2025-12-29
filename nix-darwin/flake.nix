@@ -168,6 +168,7 @@
         "cmake"
         "imagemagick"
         "ical-buddy"
+        "ifstat"
         "opencode"
         "steveyegge/beads/bd"
         "tw93/tap/mole"
