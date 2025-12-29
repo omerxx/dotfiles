@@ -119,15 +119,28 @@ sketchybar --add item wifi right \
            --subscribe wifi wifi_change
 
 sketchybar --add item bluetooth right \
-           --set bluetooth icon=􀪷 \
-                          icon.color=$ACCENT \
-                          label.color=$TEXT \
-                          label.font="$FONT:Semibold:11.0" \
-                          background.color=$SURFACE \
-                          background.drawing=on \
-                          update_freq=30 \
-                          click_script="$RELPATH/plugins/bluetooth/click.sh" \
-                          script="$RELPATH/plugins/bluetooth/script.sh"
+	           --set bluetooth icon=􀪷 \
+	                          icon.color=$ACCENT \
+	                          label.color=$TEXT \
+	                          label.font="$FONT:Semibold:11.0" \
+	                          background.color=$SURFACE \
+	                          background.drawing=on \
+	                          update_freq=30 \
+	                          click_script="$RELPATH/plugins/bluetooth/click.sh" \
+	                          script="$RELPATH/plugins/bluetooth/script.sh"
+
+if [ -x "/Applications/CMatrixWallpaper.app/Contents/MacOS/matrixdaemon" ]; then
+    sketchybar --add item matrix_wallpaper right \
+               --set matrix_wallpaper icon="M" \
+                                      icon.color=$ACCENT \
+                                      label.color=$TEXT \
+                                      label.font="$FONT:Semibold:11.0" \
+                                      background.color=$SURFACE \
+                                      background.drawing=on \
+                                      update_freq=30 \
+                                      click_script="$RELPATH/plugins/matrix_wallpaper/script.sh" \
+                                      script="$RELPATH/plugins/matrix_wallpaper/script.sh"
+fi
 
 sketchybar --update
 
