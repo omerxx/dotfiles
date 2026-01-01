@@ -10,7 +10,8 @@ GHOSTTY_PRIMARY_WS='1'
 GHOSTTY_OVERFLOW_WS='5'
 NON_GHOSTTY_OVERFLOW_WS='6'
 
-OVERFLOW_WORKSPACES=(6 7 8 9)
+OVERFLOW_WORKSPACES_WITH_WS5=(5 6 7 8 9)
+OVERFLOW_WORKSPACES_WITHOUT_WS5=(6 7 8 9)
 NON_GHOSTTY_OVERFLOW_WORKSPACES=(6 7 8 9)
 
 mode="${1:-on-window-detected}"
@@ -117,6 +118,51 @@ place_ghostty_window() {
     "$AEROSPACE" move-node-to-workspace --window-id "$window_id" --focus-follows-window "$target" 2>/dev/null || true
 }
 
+rebalance_workspace_window_caps() {
+    local ghostty_total
+    ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
+
+    local overflow_candidates
+    if [[ "$ghostty_total" -gt "$MAX_PER_WS" ]]; then
+        overflow_candidates=("${OVERFLOW_WORKSPACES_WITHOUT_WS5[@]}")
+    else
+        overflow_candidates=("${OVERFLOW_WORKSPACES_WITH_WS5[@]}")
+    fi
+
+    local ws
+    for ws in 1 2 3 4 5 6 7 8 9; do
+        local count
+        count="$(count_windows_in_ws "$ws")"
+        if [[ "$count" -le "$MAX_PER_WS" ]]; then
+            continue
+        fi
+
+        local extra
+        extra=$((count - MAX_PER_WS))
+
+        if [[ "$ws" == "$GHOSTTY_PRIMARY_WS" ]]; then
+            "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}' 2>/dev/null |
+                awk -F'\t' -v ghost="$GHOSTTY_ID" -v n="$extra" '$2 != ghost { print $1 }' |
+                head -n "$extra" |
+                while IFS= read -r wid; do
+                    [[ -n "$wid" ]] || continue
+                    dest="$(find_first_workspace_with_capacity "$MAX_PER_WS" "${overflow_candidates[@]}")" || break
+                    "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$dest" 2>/dev/null || true
+                done
+            continue
+        fi
+
+        "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}' 2>/dev/null |
+            awk -v max="$MAX_PER_WS" 'NR > max { print $1 }' |
+            head -n "$extra" |
+            while IFS= read -r wid; do
+                [[ -n "$wid" ]] || continue
+                dest="$(find_first_workspace_with_capacity "$MAX_PER_WS" "${overflow_candidates[@]}")" || break
+                "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$dest" 2>/dev/null || true
+            done
+    done
+}
+
 enforce_workspace_window_cap_for_new_window() {
     local window_id="$1"
 
@@ -136,9 +182,10 @@ enforce_workspace_window_cap_for_new_window() {
     local ghostty_total
     ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
 
-    if [[ "$workspace" == "$GHOSTTY_OVERFLOW_WS" ]]; then
-        "$AEROSPACE" move-node-to-workspace --window-id "$window_id" --focus-follows-window "$NON_GHOSTTY_OVERFLOW_WS" 2>/dev/null || true
-        workspace="$NON_GHOSTTY_OVERFLOW_WS"
+    if [[ "$workspace" == "$GHOSTTY_OVERFLOW_WS" ]] && [[ "$ghostty_total" -gt "$MAX_PER_WS" ]]; then
+        dest="$(find_first_workspace_with_capacity "$MAX_PER_WS" "${NON_GHOSTTY_OVERFLOW_WORKSPACES[@]}")" || dest="$NON_GHOSTTY_OVERFLOW_WS"
+        "$AEROSPACE" move-node-to-workspace --window-id "$window_id" --focus-follows-window "$dest" 2>/dev/null || true
+        workspace="$dest"
     fi
 
     local count
@@ -147,9 +194,11 @@ enforce_workspace_window_cap_for_new_window() {
         return 0
     fi
 
-    local candidates=("${OVERFLOW_WORKSPACES[@]}")
+    local candidates=()
     if [[ "$ghostty_total" -gt "$MAX_PER_WS" ]]; then
-        candidates=("${NON_GHOSTTY_OVERFLOW_WORKSPACES[@]}")
+        candidates=("${OVERFLOW_WORKSPACES_WITHOUT_WS5[@]}")
+    else
+        candidates=("${OVERFLOW_WORKSPACES_WITH_WS5[@]}")
     fi
 
     local dest
@@ -192,6 +241,7 @@ rebalance_ghostty_workspaces() {
 case "$mode" in
     sweep)
         rebalance_ghostty_workspaces
+        rebalance_workspace_window_caps
         bounce_from_empty_overflow_workspace
         trigger_sketchybar_workspace_update
         exit 0
