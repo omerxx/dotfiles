@@ -200,31 +200,33 @@ update_workspace_windows() {
             fi
         done
 
-        if [ "$all_icons_available" = "true" ] && [ "${#icon_paths[@]}" -gt 0 ]; then
-            local key
-            key=$(printf '%s\n' "${bundle_ids[@]}")
+	        if [ "$all_icons_available" = "true" ] && [ "${#icon_paths[@]}" -gt 0 ]; then
+	            local key
+	            key=$(printf '%s\n' "${bundle_ids[@]}")
 
             strip_png=$(render_workspace_icon_strip "$workspace_id" "$key" "${icon_paths[@]}" || true)
             if [ -n "${strip_png:-}" ]; then
                 local padded_width=$((ICON_SIZE + ICON_PADDING * 2))
                 local strip_width=$((padded_width * ${#icon_paths[@]}))
 
-                sketchybar --set space.$workspace_id \
-                    label="" \
-                    label.drawing=on \
-                    label.width="$strip_width" \
-                    label.background.color=0x0 \
-                    label.background.corner_radius=0 \
-                    label.background.height="$ICON_SIZE" \
-                    label.background.image="$strip_png" \
-                    label.background.image.drawing=on \
-                    label.background.image.scale=1.0 \
-                    label.background.drawing=on \
-                    drawing=on
-            else
-                all_icons_available=false
-            fi
-        fi
+	                sketchybar --set space.$workspace_id \
+	                    label="" \
+	                    label.drawing=on \
+	                    label.width="$strip_width" \
+	                    label.background.color=0x0 \
+	                    label.background.corner_radius=0 \
+	                    label.background.height="$ICON_SIZE" \
+	                    label.background.image="$strip_png" \
+	                    label.background.image.drawing=on \
+	                    label.background.image.scale=1.0 \
+	                    label.background.drawing=on \
+	                    icon.drawing=on \
+	                    width=-1 \
+	                    drawing=on
+	            else
+	                all_icons_available=false
+	            fi
+	        fi
 
         if [ "$all_icons_available" != "true" ]; then
             icon_strip=" "
@@ -233,14 +235,16 @@ update_workspace_windows() {
                 icon_strip+=" $icon_result"
             done
 
-            sketchybar --set space.$workspace_id \
-                label.background.drawing=off \
-                label.background.image.drawing=off \
-                label="$icon_strip" \
-                label.drawing=on \
-                label.width=dynamic \
-                drawing=on
-        fi
+	            sketchybar --set space.$workspace_id \
+	                label.background.drawing=off \
+	                label.background.image.drawing=off \
+	                label="$icon_strip" \
+	                label.drawing=on \
+	                label.width=dynamic \
+	                icon.drawing=on \
+	                width=-1 \
+	                drawing=on
+	        fi
 
         if [ "$FOCUSED_WORKSPACE" = "$workspace_id" ]; then
             sketchybar --set space.$workspace_id background.drawing=on background.color=0xffcba6f7
@@ -248,25 +252,41 @@ update_workspace_windows() {
             sketchybar --set space.$workspace_id background.drawing=on background.color=0xff313244
         fi
     else
-        if [ "$FOCUSED_WORKSPACE" = "$workspace_id" ]; then
-            sketchybar --set space.$workspace_id \
-                label.background.drawing=off \
-                label.background.image.drawing=off \
-                label.drawing=off \
-                label.width=0 \
-                background.drawing=on \
-                background.color=0xffcba6f7 \
-                drawing=on
-        else
-            sketchybar --set space.$workspace_id \
-                label.background.drawing=off \
-                label.background.image.drawing=off \
-                label.drawing=off \
-                label.width=0 \
-                background.drawing=off \
-                drawing=off
-        fi
-    fi
+	        if [ "$FOCUSED_WORKSPACE" = "$workspace_id" ]; then
+	            sketchybar --set space.$workspace_id \
+	                label.background.drawing=off \
+	                label.background.image.drawing=off \
+	                label.drawing=off \
+	                label.width=0 \
+	                background.drawing=on \
+	                background.color=0xffcba6f7 \
+	                icon.drawing=on \
+	                width=-1 \
+	                drawing=on
+	        else
+	            if [[ "$workspace_id" =~ ^[1-4]$ ]]; then
+	                sketchybar --set space.$workspace_id \
+	                    label.background.drawing=off \
+	                    label.background.image.drawing=off \
+	                    label.drawing=off \
+	                    label.width=0 \
+	                    background.drawing=off \
+	                    icon.drawing=on \
+	                    width=-1 \
+	                    drawing=on
+	            else
+	                sketchybar --set space.$workspace_id \
+	                    label.background.drawing=off \
+	                    label.background.image.drawing=off \
+	                    label.drawing=off \
+	                    label.width=0 \
+	                    background.drawing=off \
+	                    icon.drawing=off \
+	                    width=0 \
+	                    drawing=on
+	            fi
+	        fi
+	    fi
 }
 
 update_workspace_windows "$1"

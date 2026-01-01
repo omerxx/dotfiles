@@ -44,11 +44,12 @@ sketchybar --default updates=when_shown \
 
 sketchybar --add event aerospace_workspace_change
 
-for sid in $(aerospace list-workspaces --all 2>/dev/null); do
+for sid in 1 2 3 4 5 6 7 8 9; do
     sketchybar --add item space.$sid left \
         --subscribe space.$sid aerospace_workspace_change mouse.clicked \
         --set space.$sid \
             icon="$sid" \
+            updates=on \
             icon.font="$FONT:Bold:13.0" \
             icon.color=$SUBTLE \
             icon.highlight_color=$BAR_COLOR \

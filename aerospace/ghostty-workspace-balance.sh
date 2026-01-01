@@ -16,6 +16,12 @@ NON_GHOSTTY_OVERFLOW_WORKSPACES=(6 7 8 9)
 mode="${1:-on-window-detected}"
 
 trigger_sketchybar_workspace_update() {
+    local sketchybar_bin="/opt/homebrew/bin/sketchybar"
+    if [[ -x "$sketchybar_bin" ]]; then
+        "$sketchybar_bin" --trigger aerospace_workspace_change >/dev/null 2>&1 || true
+        return 0
+    fi
+
     if command -v sketchybar >/dev/null 2>&1; then
         sketchybar --trigger aerospace_workspace_change >/dev/null 2>&1 || true
     fi
@@ -71,6 +77,20 @@ evict_non_ghostty_from_workspace_5() {
         done
 }
 
+bounce_from_empty_overflow_workspace() {
+    local focused_ws
+    focused_ws="$("$AEROSPACE" list-workspaces --focused 2>/dev/null || true)"
+    [[ -n "$focused_ws" ]] || return 0
+
+    if [[ "$focused_ws" =~ ^[0-9]+$ ]] && [[ "$focused_ws" -ge 5 ]]; then
+        local count
+        count="$("$AEROSPACE" list-windows --workspace focused --count 2>/dev/null || echo 0)"
+        if [[ "$count" -eq 0 ]]; then
+            "$AEROSPACE" workspace-back-and-forth 2>/dev/null || true
+        fi
+    fi
+}
+
 place_ghostty_window() {
     local window_id="$1"
 
@@ -108,15 +128,15 @@ enforce_workspace_window_cap_for_new_window() {
     app_id="$(awk -F'\t' '{ print $2 }' <<<"$info")"
     workspace="$(awk -F'\t' '{ print $3 }' <<<"$info")"
 
-    local ghostty_total
-    ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
-
     if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
         place_ghostty_window "$window_id"
         return 0
     fi
 
-    if [[ "$ghostty_total" -gt "$MAX_PER_WS" ]] && [[ "$workspace" == "$GHOSTTY_OVERFLOW_WS" ]]; then
+    local ghostty_total
+    ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
+
+    if [[ "$workspace" == "$GHOSTTY_OVERFLOW_WS" ]]; then
         "$AEROSPACE" move-node-to-workspace --window-id "$window_id" --focus-follows-window "$NON_GHOSTTY_OVERFLOW_WS" 2>/dev/null || true
         workspace="$NON_GHOSTTY_OVERFLOW_WS"
     fi
@@ -153,11 +173,26 @@ rebalance_ghostty_workspaces() {
     fi
 
     evict_non_ghostty_from_workspace_5
+
+    local in_primary
+    in_primary="$(count_app_windows_in_ws "$GHOSTTY_PRIMARY_WS" "$GHOSTTY_ID")"
+    if [[ "$in_primary" -lt "$MAX_PER_WS" ]]; then
+        local needed
+        needed=$((MAX_PER_WS - in_primary))
+
+        "$AEROSPACE" list-windows --workspace "$GHOSTTY_OVERFLOW_WS" --app-bundle-id "$GHOSTTY_ID" --format '%{window-id}' 2>/dev/null |
+            awk -v n="$needed" 'NR <= n { print $1 }' |
+            while IFS= read -r wid; do
+                [[ -n "$wid" ]] || continue
+                "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$GHOSTTY_PRIMARY_WS" 2>/dev/null || true
+            done
+    fi
 }
 
 case "$mode" in
     sweep)
         rebalance_ghostty_workspaces
+        bounce_from_empty_overflow_workspace
         trigger_sketchybar_workspace_update
         exit 0
         ;;
