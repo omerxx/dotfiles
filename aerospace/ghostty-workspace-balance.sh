@@ -2,20 +2,41 @@
 set -e
 
 AEROSPACE=/opt/homebrew/bin/aerospace
-GHOSTTY_ID="com.mitchellh.ghostty"
-WORKSPACES=(1 5 6 7 8 9)
-MAX_PER_WS=3
 
-$AEROSPACE move-node-to-workspace --window-id "$AEROSPACE_WINDOW_ID" 0
+GHOSTTY_ID='com.mitchellh.ghostty'
+GHOSTTY_WORKSPACE='5'
+EVICT_WORKSPACE='6'
 
-for ws in "${WORKSPACES[@]}"; do
-    count=$($AEROSPACE list-windows --workspace "$ws" --app-bundle-id "$GHOSTTY_ID" --count 2>/dev/null || echo 0)
-    if [[ "$count" -lt "$MAX_PER_WS" ]]; then
-        $AEROSPACE move-node-to-workspace --window-id "$AEROSPACE_WINDOW_ID" --focus-follows-window "$ws"
-        $AEROSPACE workspace "$ws"
-        exit 0
-    fi
-done
+window_id="${AEROSPACE_WINDOW_ID:-}"
+if [[ -z "$window_id" ]]; then
+    exit 0
+fi
 
-$AEROSPACE move-node-to-workspace --window-id "$AEROSPACE_WINDOW_ID" --focus-follows-window "${WORKSPACES[-1]}"
-$AEROSPACE workspace "${WORKSPACES[-1]}"
+window_info="$(
+    "$AEROSPACE" list-windows --all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{workspace}' |
+        awk -F'\t' -v id="$window_id" '$1 == id { print $0; exit }'
+)"
+
+if [[ -z "$window_info" ]]; then
+    exit 0
+fi
+
+app_id="$(awk -F'\t' '{ print $2 }' <<<"$window_info")"
+workspace="$(awk -F'\t' '{ print $3 }' <<<"$window_info")"
+
+if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
+    "$AEROSPACE" list-windows --workspace "$GHOSTTY_WORKSPACE" --format '%{window-id}%{tab}%{app-bundle-id}' |
+        awk -F'\t' -v ghost="$GHOSTTY_ID" '$2 != ghost { print $1 }' |
+        while IFS= read -r other_id; do
+            [[ -n "$other_id" ]] || continue
+            "$AEROSPACE" move-node-to-workspace --window-id "$other_id" "$EVICT_WORKSPACE"
+        done
+
+    "$AEROSPACE" move-node-to-workspace --window-id "$window_id" --focus-follows-window "$GHOSTTY_WORKSPACE"
+    "$AEROSPACE" workspace "$GHOSTTY_WORKSPACE"
+    exit 0
+fi
+
+if [[ "$workspace" == "$GHOSTTY_WORKSPACE" ]]; then
+    "$AEROSPACE" move-node-to-workspace --window-id "$window_id" "$EVICT_WORKSPACE"
+fi

@@ -45,6 +45,16 @@ inherit-env-vars = true
 [exec.env-vars]
 PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:${HOME}/.local/bin:${HOME}/.nix-profile/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
+# Workspace 5 is reserved for Ghostty windows (evict non-Ghostty windows to workspace 6)
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh'
+
+[[on-window-detected]]
+if.workspace = '5'
+check-further-callbacks = true
+run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh'
+
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'
 run = 'layout floating'
@@ -64,11 +74,6 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-name-regex-substring = 'quicktime'
 run = 'layout floating'
-
-# Workspace assignments - Ghostty: max 3 windows per workspace, overflow to 5, 6, 7...
-[[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'obsidian'
@@ -116,7 +121,7 @@ run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
-run = 'move-node-to-workspace 5'
+run = 'move-node-to-workspace 6'
 
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
