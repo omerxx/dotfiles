@@ -1,6 +1,6 @@
 # Dotfiles
 
-macOS development environment managed with Nix-Darwin and Stow.
+macOS development environment managed with Nix-Darwin, Home Manager, and Stow.
 
 ## Quick Start
 
@@ -22,11 +22,297 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 
 ```bash
 ./setup.sh           # Symlink dotfiles
+./setup.sh --update  # Pull, rebuild nix-darwin, re-stow
 ./setup.sh --verify  # Check installed tools
+./setup.sh --github  # Set up GitHub SSH via 1Password
 ./setup.sh --help    # Show help
 ```
+
+---
+
+## Installed Programs
+
+### Core CLI Tools (via Nix)
+
+| Tool | Description |
+|------|-------------|
+| `nushell` | Primary shell (modern, structured data) |
+| `tmux` | Terminal multiplexer |
+| `neovim` | Text editor (LazyVim config) |
+| `fzf` | Fuzzy finder |
+| `fd` | Fast find alternative |
+| `ripgrep` | Fast grep alternative |
+| `bat` | Cat with syntax highlighting |
+| `eza` | Modern ls replacement |
+| `zoxide` | Smart cd with frecency |
+| `atuin` | Shell history with sync |
+| `yazi` | Terminal file manager |
+| `tree` | Directory tree viewer |
+| `starship` | Cross-shell prompt |
+| `jq` / `yq` | JSON/YAML processors |
+| `xh` | HTTPie-like HTTP client |
+
+### Developer Tools (via Nix)
+
+| Tool | Description |
+|------|-------------|
+| `go` | Go programming language |
+| `nodejs` | Node.js runtime |
+| `bun` | Fast JavaScript runtime |
+| `pnpm` | Fast Node package manager |
+| `rustup` | Rust toolchain manager |
+| `uv` | Fast Python package manager |
+| `lazygit` | Git TUI |
+| `delta` | Git diff viewer |
+| `stow` | Symlink farm manager |
+| `cloc` | Count lines of code |
+| `direnv` | Directory-based env vars |
+| `carapace` | Shell completion |
+
+### AI/LLM Tools
+
+| Tool | Source | Description |
+|------|--------|-------------|
+| `aichat` | Nix | Multi-LLM chat CLI |
+| `gemini-cli` | Nix | Google Gemini CLI |
+| `opencode` | Homebrew | AI coding assistant |
+| `codex` | Homebrew Cask | OpenAI Codex CLI |
+| `claude` | npm | Anthropic Claude Code |
+| `amp` | npm | Sourcegraph AI |
+| `@ccusage/codex` | npm | Codex usage tracker |
+
+### Cloud CLIs (via Nix)
+
+| Tool | Description |
+|------|-------------|
+| `kubectl` | Kubernetes CLI |
+| `kubectx` | Kubernetes context switcher |
+| `awscli2` | AWS CLI v2 |
+| `google-cloud-sdk` | Google Cloud CLI |
+| `doctl` | DigitalOcean CLI |
+| `flyctl` | Fly.io CLI |
+| `gh` | GitHub CLI |
+
+### Security Tools (via Nix)
+
+| Tool | Description |
+|------|-------------|
+| `nmap` | Network scanner |
+| `gobuster` | Directory/DNS brute-forcer |
+| `ffuf` | Web fuzzer |
+| `ngrok` | Secure tunnels |
+| `wireshark` | Network analyzer (GUI) |
+
+### macOS Window Management
+
+| Tool | Source | Description |
+|------|--------|-------------|
+| `aerospace` | Homebrew Cask | Tiling window manager |
+| `sketchybar` | Homebrew | Custom status bar |
+| `borders` | Homebrew | Window borders |
+| `hammerspoon` | Homebrew Cask | macOS automation |
+| `linearmouse` | Homebrew Cask | Mouse customization |
+
+### Status Bar Plugins (Sketchybar)
+
+| Plugin | Description |
+|--------|-------------|
+| `aerospace` | Workspace indicators with icons |
+| `wifi` | Network status with click-to-toggle |
+| `bluetooth` | Bluetooth status with click-to-toggle |
+| `calendar` | Date/time with itsycal integration |
+| `system_stats` | CPU/RAM usage |
+| `front_app` | Current app display |
+| `matrix_wallpaper` | Toggle cmatrix wallpaper |
+| `codexbar` | Codex status indicator |
+| `repobar` | GitHub repo stats |
+
+### Terminal & Editor Apps (Homebrew Casks)
+
+| App | Description |
+|-----|-------------|
+| `ghostty` | GPU-accelerated terminal |
+| `visual-studio-code` | VS Code editor |
+| `cursor` | AI-powered code editor |
+| `windsurf` | AI code editor |
+
+### Productivity Apps (Homebrew Casks)
+
+| App | Description |
+|-----|-------------|
+| `obsidian` | Knowledge management |
+| `devonthink` | Document management |
+| `qspace-pro` | Dual-pane file manager |
+| `raycast` | Launcher/productivity |
+| `granola` | Meeting notes AI |
+| `linear-linear` | Issue tracking |
+| `itsycal` | Menu bar calendar |
+| `1password` | Password manager |
+
+### Communication Apps (Homebrew Casks)
+
+| App | Description |
+|-----|-------------|
+| `slack` | Team messaging |
+| `discord` | Community chat |
+| `telegram` | Messaging |
+| `readdle-spark` | Email client |
+
+### Browsers (Homebrew Casks)
+
+| App | Description |
+|-----|-------------|
+| `google-chrome` | Chrome browser |
+| `firefox` | Firefox browser |
+| `arc` | Arc browser |
+
+### Development Utilities (Homebrew)
+
+| Tool | Description |
+|------|-------------|
+| `cmake` | Build system |
+| `imagemagick` | Image manipulation |
+| `blueutil` | Bluetooth CLI |
+| `ical-buddy` | Calendar CLI |
+| `ifstat` | Network interface stats |
+| `mole` | SSH tunnel manager |
+| `sketchybar-system-stats` | System stats provider |
+
+### Task Management
+
+| Tool | Source | Description |
+|------|--------|-------------|
+| `bd` | Homebrew | Beads task tracker CLI |
+| `bv` | Go | Beads viewer GUI |
+
+### Other Apps (Homebrew Casks)
+
+| App | Description |
+|-----|-------------|
+| `setapp` | App subscription service |
+| `antigravity` | Screen capture utility |
+| `gitify` | GitHub notifications |
+| `vial` | Keyboard configurator |
+| `sf-symbols` | Apple SF Symbols |
+| `qbittorrent` | Torrent client |
+| `xbar` | Menu bar plugins |
+
+### Python Tools (via uv)
+
+| Tool | Description |
+|------|-------------|
+| `sqlit-tui` | SQLite database TUI |
+
+### Bun Global Packages
+
+| Package | Description |
+|---------|-------------|
+| `tokscale` | Token counting utility |
+
+### Local Homebrew Casks
+
+| Cask | Description |
+|------|-------------|
+| `screen-studio-legacy` | Screen Studio 2.26.0 (version-pinned) |
+
+---
+
+## Configuration Directories
+
+| Directory | Description |
+|-----------|-------------|
+| `aerospace/` | Window manager config + workspace scripts |
+| `atuin/` | Shell history sync config |
+| `borders/` | Window border styling |
+| `ghostty/` | Terminal emulator config |
+| `hammerspoon/` | macOS automation scripts |
+| `karabiner/` | Keyboard remapping |
+| `nix-darwin/` | Nix-Darwin + Home Manager config |
+| `nushell/` | Primary shell configuration |
+| `nvim/` | Neovim/LazyVim configuration |
+| `opencode/` | OpenCode AI settings |
+| `sketchybar/` | Status bar + plugins |
+| `starship/` | Cross-shell prompt theme |
+| `tmux/` | Terminal multiplexer config |
+| `vscode/` | VS Code settings + extensions |
+| `zsh/` | Zsh environment (for compatibility) |
+
+---
+
+## Scripts
+
+### Main Scripts
+
+| Script | Description |
+|--------|-------------|
+| `bootstrap.sh` | Initial machine setup (Homebrew, Nix, nix-darwin) |
+| `setup.sh` | Symlink dotfiles, install tools, verify setup |
+
+### Aerospace Scripts
+
+| Script | Description |
+|--------|-------------|
+| `aerospace/ghostty-workspace-balance.sh` | Balance Ghostty windows across workspaces |
+
+### Sketchybar Scripts
+
+| Script | Description |
+|--------|-------------|
+| `sketchybar/plugins/bluetooth/` | Bluetooth toggle |
+| `sketchybar/plugins/calendar/` | Calendar events integration |
+| `sketchybar/plugins/codexbar/` | Codex status |
+| `sketchybar/plugins/front_app/` | Current app display |
+| `sketchybar/plugins/icon_map.sh` | App icon mapping |
+| `sketchybar/plugins/matrix_wallpaper/` | cmatrix wallpaper toggle |
+| `sketchybar/plugins/repobar/` | GitHub repo stats |
+| `sketchybar/plugins/spaces/aerospace/` | Workspace indicators |
+| `sketchybar/plugins/system_stats/` | CPU/RAM stats |
+| `sketchybar/plugins/wifi/` | WiFi toggle |
+
+### Tmux Scripts
+
+| Script | Description |
+|--------|-------------|
+| `tmux/scripts/cal.sh` | Calendar widget |
+
+---
+
+## External Repositories (Auto-Updated)
+
+| Repo | Location | Description |
+|------|----------|-------------|
+| `oh-my-opencode` | `~/.local/share/oh-my-opencode` | OpenCode prompt customization |
+| `mcp-agent-mail` | `~/.local/share/mcp-agent-mail` | MCP Agent Mail server |
+
+---
+
+## macOS System Settings
+
+Configured via `nix-darwin/flake.nix`:
+
+- **Dock**: Auto-hide, left orientation, no persistent apps
+- **Menu Bar**: Hidden (using sketchybar)
+- **Finder**: Show extensions, column view, hide desktop icons
+- **Keyboard**: Fast key repeat (2), short initial delay (15)
+- **Screenshots**: Save to `~/Pictures/screenshots`, copy to clipboard
+- **Security**: Touch ID + Apple Watch for sudo
+- **Wallpaper**: Auto-set on rebuild
+
+---
 
 ## Documentation
 
 - [Quick Setup Guide](docs/QUICK-SETUP.md) - Get running in under 1 hour
 - [Complete Reference](docs/DOTFILES-COMPLETE.md) - Full configuration details
+- [AeroSpace Guide](docs/AEROSPACE-GUIDE.md) - Window management
+- [Apps Setup](docs/APPS-SETUP.md) - Application configuration
+
+---
+
+## Multi-Machine Support
+
+Configured for:
+- `Claudios-MacBook-Pro` - MacBook Pro
+- `m4-mini` - Mac mini M4
+
+Check hostname: `scutil --get ComputerName`
