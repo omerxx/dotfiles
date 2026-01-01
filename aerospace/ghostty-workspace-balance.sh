@@ -15,6 +15,7 @@ OVERFLOW_WORKSPACES_WITHOUT_WS5=(6 7 8 9)
 NON_GHOSTTY_OVERFLOW_WORKSPACES=(6 7 8 9)
 
 mode="${1:-on-window-detected}"
+WATCH_INTERVAL_SECONDS="${WATCH_INTERVAL_SECONDS:-0.35}"
 
 trigger_sketchybar_workspace_update() {
     local sketchybar_bin="/opt/homebrew/bin/sketchybar"
@@ -88,8 +89,11 @@ bounce_from_empty_overflow_workspace() {
         count="$("$AEROSPACE" list-windows --workspace focused --count 2>/dev/null || echo 0)"
         if [[ "$count" -eq 0 ]]; then
             "$AEROSPACE" workspace-back-and-forth 2>/dev/null || true
+            return 0
         fi
     fi
+
+    return 1
 }
 
 place_ghostty_window() {
@@ -160,6 +164,45 @@ rebalance_workspace_window_caps() {
                 dest="$(find_first_workspace_with_capacity "$MAX_PER_WS" "${overflow_candidates[@]}")" || break
                 "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$dest" 2>/dev/null || true
             done
+    done
+}
+
+current_windows_signature() {
+    "$AEROSPACE" list-windows --monitor all --format '%{workspace}%{tab}%{app-bundle-id}%{tab}%{window-id}' 2>/dev/null |
+        LC_ALL=C sort ||
+        true
+}
+
+watch_for_window_changes() {
+    local lock_file="${TMPDIR:-/tmp}/aerospace-ghostty-workspace-balance.watch.pid"
+    if [[ -f "$lock_file" ]]; then
+        local existing_pid
+        existing_pid="$(cat "$lock_file" 2>/dev/null || true)"
+        if [[ -n "$existing_pid" ]] && kill -0 "$existing_pid" 2>/dev/null; then
+            exit 0
+        fi
+    fi
+
+    echo "$$" >"$lock_file"
+    trap 'rm -f "$lock_file"' EXIT INT TERM
+
+    local last_sig=""
+    while true; do
+        local sig
+        sig="$(current_windows_signature)"
+
+        if [[ "$sig" != "$last_sig" ]]; then
+            last_sig="$sig"
+            sleep 0.1
+            rebalance_ghostty_workspaces
+            rebalance_workspace_window_caps
+            bounce_from_empty_overflow_workspace || true
+            trigger_sketchybar_workspace_update
+        else
+            bounce_from_empty_overflow_workspace || true
+        fi
+
+        sleep "$WATCH_INTERVAL_SECONDS"
     done
 }
 
@@ -242,8 +285,11 @@ case "$mode" in
     sweep)
         rebalance_ghostty_workspaces
         rebalance_workspace_window_caps
-        bounce_from_empty_overflow_workspace
         trigger_sketchybar_workspace_update
+        exit 0
+        ;;
+    watch)
+        watch_for_window_changes
         exit 0
         ;;
     on-window-detected)
