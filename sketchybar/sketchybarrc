@@ -202,6 +202,13 @@ sketchybar --add item codexbar right \
                           background.drawing=on \
                           click_script="$RELPATH/plugins/codexbar/click.sh"
 
+sketchybar --add item repobar right \
+           --set repobar icon="📊" \
+                         label.drawing=off \
+                         background.color=$SURFACE \
+                         background.drawing=on \
+                         click_script="$RELPATH/plugins/repobar/click.sh"
+
 if [ -x "/Applications/CMatrixWallpaper.app/Contents/MacOS/matrixdaemon" ]; then
     sketchybar --add item matrix_wallpaper right \
                --set matrix_wallpaper icon="M" \
