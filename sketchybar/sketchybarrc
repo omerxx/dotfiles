@@ -88,9 +88,13 @@ sketchybar --add item front_app center \
 sketchybar --add item calendar right \
            --set calendar icon="$(date '+%a %d %b')" \
                          label="$(date '+%H:%M')" \
-                         icon.font="$FONT:Semibold:12.0" \
+                         icon.font="$FONT:Semibold:10.0" \
                          icon.color=$ACCENT \
-                         label.font="$FONT:Bold:12.0" \
+                         label.font="$FONT:Bold:10.0" \
+                         icon.padding_left=6 \
+                         icon.padding_right=4 \
+                         label.padding_left=0 \
+                         label.padding_right=6 \
                          background.color=$SURFACE \
                          background.drawing=on \
                          update_freq=30 \
@@ -100,10 +104,14 @@ sketchybar --add item calendar right \
 sketchybar --add item events right \
            --set events icon=􀉉 \
                        icon.color=$ACCENT \
-                       icon.font="$FONT:Bold:14.0" \
-                       label.font="$FONT:Regular:11.0" \
+                       icon.font="$FONT:Bold:11.0" \
+                       icon.padding_left=6 \
+                       icon.padding_right=2 \
+                       label.font="$FONT:Regular:9.0" \
                        label.color=$TEXT \
-                       label.max_chars=30 \
+                       label.max_chars=25 \
+                       label.padding_left=0 \
+                       label.padding_right=6 \
                        background.color=$SURFACE \
                        background.drawing=on \
                        update_freq=300 \
@@ -112,26 +120,26 @@ sketchybar --add item events right \
 
 sketchybar --add item cpu right \
            --set cpu icon="CPU" \
-                    icon.font="$FONT:Bold:10.0" \
+                    icon.font="$FONT:Bold:8.0" \
                     icon.color=$ACCENT \
                     label="--" \
-                    label.font="$FONT:Semibold:10.0" \
+                    label.font="$FONT:Semibold:8.0" \
                     label.color=$TEXT \
                     padding_left=0 \
                     padding_right=0 \
-                    icon.padding_left=6 \
-                    icon.padding_right=4 \
+                    icon.padding_left=4 \
+                    icon.padding_right=2 \
                     label.padding_left=0 \
-                    label.padding_right=6 \
+                    label.padding_right=4 \
                     background.drawing=off \
                     script="$RELPATH/plugins/system_stats/script.sh" \
            --subscribe cpu system_stats
 
-sketchybar --add graph cpu_graph right 24 \
+sketchybar --add graph cpu_graph right 16 \
            --set cpu_graph graph.color=$ACCENT \
                          graph.fill_color=0x33cba6f7 \
-                         graph.line_width=1.5 \
-                         background.height=28 \
+                         graph.line_width=1.0 \
+                         background.height=22 \
                          background.drawing=off \
                          padding_left=0 \
                          padding_right=0
@@ -144,24 +152,24 @@ sketchybar --add bracket cpu_stats cpu cpu_graph \
 
 sketchybar --add item ram right \
            --set ram icon="RAM" \
-                    icon.font="$FONT:Bold:10.0" \
+                    icon.font="$FONT:Bold:8.0" \
                     icon.color=$HIGHLIGHT \
                     label="--" \
-                    label.font="$FONT:Semibold:10.0" \
+                    label.font="$FONT:Semibold:8.0" \
                     label.color=$TEXT \
                     padding_left=0 \
                     padding_right=0 \
-                    icon.padding_left=6 \
-                    icon.padding_right=4 \
+                    icon.padding_left=4 \
+                    icon.padding_right=2 \
                     label.padding_left=0 \
-                    label.padding_right=6 \
+                    label.padding_right=4 \
                     background.drawing=off
 
-sketchybar --add graph ram_graph right 24 \
+sketchybar --add graph ram_graph right 16 \
            --set ram_graph graph.color=$HIGHLIGHT \
                          graph.fill_color=0x33f38ba8 \
-                         graph.line_width=1.5 \
-                         background.height=28 \
+                         graph.line_width=1.0 \
+                         background.height=22 \
                          background.drawing=off \
                          padding_left=0 \
                          padding_right=0
