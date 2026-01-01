@@ -1,4 +1,7 @@
-after-startup-command = ['exec-and-forget sketchybar']
+after-startup-command = [
+  'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh sweep',
+  'exec-and-forget sketchybar',
+]
 
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -48,12 +51,11 @@ PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:${HOME}/
 # Workspace 5 is reserved for Ghostty windows (evict non-Ghostty windows to workspace 6)
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh'
+run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh ghostty-window'
 
 [[on-window-detected]]
 if.workspace = '5'
-check-further-callbacks = true
-run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh'
+run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh evict-window'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'
