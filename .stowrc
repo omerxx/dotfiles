@@ -5,3 +5,4 @@
 --ignore=vscode/*
 --ignore=chrome/*
 --ignore=launchagents/*
+--ignore=^zsh$

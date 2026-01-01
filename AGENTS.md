@@ -50,6 +50,20 @@ git add -A && git commit -m "type: description" && git push
 
 Then tell user to run `./setup.sh --update` on other machines.
 
+### 3. Shell PATH Must Work Everywhere (Nushell + Zsh)
+
+**All installed tools must be available in both Nushell and Zsh by default** (including non-interactive `zsh -c`, which Codex and git hooks use).
+
+- Nushell PATH is managed in `nushell/env.nu`
+- Zsh PATH must be managed in `zsh/.zshenv` (not `.zshrc`)
+
+After adding any tool that will be used by scripts/hooks/automation, verify:
+
+```bash
+zsh -c 'command -v <tool>'
+nu -c 'which <tool>'
+```
+
 ## Commands
 
 ### Primary Commands

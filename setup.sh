@@ -64,6 +64,7 @@ verify_tools() {
     "borders:borders"
     "stats_provider:sketchybar-system-stats"
     "icalBuddy:ical-buddy"
+    "bd:bd"
     # Developer utilities (nix)
     "aichat:aichat"
     "lazygit:lazygit"
@@ -211,6 +212,37 @@ setup_macos_configs() {
     ln -s "$NUSHELL_TARGET" "$NUSHELL_MACOS_DIR"
     echo -e "  ${GREEN}✓${NC} nushell config linked"
   fi
+}
+
+setup_zsh_configs() {
+  echo "Setting up zsh config..."
+
+  ZSHENV_SOURCE="$SCRIPT_DIR/zsh/.zshenv"
+  ZSHENV_TARGET="$HOME/.zshenv"
+
+  if [ ! -f "$ZSHENV_SOURCE" ]; then
+    echo -e "  ${YELLOW}!${NC} zsh config source not found: $ZSHENV_SOURCE"
+    echo ""
+    return
+  fi
+
+  if [ -L "$ZSHENV_TARGET" ]; then
+    CURRENT_TARGET=$(readlink "$ZSHENV_TARGET" 2>/dev/null || echo "")
+    if [ "$CURRENT_TARGET" != "$ZSHENV_SOURCE" ]; then
+      ln -sf "$ZSHENV_SOURCE" "$ZSHENV_TARGET"
+    fi
+    echo -e "  ${GREEN}✓${NC} .zshenv linked"
+  elif [ -e "$ZSHENV_TARGET" ]; then
+    echo "  Backing up existing .zshenv..."
+    mv "$ZSHENV_TARGET" "$ZSHENV_TARGET.backup"
+    ln -s "$ZSHENV_SOURCE" "$ZSHENV_TARGET"
+    echo -e "  ${GREEN}✓${NC} .zshenv linked (backup created)"
+  else
+    ln -s "$ZSHENV_SOURCE" "$ZSHENV_TARGET"
+    echo -e "  ${GREEN}✓${NC} .zshenv linked"
+  fi
+
+  echo ""
 }
 
 setup_vscode_configs() {
@@ -507,6 +539,7 @@ run_update() {
   fi
   "$STOW" .
   setup_macos_configs
+  setup_zsh_configs
   setup_vscode_configs
   install_uv_tools
   install_go_tools
@@ -539,6 +572,7 @@ case "$1" in
     echo "Symlinking dotfiles with stow..."
     stow .
     setup_macos_configs
+    setup_zsh_configs
     setup_vscode_configs
     echo -e "${GREEN}Done!${NC}"
     echo ""
