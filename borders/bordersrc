@@ -7,6 +7,7 @@ options=(
   active_color=0xffcba6f7
   inactive_color=0xff494d64
   order=above
+  blacklist="Wispr Flow,Setapp"
 )
 
 borders "${options[@]}"
