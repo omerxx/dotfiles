@@ -1,4 +1,4 @@
-command = /run/current-system/sw/bin/nu
+command = /nix/var/nix/profiles/system/sw/bin/nu
 font-size = 19
 background-opacity = 0.9
 background-blur-radius = 20
