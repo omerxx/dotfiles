@@ -10,6 +10,21 @@ GHOSTTY_PRIMARY_WS='1'
 GHOSTTY_OVERFLOW_WS='5'
 NON_GHOSTTY_OVERFLOW_WS='6'
 
+# Apps that should be floating - skip workspace cap enforcement for these
+# Must match the floating rules in aerospace.toml
+FLOATING_APP_PATTERNS=(
+    'com.apple.finder'
+    'com.apple.Safari'
+    'com.apple.FaceTime'
+    'com.apple.mail'
+    'com.apple.QuickTimePlayerX'
+    'com.apple.SecurityAgent'
+    'com.apple.coreservices.uiagent'
+    'com.apple.IOUIAgent'
+    'com.apple.NetAuthAgent'
+    'com.apple.systempreferences'
+)
+
 OVERFLOW_WORKSPACES_WITH_WS5=(5 6 7 8 9)
 OVERFLOW_WORKSPACES_WITHOUT_WS5=(6 7 8 9)
 NON_GHOSTTY_OVERFLOW_WORKSPACES=(6 7 8 9)
@@ -27,6 +42,17 @@ trigger_sketchybar_workspace_update() {
     if command -v sketchybar >/dev/null 2>&1; then
         sketchybar --trigger aerospace_workspace_change >/dev/null 2>&1 || true
     fi
+}
+
+is_floating_app() {
+    local app_id="$1"
+    local pattern
+    for pattern in "${FLOATING_APP_PATTERNS[@]}"; do
+        if [[ "$app_id" == "$pattern" ]]; then
+            return 0
+        fi
+    done
+    return 1
 }
 
 get_window_info() {
@@ -216,6 +242,10 @@ enforce_workspace_window_cap_for_new_window() {
     local app_id workspace
     app_id="$(awk -F'\t' '{ print $2 }' <<<"$info")"
     workspace="$(awk -F'\t' '{ print $3 }' <<<"$info")"
+
+    if is_floating_app "$app_id"; then
+        return 0
+    fi
 
     if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
         place_ghostty_window "$window_id"
