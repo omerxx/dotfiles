@@ -95,6 +95,7 @@
         dock.orientation = "left";
         dock.mru-spaces = false;
         dock.persistent-apps = [];  # Empty dock - no pinned apps
+        dock.expose-group-apps = true;  # Group windows by app in Mission Control
         finder.AppleShowAllExtensions = true;
         finder.FXPreferredViewStyle = "clmv";
         finder.CreateDesktop = false;           # Hide all desktop icons
