@@ -137,7 +137,8 @@ rebalance_ghostty_workspaces() {
     ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
 
     if [[ "$ghostty_total" -le "$MAX_PER_WS" ]]; then
-        "$AEROSPACE" list-windows --monitor all --app-bundle-id "$GHOSTTY_ID" --format '%{window-id}' 2>/dev/null |
+        "$AEROSPACE" list-windows --monitor all --app-bundle-id "$GHOSTTY_ID" --format '%{window-id}%{tab}%{workspace}' 2>/dev/null |
+            awk -F'\t' -v ws="$GHOSTTY_PRIMARY_WS" '$2 != ws { print $1 }' |
             while IFS= read -r wid; do
                 [[ -n "$wid" ]] || continue
                 "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$GHOSTTY_PRIMARY_WS" 2>/dev/null || true
