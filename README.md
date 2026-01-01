@@ -316,3 +316,12 @@ Configured for:
 - `m4-mini` - Mac mini M4
 
 Check hostname: `scutil --get ComputerName`
+
+## Troubleshooting
+
+### Ghostty: `error starting IO thread: error.SystemResources`
+
+This is commonly caused by a low `maxfiles` limit (file descriptors) in your user launchd session.
+
+- Check: `launchctl limit maxfiles`
+- Fix: run `./setup.sh --update` (installs a LaunchAgent that raises `maxfiles`)

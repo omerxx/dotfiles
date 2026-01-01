@@ -120,6 +120,35 @@ verify_tools() {
   echo -e "${GREEN}All tools verified!${NC}"
 }
 
+verify_system_limits() {
+  echo "Checking launchd resource limits..."
+  echo ""
+
+  if ! command -v launchctl &> /dev/null; then
+    echo -e "  ${YELLOW}!${NC} launchctl not found, skipping limits check"
+    echo ""
+    return
+  fi
+
+  maxfiles_soft=$(launchctl limit maxfiles 2>/dev/null | awk '{print $2}')
+  if [[ -z "$maxfiles_soft" ]]; then
+    echo -e "  ${YELLOW}!${NC} unable to read maxfiles via launchctl"
+    echo ""
+    return
+  fi
+
+  echo "  maxfiles (soft): $maxfiles_soft"
+
+  if [[ "$maxfiles_soft" != "unlimited" ]] && [[ "$maxfiles_soft" -lt 10240 ]]; then
+    echo -e "  ${YELLOW}!${NC} maxfiles is low; Ghostty may fail with 'error.SystemResources'"
+    echo -e "    Run: ./setup.sh --update (or ./setup.sh) to install the limits LaunchAgent"
+  else
+    echo -e "  ${GREEN}✓${NC} maxfiles looks good"
+  fi
+
+  echo ""
+}
+
 setup_github_ssh() {
   echo -e "${YELLOW}Setting up GitHub SSH authentication...${NC}"
   echo ""
@@ -212,6 +241,29 @@ setup_macos_configs() {
     ln -s "$NUSHELL_TARGET" "$NUSHELL_MACOS_DIR"
     echo -e "  ${GREEN}✓${NC} nushell config linked"
   fi
+}
+
+setup_launchctl_limits() {
+  echo "Setting up launchd resource limits..."
+
+  LIMITS_PLIST_SOURCE="$SCRIPT_DIR/launchagents/com.klaudioz.launchctl-limits.plist"
+  LIMITS_PLIST_DEST="$HOME/Library/LaunchAgents/com.klaudioz.launchctl-limits.plist"
+
+  if [ ! -f "$LIMITS_PLIST_SOURCE" ]; then
+    echo -e "  ${YELLOW}!${NC} limits LaunchAgent not found: $LIMITS_PLIST_SOURCE"
+    echo ""
+    return
+  fi
+
+  mkdir -p "$HOME/Library/LaunchAgents"
+  cp "$LIMITS_PLIST_SOURCE" "$LIMITS_PLIST_DEST"
+  echo -e "  ${GREEN}✓${NC} limits LaunchAgent installed"
+
+  launchctl unload "$LIMITS_PLIST_DEST" 2>/dev/null || true
+  launchctl load "$LIMITS_PLIST_DEST"
+  echo -e "  ${GREEN}✓${NC} limits LaunchAgent loaded"
+
+  echo ""
 }
 
 setup_zsh_configs() {
@@ -539,6 +591,7 @@ run_update() {
   fi
   "$STOW" .
   setup_macos_configs
+  setup_launchctl_limits
   setup_zsh_configs
   setup_vscode_configs
   install_uv_tools
@@ -562,6 +615,7 @@ case "$1" in
   --verify)
     check_prerequisites
     verify_tools
+    verify_system_limits
     ;;
   --help|-h)
     show_help
@@ -572,6 +626,7 @@ case "$1" in
     echo "Symlinking dotfiles with stow..."
     stow .
     setup_macos_configs
+    setup_launchctl_limits
     setup_zsh_configs
     setup_vscode_configs
     echo -e "${GREEN}Done!${NC}"
