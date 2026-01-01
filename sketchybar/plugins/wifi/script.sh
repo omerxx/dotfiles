@@ -19,38 +19,28 @@ getname() {
     if [[ $HOTSPOT != "" ]]; then
         ICON=$ICON_HOTSPOT
         ICON_COLOR=$GLOW
-        LABEL=$HOTSPOT
     elif [[ $WIFI != "" ]]; then
         ICON=$ICON_WIFI
         ICON_COLOR=$SELECT
-        LABEL="$WIFI"
     elif [[ $IP_ADDRESS != "" ]]; then
         ICON=$ICON_WIFI
         ICON_COLOR=$WARN
-        LABEL="on"
     else
         ICON=$ICON_WIFI_OFF
         ICON_COLOR=$CRITICAL
-        LABEL="off"
     fi
 
-    if [[ $PUBLIC_IP != "0" && $LABEL != "off" ]]; then
+    if [[ $PUBLIC_IP != "0" && $ICON != "$ICON_WIFI_OFF" ]]; then
         ICON=$ICON_WIFI_ERROR
         ICON_COLOR=$SUBTLE
-        LABEL="$WIFI (no internet)"
     fi
 
     wifi=(
         icon=$ICON
-        label="$LABEL"
         icon.color=$ICON_COLOR
+        label=""
+        label.drawing=off
     )
-
-    if [[ $WIFI == "<redacted>" ]]; then
-        wifi+=(label.drawing=off)
-    else
-        wifi+=(label.drawing=on)
-    fi
 
     sketchybar --set $NAME "${wifi[@]}"
 }

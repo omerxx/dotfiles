@@ -43,6 +43,7 @@ sketchybar --default updates=when_shown \
                      background.corner_radius=8
 
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event system_stats
 
 for sid in 1 2 3 4 5 6 7 8 9; do
     sketchybar --add item space.$sid left \
@@ -111,49 +112,75 @@ sketchybar --add item events right \
 
 sketchybar --add item cpu right \
            --set cpu icon="CPU" \
+                    icon.font="$FONT:Bold:10.0" \
                     icon.color=$ACCENT \
-                    label="--%" \
-                    label.font="$FONT:Semibold:11.0" \
+                    label="--" \
+                    label.font="$FONT:Semibold:10.0" \
                     label.color=$TEXT \
-                    background.drawing=off
+                    padding_left=0 \
+                    padding_right=0 \
+                    icon.padding_left=6 \
+                    icon.padding_right=4 \
+                    label.padding_left=0 \
+                    label.padding_right=6 \
+                    background.drawing=off \
+                    script="$RELPATH/plugins/system_stats/script.sh" \
+           --subscribe cpu system_stats
 
-sketchybar --add graph cpu_graph right 40 \
+sketchybar --add graph cpu_graph right 24 \
            --set cpu_graph graph.color=$ACCENT \
                          graph.fill_color=0x33cba6f7 \
                          graph.line_width=1.5 \
                          background.height=28 \
-                         background.drawing=off
+                         background.drawing=off \
+                         padding_left=0 \
+                         padding_right=0
 
 sketchybar --add bracket cpu_stats cpu cpu_graph \
            --set cpu_stats background.color=$SURFACE \
-                          background.drawing=on
+                          background.drawing=on \
+                          padding_left=0 \
+                          padding_right=0
 
 sketchybar --add item ram right \
            --set ram icon="RAM" \
+                    icon.font="$FONT:Bold:10.0" \
                     icon.color=$HIGHLIGHT \
-                    label="--%" \
-                    label.font="$FONT:Semibold:11.0" \
+                    label="--" \
+                    label.font="$FONT:Semibold:10.0" \
                     label.color=$TEXT \
+                    padding_left=0 \
+                    padding_right=0 \
+                    icon.padding_left=6 \
+                    icon.padding_right=4 \
+                    label.padding_left=0 \
+                    label.padding_right=6 \
                     background.drawing=off
 
-sketchybar --add graph ram_graph right 40 \
+sketchybar --add graph ram_graph right 24 \
            --set ram_graph graph.color=$HIGHLIGHT \
                          graph.fill_color=0x33f38ba8 \
                          graph.line_width=1.5 \
                          background.height=28 \
-                         background.drawing=off
+                         background.drawing=off \
+                         padding_left=0 \
+                         padding_right=0
 
 sketchybar --add bracket ram_stats ram ram_graph \
            --set ram_stats background.color=$SURFACE \
-                          background.drawing=on
+                          background.drawing=on \
+                          padding_left=0 \
+                          padding_right=0
 
 sketchybar --add item wifi right \
            --set wifi icon=􀙇 \
                      icon.color=$ACCENT \
-                     label.color=$TEXT \
-                     label.font="$FONT:Semibold:11.0" \
+                     label.drawing=off \
+                     padding_left=0 \
+                     padding_right=0 \
                      background.color=$SURFACE \
                      background.drawing=on \
+                     click_script="$RELPATH/plugins/wifi/click.sh" \
                      script="$RELPATH/plugins/wifi/script.sh" \
            --subscribe wifi wifi_change
 
@@ -180,13 +207,6 @@ if [ -x "/Applications/CMatrixWallpaper.app/Contents/MacOS/matrixdaemon" ]; then
                                       click_script="$RELPATH/plugins/matrix_wallpaper/click.sh" \
                                       script="$RELPATH/plugins/matrix_wallpaper/script.sh"
 fi
-
-sketchybar --add event system_stats
-
-sketchybar --add item sys_stats right \
-           --set sys_stats drawing=off \
-                          script="$RELPATH/plugins/system_stats/script.sh" \
-           --subscribe sys_stats system_stats
 
 if command -v stats_provider >/dev/null 2>&1; then
   killall stats_provider >/dev/null 2>&1 || true
