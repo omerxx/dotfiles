@@ -12,6 +12,8 @@ APP_INDEX_FILE="${ICON_CACHE_DIR}/bundle-id-to-app-path.tsv"
 ICON_SIZE=18
 ICON_PADDING=2
 
+GHOSTTY_BUNDLE_ID="com.mitchellh.ghostty"
+
 build_app_index_if_needed() {
     if [ -s "$APP_INDEX_FILE" ]; then
         return 0
@@ -171,6 +173,12 @@ update_workspace_windows() {
 
         while IFS='|' read -r bundle_id app_name; do
             [ -n "${bundle_id:-}" ] || continue
+
+            if [ "$bundle_id" = "$GHOSTTY_BUNDLE_ID" ]; then
+                bundle_ids+=("$bundle_id")
+                app_names+=("$app_name")
+                continue
+            fi
 
             if [[ "$seen_key" != *" $bundle_id "* ]]; then
                 bundle_ids+=("$bundle_id")

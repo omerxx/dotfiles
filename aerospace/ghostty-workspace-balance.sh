@@ -10,10 +10,16 @@ GHOSTTY_PRIMARY_WS='1'
 GHOSTTY_OVERFLOW_WS='5'
 NON_GHOSTTY_OVERFLOW_WS='6'
 
-OVERFLOW_WORKSPACES=(5 6 7 8 9)
+OVERFLOW_WORKSPACES=(6 7 8 9)
 NON_GHOSTTY_OVERFLOW_WORKSPACES=(6 7 8 9)
 
 mode="${1:-on-window-detected}"
+
+trigger_sketchybar_workspace_update() {
+    if command -v sketchybar >/dev/null 2>&1; then
+        sketchybar --trigger aerospace_workspace_change >/dev/null 2>&1 || true
+    fi
+}
 
 get_window_info() {
     local window_id="$1"
@@ -152,6 +158,7 @@ rebalance_ghostty_workspaces() {
 case "$mode" in
     sweep)
         rebalance_ghostty_workspaces
+        trigger_sketchybar_workspace_update
         exit 0
         ;;
     on-window-detected)
@@ -159,6 +166,7 @@ case "$mode" in
         [[ -n "$window_id" ]] || exit 0
         sleep 0.25
         enforce_workspace_window_cap_for_new_window "$window_id"
+        trigger_sketchybar_workspace_update
         exit 0
         ;;
     *)
