@@ -95,6 +95,10 @@ if.app-name-regex-substring = 'clearvpn'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.readdle.SparkDesktop'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
 if.app-name-regex-substring = 'obsidian'
 run = 'move-node-to-workspace 2'
 
@@ -257,10 +261,11 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 alt-shift-semicolon = 'mode service'
 alt-shift-enter = 'mode apps'
 
+alt-e = 'exec-and-forget open -a "/Applications/Spark Desktop.app"'
 alt-t = 'exec-and-forget open -a /Applications/Telegram.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 alt-s = 'exec-and-forget open -a /Applications/Slack.app'
-alt-q = 'exec-and-forget open -a "/System/Applications/QuickTime Player.app"'
+alt-d = 'exec-and-forget open -a /Applications/Discord.app'
 alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
 alt-c = 'exec-and-forget open -a "/Applications/Google Chrome.app"'
 alt-w = 'exec-and-forget open -a /Applications/Windsurf.app'
