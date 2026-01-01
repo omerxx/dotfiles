@@ -91,6 +91,10 @@ if.app-id = 'com.apple.NetAuthAgent'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-name-regex-substring = 'clearvpn'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-name-regex-substring = 'obsidian'
 run = 'move-node-to-workspace 2'
 
