@@ -62,6 +62,7 @@ verify_tools() {
     # Homebrew tools
     "sketchybar:sketchybar"
     "borders:borders"
+    "stats_provider:sketchybar-system-stats"
     "icalBuddy:ical-buddy"
     # Developer utilities (nix)
     "aichat:aichat"

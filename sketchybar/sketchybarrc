@@ -109,6 +109,44 @@ sketchybar --add item events right \
                        click_script="open -a Calendar" \
                        script="$RELPATH/plugins/calendar/events.sh"
 
+sketchybar --add item cpu right \
+           --set cpu icon="CPU" \
+                    icon.color=$ACCENT \
+                    label="--%" \
+                    label.font="$FONT:Semibold:11.0" \
+                    label.color=$TEXT \
+                    background.drawing=off
+
+sketchybar --add graph cpu_graph right 40 \
+           --set cpu_graph graph.color=$ACCENT \
+                         graph.fill_color=0x33cba6f7 \
+                         graph.line_width=1.5 \
+                         background.height=28 \
+                         background.drawing=off
+
+sketchybar --add bracket cpu_stats cpu cpu_graph \
+           --set cpu_stats background.color=$SURFACE \
+                          background.drawing=on
+
+sketchybar --add item ram right \
+           --set ram icon="RAM" \
+                    icon.color=$HIGHLIGHT \
+                    label="--%" \
+                    label.font="$FONT:Semibold:11.0" \
+                    label.color=$TEXT \
+                    background.drawing=off
+
+sketchybar --add graph ram_graph right 40 \
+           --set ram_graph graph.color=$HIGHLIGHT \
+                         graph.fill_color=0x33f38ba8 \
+                         graph.line_width=1.5 \
+                         background.height=28 \
+                         background.drawing=off
+
+sketchybar --add bracket ram_stats ram ram_graph \
+           --set ram_stats background.color=$SURFACE \
+                          background.drawing=on
+
 sketchybar --add item wifi right \
            --set wifi icon=􀙇 \
                      icon.color=$ACCENT \
@@ -141,6 +179,18 @@ if [ -x "/Applications/CMatrixWallpaper.app/Contents/MacOS/matrixdaemon" ]; then
                                       update_freq=30 \
                                       click_script="$RELPATH/plugins/matrix_wallpaper/click.sh" \
                                       script="$RELPATH/plugins/matrix_wallpaper/script.sh"
+fi
+
+sketchybar --add event system_stats
+
+sketchybar --add item sys_stats right \
+           --set sys_stats drawing=off \
+                          script="$RELPATH/plugins/system_stats/script.sh" \
+           --subscribe sys_stats system_stats
+
+if command -v stats_provider >/dev/null 2>&1; then
+  killall stats_provider >/dev/null 2>&1 || true
+  stats_provider --cpu usage --memory ram_usage --interval 2 --no-units >/dev/null 2>&1 &
 fi
 
 sketchybar --update

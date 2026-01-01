@@ -128,6 +128,7 @@
 
       homebrew.taps = [
         "FelixKratz/formulae"
+        "joncrangle/tap"
         "nikitabobko/tap"
         "steveyegge/beads"
         "tw93/tap"
@@ -178,6 +179,7 @@
         "tw93/tap/mole"
         "felixkratz/formulae/sketchybar"
         "felixkratz/formulae/borders"
+        "joncrangle/tap/sketchybar-system-stats"
       ];
     };
   in
