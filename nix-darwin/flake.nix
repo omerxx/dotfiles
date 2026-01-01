@@ -109,6 +109,23 @@
         NSGlobalDomain._HIHideMenuBar = true;   # Hide macOS menu bar (using sketchybar)
       };
 
+      # Increase launchd file descriptor limit to avoid apps failing with "error.SystemResources"
+      # (e.g. Ghostty starting an IO thread when maxfiles is only 256).
+      launchd.daemons.launchctl-maxfiles = {
+        serviceConfig = {
+          ProgramArguments = [
+            "/bin/launchctl"
+            "limit"
+            "maxfiles"
+            "61440"
+            "61440"
+          ];
+          RunAtLoad = true;
+          StandardOutPath = "/tmp/launchctl-maxfiles.out";
+          StandardErrorPath = "/tmp/launchctl-maxfiles.err";
+        };
+      };
+
       # Set desktop wallpaper
       system.activationScripts.postActivation.text = ''
         osascript -e 'tell application "System Events" to tell every desktop to set picture to POSIX file "/Users/klaudioz/dotfiles/wallpaper.jpeg"'

@@ -324,4 +324,5 @@ Check hostname: `scutil --get ComputerName`
 This is commonly caused by a low `maxfiles` limit (file descriptors) in your user launchd session.
 
 - Check: `launchctl limit maxfiles`
-- Fix: run `./setup.sh --update` (installs a LaunchAgent that raises `maxfiles`)
+- Fix: run `./setup.sh --update` (installs a system launchd daemon and applies the limit via sudo)
+- If it still shows `256`, log out/in or reboot

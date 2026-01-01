@@ -112,7 +112,7 @@ verify_tools() {
       echo -e "  ${RED}✗${NC} $tool"
     done
     echo ""
-    echo -e "${YELLOW}Run: darwin-rebuild switch --flake ~/dotfiles/nix-darwin${NC}"
+    echo -e "${YELLOW}Run: ./setup.sh --update${NC}"
     exit 1
   fi
 
@@ -141,7 +141,8 @@ verify_system_limits() {
 
   if [[ "$maxfiles_soft" != "unlimited" ]] && [[ "$maxfiles_soft" -lt 10240 ]]; then
     echo -e "  ${YELLOW}!${NC} maxfiles is low; Ghostty may fail with 'error.SystemResources'"
-    echo -e "    Run: ./setup.sh --update (or ./setup.sh) to install the limits LaunchAgent"
+    echo -e "    Fix: ./setup.sh --update (installs and applies a system launchd limit via sudo)"
+    echo -e "    If it still shows 256, log out/in or reboot after updating"
   else
     echo -e "  ${GREEN}✓${NC} maxfiles looks good"
   fi
@@ -243,25 +244,38 @@ setup_macos_configs() {
   fi
 }
 
-setup_launchctl_limits() {
-  echo "Setting up launchd resource limits..."
+cleanup_legacy_launchctl_limits_agent() {
+  LEGACY_LIMITS_PLIST="$HOME/Library/LaunchAgents/com.klaudioz.launchctl-limits.plist"
+  LEGACY_LIMITS_OUT="/tmp/com.klaudioz.launchctl-limits.out"
+  LEGACY_LIMITS_ERR="/tmp/com.klaudioz.launchctl-limits.err"
 
-  LIMITS_PLIST_SOURCE="$SCRIPT_DIR/launchagents/com.klaudioz.launchctl-limits.plist"
-  LIMITS_PLIST_DEST="$HOME/Library/LaunchAgents/com.klaudioz.launchctl-limits.plist"
+  if [ ! -f "$LEGACY_LIMITS_PLIST" ]; then
+    return
+  fi
 
-  if [ ! -f "$LIMITS_PLIST_SOURCE" ]; then
-    echo -e "  ${YELLOW}!${NC} limits LaunchAgent not found: $LIMITS_PLIST_SOURCE"
+  echo "Cleaning up legacy launchctl limits LaunchAgent..."
+
+  launchctl bootout "gui/$(id -u)" "$LEGACY_LIMITS_PLIST" 2>/dev/null || true
+  launchctl unload "$LEGACY_LIMITS_PLIST" 2>/dev/null || true
+  rm -f "$LEGACY_LIMITS_PLIST" "$LEGACY_LIMITS_OUT" "$LEGACY_LIMITS_ERR"
+
+  echo -e "  ${GREEN}✓${NC} legacy limits LaunchAgent removed"
+  echo ""
+}
+
+apply_launchd_resource_limits() {
+  echo "Applying launchd resource limits..."
+  echo ""
+
+  if ! command -v launchctl &> /dev/null; then
+    echo -e "  ${YELLOW}!${NC} launchctl not found, skipping limits apply"
     echo ""
     return
   fi
 
-  mkdir -p "$HOME/Library/LaunchAgents"
-  cp "$LIMITS_PLIST_SOURCE" "$LIMITS_PLIST_DEST"
-  echo -e "  ${GREEN}✓${NC} limits LaunchAgent installed"
-
-  launchctl unload "$LIMITS_PLIST_DEST" 2>/dev/null || true
-  launchctl load "$LIMITS_PLIST_DEST"
-  echo -e "  ${GREEN}✓${NC} limits LaunchAgent loaded"
+  sudo /bin/launchctl limit maxfiles 61440 61440 2>/dev/null && \
+    echo -e "  ${GREEN}✓${NC} launchd maxfiles set" || \
+    echo -e "  ${YELLOW}!${NC} failed to set launchd maxfiles"
 
   echo ""
 }
@@ -581,6 +595,10 @@ run_update() {
   sudo "$DARWIN_REBUILD" switch --flake "$SCRIPT_DIR/nix-darwin"
 
   echo ""
+  cleanup_legacy_launchctl_limits_agent
+  apply_launchd_resource_limits
+
+  echo ""
   install_local_casks
 
   echo -e "${YELLOW}Symlinking dotfiles...${NC}"
@@ -591,7 +609,6 @@ run_update() {
   fi
   "$STOW" .
   setup_macos_configs
-  setup_launchctl_limits
   setup_zsh_configs
   setup_vscode_configs
   install_uv_tools
@@ -626,7 +643,7 @@ case "$1" in
     echo "Symlinking dotfiles with stow..."
     stow .
     setup_macos_configs
-    setup_launchctl_limits
+    cleanup_legacy_launchctl_limits_agent
     setup_zsh_configs
     setup_vscode_configs
     echo -e "${GREEN}Done!${NC}"
