@@ -131,6 +131,7 @@
         "joncrangle/tap"
         "nikitabobko/tap"
         "steveyegge/beads"
+        "steipete/tap"
         "tw93/tap"
       ];
 
@@ -165,6 +166,7 @@
         "font-sketchybar-app-font"
         "xbar"
         "codex"
+        "steipete/tap/codexbar"
       ];
 
       homebrew.brews = [

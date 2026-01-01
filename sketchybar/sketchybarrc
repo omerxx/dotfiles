@@ -195,6 +195,13 @@ sketchybar --add item bluetooth right \
 	                          click_script="$RELPATH/plugins/bluetooth/click.sh" \
 	                          script="$RELPATH/plugins/bluetooth/script.sh"
 
+sketchybar --add item codexbar right \
+           --set codexbar icon="🎚️" \
+                          label.drawing=off \
+                          background.color=$SURFACE \
+                          background.drawing=on \
+                          click_script="$RELPATH/plugins/codexbar/click.sh"
+
 if [ -x "/Applications/CMatrixWallpaper.app/Contents/MacOS/matrixdaemon" ]; then
     sketchybar --add item matrix_wallpaper right \
                --set matrix_wallpaper icon="M" \
