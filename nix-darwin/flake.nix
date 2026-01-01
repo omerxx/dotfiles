@@ -169,6 +169,7 @@
         "codex"
         "steipete/tap/codexbar"
         "steipete/tap/repobar"
+        "setapp"
       ];
 
       homebrew.brews = [

@@ -1,7 +1,7 @@
 {
   "plugin": [
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.2.6",
+    "opencode-antigravity-auth@1.2.7",
     "opencode-beads"
   ],
   "theme": "catppuccin",
