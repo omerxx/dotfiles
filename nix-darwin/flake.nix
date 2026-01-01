@@ -92,6 +92,7 @@
 
       system.defaults = {
         dock.autohide = true;
+        dock.orientation = "left";
         dock.mru-spaces = false;
         dock.persistent-apps = [];  # Empty dock - no pinned apps
         finder.AppleShowAllExtensions = true;
