@@ -75,6 +75,22 @@ if.app-name-regex-substring = 'quicktime'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.apple.SecurityAgent'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.coreservices.uiagent'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.IOUIAgent'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.NetAuthAgent'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-name-regex-substring = 'obsidian'
 run = 'move-node-to-workspace 2'
 
@@ -124,7 +140,7 @@ run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
-run = 'move-node-to-workspace 6'
+run = ['layout floating', 'move-node-to-workspace 6']
 
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
