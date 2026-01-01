@@ -154,6 +154,11 @@ run = 'move-node-to-workspace 4'
 if.app-id = 'com.apple.systempreferences'
 run = ['layout floating', 'move-node-to-workspace 6']
 
+# Float any app's Settings/Preferences window (Command + ,)
+[[on-window-detected]]
+if.window-title-regex-substring = 'settings|preferences'
+run = 'layout floating'
+
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
