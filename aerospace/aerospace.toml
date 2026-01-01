@@ -107,7 +107,7 @@ if.app-id = 'com.microsoft.VSCode'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
-if.app-id = 'com.todesktop.230313mzl4w4u92'
+if.app-name-regex-substring = 'cursor'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
