@@ -51,6 +51,7 @@ __icon_map() {
     "Code" | "Code - Insiders") icon_result=":code:" ;;
     "VSCodium") icon_result=":vscodium:" ;;
     "Windsurf") icon_result=":code:" ;;
+    "Cursor") icon_result=":cursor_ide:" ;;
     "Finder") icon_result=":finder:" ;;
     "Linear") icon_result=":linear:" ;;
     "Signal") icon_result=":signal:" ;;
