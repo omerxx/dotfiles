@@ -48,14 +48,10 @@ inherit-env-vars = true
 [exec.env-vars]
 PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:${HOME}/.local/bin:${HOME}/.nix-profile/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
-# Workspace 5 is reserved for Ghostty windows (evict non-Ghostty windows to workspace 6)
+# Keep max 3 windows per workspace, and reserve workspace 5 for Ghostty overflow
 [[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh ghostty-window'
-
-[[on-window-detected]]
-if.workspace = '5'
-run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh evict-window'
+check-further-callbacks = true
+run = 'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh on-window-detected'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'
