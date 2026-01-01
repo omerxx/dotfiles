@@ -7,15 +7,72 @@ source "$RELPATH/plugins/icon_map.sh"
 CACHE_ROOT="${HOME}/Library/Caches/sketchybar"
 ICON_CACHE_DIR="${CACHE_ROOT}/app-icons"
 WORKSPACE_ICON_DIR="${CACHE_ROOT}/workspace-icons"
+APP_INDEX_FILE="${ICON_CACHE_DIR}/bundle-id-to-app-path.tsv"
 
 ICON_SIZE=18
 ICON_PADDING=2
 
-should_use_image_icons() {
-    case "$1" in
-    com.exafunction.windsurf | com.todesktop.230313mzl4w4u92) return 0 ;;
-    *) return 1 ;;
-    esac
+build_app_index_if_needed() {
+    if [ -s "$APP_INDEX_FILE" ]; then
+        return 0
+    fi
+
+    mkdir -p "$ICON_CACHE_DIR"
+
+    local tmp="${APP_INDEX_FILE}.tmp"
+    : >"$tmp"
+
+    local base
+    for base in /Applications "$HOME/Applications" /System/Applications /System/Library/CoreServices; do
+        [ -d "$base" ] || continue
+
+        while IFS= read -r -d '' app_path; do
+            local plist bundle_id
+            plist="${app_path}/Contents/Info.plist"
+            [ -f "$plist" ] || continue
+
+            bundle_id=$(/usr/bin/plutil -extract CFBundleIdentifier raw -o - "$plist" 2>/dev/null || true)
+            [ -n "$bundle_id" ] || continue
+
+            printf '%s\t%s\n' "$bundle_id" "$app_path" >>"$tmp"
+        done < <(find "$base" -maxdepth 3 -type d -name "*.app" -prune -print0 2>/dev/null)
+    done
+
+    mv "$tmp" "$APP_INDEX_FILE"
+}
+
+app_path_for_bundle_id() {
+    local bundle_id=$1
+    build_app_index_if_needed
+
+    local app_path
+    app_path=$(
+        awk -F '\t' -v id="$bundle_id" '$1 == id { path = $2 } END { if (path) print path }' "$APP_INDEX_FILE" 2>/dev/null
+    )
+    if [ -n "${app_path:-}" ] && [ -d "$app_path" ]; then
+        echo "$app_path"
+        return 0
+    fi
+
+    local base
+    for base in /Applications "$HOME/Applications" /System/Applications /System/Library/CoreServices; do
+        [ -d "$base" ] || continue
+
+        while IFS= read -r -d '' app_path; do
+            local plist current_id
+            plist="${app_path}/Contents/Info.plist"
+            [ -f "$plist" ] || continue
+
+            current_id=$(/usr/bin/plutil -extract CFBundleIdentifier raw -o - "$plist" 2>/dev/null || true)
+            if [ "$current_id" = "$bundle_id" ]; then
+                printf '%s\t%s\n' "$bundle_id" "$app_path" >>"$APP_INDEX_FILE"
+                echo "$app_path"
+                return 0
+            fi
+        done < <(find "$base" -maxdepth 3 -type d -name "*.app" -prune -print0 2>/dev/null)
+    done
+
+    return 1
 }
 
 icon_png_for_bundle_id() {
@@ -29,14 +86,15 @@ icon_png_for_bundle_id() {
 
     mkdir -p "$ICON_CACHE_DIR"
 
-    local app_path
-    app_path=$(mdfind "kMDItemCFBundleIdentifier == '${bundle_id}'" | head -n 1)
-    if [ -z "$app_path" ]; then
+    local app_path plist
+    app_path=$(app_path_for_bundle_id "$bundle_id" || true)
+    if [ -z "${app_path:-}" ]; then
         return 1
     fi
 
     local icon_name icon_icns
-    icon_name=$(defaults read "${app_path}/Contents/Info" CFBundleIconFile 2>/dev/null || true)
+    plist="${app_path}/Contents/Info.plist"
+    icon_name=$(/usr/bin/plutil -extract CFBundleIconFile raw -o - "$plist" 2>/dev/null || true)
     if [ -n "$icon_name" ] && [[ "$icon_name" != *.icns ]]; then
         icon_name="${icon_name}.icns"
     fi
@@ -107,72 +165,65 @@ update_workspace_windows() {
     FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused 2>/dev/null)
 
     if [ "${apps}" != "" ]; then
-        local use_images=false
+        local bundle_ids=()
+        local app_names=()
+        local seen_key=" "
+
         while IFS='|' read -r bundle_id app_name; do
-            if should_use_image_icons "$bundle_id"; then
-                use_images=true
-                break
+            [ -n "${bundle_id:-}" ] || continue
+
+            if [[ "$seen_key" != *" $bundle_id "* ]]; then
+                bundle_ids+=("$bundle_id")
+                app_names+=("$app_name")
+                seen_key+=" $bundle_id "
             fi
         done <<<"${apps}"
 
-        if [ "$use_images" = "true" ]; then
-            local bundle_ids=()
-            while IFS='|' read -r bundle_id app_name; do
-                bundle_ids+=("$bundle_id")
-            done <<<"${apps}"
+        local icon_paths=()
+        local all_icons_available=true
 
-            local unique_bundle_ids=()
-            local seen_key=" "
-            for bundle_id in "${bundle_ids[@]}"; do
-                if [[ "$seen_key" != *" $bundle_id "* ]]; then
-                    unique_bundle_ids+=("$bundle_id")
-                    seen_key+=" $bundle_id "
-                fi
-            done
-
-            local icon_paths=()
-            for bundle_id in "${unique_bundle_ids[@]}"; do
-                icon_path=$(icon_png_for_bundle_id "$bundle_id" || true)
-                if [ -n "${icon_path:-}" ]; then
-                    icon_paths+=("$icon_path")
-                fi
-            done
-
-            if [ "${#icon_paths[@]}" -gt 0 ]; then
-                local key
-                key=$(printf '%s\n' "${unique_bundle_ids[@]}")
-
-                strip_png=$(render_workspace_icon_strip "$workspace_id" "$key" "${icon_paths[@]}" || true)
-                if [ -n "${strip_png:-}" ]; then
-                    local padded_width=$((ICON_SIZE + ICON_PADDING * 2))
-                    local strip_width=$((padded_width * ${#icon_paths[@]}))
-
-                    sketchybar --set space.$workspace_id \
-                        label="" \
-                        label.drawing=on \
-                        label.width="$strip_width" \
-                        label.background.color=0x0 \
-                        label.background.corner_radius=0 \
-                        label.background.height="$ICON_SIZE" \
-                        label.background.image="$strip_png" \
-                        label.background.image.drawing=on \
-                        label.background.image.scale=1.0 \
-                        label.background.drawing=on \
-                        drawing=on
-                else
-                    use_images=false
-                fi
+        for bundle_id in "${bundle_ids[@]}"; do
+            icon_path=$(icon_png_for_bundle_id "$bundle_id" || true)
+            if [ -n "${icon_path:-}" ]; then
+                icon_paths+=("$icon_path")
             else
-                use_images=false
+                all_icons_available=false
+                break
+            fi
+        done
+
+        if [ "$all_icons_available" = "true" ] && [ "${#icon_paths[@]}" -gt 0 ]; then
+            local key
+            key=$(printf '%s\n' "${bundle_ids[@]}")
+
+            strip_png=$(render_workspace_icon_strip "$workspace_id" "$key" "${icon_paths[@]}" || true)
+            if [ -n "${strip_png:-}" ]; then
+                local padded_width=$((ICON_SIZE + ICON_PADDING * 2))
+                local strip_width=$((padded_width * ${#icon_paths[@]}))
+
+                sketchybar --set space.$workspace_id \
+                    label="" \
+                    label.drawing=on \
+                    label.width="$strip_width" \
+                    label.background.color=0x0 \
+                    label.background.corner_radius=0 \
+                    label.background.height="$ICON_SIZE" \
+                    label.background.image="$strip_png" \
+                    label.background.image.drawing=on \
+                    label.background.image.scale=1.0 \
+                    label.background.drawing=on \
+                    drawing=on
+            else
+                all_icons_available=false
             fi
         fi
 
-        if [ "$use_images" != "true" ]; then
+        if [ "$all_icons_available" != "true" ]; then
             icon_strip=" "
-            while IFS='|' read -r bundle_id app_name; do
+            for app_name in "${app_names[@]}"; do
                 __icon_map "$app_name"
                 icon_strip+=" $icon_result"
-            done <<<"${apps}"
+            done
 
             sketchybar --set space.$workspace_id \
                 label.background.drawing=off \

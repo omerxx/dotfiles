@@ -90,6 +90,10 @@ if.app-name-regex-substring = 'chrome'
 run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
 if.app-name-regex-substring = 'slack'
 run = 'move-node-to-workspace 3'
 
