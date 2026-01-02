@@ -945,10 +945,9 @@ alias kns = kubens
 alias kl = kubectl logs -f
 alias ke = kubectl exec -it
 
-source ~/.config/nushell/env.nu
-source ~/.zoxide.nu
+source ~/.cache/zoxide/init.nu
 source ~/.cache/carapace/init.nu
-source ~/.local/share/atuin/init.nu
+source ~/.cache/atuin/init.nu
 use ~/.cache/starship/init.nu
 
 let ruby_ver = "3.4.0"
@@ -964,4 +963,3 @@ if ($gem_bin | path exists) {
   $env.PATH = ($env.PATH | prepend $gem_bin)
 }
 $env.DIRENV_LOG_FORMAT = ""
-

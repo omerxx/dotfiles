@@ -88,14 +88,6 @@ $env.NU_PLUGIN_DIRS = [
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
-# An alternate way to add entries to $env.PATH is to use the custom command `path add`
-# which is built into the nushell stdlib:
-use std "path add"
-# $env.PATH = ($env.PATH | split row (char esep))
-# path add /some/path
-# path add ($env.CARGO_HOME | path join "bin")
-# path add ($env.HOME | path join ".local" "bin")
-# $env.PATH = ($env.PATH | uniq)
 
 if 'IN_NIX_SHELL' not-in $env and 'DEVBOX_SHELL_ENABLED' not-in $env {
     $env.PATH = ($env.PATH | append [
@@ -130,14 +122,58 @@ if (which devbox | is-not-empty) {
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
 
-mkdir ~/.cache/starship
-starship init nu | save -f ~/.cache/starship/init.nu
-zoxide init nushell | save -f ~/.zoxide.nu
+def _ensure_cached_init [
+  tool: string
+  init_file: path
+  stamp_file: path
+  generator: closure
+] {
+  if (which $tool | is-empty) {
+    return
+  }
+
+  let tool_path = (which $tool | get 0.path)
+  let tool_info = (ls -l $tool_path | get 0)
+  let tool_fingerprint = if $tool_info.type == "symlink" {
+    $tool_info.target
+  } else {
+    $"($tool_info.name)@($tool_info.modified)"
+  }
+
+  let cached_fingerprint = if ($stamp_file | path exists) {
+    open $stamp_file | str trim
+  } else {
+    ""
+  }
+
+  if ($init_file | path exists) and ($cached_fingerprint == $tool_fingerprint) {
+    return
+  }
+
+  let init_dir = ($init_file | path dirname)
+  if not ($init_dir | path exists) {
+    mkdir $init_dir
+  }
+
+  let tmp_file = $"($init_file).tmp"
+  try {
+    do $generator | save --force $tmp_file
+    mv -f $tmp_file $init_file
+    $tool_fingerprint | save --force $stamp_file
+  } catch {
+    rm -f $tmp_file
+  }
+}
+
+let cache_home = ($nu.home-path | path join ".cache")
+
+_ensure_cached_init starship ($cache_home | path join "starship" "init.nu") ($cache_home | path join "starship" "init.stamp") {|| starship init nu }
+_ensure_cached_init zoxide ($cache_home | path join "zoxide" "init.nu") ($cache_home | path join "zoxide" "init.stamp") {|| zoxide init nushell }
+_ensure_cached_init carapace ($cache_home | path join "carapace" "init.nu") ($cache_home | path join "carapace" "init.stamp") {|| carapace _carapace nushell }
+_ensure_cached_init atuin ($cache_home | path join "atuin" "init.nu") ($cache_home | path join "atuin" "init.stamp") {|| atuin init nu }
 
 $env.STARSHIP_CONFIG = "/Users/klaudioz/.config/starship/starship.toml"
 $env.NIX_CONF_DIR = "/Users/klaudioz/.config/nix"
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-mkdir ~/.cache/carapace
-carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 
 $env.EDITOR = "nvim"
