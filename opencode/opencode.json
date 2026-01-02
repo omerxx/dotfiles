@@ -25,7 +25,6 @@
       "**/.cache/**"
     ]
   },
-  "small_model": "google/gemini-3-flash",
   "mcp": {
     "agent-mail": {
       "type": "remote",
