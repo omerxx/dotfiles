@@ -245,6 +245,41 @@ docs: update AGENTS.md with nix patterns
 - Keep messages under 72 characters
 - No period at end of subject line
 
+## Search Mode
+
+When exploring unfamiliar code or conducting research, **MAXIMIZE SEARCH EFFORT**:
+
+### Parallel Agent Execution
+
+Launch multiple background agents IN PARALLEL:
+
+```bash
+# Contextual grep (internal codebase)
+background_task(agent="explore", prompt="Find X patterns...")
+background_task(agent="explore", prompt="Find Y implementations...")
+
+# Reference grep (external docs/repos)
+background_task(agent="librarian", prompt="Find official docs for Z...")
+background_task(agent="librarian", prompt="Find OSS examples of W...")
+```
+
+### Direct Tools
+
+Use these tools alongside agents:
+- **Grep** - Content search with regex
+- **ast-grep (sg)** - AST-aware pattern matching
+- **Glob** - File pattern matching
+
+### Search Principles
+
+1. **NEVER stop at first result** - Be exhaustive
+2. **Multiple search angles** - Try different keywords, patterns, file types
+3. **Cross-reference** - Verify findings across multiple sources
+4. **Stop conditions**:
+   - Same info appearing across multiple sources
+   - 2 search iterations yielded no new useful data
+   - Direct answer found with high confidence
+
 ## Common Gotchas
 
 - **Nushell config**: Lives in `~/Library/Application Support/nushell/` on macOS, not `~/.config/`. Handled by `setup.sh`.
