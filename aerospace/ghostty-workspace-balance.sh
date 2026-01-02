@@ -14,7 +14,6 @@ NON_GHOSTTY_OVERFLOW_WS='6'
 # Must match the floating rules in aerospace.toml
 FLOATING_APP_PATTERNS=(
     'com.apple.finder'
-    'com.apple.Safari'
     'com.apple.FaceTime'
     'com.apple.mail'
     'com.apple.QuickTimePlayerX'
