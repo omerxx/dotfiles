@@ -156,7 +156,7 @@ run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
-run = ['layout floating', 'move-node-to-workspace 6']
+run = 'layout floating'
 
 # Float any app's Settings/Preferences window (Command + ,)
 [[on-window-detected]]
