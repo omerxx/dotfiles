@@ -960,7 +960,7 @@ def oo [] {
     bash -c $"kill ($portal_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
     
     mut sessions_cleanup = (if ($sessions_file | path exists) { open $sessions_file } else { {} })
-    $sessions_cleanup = ($sessions_cleanup | reject -i $session_id)
+    $sessions_cleanup = ($sessions_cleanup | reject -o $session_id)
     $sessions_cleanup | save -f $sessions_file
 }
 
