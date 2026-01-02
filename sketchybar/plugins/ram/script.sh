@@ -1,19 +1,18 @@
 #!/bin/sh
 
 RAM=$(vm_stat | awk '
-  /Pages free:/        { free=$3 }
-  /Pages active:/      { active=$3 }
-  /Pages inactive:/    { inactive=$3 }
-  /Pages speculative:/ { speculative=$3 }
+  BEGIN { pagesize = 16384 }
+  /Pages active:/              { active = $3 }
+  /Pages wired down:/          { wired = $4 }
+  /Pages occupied by compressor:/ { compressed = $5 }
   END {
-    gsub(/\./, "", free)
     gsub(/\./, "", active)
-    gsub(/\./, "", inactive)
-    gsub(/\./, "", speculative)
-    total = free + active + inactive + speculative
-    used = active + inactive
-    if (total > 0) print int(100 * used / total)
-    else print 0
+    gsub(/\./, "", wired)
+    gsub(/\./, "", compressed)
+    total_bytes = 17179869184
+    used_bytes = (active + wired + compressed) * pagesize
+    printf "%.0f", (used_bytes / total_bytes) * 100
   }
 ')
+
 sketchybar --set "$NAME" label="${RAM}%"
