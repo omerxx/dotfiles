@@ -189,6 +189,7 @@
         "steipete/tap/codexbar"
         "steipete/tap/repobar"
         "setapp"
+        "tailscale"
       ];
 
       homebrew.brews = [
