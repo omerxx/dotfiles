@@ -535,6 +535,33 @@ install_mcp_agent_mail() {
   echo ""
 }
 
+install_cmatrix_wallpaper() {
+  echo -e "${YELLOW}Setting up CMatrix Wallpaper LaunchAgent...${NC}"
+
+  CMATRIX_SOURCE="$SCRIPT_DIR/launchagents/com.klaudioz.cmatrix-wallpaper.plist"
+  CMATRIX_DEST="$HOME/Library/LaunchAgents/com.klaudioz.cmatrix-wallpaper.plist"
+
+  if [ ! -x "/Applications/CMatrixWallpaper.app/Contents/MacOS/matrixdaemon" ]; then
+    echo -e "  ${YELLOW}!${NC} CMatrixWallpaper.app not installed, skipping"
+    echo ""
+    return
+  fi
+
+  if [ -f "$CMATRIX_SOURCE" ]; then
+    mkdir -p "$HOME/Library/LaunchAgents"
+    cp "$CMATRIX_SOURCE" "$CMATRIX_DEST"
+    echo -e "  ${GREEN}✓${NC} LaunchAgent installed"
+
+    launchctl unload "$CMATRIX_DEST" 2>/dev/null || true
+    launchctl load "$CMATRIX_DEST"
+    echo -e "  ${GREEN}✓${NC} LaunchAgent loaded (CMatrix Wallpaper starting)"
+  else
+    echo -e "  ${YELLOW}!${NC} LaunchAgent plist not found"
+  fi
+
+  echo ""
+}
+
 install_local_casks() {
   echo -e "${YELLOW}Installing local casks...${NC}"
 
@@ -640,6 +667,7 @@ run_update() {
   install_go_tools
   install_bun_tools
   install_mcp_agent_mail
+  install_cmatrix_wallpaper
 
   echo ""
   start_services
