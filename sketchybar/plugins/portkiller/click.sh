@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-RELPATH="$HOME/.config/sketchybar"
-
-# Launch PortKiller if not running, then interact with menu bar
-open -g -a "PortKiller" >/dev/null 2>&1 || true
-
-for _ in {1..20}; do
-  if pgrep -x "PortKiller" >/dev/null 2>&1; then
-    break
-  fi
-  sleep 0.1
-done
+if ! pgrep -x "PortKiller" >/dev/null 2>&1; then
+  open -g -a "PortKiller" >/dev/null 2>&1 || true
+  for _ in {1..20}; do
+    pgrep -x "PortKiller" >/dev/null 2>&1 && break
+    sleep 0.1
+  done
+fi
 
 # Right-click opens settings
 if [[ "${BUTTON:-}" == "right" ]]; then
