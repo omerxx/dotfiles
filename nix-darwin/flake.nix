@@ -54,6 +54,7 @@
         pkgs.ngrok
 
         # Developer utilities
+        pkgs.pv
         pkgs.stow
         pkgs.aichat
         pkgs.gemini-cli
