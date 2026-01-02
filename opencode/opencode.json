@@ -6,6 +6,26 @@
   ],
   "theme": "catppuccin",
   "$schema": "https://opencode.ai/config.json",
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+  "watcher": {
+    "ignore": [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.next/**",
+      "**/.nuxt/**",
+      "**/coverage/**",
+      "**/__pycache__/**",
+      "**/.venv/**",
+      "**/venv/**",
+      "**/.cache/**"
+    ]
+  },
+  "small_model": "google/gemini-3-flash",
   "mcp": {
     "agent-mail": {
       "type": "remote",
