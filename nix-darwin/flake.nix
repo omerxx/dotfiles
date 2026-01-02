@@ -180,6 +180,7 @@
         "itsycal"
         "qbittorrent"
         "visual-studio-code"
+        "zed"
         "zoom"
         "sf-symbols"
         "font-sketchybar-app-font"

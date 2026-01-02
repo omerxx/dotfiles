@@ -1,0 +1,111 @@
+{
+  // ===========================================
+  // ZED EDITOR SETTINGS
+  // ===========================================
+  // Synced via dotfiles - edit ~/dotfiles/zed/settings.json
+
+  // ===========================================
+  // APPEARANCE
+  // ===========================================
+  "theme": "One Dark",
+  "ui_font_size": 16,
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_size": 14,
+  "buffer_line_height": {
+    "custom": 1.5
+  },
+
+  // ===========================================
+  // EDITOR SETTINGS
+  // ===========================================
+  "cursor_blink": true,
+  "show_whitespaces": "selection",
+  "tab_size": 2,
+  "format_on_save": "on",
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000
+    }
+  },
+
+  // ===========================================
+  // TERMINAL
+  // ===========================================
+  "terminal": {
+    "font_family": "JetBrains Mono",
+    "font_size": 14,
+    "line_height": {
+      "custom": 1.4
+    },
+    "shell": {
+      "program": "nu"
+    }
+  },
+
+  // ===========================================
+  // GIT
+  // ===========================================
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": true
+    }
+  },
+
+  // ===========================================
+  // FILES
+  // ===========================================
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.DS_Store",
+    "**/node_modules",
+    "**/__pycache__",
+    "**/target"
+  ],
+
+  // ===========================================
+  // ASSISTANT (AI)
+  // ===========================================
+  "assistant": {
+    "enabled": true,
+    "version": "2",
+    "default_model": {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514"
+    }
+  },
+
+  // ===========================================
+  // LANGUAGE SETTINGS
+  // ===========================================
+  "languages": {
+    "TypeScript": {
+      "tab_size": 2,
+      "format_on_save": "on"
+    },
+    "JavaScript": {
+      "tab_size": 2,
+      "format_on_save": "on"
+    },
+    "Python": {
+      "tab_size": 4,
+      "format_on_save": "on"
+    },
+    "Rust": {
+      "tab_size": 4,
+      "format_on_save": "on"
+    },
+    "Go": {
+      "tab_size": 4,
+      "format_on_save": "on"
+    }
+  },
+
+  // ===========================================
+  // TELEMETRY
+  // ===========================================
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  }
+}
