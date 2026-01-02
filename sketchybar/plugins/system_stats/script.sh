@@ -23,9 +23,9 @@ else
 fi
 
 if [[ -n "$RAM_PCT" ]]; then
-  RAM_POINT="$(awk -v v="$RAM_PCT" 'BEGIN { printf "%.4f", v/100 }')"
   sketchybar --set ram label="${RAM_PCT}%"
-  sketchybar --push ram_graph "$RAM_POINT"
+  sketchybar --set ram_graph slider.percentage="$RAM_PCT"
 else
   sketchybar --set ram label="--"
+  sketchybar --set ram_graph slider.percentage=0
 fi

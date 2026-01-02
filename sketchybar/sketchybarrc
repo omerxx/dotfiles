@@ -158,14 +158,17 @@ sketchybar --add item ram right \
                     label.padding_right=4 \
                     background.drawing=off
 
-sketchybar --add graph ram_graph right 16 \
-           --set ram_graph graph.color=$HIGHLIGHT \
-                         graph.fill_color=0x33f38ba8 \
-                         graph.line_width=1.0 \
-                         background.height=22 \
-                         background.drawing=off \
-                         padding_left=0 \
-                         padding_right=0
+sketchybar --add slider ram_graph right 16 \
+           --set ram_graph slider.background.drawing=on \
+                          slider.background.color=$BAR_COLOR \
+                          slider.background.height=22 \
+                          slider.background.corner_radius=6 \
+                          slider.highlight_color=0x88f38ba8 \
+                          slider.knob.drawing=off \
+                          slider.percentage=0 \
+                          background.drawing=off \
+                          padding_left=0 \
+                          padding_right=0
 
 sketchybar --add bracket ram_stats ram ram_graph \
            --set ram_stats background.color=$SURFACE \
