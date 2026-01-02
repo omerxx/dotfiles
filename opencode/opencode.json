@@ -6,10 +6,6 @@
   ],
   "theme": "catppuccin",
   "$schema": "https://opencode.ai/config.json",
-  "compaction": {
-    "auto": true,
-    "prune": true
-  },
   "watcher": {
     "ignore": [
       "**/node_modules/**",

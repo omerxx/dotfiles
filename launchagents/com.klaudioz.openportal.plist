@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.klaudioz.openportal</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>exec /opt/homebrew/opt/node/bin/node /Users/klaudioz/.npm-global/lib/node_modules/openportal/dist/cli.js --no-browser --port 3000 --opencode-port 4000</string>
+    </array>
+    
+    <key>WorkingDirectory</key>
+    <string>/Users/klaudioz</string>
+    
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Users/klaudioz/.npm-global/bin:/opt/homebrew/bin:/run/current-system/sw/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>HOME</key>
+        <string>/Users/klaudioz</string>
+        <key>NODE_ENV</key>
+        <string>production</string>
+    </dict>
+    
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+    
+    <key>StandardOutPath</key>
+    <string>/Users/klaudioz/.local/share/openportal/logs/stdout.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/Users/klaudioz/.local/share/openportal/logs/stderr.log</string>
+    
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+</dict>
+</plist>
