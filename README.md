@@ -204,7 +204,7 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 |---------|-------------|
 | `claude` | Anthropic Claude Code |
 | `amp` | Sourcegraph AI |
-| `openportal` | Remote portal access |
+| `openportal` | Remote access to OpenCode sessions via web portal |
 | `pm2` | Process manager |
 
 ### Other Apps (Homebrew Casks)
@@ -319,7 +319,41 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 |---------|-------------|
 | `com.klaudioz.cmatrix-wallpaper` | Matrix wallpaper background service |
 | `com.klaudioz.mcp-agent-mail` | MCP Agent Mail server |
-| `com.klaudioz.openportal-dashboard` | OpenPortal dashboard service |
+| `com.klaudioz.openportal-dashboard` | OpenPortal dashboard service (Tailscale remote access) |
+
+---
+
+## OpenPortal (Remote OpenCode Access)
+
+OpenPortal enables remote access to OpenCode sessions from any device via Tailscale.
+
+### How It Works
+
+1. **Dashboard Service**: Runs at startup via launchd, accessible at `http://m4-mini.tail09133d.ts.net:3000`
+2. **Session Management**: Each project directory gets a unique port pair (web + OpenCode)
+3. **Session Persistence**: Sessions tracked in `~/.local/share/openportal/sessions.json`
+
+### Usage
+
+Start a remote-accessible OpenCode session from any directory:
+
+```bash
+oo    # Nushell command - starts OpenPortal + attaches OpenCode
+```
+
+The `oo` command:
+- Calculates unique ports based on directory hash
+- Launches `openportal --no-browser --port <web> --opencode-port <oc> --directory <dir>`
+- Registers session with dashboard
+- Attaches to the OpenCode session
+- Cleans up on exit (Ctrl+C)
+
+### Configuration Files
+
+| File | Description |
+|------|-------------|
+| `launchagents/com.klaudioz.openportal-dashboard.plist` | Dashboard service definition |
+| `nushell/config.nu` (`oo` function) | Session launcher command |
 
 ---
 
@@ -329,6 +363,7 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 |------|----------|-------------|
 | `oh-my-opencode` | `~/.local/share/oh-my-opencode` | OpenCode prompt customization |
 | `mcp-agent-mail` | `~/.local/share/mcp-agent-mail` | MCP Agent Mail server |
+| `openportal` | `~/.local/share/openportal` | OpenPortal dashboard and session data |
 
 ---
 

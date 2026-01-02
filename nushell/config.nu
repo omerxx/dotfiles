@@ -934,22 +934,19 @@ def oo [] {
         | str trim
     )
     
+    let session_json = $'{"($session_id)":{"directory":"($dir)","webPort":($web_port),"ocPort":($oc_port),"pid":"($portal_pid)","startedAt":"(date now | format date "%Y-%m-%dT%H:%M:%S")"}}'
+    bash -c $"
+        if [ -f '($sessions_file)' ]; then
+            jq -s '.[0] * .[1]' '($sessions_file)' <(echo '($session_json)') > '($sessions_file).tmp' && mv '($sessions_file).tmp' '($sessions_file)'
+        else
+            echo '($session_json)' > '($sessions_file)'
+        fi
+    "
+    
+    print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
     print $"(ansi dim)Waiting for servers...(ansi reset)"
     sleep 8sec
     
-    let session_data = {
-        directory: $dir,
-        webPort: $web_port,
-        ocPort: $oc_port,
-        pid: $portal_pid,
-        startedAt: (date now | format date "%Y-%m-%dT%H:%M:%S")
-    }
-    
-    mut sessions = (if ($sessions_file | path exists) { open $sessions_file } else { {} })
-    $sessions = ($sessions | upsert $session_id $session_data)
-    $sessions | to json | save -f $sessions_file
-    
-    print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
     print $"(ansi dim)Press Ctrl+C to exit(ansi reset)"
     print ""
     
@@ -957,10 +954,7 @@ def oo [] {
     
     print $"(ansi dim)Stopping session...(ansi reset)"
     bash -c $"kill ($portal_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
-    
-    mut sessions_cleanup = (if ($sessions_file | path exists) { open $sessions_file } else { {} })
-    $sessions_cleanup = ($sessions_cleanup | reject -o $session_id)
-    $sessions_cleanup | to json | save -f $sessions_file
+    bash -c $"jq 'del(.($session_id))' '($sessions_file)' > '($sessions_file).tmp' && mv '($sessions_file).tmp' '($sessions_file)'"
 }
 
 def ff [] {

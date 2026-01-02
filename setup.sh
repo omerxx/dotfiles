@@ -593,6 +593,42 @@ install_mcp_agent_mail() {
   echo ""
 }
 
+setup_openportal_dashboard() {
+  echo -e "${YELLOW}Setting up OpenPortal Dashboard...${NC}"
+
+  OPENPORTAL_DIR="$HOME/.local/share/openportal"
+  DASHBOARD_SOURCE="$SCRIPT_DIR/openportal/dashboard.js"
+  DASHBOARD_DEST="$OPENPORTAL_DIR/dashboard.js"
+  LAUNCHAGENT_SOURCE="$SCRIPT_DIR/launchagents/com.klaudioz.openportal-dashboard.plist"
+  LAUNCHAGENT_DEST="$HOME/Library/LaunchAgents/com.klaudioz.openportal-dashboard.plist"
+
+  mkdir -p "$OPENPORTAL_DIR"
+
+  if [ ! -f "$OPENPORTAL_DIR/sessions.json" ]; then
+    echo '{}' > "$OPENPORTAL_DIR/sessions.json"
+    echo -e "  ${GREEN}✓${NC} sessions.json created"
+  fi
+
+  if [ -f "$DASHBOARD_SOURCE" ]; then
+    ln -sf "$DASHBOARD_SOURCE" "$DASHBOARD_DEST"
+    echo -e "  ${GREEN}✓${NC} dashboard.js linked"
+  else
+    echo -e "  ${YELLOW}!${NC} dashboard.js source not found"
+  fi
+
+  if [ -f "$LAUNCHAGENT_SOURCE" ]; then
+    mkdir -p "$HOME/Library/LaunchAgents"
+    cp "$LAUNCHAGENT_SOURCE" "$LAUNCHAGENT_DEST"
+    launchctl unload "$LAUNCHAGENT_DEST" 2>/dev/null || true
+    launchctl load "$LAUNCHAGENT_DEST"
+    echo -e "  ${GREEN}✓${NC} Dashboard LaunchAgent loaded (port 3000)"
+  else
+    echo -e "  ${YELLOW}!${NC} LaunchAgent plist not found"
+  fi
+
+  echo ""
+}
+
 install_cmatrix_wallpaper() {
   echo -e "${YELLOW}Setting up CMatrix Wallpaper LaunchAgent...${NC}"
 
@@ -728,6 +764,7 @@ run_update() {
   setup_pm2_startup
   install_mcp_agent_mail
   install_cmatrix_wallpaper
+  setup_openportal_dashboard
 
   echo ""
   start_services
