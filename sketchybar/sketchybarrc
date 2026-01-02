@@ -43,7 +43,6 @@ sketchybar --default updates=when_shown \
                      background.corner_radius=8
 
 sketchybar --add event aerospace_workspace_change
-sketchybar --add event system_stats
 
 for sid in 1 2 3 4 5 6 7 8 9; do
     sketchybar --add item space.$sid left \
@@ -113,68 +112,35 @@ sketchybar --add item events right \
 
 sketchybar --add item cpu right \
            --set cpu icon="CPU" \
-                    icon.font="$FONT:Bold:8.0" \
+                    icon.font="$FONT:Bold:9.0" \
                     icon.color=$ACCENT \
                     label="--" \
-                    label.font="$FONT:Semibold:8.0" \
+                    label.font="$FONT:Semibold:9.0" \
                     label.color=$TEXT \
-                    padding_left=0 \
-                    padding_right=0 \
-                    icon.padding_left=4 \
-                    icon.padding_right=2 \
+                    icon.padding_left=8 \
+                    icon.padding_right=4 \
                     label.padding_left=0 \
-                    label.padding_right=4 \
-                    background.drawing=off \
-                    script="$RELPATH/plugins/system_stats/script.sh" \
-           --subscribe cpu system_stats
-
-sketchybar --add graph cpu_graph right 16 \
-           --set cpu_graph graph.color=$ACCENT \
-                         graph.fill_color=0x33cba6f7 \
-                         graph.line_width=1.0 \
-                         background.height=22 \
-                         background.drawing=off \
-                         padding_left=0 \
-                         padding_right=0
-
-sketchybar --add bracket cpu_stats cpu cpu_graph \
-           --set cpu_stats background.color=$SURFACE \
-                          background.drawing=on \
-                          padding_left=0 \
-                          padding_right=0
+                    label.padding_right=8 \
+                    background.color=$SURFACE \
+                    background.drawing=on \
+                    update_freq=30 \
+                    script="$RELPATH/plugins/cpu/script.sh"
 
 sketchybar --add item ram right \
            --set ram icon="RAM" \
-                    icon.font="$FONT:Bold:8.0" \
+                    icon.font="$FONT:Bold:9.0" \
                     icon.color=$HIGHLIGHT \
                     label="--" \
-                    label.font="$FONT:Semibold:8.0" \
+                    label.font="$FONT:Semibold:9.0" \
                     label.color=$TEXT \
-                    padding_left=0 \
-                    padding_right=0 \
-                    icon.padding_left=4 \
-                    icon.padding_right=2 \
+                    icon.padding_left=8 \
+                    icon.padding_right=4 \
                     label.padding_left=0 \
-                    label.padding_right=4 \
-                    background.drawing=off
-
-sketchybar --add slider ram_graph right 16 \
-           --set ram_graph slider.background.drawing=on \
-                          slider.background.color=$BAR_COLOR \
-                          slider.background.height=22 \
-                          slider.background.corner_radius=6 \
-                          slider.highlight_color=0x88f38ba8 \
-                          slider.knob.drawing=off \
-                          slider.percentage=0 \
-                          background.drawing=off \
-                          padding_left=0 \
-                          padding_right=0
-
-sketchybar --add bracket ram_stats ram ram_graph \
-           --set ram_stats background.color=$SURFACE \
-                          background.drawing=on \
-                          padding_left=0 \
-                          padding_right=0
+                    label.padding_right=8 \
+                    background.color=$SURFACE \
+                    background.drawing=on \
+                    update_freq=30 \
+                    script="$RELPATH/plugins/ram/script.sh"
 
 sketchybar --add item codexbar right \
            --set codexbar icon="🎚️" \
@@ -197,10 +163,7 @@ sketchybar --add item portkiller right \
                            background.drawing=on \
                            click_script="$RELPATH/plugins/portkiller/click.sh"
 
-if command -v stats_provider >/dev/null 2>&1; then
-  killall stats_provider >/dev/null 2>&1 || true
-  stats_provider --cpu usage --memory ram_usage --interval 2 --no-units >/dev/null 2>&1 &
-fi
+killall stats_provider >/dev/null 2>&1 || true
 
 sketchybar --update
 
