@@ -910,49 +910,58 @@ alias as = aerospace
 alias asr = atuin scripts run
 alias o = opencode
 
-# oo - OpenCode with Portal (launches both with dynamic ports)
-# Each directory gets its own port pair, accessible via web UI
 def oo [] {
     let dir = (pwd)
-    # Generate deterministic port offset from directory path (0-99)
+    let sessions_file = $"($env.HOME)/.local/share/openportal/sessions.json"
     let hash_num = ($dir | hash md5 | str substring 0..3 | into int --radix 16)
-    let port_offset = ($hash_num mod 100)
+    let port_offset = (($hash_num mod 99) + 1)
     let web_port = (3000 + $port_offset)
     let oc_port = (4000 + $port_offset)
+    let session_id = ($dir | hash md5 | str substring 0..8)
     
-    # Check if ports are available
     let web_in_use = (do { lsof -i $":($web_port)" } | complete | get exit_code) == 0
     let oc_in_use = (do { lsof -i $":($oc_port)" } | complete | get exit_code) == 0
     
     if $web_in_use or $oc_in_use {
-        print $"(ansi yellow)Ports ($web_port)/($oc_port) in use - session may already be running(ansi reset)"
-        print $"(ansi cyan)Portal: http://m4-mini.tail09133d.ts.net:($web_port)(ansi reset)"
-        # Try to attach to existing server
+        print $"(ansi yellow)Session already running(ansi reset)"
+        print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
         opencode attach $"http://127.0.0.1:($oc_port)"
         return
     }
     
-    # Start openportal in background
-    print $"(ansi green)Starting OpenPortal for: ($dir)(ansi reset)"
+    print $"(ansi green)Starting session for: ($dir)(ansi reset)"
     let portal_pid = (
         bash -c $"nohup openportal --no-browser --port ($web_port) --opencode-port ($oc_port) --directory '($dir)' > /tmp/openportal-($port_offset).log 2>&1 & echo $!"
         | str trim
     )
     
-    # Wait for server to be ready
     print $"(ansi dim)Waiting for servers...(ansi reset)"
     sleep 8sec
     
-    print $"(ansi cyan)Portal: http://m4-mini.tail09133d.ts.net:($web_port)(ansi reset)"
-    print $"(ansi dim)Press Ctrl+C to exit (will stop portal)(ansi reset)"
+    let session_data = {
+        directory: $dir,
+        webPort: $web_port,
+        ocPort: $oc_port,
+        pid: $portal_pid,
+        startedAt: (date now | format date "%Y-%m-%dT%H:%M:%S")
+    }
+    
+    mut sessions = (if ($sessions_file | path exists) { open $sessions_file } else { {} })
+    $sessions = ($sessions | upsert $session_id $session_data)
+    $sessions | save -f $sessions_file
+    
+    print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
+    print $"(ansi dim)Press Ctrl+C to exit(ansi reset)"
     print ""
     
-    # Attach to the server - when this exits, kill portal
     do { opencode attach $"http://127.0.0.1:($oc_port)" } | complete
     
-    # Cleanup on exit
-    print $"(ansi dim)Stopping portal...(ansi reset)"
+    print $"(ansi dim)Stopping session...(ansi reset)"
     bash -c $"kill ($portal_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
+    
+    mut sessions_cleanup = (if ($sessions_file | path exists) { open $sessions_file } else { {} })
+    $sessions_cleanup = ($sessions_cleanup | reject -i $session_id)
+    $sessions_cleanup | save -f $sessions_file
 }
 
 def ff [] {
