@@ -205,6 +205,7 @@
         "ifstat"
         "opencode"
         "blueutil"
+        "libpq"
         "steveyegge/beads/bd"
         "tw93/tap/mole"
         "felixkratz/formulae/sketchybar"
