@@ -38,7 +38,7 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 |------|-------------|
 | `nushell` | Primary shell (modern, structured data) |
 | `tmux` | Terminal multiplexer |
-| `neovim` | Text editor (LazyVim config) |
+| `vim` | Text editor |
 | `fzf` | Fuzzy finder |
 | `fd` | Fast find alternative |
 | `ripgrep` | Fast grep alternative |
@@ -51,6 +51,9 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `starship` | Cross-shell prompt |
 | `jq` / `yq` | JSON/YAML processors |
 | `xh` | HTTPie-like HTTP client |
+| `glow` | Markdown renderer in terminal |
+| `sshs` | SSH session manager |
+| `pv` | Pipe viewer (progress for pipes) |
 
 ### Developer Tools (via Nix)
 
@@ -68,6 +71,9 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `cloc` | Count lines of code |
 | `direnv` | Directory-based env vars |
 | `carapace` | Shell completion |
+| `cmatrix` | Matrix screen effect |
+| `mactop` | macOS activity monitor |
+| `yt-dlp` | YouTube downloader |
 
 ### AI/LLM Tools
 
@@ -79,7 +85,6 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `codex` | Homebrew Cask | OpenAI Codex CLI |
 | `claude` | npm | Anthropic Claude Code |
 | `amp` | npm | Sourcegraph AI |
-| `@ccusage/codex` | npm | Codex usage tracker |
 
 ### Cloud CLIs (via Nix)
 
@@ -117,24 +122,28 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 
 | Plugin | Description |
 |--------|-------------|
-| `aerospace` | Workspace indicators with icons |
-| `wifi` | Network status with click-to-toggle |
-| `bluetooth` | Bluetooth status with click-to-toggle |
+| `spaces/aerospace` | Workspace indicators with icons |
 | `calendar` | Date/time with itsycal integration |
 | `system_stats` | CPU/RAM usage |
+| `cpu` / `ram` | Individual CPU/RAM displays |
 | `front_app` | Current app display |
-| `matrix_wallpaper` | Toggle cmatrix wallpaper |
 | `codexbar` | Codex status indicator |
 | `repobar` | GitHub repo stats |
+| `portkiller` | Port manager toggle |
+| `matrix_wallpaper` | Toggle cmatrix wallpaper |
+| `bluetooth` | Bluetooth status |
+| `wifi` | WiFi status |
 
 ### Terminal & Editor Apps (Homebrew Casks)
 
 | App | Description |
 |-----|-------------|
 | `ghostty` | GPU-accelerated terminal |
+| `neovim` | Text editor (LazyVim config) |
 | `visual-studio-code` | VS Code editor |
 | `cursor` | AI-powered code editor |
 | `windsurf` | AI code editor |
+| `zed` | Modern, collaborative code editor |
 
 ### Productivity Apps (Homebrew Casks)
 
@@ -148,6 +157,8 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `linear-linear` | Issue tracking |
 | `itsycal` | Menu bar calendar |
 | `1password` | Password manager |
+| `zoom` | Video conferencing |
+| `tailscale` | VPN mesh network |
 
 ### Communication Apps (Homebrew Casks)
 
@@ -156,7 +167,6 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `slack` | Team messaging |
 | `discord` | Community chat |
 | `telegram` | Messaging |
-| `readdle-spark` | Email client |
 
 ### Browsers (Homebrew Casks)
 
@@ -176,7 +186,9 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `ical-buddy` | Calendar CLI |
 | `ifstat` | Network interface stats |
 | `mole` | SSH tunnel manager |
+| `libpq` | PostgreSQL client library |
 | `sketchybar-system-stats` | System stats provider |
+| `portkiller` | Kill processes by port |
 
 ### Task Management
 
@@ -184,6 +196,15 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 |------|--------|-------------|
 | `bd` | Homebrew | Beads task tracker CLI |
 | `bv` | Go | Beads viewer GUI |
+
+### npm Global Packages
+
+| Package | Description |
+|---------|-------------|
+| `claude` | Anthropic Claude Code |
+| `amp` | Sourcegraph AI |
+| `openportal` | Remote portal access |
+| `pm2` | Process manager |
 
 ### Other Apps (Homebrew Casks)
 
@@ -196,6 +217,8 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `sf-symbols` | Apple SF Symbols |
 | `qbittorrent` | Torrent client |
 | `xbar` | Menu bar plugins |
+| `codexbar` | Codex menu bar status |
+| `repobar` | GitHub repo menu bar stats |
 
 ### Python Tools (via uv)
 
@@ -215,6 +238,12 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 |------|-------------|
 | `screen-studio-legacy` | Screen Studio 2.26.0 (version-pinned) |
 
+### Fonts (via Nix)
+
+| Font | Description |
+|------|-------------|
+| `nerd-fonts.jetbrains-mono` | JetBrains Mono with Nerd Font icons |
+
 ---
 
 ## Configuration Directories
@@ -224,17 +253,20 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `aerospace/` | Window manager config + workspace scripts |
 | `atuin/` | Shell history sync config |
 | `borders/` | Window border styling |
+| `chrome/` | Chrome managed policies (extension auto-install) |
 | `ghostty/` | Terminal emulator config |
 | `hammerspoon/` | macOS automation scripts |
 | `karabiner/` | Keyboard remapping |
+| `launchagents/` | macOS launchd services |
 | `nix-darwin/` | Nix-Darwin + Home Manager config |
 | `nushell/` | Primary shell configuration |
 | `nvim/` | Neovim/LazyVim configuration |
-| `opencode/` | OpenCode AI settings |
+| `opencode/` | OpenCode AI settings + agents/skills |
 | `sketchybar/` | Status bar + plugins |
 | `starship/` | Cross-shell prompt theme |
 | `tmux/` | Terminal multiplexer config |
 | `vscode/` | VS Code settings + extensions |
+| `zed/` | Zed editor settings |
 | `zsh/` | Zsh environment (for compatibility) |
 
 ---
@@ -261,9 +293,12 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `sketchybar/plugins/bluetooth/` | Bluetooth toggle |
 | `sketchybar/plugins/calendar/` | Calendar events integration |
 | `sketchybar/plugins/codexbar/` | Codex status |
+| `sketchybar/plugins/cpu/` | CPU usage display |
 | `sketchybar/plugins/front_app/` | Current app display |
 | `sketchybar/plugins/icon_map.sh` | App icon mapping |
 | `sketchybar/plugins/matrix_wallpaper/` | cmatrix wallpaper toggle |
+| `sketchybar/plugins/portkiller/` | PortKiller integration |
+| `sketchybar/plugins/ram/` | RAM usage display |
 | `sketchybar/plugins/repobar/` | GitHub repo stats |
 | `sketchybar/plugins/spaces/aerospace/` | Workspace indicators |
 | `sketchybar/plugins/system_stats/` | CPU/RAM stats |
@@ -277,6 +312,16 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 
 ---
 
+## Launchd Services
+
+| Service | Description |
+|---------|-------------|
+| `com.klaudioz.cmatrix-wallpaper` | Matrix wallpaper background service |
+| `com.klaudioz.mcp-agent-mail` | MCP Agent Mail server |
+| `com.klaudioz.openportal-dashboard` | OpenPortal dashboard service |
+
+---
+
 ## External Repositories (Auto-Updated)
 
 | Repo | Location | Description |
@@ -286,17 +331,26 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 
 ---
 
+## GitHub Extensions (Auto-Installed)
+
+| Extension | Description |
+|-----------|-------------|
+| `gh-dash` | GitHub dashboard TUI |
+
+---
+
 ## macOS System Settings
 
 Configured via `nix-darwin/flake.nix`:
 
-- **Dock**: Auto-hide, left orientation, no persistent apps
-- **Menu Bar**: Hidden (using sketchybar)
+- **Dock**: Auto-hide, left orientation, no persistent apps, group windows by app
+- **Menu Bar**: Auto-hide (preserves notifications)
 - **Finder**: Show extensions, column view, hide desktop icons
 - **Keyboard**: Fast key repeat (2), short initial delay (15)
 - **Screenshots**: Save to `~/Pictures/screenshots`, copy to clipboard
 - **Security**: Touch ID + Apple Watch for sudo
 - **Wallpaper**: Auto-set on rebuild
+- **File Limits**: Increased maxfiles to 61440 (fixes Ghostty SystemResources error)
 
 ---
 
