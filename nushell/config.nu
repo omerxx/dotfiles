@@ -934,14 +934,9 @@ def oo [] {
         | str trim
     )
     
-    let session_json = $'{"($session_id)":{"directory":"($dir)","webPort":($web_port),"ocPort":($oc_port),"pid":"($portal_pid)","startedAt":"(date now | format date "%Y-%m-%dT%H:%M:%S")"}}'
-    bash -c $"
-        if [ -f '($sessions_file)' ]; then
-            jq -s '.[0] * .[1]' '($sessions_file)' <(echo '($session_json)') > '($sessions_file).tmp' && mv '($sessions_file).tmp' '($sessions_file)'
-        else
-            echo '($session_json)' > '($sessions_file)'
-        fi
-    "
+    let start_time = (date now | format date "%Y-%m-%dT%H:%M:%S")
+    $'{"($session_id)":{"directory":"($dir)","webPort":($web_port),"ocPort":($oc_port),"pid":"($portal_pid)","startedAt":"($start_time)"}}' | save -f /tmp/oo-session.json
+    bash -c $"jq -s 'add' '($sessions_file)' /tmp/oo-session.json > '($sessions_file).tmp' 2>/dev/null && mv '($sessions_file).tmp' '($sessions_file)' || cp /tmp/oo-session.json '($sessions_file)'"
     
     print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
     print $"(ansi dim)Waiting for servers...(ansi reset)"
@@ -954,7 +949,7 @@ def oo [] {
     
     print $"(ansi dim)Stopping session...(ansi reset)"
     bash -c $"kill ($portal_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
-    bash -c $"jq 'del(.($session_id))' '($sessions_file)' > '($sessions_file).tmp' && mv '($sessions_file).tmp' '($sessions_file)'"
+    bash -c $"jq 'del(.\"($session_id)\")' '($sessions_file)' > '($sessions_file).tmp' 2>/dev/null && mv '($sessions_file).tmp' '($sessions_file)' || true"
 }
 
 def ff [] {
