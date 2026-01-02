@@ -909,7 +909,51 @@ alias hms = /nix/store/6kc5srg83nkyg21am089xx7pvq44kn2c-home-manager/bin/home-ma
 alias as = aerospace
 alias asr = atuin scripts run
 alias o = opencode
-alias op = openportal --no-browser
+
+# oo - OpenCode with Portal (launches both with dynamic ports)
+# Each directory gets its own port pair, accessible via web UI
+def oo [] {
+    let dir = (pwd)
+    # Generate deterministic port offset from directory path (0-99)
+    let hash_num = ($dir | hash md5 | str substring 0..3 | into int --radix 16)
+    let port_offset = ($hash_num mod 100)
+    let web_port = (3000 + $port_offset)
+    let oc_port = (4000 + $port_offset)
+    
+    # Check if ports are available
+    let web_in_use = (do { lsof -i $":($web_port)" } | complete | get exit_code) == 0
+    let oc_in_use = (do { lsof -i $":($oc_port)" } | complete | get exit_code) == 0
+    
+    if $web_in_use or $oc_in_use {
+        print $"(ansi yellow)Ports ($web_port)/($oc_port) in use - session may already be running(ansi reset)"
+        print $"(ansi cyan)Portal: http://m4-mini.tail09133d.ts.net:($web_port)(ansi reset)"
+        # Try to attach to existing server
+        opencode attach $"http://127.0.0.1:($oc_port)"
+        return
+    }
+    
+    # Start openportal in background
+    print $"(ansi green)Starting OpenPortal for: ($dir)(ansi reset)"
+    let portal_pid = (
+        bash -c $"nohup openportal --no-browser --port ($web_port) --opencode-port ($oc_port) --directory '($dir)' > /tmp/openportal-($port_offset).log 2>&1 & echo $!"
+        | str trim
+    )
+    
+    # Wait for server to be ready
+    print $"(ansi dim)Waiting for servers...(ansi reset)"
+    sleep 8sec
+    
+    print $"(ansi cyan)Portal: http://m4-mini.tail09133d.ts.net:($web_port)(ansi reset)"
+    print $"(ansi dim)Press Ctrl+C to exit (will stop portal)(ansi reset)"
+    print ""
+    
+    # Attach to the server - when this exits, kill portal
+    do { opencode attach $"http://127.0.0.1:($oc_port)" } | complete
+    
+    # Cleanup on exit
+    print $"(ansi dim)Stopping portal...(ansi reset)"
+    bash -c $"kill ($portal_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
+}
 
 def ff [] {
     aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
