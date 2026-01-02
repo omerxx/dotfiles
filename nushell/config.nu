@@ -948,7 +948,7 @@ def oo [] {
     
     mut sessions = (if ($sessions_file | path exists) { open $sessions_file } else { {} })
     $sessions = ($sessions | upsert $session_id $session_data)
-    $sessions | save -f $sessions_file
+    $sessions | to json | save -f $sessions_file
     
     print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
     print $"(ansi dim)Press Ctrl+C to exit(ansi reset)"
@@ -961,7 +961,7 @@ def oo [] {
     
     mut sessions_cleanup = (if ($sessions_file | path exists) { open $sessions_file } else { {} })
     $sessions_cleanup = ($sessions_cleanup | reject -o $session_id)
-    $sessions_cleanup | save -f $sessions_file
+    $sessions_cleanup | to json | save -f $sessions_file
 }
 
 def ff [] {
