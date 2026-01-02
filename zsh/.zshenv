@@ -27,6 +27,9 @@ path_additions=()
 [[ -d "$HOME/go/bin" ]] && path_additions+=("$HOME/go/bin")
 [[ -d "$HOME/.cargo/bin" ]] && path_additions+=("$HOME/.cargo/bin")
 
+# libpq (PostgreSQL)
+[[ -d "/opt/homebrew/opt/libpq/bin" ]] && path_additions+=("/opt/homebrew/opt/libpq/bin")
+
 # App bundle CLIs (optional, but convenient)
 [[ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]] && \
   path_additions+=("/Applications/Visual Studio Code.app/Contents/Resources/app/bin")

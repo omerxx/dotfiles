@@ -96,6 +96,7 @@ if 'IN_NIX_SHELL' not-in $env and 'DEVBOX_SHELL_ENABLED' not-in $env {
         /Users/klaudioz/.local/bin
         /opt/homebrew/opt/ruby/bin
         /opt/homebrew/sbin
+        /opt/homebrew/opt/libpq/bin
         /Users/klaudioz/.opencode/bin
         /Users/klaudioz/.npm-global/bin
         /Users/klaudioz/.bun/bin
