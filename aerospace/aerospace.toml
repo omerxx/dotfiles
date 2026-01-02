@@ -95,6 +95,10 @@ if.app-name-regex-substring = 'clearvpn'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.electron.wispr-flow'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.readdle.SparkDesktop'
 run = 'move-node-to-workspace 2'
 
