@@ -176,29 +176,6 @@ sketchybar --add bracket ram_stats ram ram_graph \
                           padding_left=0 \
                           padding_right=0
 
-sketchybar --add item wifi right \
-           --set wifi icon=􀙇 \
-                     icon.color=$ACCENT \
-                     label.drawing=off \
-                     padding_left=0 \
-                     padding_right=0 \
-                     background.color=$SURFACE \
-                     background.drawing=on \
-                     click_script="$RELPATH/plugins/wifi/click.sh" \
-                     script="$RELPATH/plugins/wifi/script.sh" \
-           --subscribe wifi wifi_change
-
-sketchybar --add item bluetooth right \
-	           --set bluetooth icon=􀪷 \
-	                          icon.color=$ACCENT \
-	                          label.color=$TEXT \
-	                          label.font="$FONT:Semibold:11.0" \
-	                          background.color=$SURFACE \
-	                          background.drawing=on \
-	                          update_freq=30 \
-	                          click_script="$RELPATH/plugins/bluetooth/click.sh" \
-	                          script="$RELPATH/plugins/bluetooth/script.sh"
-
 sketchybar --add item codexbar right \
            --set codexbar icon="🎚️" \
                           label.drawing=off \
@@ -219,19 +196,6 @@ sketchybar --add item portkiller right \
                            background.color=$SURFACE \
                            background.drawing=on \
                            click_script="$RELPATH/plugins/portkiller/click.sh"
-
-if [ -x "/Applications/CMatrixWallpaper.app/Contents/MacOS/matrixdaemon" ]; then
-    sketchybar --add item matrix_wallpaper right \
-               --set matrix_wallpaper icon="M" \
-                                      icon.color=$ACCENT \
-                                      label.color=$TEXT \
-                                      label.font="$FONT:Semibold:11.0" \
-                                      background.color=$SURFACE \
-                                      background.drawing=on \
-                                      update_freq=30 \
-                                      click_script="$RELPATH/plugins/matrix_wallpaper/click.sh" \
-                                      script="$RELPATH/plugins/matrix_wallpaper/script.sh"
-fi
 
 if command -v stats_provider >/dev/null 2>&1; then
   killall stats_provider >/dev/null 2>&1 || true

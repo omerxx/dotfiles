@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.klaudioz.cmatrix-wallpaper</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string><![CDATA[
+APP="/Applications/CMatrixWallpaper.app"
+DAEMON="$APP/Contents/MacOS/matrixdaemon"
+
+if [[ ! -x "$DAEMON" ]]; then
+    echo "CMatrixWallpaper not installed at $DAEMON" >&2
+    exit 0
+fi
+
+# Get display IDs
+get_display_ids() {
+    /usr/bin/swift -e '
+import CoreGraphics
+var count: UInt32 = 0
+CGGetActiveDisplayList(0, nil, &count)
+var displays = [CGDirectDisplayID](repeating: 0, count: Int(count))
+CGGetActiveDisplayList(count, &displays, &count)
+print(displays.map(String.init).joined(separator: " "))
+' 2>/dev/null || true
+}
+
+# Get config JSON from app preferences
+get_config_json() {
+    defaults export com.cmatrix.wallpaper - 2>/dev/null | plutil -convert json -o - - 2>/dev/null || true
+}
+
+display_ids="$(get_display_ids)"
+if [[ -z "$display_ids" ]]; then
+    display_ids="$(/usr/bin/swift -e 'import CoreGraphics; print(CGMainDisplayID())' 2>/dev/null || true)"
+fi
+
+config_json="$(get_config_json)"
+
+for did in $display_ids; do
+    if [[ -n "$config_json" ]]; then
+        "$DAEMON" "$did" "$config_json" &
+    else
+        "$DAEMON" "$did" &
+    fi
+done
+
+# Wait for all background processes
+wait
+]]></string>
+    </array>
+    
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+    
+    <key>StandardOutPath</key>
+    <string>/tmp/cmatrix-wallpaper.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/tmp/cmatrix-wallpaper.err</string>
+    
+    <key>ThrottleInterval</key>
+    <integer>30</integer>
+</dict>
+</plist>
