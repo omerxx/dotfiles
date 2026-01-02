@@ -286,8 +286,17 @@ setup_zsh_configs() {
   ZSHENV_SOURCE="$SCRIPT_DIR/zsh/.zshenv"
   ZSHENV_TARGET="$HOME/.zshenv"
 
+  ZSHRC_SOURCE="$SCRIPT_DIR/zsh/.zshrc"
+  ZSHRC_TARGET="$HOME/.zshrc"
+
   if [ ! -f "$ZSHENV_SOURCE" ]; then
     echo -e "  ${YELLOW}!${NC} zsh config source not found: $ZSHENV_SOURCE"
+    echo ""
+    return
+  fi
+
+  if [ ! -f "$ZSHRC_SOURCE" ]; then
+    echo -e "  ${YELLOW}!${NC} zsh config source not found: $ZSHRC_SOURCE"
     echo ""
     return
   fi
@@ -306,6 +315,22 @@ setup_zsh_configs() {
   else
     ln -s "$ZSHENV_SOURCE" "$ZSHENV_TARGET"
     echo -e "  ${GREEN}✓${NC} .zshenv linked"
+  fi
+
+  if [ -L "$ZSHRC_TARGET" ]; then
+    CURRENT_TARGET=$(readlink "$ZSHRC_TARGET" 2>/dev/null || echo "")
+    if [ "$CURRENT_TARGET" != "$ZSHRC_SOURCE" ]; then
+      ln -sf "$ZSHRC_SOURCE" "$ZSHRC_TARGET"
+    fi
+    echo -e "  ${GREEN}✓${NC} .zshrc linked"
+  elif [ -e "$ZSHRC_TARGET" ]; then
+    echo "  Backing up existing .zshrc..."
+    mv "$ZSHRC_TARGET" "$ZSHRC_TARGET.backup"
+    ln -s "$ZSHRC_SOURCE" "$ZSHRC_TARGET"
+    echo -e "  ${GREEN}✓${NC} .zshrc linked (backup created)"
+  else
+    ln -s "$ZSHRC_SOURCE" "$ZSHRC_TARGET"
+    echo -e "  ${GREEN}✓${NC} .zshrc linked"
   fi
 
   echo ""

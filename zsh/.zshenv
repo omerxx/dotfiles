@@ -1,6 +1,13 @@
 # Keep PATH consistent for *all* zsh invocations (including non-interactive `zsh -c`).
 # Codex and git hooks rely on this to find Homebrew/Nix-installed tools.
 
+if [[ -n "${ZPROF:-}" ]]; then
+  zmodload zsh/zprof
+fi
+
+# Keep zsh fully user-configured and avoid slow/variable `/etc/*` startup files.
+unsetopt GLOBAL_RCS
+
 typeset -U path
 
 path_additions=()
