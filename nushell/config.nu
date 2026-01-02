@@ -922,7 +922,11 @@ def oo [] {
     let oc_in_use = (do { lsof -i $":($oc_port)" } | complete | get exit_code) == 0
     
     if $oc_in_use {
-        print $"(ansi yellow)Session already running(ansi reset)"
+        print $"(ansi yellow)Session already running, reconnecting...(ansi reset)"
+        # Ensure session is registered (in case dashboard was restarted)
+        let start_time = (date now | format date "%Y-%m-%dT%H:%M:%S")
+        $'{"($session_id)":{"directory":"($dir)","webPort":($web_port),"ocPort":($oc_port),"pid":"reconnect","startedAt":"($start_time)"}}' | save -f /tmp/oo-session.json
+        bash -c $"jq -s 'add' '($sessions_file)' /tmp/oo-session.json > '($sessions_file).tmp' 2>/dev/null && mv '($sessions_file).tmp' '($sessions_file)' || cp /tmp/oo-session.json '($sessions_file)'"
         print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
         opencode attach $"http://127.0.0.1:($oc_port)"
         return
