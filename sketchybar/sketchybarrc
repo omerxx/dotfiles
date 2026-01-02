@@ -213,6 +213,13 @@ sketchybar --add item repobar right \
                          background.drawing=on \
                          click_script="$RELPATH/plugins/repobar/click.sh"
 
+sketchybar --add item portkiller right \
+           --set portkiller icon="🔌" \
+                           label.drawing=off \
+                           background.color=$SURFACE \
+                           background.drawing=on \
+                           click_script="$RELPATH/plugins/portkiller/click.sh"
+
 if [ -x "/Applications/CMatrixWallpaper.app/Contents/MacOS/matrixdaemon" ]; then
     sketchybar --add item matrix_wallpaper right \
                --set matrix_wallpaper icon="M" \

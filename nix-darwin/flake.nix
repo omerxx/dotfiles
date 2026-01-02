@@ -148,6 +148,7 @@
         "FelixKratz/formulae"
         "joncrangle/tap"
         "nikitabobko/tap"
+        "productdevbook/tap"
         "steveyegge/beads"
         "steipete/tap"
         "tw93/tap"
@@ -190,6 +191,7 @@
         "steipete/tap/repobar"
         "setapp"
         "tailscale"
+        "productdevbook/tap/portkiller"
       ];
 
       homebrew.brews = [
