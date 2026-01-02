@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = 3000;
-const SESSIONS_FILE = path.join(__dirname, 'sessions.json');
+const SESSIONS_FILE = path.join(process.env.HOME, '.local/share/openportal/sessions.json');
 const HOSTNAME = process.env.HOSTNAME || 'm4-mini.tail09133d.ts.net';
 
 if (!fs.existsSync(SESSIONS_FILE)) {
