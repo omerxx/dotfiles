@@ -498,6 +498,33 @@ install_npm_tools() {
   echo ""
 }
 
+setup_pm2_startup() {
+  echo -e "${YELLOW}Setting up PM2 startup service...${NC}"
+
+  PM2="$HOME/.npm-global/bin/pm2"
+  if [ ! -x "$PM2" ]; then
+    PM2="pm2"
+  fi
+
+  if ! command -v "$PM2" &> /dev/null; then
+    echo -e "  ${YELLOW}!${NC} pm2 not found, skipping startup setup"
+    return
+  fi
+
+  LAUNCHD_PLIST="$HOME/Library/LaunchAgents/pm2.$USER.plist"
+  if [ -f "$LAUNCHD_PLIST" ]; then
+    echo -e "  ${GREEN}✓${NC} PM2 startup already configured"
+    return
+  fi
+
+  NODE_PATH=$(dirname "$(command -v node)")
+  sudo env PATH="$PATH:$NODE_PATH" "$PM2" startup launchd -u "$USER" --hp "$HOME" && \
+    echo -e "  ${GREEN}✓${NC} PM2 startup configured" || \
+    echo -e "  ${YELLOW}!${NC} PM2 startup setup failed"
+
+  echo ""
+}
+
 install_mcp_agent_mail() {
   echo -e "${YELLOW}Setting up MCP Agent Mail...${NC}"
 
@@ -698,6 +725,7 @@ run_update() {
   install_go_tools
   install_bun_tools
   install_npm_tools
+  setup_pm2_startup
   install_mcp_agent_mail
   install_cmatrix_wallpaper
 
