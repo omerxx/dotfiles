@@ -106,7 +106,7 @@
         # Keyboard: fast but controllable key repeat
         NSGlobalDomain.KeyRepeat = 2;           # Fast (default: 6)
         NSGlobalDomain.InitialKeyRepeat = 15;   # Short delay (default: 25)
-        NSGlobalDomain._HIHideMenuBar = true;   # Hide macOS menu bar (using sketchybar)
+        # Menu bar hiding is set via activation script (value 2 = auto-hide with notifications)
       };
 
       # Increase launchd file descriptor limit to avoid apps failing with "error.SystemResources"
@@ -126,8 +126,11 @@
         };
       };
 
-      # Set desktop wallpaper
+      # Set desktop wallpaper and other settings that need non-boolean values
       system.activationScripts.postActivation.text = ''
+        # Auto-hide menu bar (2) - keeps notifications working unlike full hide (1)
+        sudo -u klaudioz defaults write NSGlobalDomain _HIHideMenuBar -int 2
+
         osascript -e 'tell application "System Events" to tell every desktop to set picture to POSIX file "/Users/klaudioz/dotfiles/wallpaper.jpeg"'
 
         # Deploy Chrome managed policies (force-install extensions)
