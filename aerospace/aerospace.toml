@@ -99,7 +99,7 @@ if.app-id = 'com.electron.wispr-flow'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.readdle.SparkDesktop'
+if.app-id = 'com.readdle.SparkDesktop-setapp'
 run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
@@ -270,7 +270,8 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 alt-shift-semicolon = 'mode service'
 alt-shift-enter = 'mode apps'
 
-alt-e = 'exec-and-forget open -a "/Applications/Spark Desktop.app"'
+alt-e = 'exec-and-forget open -a "/Applications/Setapp/Spark Mail.app"'
+alt-g = 'exec-and-forget open -a /Applications/Ghostty.app'
 alt-t = 'exec-and-forget open -a /Applications/Telegram.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 alt-s = 'exec-and-forget open -a /Applications/Slack.app'
