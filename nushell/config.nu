@@ -915,14 +915,12 @@ def oo [] {
     let sessions_file = $"($env.HOME)/.local/share/openportal/sessions.json"
     let hash_num = ($dir | hash md5 | str substring 0..3 | into int --radix 16)
     let port_offset = (($hash_num mod 99) + 1)
-    let web_port = (3000 + $port_offset)
     let oc_port = (4000 + $port_offset)
     let session_id = ($dir | hash md5 | str substring 0..8)
     
-    let web_in_use = (do { lsof -i $":($web_port)" } | complete | get exit_code) == 0
     let oc_in_use = (do { lsof -i $":($oc_port)" } | complete | get exit_code) == 0
     
-    if $web_in_use or $oc_in_use {
+    if $oc_in_use {
         print $"(ansi yellow)Session already running(ansi reset)"
         print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
         opencode attach $"http://127.0.0.1:($oc_port)"
@@ -930,19 +928,18 @@ def oo [] {
     }
     
     print $"(ansi green)Starting session for: ($dir)(ansi reset)"
-    let portal_pid = (
-        bash -c $"nohup openportal --no-browser --port ($web_port) --opencode-port ($oc_port) --directory '($dir)' > /tmp/openportal-($port_offset).log 2>&1 & echo $!"
+    let server_pid = (
+        bash -c $"cd '($dir)' && nohup opencode serve --port ($oc_port) --hostname 0.0.0.0 > /tmp/opencode-($port_offset).log 2>&1 & echo $!"
         | str trim
     )
     
-    print $"(ansi dim)Waiting for servers...(ansi reset)"
-    sleep 8sec
+    print $"(ansi dim)Waiting for server...(ansi reset)"
+    sleep 5sec
     
     let session_data = {
         directory: $dir,
-        webPort: $web_port,
         ocPort: $oc_port,
-        pid: $portal_pid,
+        pid: $server_pid,
         startedAt: (date now | format date "%Y-%m-%dT%H:%M:%S")
     }
     
@@ -951,13 +948,14 @@ def oo [] {
     $sessions | to json | save -f $sessions_file
     
     print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
+    print $"(ansi cyan)Direct: http://m4-mini.tail09133d.ts.net:($oc_port)(ansi reset)"
     print $"(ansi dim)Press Ctrl+C to exit(ansi reset)"
     print ""
     
     do { opencode attach $"http://127.0.0.1:($oc_port)" } | complete
     
     print $"(ansi dim)Stopping session...(ansi reset)"
-    bash -c $"kill ($portal_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
+    bash -c $"kill ($server_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
     
     mut sessions_cleanup = (if ($sessions_file | path exists) { open $sessions_file } else { {} })
     $sessions_cleanup = ($sessions_cleanup | reject -o $session_id)
