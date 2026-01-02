@@ -949,7 +949,7 @@ def oo [] {
     
     print $"(ansi dim)Stopping session...(ansi reset)"
     bash -c $"kill ($portal_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
-    bash -c $"jq 'del(.\"($session_id)\")' '($sessions_file)' > '($sessions_file).tmp' 2>/dev/null && mv '($sessions_file).tmp' '($sessions_file)' || true"
+    bash -c $"jq --arg sid '($session_id)' 'del(.[$$sid])' '($sessions_file)' > '($sessions_file).tmp' 2>/dev/null && mv '($sessions_file).tmp' '($sessions_file)' || true"
 }
 
 def ff [] {
