@@ -123,7 +123,7 @@ sketchybar --add item cpu right \
                     label.padding_right=8 \
                     background.color=$SURFACE \
                     background.drawing=on \
-                    update_freq=30 \
+                    update_freq=1 \
                     script="$RELPATH/plugins/cpu/script.sh"
 
 sketchybar --add item ram right \
@@ -139,7 +139,7 @@ sketchybar --add item ram right \
                     label.padding_right=8 \
                     background.color=$SURFACE \
                     background.drawing=on \
-                    update_freq=30 \
+                    update_freq=1 \
                     script="$RELPATH/plugins/ram/script.sh"
 
 sketchybar --add item codexbar right \
