@@ -207,6 +207,7 @@
         "opencode"
         "blueutil"
         "libpq"
+        "render"
         "steveyegge/beads/bd"
         "tw93/tap/mole"
         "felixkratz/formulae/sketchybar"

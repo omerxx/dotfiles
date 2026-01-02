@@ -86,17 +86,18 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `claude` | npm | Anthropic Claude Code |
 | `amp` | npm | Sourcegraph AI |
 
-### Cloud CLIs (via Nix)
+### Cloud CLIs
 
-| Tool | Description |
-|------|-------------|
-| `kubectl` | Kubernetes CLI |
-| `kubectx` | Kubernetes context switcher |
-| `awscli2` | AWS CLI v2 |
-| `google-cloud-sdk` | Google Cloud CLI |
-| `doctl` | DigitalOcean CLI |
-| `flyctl` | Fly.io CLI |
-| `gh` | GitHub CLI |
+| Tool | Source | Description |
+|------|--------|-------------|
+| `kubectl` | Nix | Kubernetes CLI |
+| `kubectx` | Nix | Kubernetes context switcher |
+| `awscli2` | Nix | AWS CLI v2 |
+| `google-cloud-sdk` | Nix | Google Cloud CLI |
+| `doctl` | Nix | DigitalOcean CLI |
+| `flyctl` | Nix | Fly.io CLI |
+| `gh` | Nix | GitHub CLI |
+| `render` | Homebrew | Render.com CLI |
 
 ### Security Tools (via Nix)
 
