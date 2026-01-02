@@ -79,6 +79,8 @@ verify_tools() {
     # npm global packages
     "claude:claude-code"
     "amp:@sourcegraph/amp"
+    "openportal:openportal"
+    "pm2:pm2"
     # Go tools
     "bv:beads-viewer"
     # Bun tools
@@ -467,6 +469,35 @@ install_bun_tools() {
   echo ""
 }
 
+install_npm_tools() {
+  echo -e "${YELLOW}Installing npm global packages...${NC}"
+
+  NPM="/run/current-system/sw/bin/npm"
+  if [ ! -x "$NPM" ]; then
+    NPM="npm"
+  fi
+
+  if ! command -v "$NPM" &> /dev/null; then
+    echo -e "  ${YELLOW}!${NC} npm not found, skipping npm tools"
+    return
+  fi
+
+  tools=(
+    "openportal"
+    "pm2"
+    "@anthropic-ai/claude-code"
+    "@sourcegraph/amp"
+  )
+
+  for tool in "${tools[@]}"; do
+    "$NPM" install -g "$tool" 2>/dev/null && \
+      echo -e "  ${GREEN}✓${NC} $tool" || \
+      echo -e "  ${YELLOW}!${NC} $tool (may already be installed)"
+  done
+
+  echo ""
+}
+
 install_mcp_agent_mail() {
   echo -e "${YELLOW}Setting up MCP Agent Mail...${NC}"
 
@@ -666,6 +697,7 @@ run_update() {
   install_uv_tools
   install_go_tools
   install_bun_tools
+  install_npm_tools
   install_mcp_agent_mail
   install_cmatrix_wallpaper
 
