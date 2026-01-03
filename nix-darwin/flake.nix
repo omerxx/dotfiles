@@ -110,16 +110,44 @@
         # Menu bar hiding is set via activation script (value 2 = auto-hide with notifications)
       };
 
-      # Increase launchd file descriptor limit to avoid apps failing with "error.SystemResources"
-      # (e.g. Ghostty starting an IO thread when maxfiles is only 256).
+      # Kernel / launchd resource limits (avoid apps failing with "error.SystemResources").
+      launchd.daemons.sysctl-maxproc = {
+        serviceConfig = {
+          ProgramArguments = [
+            "/usr/sbin/sysctl"
+            "-w"
+            "kern.maxproc=10000"
+            "kern.maxprocperuid=10000"
+          ];
+          RunAtLoad = true;
+          StandardOutPath = "/tmp/sysctl-maxproc.out";
+          StandardErrorPath = "/tmp/sysctl-maxproc.err";
+        };
+      };
+
+      launchd.daemons.launchctl-maxproc = {
+        serviceConfig = {
+          ProgramArguments = [
+            "/bin/launchctl"
+            "limit"
+            "maxproc"
+            "10000"
+            "10000"
+          ];
+          RunAtLoad = true;
+          StandardOutPath = "/tmp/launchctl-maxproc.out";
+          StandardErrorPath = "/tmp/launchctl-maxproc.err";
+        };
+      };
+
       launchd.daemons.launchctl-maxfiles = {
         serviceConfig = {
           ProgramArguments = [
             "/bin/launchctl"
             "limit"
             "maxfiles"
-            "61440"
-            "61440"
+            "524288"
+            "524288"
           ];
           RunAtLoad = true;
           StandardOutPath = "/tmp/launchctl-maxfiles.out";
