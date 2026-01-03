@@ -186,3 +186,6 @@ if ($opencode_secrets | path exists) {
 
 # Force Quotio models even when a project has its own `opencode.json` / `.opencode/` config.
 $env.OPENCODE_CONFIG_CONTENT = '{"model":"quotio/gemini-claude-sonnet-4-5","small_model":"quotio/gemini-3-flash-preview"}'
+
+# Ensure the Homebrew `opencode` launcher always runs our wrapper (for consistent env injection).
+$env.OPENCODE_BIN_PATH = ($nu.home-path | path join ".config" "opencode" "bin" "opencode-wrapper")
