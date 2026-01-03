@@ -5,7 +5,8 @@
   ],
   "theme": "catppuccin",
   "$schema": "https://opencode.ai/config.json",
-  "model": "quotio/claude-sonnet-4-5",
+  "model": "quotio/gemini-claude-sonnet-4-5",
+  "small_model": "quotio/gemini-3-flash-preview",
   "watcher": {
     "ignore": [
       "**/node_modules/**",
@@ -41,106 +42,103 @@
         "baseURL": "http://127.0.0.1:8317/v1"
       },
       "models": {
-        "gemini-3-pro-high": {
-          "name": "Gemini 3 Pro High (Quotio)",
+        "gemini-claude-opus-4-5-thinking": {
+          "name": "Gemini Claude Opus 4.5 Thinking (Quotio)",
           "limit": {
-            "context": 1048576,
-            "output": 65535
+            "context": 200000,
+            "output": 64000
           },
           "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
           }
         },
-        "gemini-3-pro-low": {
-          "name": "Gemini 3 Pro Low (Quotio)",
+        "gemini-claude-sonnet-4-5": {
+          "name": "Gemini Claude Sonnet 4.5 (Quotio)",
           "limit": {
-            "context": 1048576,
-            "output": 65535
+            "context": 200000,
+            "output": 64000
           },
           "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
           }
         },
-        "gemini-3-flash": {
-          "name": "Gemini 3 Flash (Quotio)",
+        "gemini-claude-sonnet-4-5-thinking": {
+          "name": "Gemini Claude Sonnet 4.5 Thinking (Quotio)",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
+          }
+        },
+        "gemini-3-flash-preview": {
+          "name": "Gemini 3 Flash Preview (Quotio)",
           "limit": {
             "context": 1048576,
             "output": 65536
           },
           "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
           }
         },
-        "claude-sonnet-4-5": {
-          "name": "Claude Sonnet 4.5 (Quotio)",
+        "gemini-3-pro-preview": {
+          "name": "Gemini 3 Pro Preview (Quotio)",
           "limit": {
-            "context": 200000,
-            "output": 64000
+            "context": 1048576,
+            "output": 65535
           },
           "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
           }
         },
-        "claude-sonnet-4-5-thinking": {
-          "name": "Claude Sonnet 4.5 Thinking (Quotio)",
+        "gemini-3-pro-image-preview": {
+          "name": "Gemini 3 Pro Image Preview (Quotio)",
           "limit": {
-            "context": 200000,
-            "output": 64000
+            "context": 1048576,
+            "output": 65535
           },
           "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
           }
         },
-        "claude-opus-4-5-thinking": {
-          "name": "Claude Opus 4.5 Thinking (Quotio)",
+        "gemini-2.5-flash-lite": {
+          "name": "Gemini 2.5 Flash Lite (Quotio)",
           "limit": {
-            "context": 200000,
-            "output": 64000
+            "context": 1048576,
+            "output": 65535
           },
           "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
+          }
+        },
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash (Quotio)",
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
+          }
+        },
+        "gemini-2.5-computer-use-preview-10-2025": {
+          "name": "Gemini 2.5 Computer Use Preview (Quotio)",
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
           }
         },
         "gpt-oss-120b-medium": {
@@ -150,14 +148,8 @@
             "output": 32768
           },
           "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
           }
         }
       }
