@@ -45,3 +45,6 @@ unset path_additions
 
 # Optional per-machine secrets (not committed)
 [[ -f "$HOME/.config/opencode/secrets.zsh" ]] && source "$HOME/.config/opencode/secrets.zsh"
+
+# Ensure child processes (like `opencode`) can read it even if the secrets file forgot `export`.
+[[ -n "${QUOTIO_API_KEY:-}" ]] && export QUOTIO_API_KEY
