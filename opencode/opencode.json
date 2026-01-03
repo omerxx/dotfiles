@@ -1,7 +1,6 @@
 {
   "plugin": [
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.2.7",
     "opencode-beads"
   ],
   "theme": "catppuccin",
@@ -29,10 +28,16 @@
     }
   },
   "provider": {
-    "google": {
+    "quotio": {
+      "api": "openai",
+      "name": "Quotio (CLIProxyAPI)",
+      "options": {
+        "apiKey": "sk-dummy",
+        "baseURL": "http://127.0.0.1:8317/v1"
+      },
       "models": {
         "gemini-3-pro-high": {
-          "name": "Gemini 3 Pro High (Antigravity)",
+          "name": "Gemini 3 Pro High (Quotio)",
           "limit": {
             "context": 1048576,
             "output": 65535
@@ -49,7 +54,7 @@
           }
         },
         "gemini-3-pro-low": {
-          "name": "Gemini 3 Pro Low (Antigravity)",
+          "name": "Gemini 3 Pro Low (Quotio)",
           "limit": {
             "context": 1048576,
             "output": 65535
@@ -66,7 +71,7 @@
           }
         },
         "gemini-3-flash": {
-          "name": "Gemini 3 Flash (Antigravity)",
+          "name": "Gemini 3 Flash (Quotio)",
           "limit": {
             "context": 1048576,
             "output": 65536
@@ -83,7 +88,7 @@
           }
         },
         "claude-sonnet-4-5": {
-          "name": "Claude Sonnet 4.5 (Antigravity)",
+          "name": "Claude Sonnet 4.5 (Quotio)",
           "limit": {
             "context": 200000,
             "output": 64000
@@ -100,7 +105,7 @@
           }
         },
         "claude-sonnet-4-5-thinking": {
-          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+          "name": "Claude Sonnet 4.5 Thinking (Quotio)",
           "limit": {
             "context": 200000,
             "output": 64000
@@ -117,7 +122,7 @@
           }
         },
         "claude-opus-4-5-thinking": {
-          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+          "name": "Claude Opus 4.5 Thinking (Quotio)",
           "limit": {
             "context": 200000,
             "output": 64000
@@ -134,7 +139,7 @@
           }
         },
         "gpt-oss-120b-medium": {
-          "name": "GPT-OSS 120B Medium (Antigravity)",
+          "name": "GPT-OSS 120B Medium (Quotio)",
           "limit": {
             "context": 131072,
             "output": 32768

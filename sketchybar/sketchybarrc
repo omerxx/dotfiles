@@ -143,12 +143,12 @@ sketchybar --add item ram right \
                     update_freq=1 \
                     script="$RELPATH/plugins/ram/script.sh"
 
-sketchybar --add item codexbar right \
-           --set codexbar icon="🎚️" \
-                          label.drawing=off \
-                          background.color=$SURFACE \
-                          background.drawing=on \
-                          click_script="$RELPATH/plugins/codexbar/click.sh"
+sketchybar --add item quotio right \
+           --set quotio icon="🧮" \
+                         label.drawing=off \
+                         background.color=$SURFACE \
+                         background.drawing=on \
+                         click_script="$RELPATH/plugins/quotio/click.sh"
 
 sketchybar --add item repobar right \
            --set repobar icon="📊" \

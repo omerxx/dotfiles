@@ -128,7 +128,7 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `system_stats` | CPU/RAM usage |
 | `cpu` / `ram` | Individual CPU/RAM displays |
 | `front_app` | Current app display |
-| `codexbar` | Codex status indicator |
+| `quotio` | Quotio menu bar dashboard |
 | `repobar` | GitHub repo stats |
 | `portkiller` | Port manager toggle |
 | `matrix_wallpaper` | Toggle cmatrix wallpaper |
@@ -218,7 +218,6 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `sf-symbols` | Apple SF Symbols |
 | `qbittorrent` | Torrent client |
 | `xbar` | Menu bar plugins |
-| `codexbar` | Codex menu bar status |
 | `repobar` | GitHub repo menu bar stats |
 
 ### Python Tools (via uv)
@@ -237,6 +236,7 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 
 | Cask | Description |
 |------|-------------|
+| `quotio` | Quotio (CLIProxyAPI GUI) |
 | `screen-studio-legacy` | Screen Studio 2.26.0 (version-pinned) |
 
 ### Fonts (via Nix)
@@ -293,7 +293,7 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 |--------|-------------|
 | `sketchybar/plugins/bluetooth/` | Bluetooth toggle |
 | `sketchybar/plugins/calendar/` | Calendar events integration |
-| `sketchybar/plugins/codexbar/` | Codex status |
+| `sketchybar/plugins/quotio/` | Quotio menu bar dashboard |
 | `sketchybar/plugins/cpu/` | CPU usage display |
 | `sketchybar/plugins/front_app/` | Current app display |
 | `sketchybar/plugins/icon_map.sh` | App icon mapping |

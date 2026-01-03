@@ -1,23 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
-RELPATH="$HOME/.config/sketchybar"
+if ! pgrep -x "Quotio" >/dev/null 2>&1; then
+  open -g -a "Quotio" >/dev/null 2>&1 || true
+  for _ in {1..20}; do
+    pgrep -x "Quotio" >/dev/null 2>&1 && break
+    sleep 0.1
+  done
+fi
 
-open -g -b com.steipete.codexbar >/dev/null 2>&1 || open -ga "CodexBar" >/dev/null 2>&1 || true
-
-for _ in {1..20}; do
-  if pgrep -x "CodexBar" >/dev/null 2>&1; then
-    break
-  fi
-  sleep 0.1
-done
-
+# Right-click opens settings
 if [[ "${BUTTON:-}" == "right" ]]; then
   osascript >/dev/null 2>&1 <<'APPLESCRIPT' || true
 tell application "System Events"
-  if not (exists process "CodexBar") then return
+  if not (exists process "Quotio") then return
 
-  tell process "CodexBar"
+  tell process "Quotio"
     if (count of menu bars) < 2 then return
 
     click menu bar item 1 of menu bar 2
@@ -30,6 +28,16 @@ tell application "System Events"
 
     if exists menu item "Settings..." of menu 1 of menu bar item 1 of menu bar 2 then
       click menu item "Settings..." of menu 1 of menu bar item 1 of menu bar 2
+      return
+    end if
+
+    if exists menu item "Preferences…" of menu 1 of menu bar item 1 of menu bar 2 then
+      click menu item "Preferences…" of menu 1 of menu bar item 1 of menu bar 2
+      return
+    end if
+
+    if exists menu item "Preferences..." of menu 1 of menu bar item 1 of menu bar 2 then
+      click menu item "Preferences..." of menu 1 of menu bar item 1 of menu bar 2
     end if
   end tell
 end tell
@@ -37,11 +45,12 @@ APPLESCRIPT
   exit 0
 fi
 
+# Left-click opens the menu bar dropdown
 osascript >/dev/null 2>&1 <<'APPLESCRIPT' || true
 tell application "System Events"
-  if not (exists process "CodexBar") then return
+  if not (exists process "Quotio") then return
 
-  tell process "CodexBar"
+  tell process "Quotio"
     if (count of menu bars) < 2 then return
     click menu bar item 1 of menu bar 2
   end tell
@@ -49,3 +58,4 @@ end tell
 APPLESCRIPT
 
 exit 0
+

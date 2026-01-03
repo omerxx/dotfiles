@@ -219,7 +219,6 @@
         "font-sketchybar-app-font"
         "xbar"
         "codex"
-        "steipete/tap/codexbar"
         "steipete/tap/repobar"
         "setapp"
         "tailscale"
