@@ -183,3 +183,6 @@ const opencode_secrets = ($nu.home-path | path join ".config" "opencode" "secret
 if ($opencode_secrets | path exists) {
   source $opencode_secrets
 }
+
+# Force Quotio models even when a project has its own `opencode.json` / `.opencode/` config.
+$env.OPENCODE_CONFIG_CONTENT = '{"model":"quotio/gemini-claude-sonnet-4-5","small_model":"quotio/gemini-3-flash-preview"}'

@@ -48,3 +48,6 @@ unset path_additions
 
 # Ensure child processes (like `opencode`) can read it even if the secrets file forgot `export`.
 [[ -n "${QUOTIO_API_KEY:-}" ]] && export QUOTIO_API_KEY
+
+# Force Quotio models even when a project has its own `opencode.json` / `.opencode/` config.
+export OPENCODE_CONFIG_CONTENT='{"model":"quotio/gemini-claude-sonnet-4-5","small_model":"quotio/gemini-3-flash-preview"}'
