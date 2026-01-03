@@ -318,7 +318,6 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | Service | Description |
 |---------|-------------|
 | `com.klaudioz.cmatrix-wallpaper` | Matrix wallpaper background service |
-| `com.klaudioz.mcp-agent-mail` | MCP Agent Mail server |
 | `com.klaudioz.openportal-dashboard` | OpenPortal dashboard service (Tailscale remote access) |
 
 ---
@@ -362,7 +361,6 @@ The `oo` command:
 | Repo | Location | Description |
 |------|----------|-------------|
 | `oh-my-opencode` | `~/.local/share/oh-my-opencode` | OpenCode prompt customization |
-| `mcp-agent-mail` | `~/.local/share/mcp-agent-mail` | MCP Agent Mail server |
 | `openportal` | `~/.local/share/openportal` | OpenPortal dashboard and session data |
 
 ---
