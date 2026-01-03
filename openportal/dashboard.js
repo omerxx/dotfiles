@@ -14,7 +14,27 @@ if (!fs.existsSync(SESSIONS_FILE)) {
 function getSessions() {
   try {
     const data = fs.readFileSync(SESSIONS_FILE, 'utf8');
-    return JSON.parse(data);
+    const sessions = JSON.parse(data);
+    
+    // De-duplicate by port (keep most recent) and sort by startedAt descending
+    const byPort = {};
+    for (const [id, session] of Object.entries(sessions)) {
+      const port = session.webPort;
+      const existing = byPort[port];
+      if (!existing || new Date(session.startedAt) > new Date(existing.session.startedAt)) {
+        byPort[port] = { id, session };
+      }
+    }
+    
+    // Convert back to object, sorted by startedAt (most recent first)
+    const sorted = Object.values(byPort)
+      .sort((a, b) => new Date(b.session.startedAt) - new Date(a.session.startedAt));
+    
+    const result = {};
+    for (const { id, session } of sorted) {
+      result[id] = session;
+    }
+    return result;
   } catch {
     return {};
   }
