@@ -194,3 +194,6 @@ $env.OPENCODE_CONFIG_CONTENT = '{"model":"quotio/gemini-claude-sonnet-4-5","smal
 
 # Ensure the Homebrew `opencode` launcher always runs our wrapper (for consistent env injection).
 $env.OPENCODE_BIN_PATH = ($nu.home-path | path join ".config" "opencode" "bin" "opencode-wrapper")
+
+# CLI Proxy API endpoint
+$env.CLIPROXYAPI_ENDPOINT = "http://localhost:8317/v1"
