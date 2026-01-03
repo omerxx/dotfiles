@@ -1,7 +1,6 @@
 {
   "plugin": [
-    "oh-my-opencode",
-    "opencode-beads"
+    "oh-my-opencode"
   ],
   "theme": "catppuccin",
   "$schema": "https://opencode.ai/config.json",

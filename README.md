@@ -191,13 +191,6 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | `sketchybar-system-stats` | System stats provider |
 | `portkiller` | Kill processes by port |
 
-### Task Management
-
-| Tool | Source | Description |
-|------|--------|-------------|
-| `bd` | Homebrew | Beads task tracker CLI |
-| `bv` | Go | Beads viewer GUI |
-
 ### npm Global Packages
 
 | Package | Description |

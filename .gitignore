@@ -11,6 +11,3 @@ aerospace-source/
 mcp-typescript-sdk/
 yabai-repo/
 .tmp/
-
-# bv (beads viewer) local config and caches
-.bv/

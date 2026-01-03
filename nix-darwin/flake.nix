@@ -181,7 +181,6 @@
         "joncrangle/tap"
         "nikitabobko/tap"
         "productdevbook/tap"
-        "steveyegge/beads"
         "steipete/tap"
         "tw93/tap"
       ];
@@ -236,7 +235,6 @@
         "libpq"
         "render"
         "cliproxyapi"
-        "steveyegge/beads/bd"
         "tw93/tap/mole"
         "felixkratz/formulae/sketchybar"
         "felixkratz/formulae/borders"

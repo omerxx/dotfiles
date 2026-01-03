@@ -81,8 +81,6 @@ verify_tools() {
     "amp:@sourcegraph/amp"
     "openportal:openportal"
     "pm2:pm2"
-    # Go tools
-    "bv:beads-viewer"
     # Bun tools
     "tokscale:tokscale"
     # GUI apps with CLI (manual setup required)
@@ -428,17 +426,6 @@ install_go_tools() {
     echo -e "  ${YELLOW}!${NC} go not found, skipping Go tools"
     return
   fi
-
-  tools=(
-    "github.com/Dicklesworthstone/beads_viewer/cmd/bv@latest"
-  )
-
-  for tool in "${tools[@]}"; do
-    tool_name=$(basename "${tool%%@*}")
-    "$GO" install "$tool" 2>/dev/null && \
-      echo -e "  ${GREEN}✓${NC} $tool_name" || \
-      echo -e "  ${YELLOW}!${NC} $tool_name (install failed)"
-  done
 
   echo ""
 }
