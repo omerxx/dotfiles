@@ -5,7 +5,10 @@ fzf
 history.txt
 *.swp
 opencode/antigravity-accounts.json
+opencode/secrets.zsh
+opencode/secrets.nu
 aerospace-source/
+mcp-typescript-sdk/
 yabai-repo/
 .tmp/
 

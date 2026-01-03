@@ -42,3 +42,6 @@ path=($path_additions $path)
 export PATH
 
 unset path_additions
+
+# Optional per-machine secrets (not committed)
+[[ -f "$HOME/.config/opencode/secrets.zsh" ]] && source "$HOME/.config/opencode/secrets.zsh"

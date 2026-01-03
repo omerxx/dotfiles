@@ -178,3 +178,8 @@ $env.NIX_CONF_DIR = "/Users/klaudioz/.config/nix"
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 
 $env.EDITOR = "nvim"
+
+let opencode_secrets = ($nu.home-path | path join ".config" "opencode" "secrets.nu")
+if ($opencode_secrets | path exists) {
+  source $opencode_secrets
+}

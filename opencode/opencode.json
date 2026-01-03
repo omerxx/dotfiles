@@ -5,6 +5,7 @@
   ],
   "theme": "catppuccin",
   "$schema": "https://opencode.ai/config.json",
+  "model": "quotio/claude-sonnet-4-5",
   "watcher": {
     "ignore": [
       "**/node_modules/**",
@@ -30,9 +31,13 @@
   "provider": {
     "quotio": {
       "api": "openai",
+      "id": "openai",
+      "npm": "@ai-sdk/openai",
       "name": "Quotio (CLIProxyAPI)",
+      "env": [
+        "QUOTIO_API_KEY"
+      ],
       "options": {
-        "apiKey": "sk-dummy",
         "baseURL": "http://127.0.0.1:8317/v1"
       },
       "models": {
