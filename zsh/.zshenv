@@ -57,3 +57,6 @@ export OPENCODE_CONFIG_CONTENT='{"model":"quotio/gemini-claude-sonnet-4-5","smal
 
 # Ensure the Homebrew `opencode` launcher always runs our wrapper (for consistent env injection).
 export OPENCODE_BIN_PATH="$HOME/.config/opencode/bin/opencode-wrapper"
+
+# CLI Proxy API endpoint
+export CLIPROXYAPI_ENDPOINT="http://localhost:8317/v1"

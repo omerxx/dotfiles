@@ -235,6 +235,7 @@
         "blueutil"
         "libpq"
         "render"
+        "cliproxyapi"
         "steveyegge/beads/bd"
         "tw93/tap/mole"
         "felixkratz/formulae/sketchybar"
