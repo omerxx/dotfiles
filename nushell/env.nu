@@ -179,7 +179,13 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 
 $env.EDITOR = "nvim"
 
-let opencode_secrets = ($nu.home-path | path join ".config" "opencode" "secrets.nu")
+const opencode_secrets = ($nu.home-path | path join ".config" "opencode" "secrets.nu")
 if ($opencode_secrets | path exists) {
   source $opencode_secrets
+}
+
+let quotio_api_key = ($env | get -o QUOTIO_API_KEY)
+let openai_api_key = ($env | get -o OPENAI_API_KEY)
+if $quotio_api_key != null and $openai_api_key == null {
+  $env.OPENAI_API_KEY = $quotio_api_key
 }

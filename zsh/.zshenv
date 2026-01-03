@@ -45,3 +45,9 @@ unset path_additions
 
 # Optional per-machine secrets (not committed)
 [[ -f "$HOME/.config/opencode/secrets.zsh" ]] && source "$HOME/.config/opencode/secrets.zsh"
+
+# Opencode uses the OpenAI SDK against Quotio's OpenAI-compatible endpoint.
+# Accept `QUOTIO_API_KEY` and map it to `OPENAI_API_KEY` for compatibility.
+if [[ -n "${QUOTIO_API_KEY:-}" && -z "${OPENAI_API_KEY:-}" ]]; then
+  export OPENAI_API_KEY="${QUOTIO_API_KEY}"
+fi
