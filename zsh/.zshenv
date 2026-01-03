@@ -12,6 +12,9 @@ typeset -U path
 
 path_additions=()
 
+# Ensure our OpenCode wrapper is picked up before any other `opencode` on PATH.
+[[ -d "$HOME/.config/opencode/bin" ]] && path_additions+=("$HOME/.config/opencode/bin")
+
 # Nix (nix-darwin)
 [[ -d /run/current-system/sw/bin ]] && path_additions+=(/run/current-system/sw/bin)
 

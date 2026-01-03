@@ -179,6 +179,11 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 
 $env.EDITOR = "nvim"
 
+let opencode_bin = ($nu.home-path | path join ".config" "opencode" "bin")
+if ($opencode_bin | path exists) {
+  $env.PATH = ($env.PATH | prepend $opencode_bin)
+}
+
 const opencode_secrets = ($nu.home-path | path join ".config" "opencode" "secrets.nu")
 if ($opencode_secrets | path exists) {
   source $opencode_secrets

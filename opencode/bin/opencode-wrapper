@@ -2,43 +2,4 @@
 
 set -e
 
-# Force Quotio models globally so project configs can't accidentally switch providers.
-if [[ -z "${OPENCODE_CONFIG_CONTENT:-}" ]]; then
-  export OPENCODE_CONFIG_CONTENT='{"model":"quotio/gemini-claude-sonnet-4-5","small_model":"quotio/gemini-3-flash-preview"}'
-fi
-
-# Ensure QUOTIO_API_KEY is available even when the parent environment is missing it.
-if [[ -z "${QUOTIO_API_KEY:-}" ]]; then
-  secrets_zsh="$HOME/.config/opencode/secrets.zsh"
-  if [[ -f "$secrets_zsh" ]]; then
-    QUOTIO_API_KEY="$(
-      SECRETS_FILE="$secrets_zsh" zsh -c 'source "$SECRETS_FILE"; print -r -- "${QUOTIO_API_KEY:-}"'
-    )"
-  fi
-fi
-
-if [[ -z "${QUOTIO_API_KEY:-}" ]]; then
-  secrets_nu="$HOME/.config/opencode/secrets.nu"
-  if [[ -f "$secrets_nu" ]] && command -v nu >/dev/null 2>&1; then
-    QUOTIO_API_KEY="$(
-      SECRETS_FILE="$secrets_nu" nu -c 'source $env.SECRETS_FILE; $env.QUOTIO_API_KEY | default ""'
-    )"
-  fi
-fi
-
-if [[ -z "${QUOTIO_API_KEY:-}" ]]; then
-  echo "Error: QUOTIO_API_KEY is missing." >&2
-  echo "Set it in ~/.config/opencode/secrets.zsh (or export QUOTIO_API_KEY) and retry." >&2
-  exit 1
-fi
-
-export QUOTIO_API_KEY
-
-real_opencode="$(command -v opencode || true)"
-if [[ -z "$real_opencode" ]]; then
-  echo "Error: opencode not found on PATH." >&2
-  exit 1
-fi
-
-# Avoid recursion: the Homebrew wrapper checks OPENCODE_BIN_PATH before running the bundled binary.
-exec env -u OPENCODE_BIN_PATH "$real_opencode" "$@"
+exec "$(cd "$(dirname "$0")" && pwd)/opencode" "$@"
