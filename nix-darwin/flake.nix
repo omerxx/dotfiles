@@ -67,6 +67,7 @@
         pkgs.cmatrix
         pkgs.mactop
         pkgs.yt-dlp
+        pkgs.wkhtmltopdf
 
         # Fonts
         pkgs.nerd-fonts.jetbrains-mono
@@ -227,7 +228,6 @@
         "productdevbook/tap/portkiller"
         "powershell"
         "warp"
-        "wkhtmltopdf"
       ];
 
       homebrew.brews = [
