@@ -403,6 +403,7 @@ install_uv_tools() {
 
   tools=(
     "sqlit-tui"
+    "py-clob-client"
   )
 
   for tool in "${tools[@]}"; do
