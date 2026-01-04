@@ -28,7 +28,7 @@
       "npm": "@ai-sdk/anthropic",
       "options": {
         "apiKey": "quotio-local-3E68FC4D",
-        "baseURL": "http://127.0.0.1:18317/v1"
+        "baseURL": "http://127.0.0.1:8317/v1"
       },
       "models": {
         "gemini-claude-opus-4-5-thinking": {
