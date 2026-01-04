@@ -56,6 +56,7 @@
         # Developer utilities
         pkgs.playwright-driver
         pkgs.pv
+        pkgs.watch
         pkgs.stow
         pkgs.aichat
         pkgs.gemini-cli
