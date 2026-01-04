@@ -80,7 +80,7 @@ sketchybar --add item front_app center \
 
 sketchybar --add item calendar right \
            --set calendar icon="$(date '+%a %d %b')" \
-                         label="$(date '+%H:%M')" \
+                         label="$(date '+%H:%M:%S')" \
                          icon.font="$FONT:Semibold:10.0" \
                          icon.color=$ACCENT \
                          label.font="$FONT:Bold:10.0" \
@@ -90,7 +90,7 @@ sketchybar --add item calendar right \
                          label.padding_right=6 \
                          background.color=$SURFACE \
                          background.drawing=on \
-                         update_freq=30 \
+                         update_freq=1 \
                          click_script="open -a Calendar" \
                          script="$RELPATH/plugins/calendar/script.sh"
 
