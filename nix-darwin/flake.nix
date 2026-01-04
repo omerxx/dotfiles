@@ -67,7 +67,6 @@
         pkgs.cmatrix
         pkgs.mactop
         pkgs.yt-dlp
-        pkgs.wkhtmltopdf
 
         # Fonts
         pkgs.nerd-fonts.jetbrains-mono
