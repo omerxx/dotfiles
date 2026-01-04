@@ -1,5 +1,6 @@
 after-startup-command = [
   'exec-and-forget sketchybar',
+  'exec-and-forget /Users/klaudioz/.config/aerospace/startup-workspace-sweep.sh',
   'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh sweep',
   'exec-and-forget /Users/klaudioz/.config/aerospace/ghostty-workspace-balance.sh watch',
 ]

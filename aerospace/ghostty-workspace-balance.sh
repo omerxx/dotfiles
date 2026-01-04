@@ -203,9 +203,14 @@ watch_for_window_changes() {
     if [[ -f "$lock_file" ]]; then
         local existing_pid
         existing_pid="$(cat "$lock_file" 2>/dev/null || true)"
-        if [[ -n "$existing_pid" ]] && kill -0 "$existing_pid" 2>/dev/null; then
-            exit 0
+        if [[ "$existing_pid" =~ ^[0-9]+$ ]] && kill -0 "$existing_pid" 2>/dev/null; then
+            local existing_cmd
+            existing_cmd="$(ps -p "$existing_pid" -o command= 2>/dev/null || true)"
+            if [[ "$existing_cmd" == *ghostty-workspace-balance.sh*watch* ]]; then
+                exit 0
+            fi
         fi
+        rm -f "$lock_file" >/dev/null 2>&1 || true
     fi
 
     echo "$$" >"$lock_file"
@@ -306,6 +311,48 @@ rebalance_ghostty_workspaces() {
             while IFS= read -r wid; do
                 [[ -n "$wid" ]] || continue
                 "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$GHOSTTY_PRIMARY_WS" 2>/dev/null || true
+            done
+
+        in_primary="$(count_app_windows_in_ws "$GHOSTTY_PRIMARY_WS" "$GHOSTTY_ID")"
+        needed=$((MAX_PER_WS - in_primary))
+        if [[ "$needed" -gt 0 ]]; then
+            "$AEROSPACE" list-windows --monitor all --app-bundle-id "$GHOSTTY_ID" --format '%{window-id}%{tab}%{workspace}' 2>/dev/null |
+                awk -F'\t' -v primary="$GHOSTTY_PRIMARY_WS" -v overflow="$GHOSTTY_OVERFLOW_WS" '$2 != primary && $2 != overflow { print $1 }' |
+                head -n "$needed" |
+                while IFS= read -r wid; do
+                    [[ -n "$wid" ]] || continue
+                    "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$GHOSTTY_PRIMARY_WS" 2>/dev/null || true
+                done
+        fi
+    fi
+
+    in_primary="$(count_app_windows_in_ws "$GHOSTTY_PRIMARY_WS" "$GHOSTTY_ID")"
+    if [[ "$in_primary" -gt "$MAX_PER_WS" ]]; then
+        local extra
+        extra=$((in_primary - MAX_PER_WS))
+
+        "$AEROSPACE" list-windows --workspace "$GHOSTTY_PRIMARY_WS" --app-bundle-id "$GHOSTTY_ID" --format '%{window-id}' 2>/dev/null |
+            awk -v max="$MAX_PER_WS" 'NR > max { print $1 }' |
+            head -n "$extra" |
+            while IFS= read -r wid; do
+                [[ -n "$wid" ]] || continue
+                dest="$(find_first_workspace_with_capacity "$MAX_PER_WS" "${OVERFLOW_WORKSPACES_WITH_WS5[@]}")" || dest="$GHOSTTY_OVERFLOW_WS"
+                "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$dest" 2>/dev/null || true
+            done
+    fi
+
+    local in_overflow
+    in_overflow="$(count_app_windows_in_ws "$GHOSTTY_OVERFLOW_WS" "$GHOSTTY_ID")"
+    if [[ "$in_overflow" -lt "$MAX_PER_WS" ]]; then
+        local needed
+        needed=$((MAX_PER_WS - in_overflow))
+
+        "$AEROSPACE" list-windows --monitor all --app-bundle-id "$GHOSTTY_ID" --format '%{window-id}%{tab}%{workspace}' 2>/dev/null |
+            awk -F'\t' -v primary="$GHOSTTY_PRIMARY_WS" -v overflow="$GHOSTTY_OVERFLOW_WS" '$2 != primary && $2 != overflow { print $1 }' |
+            head -n "$needed" |
+            while IFS= read -r wid; do
+                [[ -n "$wid" ]] || continue
+                "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$GHOSTTY_OVERFLOW_WS" 2>/dev/null || true
             done
     fi
 }
