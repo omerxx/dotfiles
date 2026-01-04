@@ -144,6 +144,10 @@ if.app-name-regex-substring = 'linear'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
+if.app-name-regex-substring = 'quotio'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
 run = 'move-node-to-workspace 4'
 
