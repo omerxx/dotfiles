@@ -54,6 +54,7 @@
         pkgs.ngrok
 
         # Developer utilities
+        pkgs.playwright-driver
         pkgs.pv
         pkgs.stow
         pkgs.aichat
