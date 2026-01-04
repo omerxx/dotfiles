@@ -3,7 +3,7 @@
 RELPATH="$HOME/.config/sketchybar/plugins/calendar"
 
 update() {
-    sketchybar --set $NAME icon="$(date '+%a %d %b')" label="$(date '+%H:%M')"
+    sketchybar --set $NAME icon="$(date '+%a %d %b')" label="$(date '+%H:%M:%S')"
 }
 
 update
