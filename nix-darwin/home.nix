@@ -47,7 +47,7 @@
     export PATH="${pkgs.nodejs}/bin:$PATH"
     mkdir -p $HOME/.npm-global
     ${pkgs.nodejs}/bin/npm config set prefix $HOME/.npm-global
-    ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code @sourcegraph/amp @ccusage/codex tweet-to-markdown 2>/dev/null || true
+    ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code @sourcegraph/amp @ccusage/codex 2>/dev/null || true
   '';
 
   # Install VS Code extensions
