@@ -76,6 +76,7 @@
         pkgs.google-cloud-sdk
         pkgs.doctl
         pkgs.flyctl
+        pkgs.terraform
         pkgs.gh
       ];
       nix.enable = false;  # Let Determinate Systems manage Nix
