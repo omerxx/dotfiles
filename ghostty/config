@@ -10,3 +10,4 @@ selection-clear-on-copy = false
 confirm-close-surface = false
 shell-integration-features = no-cursor
 auto-update-channel = tip
+scrollback-limit = 10000000
