@@ -225,6 +225,9 @@
         "setapp"
         "tailscale"
         "productdevbook/tap/portkiller"
+        "powershell"
+        "warp"
+        "wkhtmltopdf"
       ];
 
       homebrew.brews = [
