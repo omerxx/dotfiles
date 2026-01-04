@@ -92,6 +92,10 @@ if.app-id = 'com.apple.authorizationhost'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.apple.LocalAuthentication.UIAgent'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.window-title-regex-substring = '(?i)password|authenticate|authorization'
 run = 'layout floating'
 

@@ -9,6 +9,7 @@ GHOSTTY_ID='com.mitchellh.ghostty'
 GHOSTTY_PRIMARY_WS='1'
 GHOSTTY_OVERFLOW_WS='5'
 NON_GHOSTTY_OVERFLOW_WS='6'
+LOCAL_AUTH_UIAGENT_ID='com.apple.LocalAuthentication.UIAgent'
 
 # Apps that should be floating - skip workspace cap enforcement for these
 # Must match the floating rules in aerospace.toml
@@ -18,8 +19,10 @@ FLOATING_APP_PATTERNS=(
     'com.apple.mail'
     'com.apple.QuickTimePlayerX'
     'com.apple.SecurityAgent'
+    'com.apple.authorizationhost'
     'com.apple.coreservices.uiagent'
     'com.apple.IOUIAgent'
+    'com.apple.LocalAuthentication.UIAgent'
     'com.apple.NetAuthAgent'
     'com.apple.systempreferences'
 )
@@ -65,6 +68,21 @@ count_windows_in_ws() {
     "$AEROSPACE" list-windows --workspace "$ws" --count 2>/dev/null || echo 0
 }
 
+count_capped_windows_in_ws() {
+    local ws="$1"
+    local count=0
+    local app_id
+
+    while IFS= read -r app_id; do
+        [[ -n "$app_id" ]] || continue
+        if ! is_floating_app "$app_id"; then
+            count=$((count + 1))
+        fi
+    done < <("$AEROSPACE" list-windows --workspace "$ws" --format '%{app-bundle-id}' 2>/dev/null || true)
+
+    echo "$count"
+}
+
 count_app_windows_in_ws() {
     local ws="$1"
     local app_id="$2"
@@ -84,7 +102,7 @@ find_first_workspace_with_capacity() {
     local ws
     for ws in "${workspaces[@]}"; do
         local count
-        count="$(count_windows_in_ws "$ws")"
+        count="$(count_capped_windows_in_ws "$ws")"
         if [[ "$count" -lt "$max" ]]; then
             echo "$ws"
             return 0
@@ -111,7 +129,7 @@ bounce_from_empty_overflow_workspace() {
 
     if [[ "$focused_ws" =~ ^[0-9]+$ ]] && [[ "$focused_ws" -ge 5 ]]; then
         local count
-        count="$("$AEROSPACE" list-windows --workspace focused --count 2>/dev/null || echo 0)"
+        count="$(count_windows_in_ws focused)"
         if [[ "$count" -eq 0 ]]; then
             "$AEROSPACE" workspace-back-and-forth 2>/dev/null || true
             return 0
@@ -161,7 +179,7 @@ rebalance_workspace_window_caps() {
     local ws
     for ws in 1 2 3 4 5 6 7 8 9; do
         local count
-        count="$(count_windows_in_ws "$ws")"
+        count="$(count_capped_windows_in_ws "$ws")"
         if [[ "$count" -le "$MAX_PER_WS" ]]; then
             continue
         fi
@@ -171,7 +189,16 @@ rebalance_workspace_window_caps() {
 
         if [[ "$ws" == "$GHOSTTY_PRIMARY_WS" ]]; then
             "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}' 2>/dev/null |
-                awk -F'\t' -v ghost="$GHOSTTY_ID" -v n="$extra" '$2 != ghost { print $1 }' |
+                while IFS=$'\t' read -r wid app_id; do
+                    [[ -n "$wid" ]] || continue
+                    if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
+                        continue
+                    fi
+                    if is_floating_app "$app_id"; then
+                        continue
+                    fi
+                    echo "$wid"
+                done |
                 head -n "$extra" |
                 while IFS= read -r wid; do
                     [[ -n "$wid" ]] || continue
@@ -181,7 +208,14 @@ rebalance_workspace_window_caps() {
             continue
         fi
 
-        "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}' 2>/dev/null |
+        "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}' 2>/dev/null |
+            while IFS=$'\t' read -r wid app_id; do
+                [[ -n "$wid" ]] || continue
+                if is_floating_app "$app_id"; then
+                    continue
+                fi
+                echo "$wid"
+            done |
             awk -v max="$MAX_PER_WS" 'NR > max { print $1 }' |
             head -n "$extra" |
             while IFS= read -r wid; do
@@ -247,6 +281,17 @@ enforce_workspace_window_cap_for_new_window() {
     app_id="$(awk -F'\t' '{ print $2 }' <<<"$info")"
     workspace="$(awk -F'\t' '{ print $3 }' <<<"$info")"
 
+    if [[ "$app_id" == "$LOCAL_AUTH_UIAGENT_ID" ]]; then
+        local focused_ws
+        focused_ws="$("$AEROSPACE" list-workspaces --focused 2>/dev/null || true)"
+
+        if [[ -n "$focused_ws" ]] && [[ "$focused_ws" != "$workspace" ]]; then
+            "$AEROSPACE" move-node-to-workspace --window-id "$window_id" --focus-follows-window "$focused_ws" 2>/dev/null || true
+        fi
+
+        return 0
+    fi
+
     if is_floating_app "$app_id"; then
         return 0
     fi
@@ -266,7 +311,7 @@ enforce_workspace_window_cap_for_new_window() {
     fi
 
     local count
-    count="$(count_windows_in_ws "$workspace")"
+    count="$(count_capped_windows_in_ws "$workspace")"
     if [[ "$count" -le "$MAX_PER_WS" ]]; then
         return 0
     fi
