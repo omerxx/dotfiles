@@ -28,7 +28,8 @@
       "npm": "@ai-sdk/anthropic",
       "env": ["QUOTIO_API_KEY"],
       "options": {
-        "baseURL": "http://127.0.0.1:8317/v1"
+        "baseURL": "http://127.0.0.1:8317/v1",
+        "timeout": 600000
       },
       "models": {
         "gemini-claude-opus-4-5-thinking": {
