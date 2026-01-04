@@ -26,8 +26,8 @@
     "quotio": {
       "name": "Quotio",
       "npm": "@ai-sdk/anthropic",
+      "env": ["QUOTIO_API_KEY"],
       "options": {
-        "apiKey": "quotio-local-3E68FC4D",
         "baseURL": "http://127.0.0.1:8317/v1"
       },
       "models": {
