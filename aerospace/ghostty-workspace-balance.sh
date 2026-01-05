@@ -99,6 +99,104 @@ count_capped_windows_in_ws() {
     echo "$count"
 }
 
+is_transient_window() {
+    local app_id="$1"
+    local window_title="$2"
+
+    if [[ "$app_id" == "$LOCAL_AUTH_UIAGENT_ID" ]]; then
+        return 0
+    fi
+
+    if is_onepassword_access_request_window "$app_id" "$window_title"; then
+        return 0
+    fi
+
+    return 1
+}
+
+count_nontransient_windows_in_ws() {
+    local ws="$1"
+    local count=0
+    local app_id window_title
+
+    while IFS=$'\t' read -r app_id window_title; do
+        [[ -n "$app_id" ]] || continue
+        if is_transient_window "$app_id" "$window_title"; then
+            continue
+        fi
+        count=$((count + 1))
+    done < <("$AEROSPACE" list-windows --workspace "$ws" --format '%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null || true)
+
+    echo "$count"
+}
+
+relocate_transient_windows_to_focused_workspace() {
+    local focused_ws
+    focused_ws="$("$AEROSPACE" list-workspaces --focused 2>/dev/null || true)"
+    [[ -n "$focused_ws" ]] || return 0
+
+    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{workspace}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r wid app_id ws window_title; do
+            [[ -n "$wid" ]] || continue
+            if ! is_transient_window "$app_id" "$window_title"; then
+                continue
+            fi
+            if [[ "$ws" == "$focused_ws" ]]; then
+                continue
+            fi
+            "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$focused_ws" 2>/dev/null || true
+        done
+}
+
+move_nontransient_windows_between_workspaces() {
+    local src="$1"
+    local dest="$2"
+
+    "$AEROSPACE" list-windows --workspace "$src" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r wid app_id window_title; do
+            [[ -n "$wid" ]] || continue
+            if is_transient_window "$app_id" "$window_title"; then
+                continue
+            fi
+            "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$dest" 2>/dev/null || true
+        done
+}
+
+compact_overflow_workspaces() {
+    relocate_transient_windows_to_focused_workspace
+
+    local ghostty_total
+    ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
+
+    local targets=()
+    if [[ "$ghostty_total" -gt "$MAX_PER_WS" ]]; then
+        targets=("${NON_GHOSTTY_OVERFLOW_WORKSPACES[@]}")
+    else
+        targets=("${OVERFLOW_WORKSPACES_WITH_WS5[@]}")
+    fi
+
+    local occupied=()
+    local ws
+    for ws in "${targets[@]}"; do
+        local count
+        count="$(count_nontransient_windows_in_ws "$ws")"
+        if [[ "$count" -gt 0 ]]; then
+            occupied+=("$ws")
+        fi
+    done
+
+    local i=0
+    local src dest
+    for src in "${occupied[@]}"; do
+        dest="${targets[$i]:-}"
+        [[ -n "$dest" ]] || break
+        if [[ "$src" != "$dest" ]]; then
+            move_nontransient_windows_between_workspaces "$src" "$dest"
+        fi
+        i=$((i + 1))
+    done
+}
+
 count_app_windows_in_ws() {
     local ws="$1"
     local app_id="$2"
@@ -287,6 +385,7 @@ watch_for_window_changes() {
             sleep 0.1
             rebalance_ghostty_workspaces
             rebalance_workspace_window_caps
+            compact_overflow_workspaces
             bounce_from_empty_overflow_workspace || true
             trigger_sketchybar_workspace_update
         else
@@ -445,6 +544,7 @@ case "$mode" in
     sweep)
         rebalance_ghostty_workspaces
         rebalance_workspace_window_caps
+        compact_overflow_workspaces
         trigger_sketchybar_workspace_update
         exit 0
         ;;
@@ -457,6 +557,7 @@ case "$mode" in
         [[ -n "$window_id" ]] || exit 0
         sleep 0.25
         enforce_workspace_window_cap_for_new_window "$window_id"
+        compact_overflow_workspaces
         trigger_sketchybar_workspace_update
         exit 0
         ;;
