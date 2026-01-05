@@ -10,6 +10,7 @@ GHOSTTY_PRIMARY_WS='1'
 GHOSTTY_OVERFLOW_WS='5'
 NON_GHOSTTY_OVERFLOW_WS='6'
 LOCAL_AUTH_UIAGENT_ID='com.apple.LocalAuthentication.UIAgent'
+ONEPASSWORD_ID='com.1password.1password'
 
 # Apps that should be floating - skip workspace cap enforcement for these
 # Must match the floating rules in aerospace.toml
@@ -59,8 +60,20 @@ is_floating_app() {
 
 get_window_info() {
     local window_id="$1"
-    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{workspace}' 2>/dev/null |
+    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{workspace}%{tab}%{window-title}' 2>/dev/null |
         awk -F'\t' -v id="$window_id" '$1 == id { print $0; exit }'
+}
+
+is_onepassword_access_request_window() {
+    local app_id="$1"
+    local window_title="$2"
+
+    if [[ "$app_id" != "$ONEPASSWORD_ID" ]]; then
+        return 1
+    fi
+
+    [[ "$window_title" =~ [1-9]Password[[:space:]]+[Aa]ccess[[:space:]]+[Rr]equested ]] || return 1
+    return 0
 }
 
 count_windows_in_ws() {
@@ -71,14 +84,17 @@ count_windows_in_ws() {
 count_capped_windows_in_ws() {
     local ws="$1"
     local count=0
-    local app_id
+    local app_id window_title
 
-    while IFS= read -r app_id; do
+    while IFS=$'\t' read -r app_id window_title; do
         [[ -n "$app_id" ]] || continue
+        if is_onepassword_access_request_window "$app_id" "$window_title"; then
+            continue
+        fi
         if ! is_floating_app "$app_id"; then
             count=$((count + 1))
         fi
-    done < <("$AEROSPACE" list-windows --workspace "$ws" --format '%{app-bundle-id}' 2>/dev/null || true)
+    done < <("$AEROSPACE" list-windows --workspace "$ws" --format '%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null || true)
 
     echo "$count"
 }
@@ -113,10 +129,15 @@ find_first_workspace_with_capacity() {
 }
 
 evict_non_ghostty_from_workspace_5() {
-    "$AEROSPACE" list-windows --workspace "$GHOSTTY_OVERFLOW_WS" --format '%{window-id}%{tab}%{app-bundle-id}' 2>/dev/null |
-        awk -F'\t' -v ghost="$GHOSTTY_ID" '$2 != ghost { print $1 }' |
-        while IFS= read -r other_id; do
+    "$AEROSPACE" list-windows --workspace "$GHOSTTY_OVERFLOW_WS" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r other_id app_id window_title; do
             [[ -n "$other_id" ]] || continue
+            if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
+                continue
+            fi
+            if is_onepassword_access_request_window "$app_id" "$window_title"; then
+                continue
+            fi
             dest="$(find_first_workspace_with_capacity "$MAX_PER_WS" "${NON_GHOSTTY_OVERFLOW_WORKSPACES[@]}")" || dest="$NON_GHOSTTY_OVERFLOW_WS"
             "$AEROSPACE" move-node-to-workspace --window-id "$other_id" "$dest" 2>/dev/null || true
         done
@@ -188,13 +209,16 @@ rebalance_workspace_window_caps() {
         extra=$((count - MAX_PER_WS))
 
         if [[ "$ws" == "$GHOSTTY_PRIMARY_WS" ]]; then
-            "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}' 2>/dev/null |
-                while IFS=$'\t' read -r wid app_id; do
+            "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null |
+                while IFS=$'\t' read -r wid app_id window_title; do
                     [[ -n "$wid" ]] || continue
                     if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
                         continue
                     fi
                     if is_floating_app "$app_id"; then
+                        continue
+                    fi
+                    if is_onepassword_access_request_window "$app_id" "$window_title"; then
                         continue
                     fi
                     echo "$wid"
@@ -208,10 +232,13 @@ rebalance_workspace_window_caps() {
             continue
         fi
 
-        "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}' 2>/dev/null |
-            while IFS=$'\t' read -r wid app_id; do
+        "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null |
+            while IFS=$'\t' read -r wid app_id window_title; do
                 [[ -n "$wid" ]] || continue
                 if is_floating_app "$app_id"; then
+                    continue
+                fi
+                if is_onepassword_access_request_window "$app_id" "$window_title"; then
                     continue
                 fi
                 echo "$wid"
@@ -277,11 +304,23 @@ enforce_workspace_window_cap_for_new_window() {
     info="$(get_window_info "$window_id")"
     [[ -n "$info" ]] || return 0
 
-    local app_id workspace
+    local app_id workspace window_title
     app_id="$(awk -F'\t' '{ print $2 }' <<<"$info")"
     workspace="$(awk -F'\t' '{ print $3 }' <<<"$info")"
+    window_title="$(awk -F'\t' '{ print $4 }' <<<"$info")"
 
     if [[ "$app_id" == "$LOCAL_AUTH_UIAGENT_ID" ]]; then
+        local focused_ws
+        focused_ws="$("$AEROSPACE" list-workspaces --focused 2>/dev/null || true)"
+
+        if [[ -n "$focused_ws" ]] && [[ "$focused_ws" != "$workspace" ]]; then
+            "$AEROSPACE" move-node-to-workspace --window-id "$window_id" --focus-follows-window "$focused_ws" 2>/dev/null || true
+        fi
+
+        return 0
+    fi
+
+    if is_onepassword_access_request_window "$app_id" "$window_title"; then
         local focused_ws
         focused_ws="$("$AEROSPACE" list-workspaces --focused 2>/dev/null || true)"
 

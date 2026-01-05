@@ -96,6 +96,10 @@ if.app-id = 'com.apple.LocalAuthentication.UIAgent'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.window-title-regex-substring = '(?i)1password access requested'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.window-title-regex-substring = '(?i)password|authenticate|authorization'
 run = 'layout floating'
 
