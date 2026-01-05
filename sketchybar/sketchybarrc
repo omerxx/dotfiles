@@ -164,6 +164,13 @@ sketchybar --add item portkiller right \
                            background.drawing=on \
                            click_script="$RELPATH/plugins/portkiller/click.sh"
 
+sketchybar --add item gitify right \
+           --set gitify icon="🐙" \
+                        label.drawing=off \
+                        background.color=$SURFACE \
+                        background.drawing=on \
+                        click_script="$RELPATH/plugins/gitify/click.sh"
+
 killall stats_provider >/dev/null 2>&1 || true
 
 sketchybar --update
