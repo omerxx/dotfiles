@@ -93,6 +93,9 @@ fi
 
 unset _zsh_cache_dir _zcompdump
 
+# Aliases
+alias gi='gitingest . --output -'
+
 if [[ -n "${ZPROF:-}" ]]; then
   zprof
 fi

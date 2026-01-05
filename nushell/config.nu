@@ -909,6 +909,7 @@ alias hms = /nix/store/6kc5srg83nkyg21am089xx7pvq44kn2c-home-manager/bin/home-ma
 alias as = aerospace
 alias asr = atuin scripts run
 alias o = opencode
+alias gi = gitingest . --output -
 
 def oo [] {
     let dir = (pwd)
@@ -943,15 +944,15 @@ def oo [] {
     bash -c $"jq -s 'add' '($sessions_file)' /tmp/oo-session.json > '($sessions_file).tmp' 2>/dev/null && mv '($sessions_file).tmp' '($sessions_file)' || cp /tmp/oo-session.json '($sessions_file)'"
     
     print $"(ansi cyan)Dashboard: http://m4-mini.tail09133d.ts.net:3000(ansi reset)"
-    print $"(ansi dim)Waiting for servers...(ansi reset)"
+    print $"(ansi dark_gray)Waiting for servers...(ansi reset)"
     sleep 8sec
     
-    print $"(ansi dim)Press Ctrl+C to exit(ansi reset)"
+    print $"(ansi dark_gray)Press Ctrl+C to exit(ansi reset)"
     print ""
     
     do { opencode attach $"http://127.0.0.1:($oc_port)" } | complete
     
-    print $"(ansi dim)Stopping session...(ansi reset)"
+    print $"(ansi dark_gray)Stopping session...(ansi reset)"
     bash -c $"kill ($portal_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
     bash -c $"jq --arg sid '($session_id)' 'del(.[$$sid])' '($sessions_file)' > '($sessions_file).tmp' 2>/dev/null && mv '($sessions_file).tmp' '($sessions_file)' || true"
 }

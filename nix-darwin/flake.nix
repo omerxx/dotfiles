@@ -62,6 +62,7 @@
         pkgs.gemini-cli
         pkgs.lazygit
         pkgs.uv
+        pkgs.pipx
         pkgs.delta
         pkgs.cloc
         pkgs.cmatrix
