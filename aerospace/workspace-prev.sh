@@ -1,15 +1,27 @@
 #!/usr/bin/env bash
 set -e
 
-# Focus previous window; if at the edge, switch to previous workspace.
+# Focus the window to the left; if at the edge, switch to the previous non-empty workspace.
 
 AEROSPACE="/opt/homebrew/bin/aerospace"
 if [[ ! -x "$AEROSPACE" ]]; then
   AEROSPACE="aerospace"
 fi
 
-if "$AEROSPACE" focus dfs-prev --boundaries-action fail --ignore-floating >/dev/null 2>&1; then
+if "$AEROSPACE" focus left --boundaries-action fail --ignore-floating >/dev/null 2>&1; then
   exit 0
 fi
 
-"$AEROSPACE" list-workspaces --monitor all | sort -n | "$AEROSPACE" workspace --wrap-around --stdin prev
+workspaces="$("$AEROSPACE" list-workspaces --monitor all --empty no 2>/dev/null | sort -n || true)"
+if [[ -z "$workspaces" ]]; then
+  exit 0
+fi
+
+printf '%s\n' "$workspaces" | "$AEROSPACE" workspace --wrap-around --stdin prev
+
+# Start at the right edge of the new workspace to keep leftward traversal consistent.
+for _ in {1..50}; do
+  if ! "$AEROSPACE" focus right --boundaries-action fail --ignore-floating >/dev/null 2>&1; then
+    break
+  fi
+done
