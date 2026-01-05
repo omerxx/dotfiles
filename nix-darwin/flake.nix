@@ -189,7 +189,6 @@
       ];
 
       homebrew.casks = [
-        "antigravity"
         "wireshark"
         "google-chrome"
         "ghostty"
