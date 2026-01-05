@@ -152,7 +152,11 @@ if.app-name-regex-substring = 'linear'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'quotio'
+if.app-id = 'proseek.io.vn.Quotio'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-name-regex-substring = '(?i)quotio'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]

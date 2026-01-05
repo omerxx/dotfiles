@@ -38,6 +38,9 @@ apply_rules_once() {
             com.microsoft.VSCode | com.exafunction.windsurf | dev.zed.Zed)
                 target_workspace="4"
                 ;;
+            proseek.io.vn.Quotio)
+                target_workspace="4"
+                ;;
         esac
 
         if [[ -z "$target_workspace" ]]; then
@@ -46,6 +49,7 @@ apply_rules_once() {
                 *linear*) target_workspace="4" ;;
                 *cursor*) target_workspace="4" ;;
                 *antigravity*) target_workspace="4" ;;
+                *quotio*) target_workspace="4" ;;
             esac
         fi
 

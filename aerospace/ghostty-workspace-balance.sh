@@ -9,6 +9,8 @@ GHOSTTY_ID='com.mitchellh.ghostty'
 GHOSTTY_PRIMARY_WS='1'
 GHOSTTY_OVERFLOW_WS='5'
 NON_GHOSTTY_OVERFLOW_WS='6'
+QUOTIO_ID='proseek.io.vn.Quotio'
+QUOTIO_WORKSPACE='4'
 LOCAL_AUTH_UIAGENT_ID='com.apple.LocalAuthentication.UIAgent'
 ONEPASSWORD_ID='com.1password.1password'
 
@@ -112,6 +114,16 @@ is_transient_window() {
     fi
 
     return 1
+}
+
+ensure_quotio_workspace() {
+    "$AEROSPACE" list-windows --monitor all --app-bundle-id "$QUOTIO_ID" --format '%{window-id}%{tab}%{workspace}' 2>/dev/null |
+        while IFS=$'\t' read -r wid ws; do
+            [[ -n "$wid" ]] || continue
+            if [[ "$ws" != "$QUOTIO_WORKSPACE" ]]; then
+                "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$QUOTIO_WORKSPACE" 2>/dev/null || true
+            fi
+        done
 }
 
 count_nontransient_windows_in_ws() {
@@ -386,6 +398,7 @@ watch_for_window_changes() {
             rebalance_ghostty_workspaces
             rebalance_workspace_window_caps
             compact_overflow_workspaces
+            ensure_quotio_workspace
             bounce_from_empty_overflow_workspace || true
             trigger_sketchybar_workspace_update
         else
@@ -545,6 +558,7 @@ case "$mode" in
         rebalance_ghostty_workspaces
         rebalance_workspace_window_caps
         compact_overflow_workspaces
+        ensure_quotio_workspace
         trigger_sketchybar_workspace_update
         exit 0
         ;;
@@ -557,7 +571,9 @@ case "$mode" in
         [[ -n "$window_id" ]] || exit 0
         sleep 0.25
         enforce_workspace_window_cap_for_new_window "$window_id"
+        rebalance_workspace_window_caps
         compact_overflow_workspaces
+        ensure_quotio_workspace
         trigger_sketchybar_workspace_update
         exit 0
         ;;
