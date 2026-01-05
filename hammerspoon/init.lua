@@ -37,6 +37,17 @@ hs.hotkey.bind({"alt"}, "R", function()
 end)
 hs.alert.show("Config loaded")
 
+-- Chrome: Cmd+Shift+C to copy current URL (Cmd+L then Cmd+C)
+hs.hotkey.bind({"cmd", "shift"}, "C", function()
+    local app = hs.application.frontmostApplication()
+    if app and app:bundleID() == "com.google.Chrome" then
+        hs.eventtap.keyStroke({"cmd"}, "L")
+        hs.timer.doAfter(0.05, function()
+            hs.eventtap.keyStroke({"cmd"}, "C")
+        end)
+    end
+end)
+
 local calendar = hs.loadSpoon("GoMaCal")
 if calendar then
     calendar:setCalendarPath('/Users/klaudioz/dotfiles/hammerspoon/calendar-app/calapp')
