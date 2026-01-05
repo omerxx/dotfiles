@@ -179,11 +179,6 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 
 $env.EDITOR = "nvim"
 
-let opencode_bin = ($nu.home-path | path join ".config" "opencode" "bin")
-if ($opencode_bin | path exists) {
-  $env.PATH = ($env.PATH | prepend $opencode_bin)
-}
-
 const opencode_secrets = ($nu.home-path | path join ".config" "opencode" "secrets.nu")
 if ($opencode_secrets | path exists) {
   source $opencode_secrets
@@ -192,8 +187,8 @@ if ($opencode_secrets | path exists) {
 # Force Quotio models even when a project has its own `opencode.json` / `.opencode/` config.
 $env.OPENCODE_CONFIG_CONTENT = '{"model":"quotio/gemini-claude-sonnet-4-5","small_model":"quotio/gemini-3-flash-preview"}'
 
-# Ensure the Homebrew `opencode` launcher always runs our wrapper (for consistent env injection).
-$env.OPENCODE_BIN_PATH = ($nu.home-path | path join ".config" "opencode" "bin" "opencode-wrapper")
+# Stop using the old wrapper-based launcher if it's still present in the parent environment.
+hide-env OPENCODE_BIN_PATH
 
 # CLI Proxy API endpoint
 $env.CLIPROXYAPI_ENDPOINT = "http://localhost:8317/v1"

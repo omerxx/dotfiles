@@ -12,9 +12,6 @@ typeset -U path
 
 path_additions=()
 
-# Ensure our OpenCode wrapper is picked up before any other `opencode` on PATH.
-[[ -d "$HOME/.config/opencode/bin" ]] && path_additions+=("$HOME/.config/opencode/bin")
-
 # Nix (nix-darwin)
 [[ -d /run/current-system/sw/bin ]] && path_additions+=(/run/current-system/sw/bin)
 
@@ -55,8 +52,8 @@ unset path_additions
 # Force Quotio models even when a project has its own `opencode.json` / `.opencode/` config.
 export OPENCODE_CONFIG_CONTENT='{"model":"quotio/gemini-claude-sonnet-4-5","small_model":"quotio/gemini-3-flash-preview"}'
 
-# Ensure the Homebrew `opencode` launcher always runs our wrapper (for consistent env injection).
-export OPENCODE_BIN_PATH="$HOME/.config/opencode/bin/opencode-wrapper"
+# Stop using the old wrapper-based launcher if it's still present in the parent environment.
+unset OPENCODE_BIN_PATH
 
 # CLI Proxy API endpoint
 export CLIPROXYAPI_ENDPOINT="http://localhost:8317/v1"
