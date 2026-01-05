@@ -1,6 +1,25 @@
 hs = hs
 hs.loadSpoon("AClock")
 
+-- Clipboard cleaner: removes unwanted line breaks from wrapped terminal text
+-- Preserves intentional paragraph breaks (double newlines)
+local lastClipboard = ""
+local clipboardWatcher = hs.timer.doEvery(0.5, function()
+    local current = hs.pasteboard.getContents()
+    if current and current ~= lastClipboard then
+        lastClipboard = current
+        -- Only process if it has newlines but no double-newlines (paragraph breaks)
+        if current:match("\n") and not current:match("\n\n") then
+            -- Replace single newlines with spaces, collapse multiple spaces
+            local cleaned = current:gsub("\n", " "):gsub("  +", " "):gsub("^ ", ""):gsub(" $", "")
+            if cleaned ~= current then
+                hs.pasteboard.setContents(cleaned)
+                lastClipboard = cleaned
+            end
+        end
+    end
+end)
+
 hs.hotkey.bind({"cmd", "alt"}, "C", function()
   spoon.AClock:toggleShow()
 end)
