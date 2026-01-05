@@ -1,12 +1,65 @@
 {
-  "NSStatusItem Visible Item-0": false,
-  "Paddle-BetterMouse-760932-SD": "698e80a8d736a6ae767ca1cc2e247a874396bb89ebdc21b4c597456f1732165c",
-  "SUEnableAutomaticChecks": true,
-  "SULastCheckTime": {
-    "__datetime__": "2026-01-05T18:47:15"
-  },
   "SUScheduledCheckInterval": 86400.0,
+  "version": "8568",
+  "SULastCheckTime": {
+    "__datetime__": "2026-01-05T19:58:59.540413"
+  },
+  "Paddle-BetterMouse-760932-SD": "698e80a8d736a6ae767ca1cc2e247a874396bb89ebdc21b4c597456f1732165c",
+  "NSStatusItem Visible Item-0": false,
+  "config": {
+    "optCsr": {
+      "en": false,
+      "acc": [
+        68.75,
+        68.75
+      ],
+      "res": [
+        5.0,
+        5.0
+      ]
+    },
+    "longPressPeriod": 0.5,
+    "longPressRepeatInterval": 0.1,
+    "cursorHold": false,
+    "leftDragLimit": true,
+    "leftDragLimitRange": 10.0,
+    "tabSelection": 2,
+    "showDescription": true,
+    "hideIcon": false,
+    "tightenIcon": false,
+    "email": "",
+    "registered": 0.9940476190476191,
+    "trialLeft": 7.0
+  },
+  "SUEnableAutomaticChecks": true,
   "SUUpdateGroupIdentifier": 1916916638,
+  "ee": {
+    "optDict": {
+      "chargeLimit": {
+        "en": true,
+        "val": 0.0
+      },
+      "eeOpened": {
+        "en": true,
+        "val": 0.0
+      },
+      "theme": {
+        "en": true,
+        "val": 0.0
+      },
+      "tightenIcon": {
+        "en": true,
+        "val": 0.0
+      }
+    }
+  },
+  "keyboards": {
+    "subGlobalEn": false,
+    "keyboards": []
+  },
+  "logikeys": {
+    "logiKeybs": []
+  },
   "appitems": {
     "apps": {
       "": {
@@ -88,96 +141,37 @@
       }
     }
   },
-  "config": {
-    "cursorHold": false,
-    "email": "",
-    "hideIcon": false,
-    "leftDragLimit": true,
-    "leftDragLimitRange": 10.0,
-    "longPressPeriod": 0.5,
-    "longPressRepeatInterval": 0.1,
-    "optCsr": {
-      "acc": [
-        68.75,
-        68.75
-      ],
-      "en": false,
-      "res": [
-        5.0,
-        5.0
-      ]
-    },
-    "registered": 0.9940476190476191,
-    "showDescription": true,
-    "tabSelection": 2,
-    "tightenIcon": false,
-    "trialLeft": 7.0
-  },
-  "ee": {
-    "optDict": {
-      "chargeLimit": {
-        "en": true,
-        "val": 0.0
-      },
-      "eeOpened": {
-        "en": true,
-        "val": 0.0
-      },
-      "theme": {
-        "en": true,
-        "val": 0.0
-      },
-      "tightenIcon": {
-        "en": true,
-        "val": 0.0
-      }
-    }
-  },
-  "keyboards": {
-    "keyboards": [],
-    "subGlobalEn": false
-  },
-  "logikeys": {
-    "logiKeybs": []
-  },
   "mice": {
     "mice": [
       {
-        "OnboardProfileEn": false,
-        "disengagePoint": 4,
+        "name": {
+          "product": "MX Master 3S",
+          "vendor": "Logitech"
+        },
+        "optCsr": {
+          "en": false,
+          "acc": [
+            68.75,
+            0.0
+          ],
+          "res": [
+            5.0,
+            25.0
+          ]
+        },
         "dpiEn": false,
         "dpiIndex": 0,
-        "featureCompleted": false,
-        "featureMap": {
-          "0": 9,
-          "1": 14,
-          "10": 8,
-          "2": 16,
-          "4": 13,
-          "5": 15
-        },
+        "ratchetMode": false,
+        "disengagePoint": 4,
+        "torque": 50,
+        "hiResWheel": false,
+        "pressure": 4261,
         "haptic": [
           0,
           0,
           0,
           0
         ],
-        "hiResWheel": false,
-        "name": {
-          "product": "MX Master 3S",
-          "vendor": "Logitech"
-        },
-        "optCsr": {
-          "acc": [
-            68.75,
-            0.0
-          ],
-          "en": false,
-          "res": [
-            5.0,
-            25.0
-          ]
-        },
         "pattern": [
           0,
           0,
@@ -190,24 +184,12 @@
           false,
           false
         ],
-        "pressure": 4261,
-        "quirks": [
-          195,
-          true,
-          196,
-          true
-        ],
-        "ratchetMode": false,
-        "rpRate": 0,
-        "rpRateList": 8,
-        "torque": 50,
+        "twUsage": {
+          "HScroll": {}
+        },
         "twDirInv": [
           {
-            "VScroll": {}
-          },
-          false,
-          {
-            "Zoom": {}
+            "HScroll": {}
           },
           false,
           {
@@ -215,11 +197,15 @@
           },
           false,
           {
-            "Button": {}
+            "Zoom": {}
           },
           false,
           {
-            "HScroll": {}
+            "VScroll": {}
+          },
+          false,
+          {
+            "Button": {}
           },
           false
         ],
@@ -229,7 +215,7 @@
           },
           1.0,
           {
-            "Zoom": {}
+            "Button": {}
           },
           1.0,
           {
@@ -237,7 +223,7 @@
           },
           1.0,
           {
-            "Button": {}
+            "Zoom": {}
           },
           1.0,
           {
@@ -245,11 +231,25 @@
           },
           1.0
         ],
-        "twUsage": {
-          "HScroll": {}
-        }
+        "OnboardProfileEn": false,
+        "quirks": [
+          195,
+          true,
+          196,
+          true
+        ],
+        "rpRateList": 8,
+        "rpRate": 0,
+        "featureMap": {
+          "2": 16,
+          "0": 9,
+          "1": 14,
+          "4": 13,
+          "10": 8,
+          "5": 15
+        },
+        "featureCompleted": false
       }
     ]
-  },
-  "version": "8568"
+  }
 }

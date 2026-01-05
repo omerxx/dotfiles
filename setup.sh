@@ -549,6 +549,49 @@ setup_openportal_dashboard() {
   echo ""
 }
 
+setup_bettermouse_config() {
+  echo -e "${YELLOW}Setting up BetterMouse thumbwheel config...${NC}"
+
+  BETTERMOUSE_SCRIPT="$SCRIPT_DIR/bettermouse/bettermouse_config.py"
+  BETTERMOUSE_PLIST="$HOME/Library/Preferences/com.naotanhaocan.BetterMouse.plist"
+
+  if [ ! -f "$BETTERMOUSE_PLIST" ]; then
+    echo -e "  ${YELLOW}!${NC} BetterMouse not installed, skipping"
+    echo ""
+    return
+  fi
+
+  if [ ! -f "$BETTERMOUSE_SCRIPT" ]; then
+    echo -e "  ${YELLOW}!${NC} BetterMouse config script not found"
+    echo ""
+    return
+  fi
+
+  UV="/run/current-system/sw/bin/uv"
+  if [ ! -x "$UV" ]; then
+    UV="uv"
+  fi
+
+  if ! command -v "$UV" &> /dev/null; then
+    echo -e "  ${YELLOW}!${NC} uv not found, skipping BetterMouse config"
+    echo ""
+    return
+  fi
+
+  # Kill BetterMouse before applying config
+  killall BetterMouse 2>/dev/null || true
+
+  # Apply thumbwheel config
+  "$UV" run "$BETTERMOUSE_SCRIPT" apply-thumbwheel > /dev/null 2>&1 && \
+    echo -e "  ${GREEN}✓${NC} Thumbwheel → Option+Arrow configured" || \
+    echo -e "  ${YELLOW}!${NC} Failed to apply thumbwheel config"
+
+  # Restart BetterMouse
+  open -a BetterMouse 2>/dev/null || true
+
+  echo ""
+}
+
 install_cmatrix_wallpaper() {
   echo -e "${YELLOW}Setting up CMatrix Wallpaper LaunchAgent...${NC}"
 
@@ -684,6 +727,7 @@ run_update() {
   setup_pm2_startup
   install_cmatrix_wallpaper
   setup_openportal_dashboard
+  setup_bettermouse_config
 
   echo ""
   start_services

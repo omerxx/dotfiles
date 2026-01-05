@@ -28,6 +28,7 @@ import sys
 import os
 from pathlib import Path
 from datetime import datetime
+import base64
 
 from rich.console import Console
 from rich.table import Table
@@ -62,12 +63,8 @@ KEY_CODES = {
     48: "⇥ Tab",
 }
 
-# Thumbwheel direction codes
-THUMBWHEEL_DIRECTIONS = {
-    6: "Left",
-    8: "Right",
-    4: "Press",
-}
+# Fields that are stored as nested binary plists
+BINARY_PLIST_FIELDS = {"appitems", "mice", "keyboards", "config", "logikeys"}
 
 # ============================================================================
 # Utility Functions
@@ -96,19 +93,17 @@ def decode_key(key_code: int) -> str:
 # ============================================================================
 
 
-def decode_nested(obj):
+def decode_nested(obj, depth=0):
     """Recursively decode nested binary plists to Python objects."""
     if isinstance(obj, dict):
-        return {k: decode_nested(v) for k, v in obj.items()}
+        return {k: decode_nested(v, depth + 1) for k, v in obj.items()}
     elif isinstance(obj, list):
-        return [decode_nested(item) for item in obj]
+        return [decode_nested(item, depth + 1) for item in obj]
     elif isinstance(obj, bytes):
         try:
             nested = plistlib.loads(obj)
-            return decode_nested(nested)
+            return decode_nested(nested, depth + 1)
         except Exception:
-            import base64
-
             return {
                 "__binary__": base64.b64encode(obj).decode("ascii"),
                 "__len__": len(obj),
@@ -123,8 +118,6 @@ def encode_nested(obj):
     """Recursively encode Python objects back to plist-compatible format."""
     if isinstance(obj, dict):
         if "__binary__" in obj:
-            import base64
-
             return base64.b64decode(obj["__binary__"])
         if "__datetime__" in obj:
             return datetime.fromisoformat(obj["__datetime__"])
@@ -133,6 +126,11 @@ def encode_nested(obj):
         return [encode_nested(item) for item in obj]
     else:
         return obj
+
+
+def encode_field_as_binary_plist(data: dict, field: str) -> bytes:
+    """Encode a specific field back to binary plist format."""
+    return plistlib.dumps(data, fmt=plistlib.FMT_BINARY)
 
 
 # ============================================================================
@@ -210,16 +208,21 @@ def apply_thumbwheel_config(
 
     console.print(f"[green]✓[/] Loaded: [dim]{PLIST_PATH}[/]")
 
-    # Decode to work with
-    decoded = decode_nested(plist)
+    # Decode appitems (it's stored as binary plist)
+    appitems_raw = plist.get("appitems", b"")
+    if isinstance(appitems_raw, bytes) and appitems_raw:
+        try:
+            appitems = plistlib.loads(appitems_raw)
+        except:
+            appitems = {"apps": {}}
+    else:
+        appitems = {"apps": {}}
 
-    # Ensure appitems structure exists
-    if "appitems" not in decoded:
-        decoded["appitems"] = {"apps": {}}
-    if "apps" not in decoded["appitems"]:
-        decoded["appitems"]["apps"] = {}
-    if "" not in decoded["appitems"]["apps"]:
-        decoded["appitems"]["apps"][""] = {
+    # Ensure structure exists
+    if "apps" not in appitems:
+        appitems["apps"] = {}
+    if "" not in appitems["apps"]:
+        appitems["apps"][""] = {
             "enabled": True,
             "btn": [],
             "key": [],
@@ -231,13 +234,13 @@ def apply_thumbwheel_config(
     )
 
     # Get current btn config
-    current_btn = decoded["appitems"]["apps"][""].get("btn", [])
+    current_btn = appitems["apps"][""].get("btn", [])
 
     # Remove existing thumbwheel config (button 31)
     new_btn = []
     i = 0
     while i < len(current_btn):
-        if current_btn[i] == 31:
+        if i < len(current_btn) and current_btn[i] == 31:
             # Skip this button and its config
             i += 2
         else:
@@ -248,7 +251,7 @@ def apply_thumbwheel_config(
 
     # Add our thumbwheel config
     new_btn.extend(thumbwheel_btn)
-    decoded["appitems"]["apps"][""]["btn"] = new_btn
+    appitems["apps"][""]["btn"] = new_btn
 
     # Backup existing
     backup_path = PLIST_PATH.with_suffix(".plist.backup")
@@ -260,15 +263,19 @@ def apply_thumbwheel_config(
     except Exception as e:
         console.print(f"[yellow]⚠[/] Backup failed: {e}")
 
-    # Encode back and write
-    encoded = encode_nested(decoded)
+    # Re-encode appitems as binary plist
+    plist["appitems"] = plistlib.dumps(appitems, fmt=plistlib.FMT_BINARY)
 
     try:
         with open(PLIST_PATH, "wb") as f:
-            plistlib.dump(encoded, f)
+            plistlib.dump(plist, f, fmt=plistlib.FMT_BINARY)
     except Exception as e:
         console.print(f"[red]✗[/] Failed to write: {e}")
         return 1
+
+    import subprocess
+
+    subprocess.run(["killall", "cfprefsd"], capture_output=True)
 
     console.print(f"[green]✓[/] Applied thumbwheel configuration")
     console.print()
@@ -358,10 +365,12 @@ def cmd_import(input_path: str) -> int:
 
     console.print(f"[green]✓[/] Loaded: [bold]{input_path}[/]")
 
-    with console.status("[cyan]Encoding to plist format...[/]"):
-        encoded = encode_nested(data)
-
-    console.print("[green]✓[/] Encoded to plist format")
+    # Read current plist to preserve structure
+    if PLIST_PATH.exists():
+        with open(PLIST_PATH, "rb") as f:
+            current_plist = plistlib.load(f)
+    else:
+        current_plist = {}
 
     # Backup existing
     if PLIST_PATH.exists():
@@ -374,10 +383,21 @@ def cmd_import(input_path: str) -> int:
         except Exception as e:
             console.print(f"[yellow]⚠[/] Backup failed: {e}")
 
+    with console.status("[cyan]Encoding to plist format...[/]"):
+        # Encode the data, re-encoding binary plist fields
+        encoded = encode_nested(data)
+
+        # Re-encode known binary plist fields
+        for field in BINARY_PLIST_FIELDS:
+            if field in encoded and isinstance(encoded[field], dict):
+                encoded[field] = plistlib.dumps(encoded[field], fmt=plistlib.FMT_BINARY)
+
+    console.print("[green]✓[/] Encoded to plist format")
+
     with console.status("[cyan]Writing plist...[/]"):
         try:
             with open(PLIST_PATH, "wb") as f:
-                plistlib.dump(encoded, f)
+                plistlib.dump(encoded, f, fmt=plistlib.FMT_BINARY)
         except Exception as e:
             console.print(f"[red]✗[/] Failed to write: {e}")
             return 1
