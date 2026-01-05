@@ -292,7 +292,7 @@ alt-shift-9 = 'move-node-to-workspace 9 --focus-follows-window'
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-# Cycle through workspaces 1–9 (for BetterMouse thumbwheel)
+# BetterMouse thumbwheel: switch windows; fall back to workspace cycling
 alt-left = 'exec-and-forget /Users/klaudioz/.config/aerospace/workspace-prev.sh'
 alt-right = 'exec-and-forget /Users/klaudioz/.config/aerospace/workspace-next.sh'
 
