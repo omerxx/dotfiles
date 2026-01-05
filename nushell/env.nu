@@ -188,7 +188,9 @@ if ($opencode_secrets | path exists) {
 $env.OPENCODE_CONFIG_CONTENT = '{"model":"quotio/gemini-claude-sonnet-4-5","small_model":"quotio/gemini-3-flash-preview"}'
 
 # Stop using the old wrapper-based launcher if it's still present in the parent environment.
-hide-env OPENCODE_BIN_PATH
+if 'OPENCODE_BIN_PATH' in $env {
+  hide-env OPENCODE_BIN_PATH
+}
 
 # CLI Proxy API endpoint
 $env.CLIPROXYAPI_ENDPOINT = "http://localhost:8317/v1"
