@@ -11,3 +11,5 @@ aerospace-source/
 mcp-typescript-sdk/
 yabai-repo/
 .tmp/
+__pycache__/
+*.pyc

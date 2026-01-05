@@ -218,6 +218,35 @@ def apply_thumbwheel_config(
     else:
         appitems = {"apps": {}}
 
+    # Decode mice (it's stored as binary plist)
+    mice_raw = plist.get("mice", b"")
+    if isinstance(mice_raw, bytes) and mice_raw:
+        try:
+            mice = plistlib.loads(mice_raw)
+        except:
+            mice = {"mice": []}
+    else:
+        mice = {"mice": []}
+
+    # Thumbwheel must be in "Button" mode for thumbwheel gestures (button 31) to fire.
+    # If it's set to HScroll/VScroll/etc, BetterMouse will treat it as a scroll wheel and
+    # the button mapping won't trigger.
+    tw_usage_changed = False
+    for mouse in mice.get("mice", []):
+        if not isinstance(mouse, dict):
+            continue
+
+        name = mouse.get("name", {})
+        product = name.get("product") if isinstance(name, dict) else ""
+        vendor = name.get("vendor") if isinstance(name, dict) else ""
+        if vendor != "Logitech" or not str(product).startswith("MX Master"):
+            continue
+
+        tw_usage = mouse.get("twUsage")
+        if not isinstance(tw_usage, dict) or "Button" not in tw_usage:
+            mouse["twUsage"] = {"Button": {}}
+            tw_usage_changed = True
+
     # Ensure structure exists
     if "apps" not in appitems:
         appitems["apps"] = {}
@@ -265,6 +294,7 @@ def apply_thumbwheel_config(
 
     # Re-encode appitems as binary plist
     plist["appitems"] = plistlib.dumps(appitems, fmt=plistlib.FMT_BINARY)
+    plist["mice"] = plistlib.dumps(mice, fmt=plistlib.FMT_BINARY)
 
     try:
         with open(PLIST_PATH, "wb") as f:
@@ -278,6 +308,10 @@ def apply_thumbwheel_config(
     subprocess.run(["killall", "cfprefsd"], capture_output=True)
 
     console.print(f"[green]✓[/] Applied thumbwheel configuration")
+    if tw_usage_changed:
+        console.print(
+            "[green]✓[/] Set thumbwheel mode to [bold]Button[/] for Logitech MX Master"
+        )
     console.print()
     console.print("[bold]Configured mappings:[/]")
     console.print(
@@ -442,9 +476,20 @@ def print_summary(config: dict):
         table = Table(title="  Detected Mice", box=box.ROUNDED)
         table.add_column("Device", style="cyan")
         table.add_column("Vendor", style="dim")
+        table.add_column("Thumbwheel", style="green")
         for mouse in mice:
             name = mouse.get("name", {})
-            table.add_row(name.get("product", "Unknown"), name.get("vendor", "Unknown"))
+            tw_usage = mouse.get("twUsage", {})
+            tw_mode = (
+                next(iter(tw_usage.keys()))
+                if isinstance(tw_usage, dict) and tw_usage
+                else "Unknown"
+            )
+            table.add_row(
+                name.get("product", "Unknown"),
+                name.get("vendor", "Unknown"),
+                tw_mode,
+            )
         console.print(table)
 
     # Thumbwheel config
