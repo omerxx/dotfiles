@@ -243,6 +243,7 @@ alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
+alt-b = 'balance-sizes'
 alt-h = 'focus left'
 alt-j = 'focus down'
 alt-k = 'focus up'
