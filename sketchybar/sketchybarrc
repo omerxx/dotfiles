@@ -175,4 +175,7 @@ killall stats_provider >/dev/null 2>&1 || true
 
 sketchybar --update
 
+# Prime workspace icons immediately (otherwise they update only after the first workspace change event).
+sketchybar --trigger aerospace_workspace_change
+
 echo "sketchybar configuration loaded"
