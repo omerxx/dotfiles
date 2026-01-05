@@ -210,7 +210,6 @@
         "gitify"
         "1password"
         "linear-linear"
-        "linearmouse"
         "bettermouse"
         "itsycal"
         "qbittorrent"
