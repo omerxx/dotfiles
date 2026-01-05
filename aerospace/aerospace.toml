@@ -297,8 +297,8 @@ alt-left = 'exec-and-forget /Users/klaudioz/.config/aerospace/workspace-prev.sh'
 alt-right = 'exec-and-forget /Users/klaudioz/.config/aerospace/workspace-next.sh'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-# Reset workspace to horizontal columns (flatten + horizontal tiles)
-alt-semicolon = ['flatten-workspace-tree', 'layout tiles horizontal']
+# Reset workspace to horizontal columns (force tiling + flatten + horizontal tiles)
+alt-semicolon = 'exec-and-forget /Users/klaudioz/.config/aerospace/workspace-reset.sh'
 
 alt-shift-semicolon = 'mode service'
 alt-shift-enter = 'mode apps'
