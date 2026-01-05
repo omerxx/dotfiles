@@ -104,6 +104,8 @@
         finder.AppleShowAllExtensions = true;
         finder.FXPreferredViewStyle = "clmv";
         finder.CreateDesktop = false;           # Hide all desktop icons
+        finder.NewWindowTarget = "PfLo";        # Custom location for new windows
+        finder.NewWindowTargetPath = "file:///Users/klaudioz/Downloads/";  # Open Downloads by default
         loginwindow.LoginwindowText = "m4-mini";
         screencapture.location = "~/Pictures/screenshots";
         screencapture.target = "clipboard";     # Cmd+Shift+4 copies to clipboard
