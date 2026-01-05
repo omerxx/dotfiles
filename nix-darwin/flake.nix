@@ -211,6 +211,7 @@
         "1password"
         "linear-linear"
         "linearmouse"
+        "bettermouse"
         "itsycal"
         "qbittorrent"
         "visual-studio-code"
