@@ -49,6 +49,8 @@ inherit-env-vars = true
 
 [exec.env-vars]
 PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:${HOME}/.local/bin:${HOME}/.nix-profile/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
+AEROSPACE_THUMBWHEEL_WORKSPACES = '1 2 3 4'
+AEROSPACE_THUMBWHEEL_COOLDOWN_MS = '40'
 
 # Keep max 3 windows per workspace, and reserve workspace 5 for Ghostty overflow
 [[on-window-detected]]
