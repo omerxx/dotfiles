@@ -1,0 +1,255 @@
+{
+  "NSStatusItem Visible Item-0": false,
+  "Paddle-BetterMouse-760932-SD": "698e80a8d736a6ae767ca1cc2e247a874396bb89ebdc21b4c597456f1732165c",
+  "SUEnableAutomaticChecks": true,
+  "SULastCheckTime": {
+    "__datetime__": "2026-01-05T18:47:15"
+  },
+  "SUScheduledCheckInterval": 86400.0,
+  "SUUpdateGroupIdentifier": 1916916638,
+  "appitems": {
+    "apps": {
+      "": {
+        "btn": [
+          31,
+          [
+            0,
+            [
+              {
+                "Move": true
+              },
+              [
+                6,
+                {
+                  "hotkeyKey": 123,
+                  "hotkeyMod": 524288,
+                  "isHotkey": true
+                },
+                8,
+                {
+                  "hotkeyKey": 124,
+                  "hotkeyMod": 524288,
+                  "isHotkey": true
+                }
+              ]
+            ]
+          ]
+        ],
+        "btnLock": false,
+        "cursorGain": 1.0,
+        "cursorMod": 0,
+        "cursorModifiedRes": 26214400,
+        "enabled": true,
+        "key": [],
+        "keyLock": false,
+        "leftCTEn": true,
+        "panBtn": 1,
+        "panCT": true,
+        "panInertia": true,
+        "panInvert": true,
+        "panMod": 0,
+        "rightCTEn": true,
+        "scl": {
+          "acc": [
+            32.0,
+            32.0
+          ],
+          "brake": 4,
+          "cmdSclGain": 3.162,
+          "cmdSclMod": 1048576,
+          "ctrlSclInv": false,
+          "ctrlSclMod": 262144,
+          "duration": 12,
+          "hSclSliderEn": false,
+          "hSclSliderInv": false,
+          "horiInvEn": false,
+          "horiSpeed": 41.0,
+          "lpfDura": 14,
+          "panelLpf": 1,
+          "sclThrough": false,
+          "shiftSclInv": false,
+          "shiftSclMod": 131072,
+          "smoothEn": true,
+          "speed": [
+            3,
+            10
+          ],
+          "vSclSliderEn": false,
+          "vSclSliderInv": false,
+          "vertInvEn": false
+        },
+        "sclEn": true,
+        "url": {
+          "base": {
+            "relative": "file:///"
+          },
+          "relative": "./"
+        }
+      }
+    }
+  },
+  "config": {
+    "cursorHold": false,
+    "email": "",
+    "hideIcon": false,
+    "leftDragLimit": true,
+    "leftDragLimitRange": 10.0,
+    "longPressPeriod": 0.5,
+    "longPressRepeatInterval": 0.1,
+    "optCsr": {
+      "acc": [
+        68.75,
+        68.75
+      ],
+      "en": false,
+      "res": [
+        5.0,
+        5.0
+      ]
+    },
+    "registered": 0.9940476190476191,
+    "showDescription": true,
+    "tabSelection": 2,
+    "tightenIcon": false,
+    "trialLeft": 7.0
+  },
+  "ee": {
+    "optDict": {
+      "chargeLimit": {
+        "en": true,
+        "val": 0.0
+      },
+      "eeOpened": {
+        "en": true,
+        "val": 0.0
+      },
+      "theme": {
+        "en": true,
+        "val": 0.0
+      },
+      "tightenIcon": {
+        "en": true,
+        "val": 0.0
+      }
+    }
+  },
+  "keyboards": {
+    "keyboards": [],
+    "subGlobalEn": false
+  },
+  "logikeys": {
+    "logiKeybs": []
+  },
+  "mice": {
+    "mice": [
+      {
+        "OnboardProfileEn": false,
+        "disengagePoint": 4,
+        "dpiEn": false,
+        "dpiIndex": 0,
+        "featureCompleted": false,
+        "featureMap": {
+          "0": 9,
+          "1": 14,
+          "10": 8,
+          "2": 16,
+          "4": 13,
+          "5": 15
+        },
+        "haptic": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "hiResWheel": false,
+        "name": {
+          "product": "MX Master 3S",
+          "vendor": "Logitech"
+        },
+        "optCsr": {
+          "acc": [
+            68.75,
+            0.0
+          ],
+          "en": false,
+          "res": [
+            5.0,
+            25.0
+          ]
+        },
+        "pattern": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "patternEn": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "pressure": 4261,
+        "quirks": [
+          195,
+          true,
+          196,
+          true
+        ],
+        "ratchetMode": false,
+        "rpRate": 0,
+        "rpRateList": 8,
+        "torque": 50,
+        "twDirInv": [
+          {
+            "VScroll": {}
+          },
+          false,
+          {
+            "Zoom": {}
+          },
+          false,
+          {
+            "None": {}
+          },
+          false,
+          {
+            "Button": {}
+          },
+          false,
+          {
+            "HScroll": {}
+          },
+          false
+        ],
+        "twSpeed": [
+          {
+            "HScroll": {}
+          },
+          1.0,
+          {
+            "Zoom": {}
+          },
+          1.0,
+          {
+            "VScroll": {}
+          },
+          1.0,
+          {
+            "Button": {}
+          },
+          1.0,
+          {
+            "None": {}
+          },
+          1.0
+        ],
+        "twUsage": {
+          "HScroll": {}
+        }
+      }
+    ]
+  },
+  "version": "8568"
+}
