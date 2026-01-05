@@ -67,6 +67,7 @@
         pkgs.cmatrix
         pkgs.mactop
         pkgs.yt-dlp
+        pkgs.python3Packages.pymupdf
 
         # Fonts
         pkgs.nerd-fonts.jetbrains-mono
