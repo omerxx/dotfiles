@@ -80,6 +80,7 @@
         pkgs.flyctl
         pkgs.terraform
         pkgs.gh
+        pkgs.wrangler
       ];
       nix.enable = false;  # Let Determinate Systems manage Nix
       programs.zsh.enable = true;  # default shell on catalina
