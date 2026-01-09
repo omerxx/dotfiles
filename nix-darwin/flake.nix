@@ -75,8 +75,7 @@
         pkgs.pdfgrep
         pkgs.qpdf
         pkgs.gpgme
-        pkgs.weasyprint
-        pkgs.wkhtmltopdf                    # Required by pdfkit
+        pkgs.python3Packages.weasyprint     # HTML to PDF (replaces wkhtmltopdf)
         pkgs.python3Packages.pdfplumber
         pkgs.python3Packages.tabulate
         pkgs.python3Packages.pdfkit
