@@ -93,6 +93,7 @@
         pkgs.terraform
         pkgs.gh
         pkgs.wrangler
+        pkgs.supabase-cli
       ];
       nix.enable = false;  # Let Determinate Systems manage Nix
       programs.zsh.enable = true;  # default shell on catalina
