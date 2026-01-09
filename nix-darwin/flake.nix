@@ -243,6 +243,7 @@
         "productdevbook/tap/portkiller"
         "powershell"
         "warp"
+        "karabiner-elements"
       ];
 
       homebrew.brews = [
