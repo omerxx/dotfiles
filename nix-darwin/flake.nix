@@ -54,6 +54,7 @@
         pkgs.ngrok
 
         # Developer utilities
+        pkgs.coreutils                       # GNU coreutils (timeout, etc.)
         pkgs.playwright-driver
         pkgs.pv
         pkgs.watch
