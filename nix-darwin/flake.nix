@@ -69,6 +69,18 @@
         pkgs.yt-dlp
         pkgs.python3Packages.pymupdf
 
+        # PDF and Document Tools
+        pkgs.pandoc
+        pkgs.tesseract
+        pkgs.pdfgrep
+        pkgs.qpdf
+        pkgs.gpgme
+        pkgs.weasyprint
+        pkgs.wkhtmltopdf                    # Required by pdfkit
+        pkgs.python3Packages.pdfplumber
+        pkgs.python3Packages.tabulate
+        pkgs.python3Packages.pdfkit
+
         # Fonts
         pkgs.nerd-fonts.jetbrains-mono
 

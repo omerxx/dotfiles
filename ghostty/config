@@ -11,3 +11,8 @@ confirm-close-surface = false
 shell-integration-features = no-cursor
 auto-update-channel = tip
 scrollback-limit = 10000000
+
+# Word navigation with Ctrl+Arrow keys
+# These override macOS Mission Control shortcuts
+keybind = ctrl+left=text:\x1b[1;5D
+keybind = ctrl+right=text:\x1b[1;5C
