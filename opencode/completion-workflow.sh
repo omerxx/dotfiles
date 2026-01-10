@@ -7,16 +7,34 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
+workflow_log_file=""
+
+log_line() {
+  [[ -n "${workflow_log_file:-}" ]] || return 0
+
+  local level="${1:-INFO}"
+  shift || true
+  local msg="$*"
+
+  local ts=""
+  ts="$(date '+%Y-%m-%d %H:%M:%S' 2>/dev/null || true)"
+
+  printf '%s [%s] %s\n' "${ts:-}" "$level" "$msg" >>"$workflow_log_file" 2>/dev/null || true
+}
+
 ok() {
   echo -e "${GREEN}✓${NC} $1"
+  log_line INFO "$1"
 }
 
 warn() {
   echo -e "${YELLOW}!${NC} $1"
+  log_line WARN "$1"
 }
 
 err() {
   echo -e "${RED}✗${NC} $1" >&2
+  log_line ERROR "$1"
 }
 
 die() {
@@ -170,17 +188,61 @@ make_commit_message() {
   echo "${type}: ${desc}"
 }
 
+workflow_log_enabled="${OPENCODE_WORKFLOW_LOG:-1}"
+workflow_log_dir_default="${XDG_CACHE_HOME:-$HOME/.cache}/opencode/workflows"
+workflow_log_dir="${OPENCODE_WORKFLOW_LOG_DIR:-$workflow_log_dir_default}"
+workflow_log_file_override="${OPENCODE_WORKFLOW_LOG_FILE:-}"
+
+case "$workflow_log_enabled" in
+  0|false|no|off)
+    workflow_log_file=""
+    ;;
+  *)
+    ts="$(date +%Y%m%d-%H%M%S)"
+    safe_repo="$(basename "$repo_root")"
+    safe_branch="$current_branch"
+    safe_branch="${safe_branch//\//_}"
+    safe_branch="${safe_branch//:/_}"
+    safe_branch="${safe_branch// /_}"
+    workflow_log_file="${workflow_log_file_override:-$workflow_log_dir/${safe_repo}-${safe_branch}-${ts}.log}"
+    mkdir -p "$(dirname "$workflow_log_file")" 2>/dev/null || workflow_log_file=""
+    ;;
+esac
+
+if [[ -n "$workflow_log_file" ]]; then
+  ok "Log: $workflow_log_file"
+fi
+
 ok "Repo: $repo_root"
 ok "Branch: $current_branch (base: $base_branch)"
+ok "Workflow: stage → commit → rebase → push → PR → merge(wait) → cleanup"
 
 merge_wait_timeout="${OPENCODE_MERGE_WAIT_TIMEOUT:-7200}"
 merge_poll_interval="${OPENCODE_MERGE_POLL_INTERVAL:-10}"
+merge_heartbeat_interval="${OPENCODE_MERGE_HEARTBEAT_INTERVAL:-60}"
 merge_method_preference="${OPENCODE_MERGE_METHOD:-}"
+
+format_duration() {
+  local total="${1:-0}"
+  local h=$((total / 3600))
+  local m=$(((total % 3600) / 60))
+  local s=$((total % 60))
+  if (( h > 0 )); then
+    printf "%dh%02dm%02ds" "$h" "$m" "$s"
+    return 0
+  fi
+  if (( m > 0 )); then
+    printf "%dm%02ds" "$m" "$s"
+    return 0
+  fi
+  printf "%ds" "$s"
+}
 
 wait_for_pr_merge() {
   local pr="$1"
   local start_ts
   start_ts="$(date +%s)"
+  local last_heartbeat_ts="$start_ts"
 
   local last_status=""
   local status_line=""
@@ -216,9 +278,17 @@ wait_for_pr_merge() {
       last_status="$status_line"
     fi
 
+    local now_ts
+    now_ts="$(date +%s)"
+
+    if (( merge_heartbeat_interval > 0 && now_ts - last_heartbeat_ts >= merge_heartbeat_interval )); then
+      local elapsed
+      elapsed="$(format_duration $((now_ts - start_ts)))"
+      warn "Still waiting for merge (${elapsed} elapsed) ${pr_url:-}"
+      last_heartbeat_ts="$now_ts"
+    fi
+
     if [[ "$merge_wait_timeout" != "0" ]]; then
-      local now_ts
-      now_ts="$(date +%s)"
       if (( now_ts - start_ts > merge_wait_timeout )); then
         die "Timed out waiting for merge after ${merge_wait_timeout}s: ${pr_url:-#$pr}"
       fi
@@ -459,7 +529,8 @@ EOF
 fi
 
 [[ -n "$pr_number" ]] || die "Failed to determine PR number"
-ok "PR: #$pr_number"
+pr_url="$(gh_in_repo pr view "$pr_number" --json url --jq '.url' 2>/dev/null || true)"
+ok "PR: #$pr_number ${pr_url:-}"
 
 merge_method="$(select_merge_method "$merge_method_preference")"
 ok "Merge method: $merge_method"
@@ -477,9 +548,12 @@ if ! merge_output="$(gh_in_repo pr merge "$pr_number" "${merge_args[@]}" 2>&1)";
   merge_exit="$?"
 fi
 
+if [[ -n "$merge_output" ]]; then
+  echo "$merge_output"
+fi
+
 if [[ "$merge_exit" != "0" ]]; then
   warn "gh pr merge returned exit $merge_exit; continuing to verify via PR status"
-  echo "$merge_output" >&2
 fi
 
 wait_for_pr_merge "$pr_number"
