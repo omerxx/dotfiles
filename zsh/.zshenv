@@ -78,6 +78,8 @@ _opencode_is_subcommand() {
 }
 
 o() {
+  local original_dir="$PWD"
+
   if [[ "${1:-}" == "--here" ]]; then
     shift
     _opencode_run "$@"
@@ -103,8 +105,9 @@ o() {
   fi
 
   local session_script="$HOME/.config/opencode/worktree-session.sh"
+  local branch_used=""
   if [[ -r "$session_script" ]]; then
-    local out target_dir branch_used
+    local out target_dir
     out="$(bash "$session_script" "$base_dir" "$branch")" || return $?
     IFS=$'\t' read -r target_dir branch_used <<<"$out"
     if [[ -n "${target_dir:-}" && -d "${target_dir:-}" ]]; then
@@ -114,5 +117,33 @@ o() {
     cd "$base_dir" || return $?
   fi
 
+  local repo_root=""
+  repo_root="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null || true)"
+
   _opencode_run "$@"
+  local opencode_exit="$?"
+
+  if [[ "$opencode_exit" -ne 0 ]]; then
+    return "$opencode_exit"
+  fi
+
+  if [[ -z "$branch_used" || -z "$repo_root" ]]; then
+    return 0
+  fi
+
+  local completion_script="$HOME/.config/opencode/completion-workflow.sh"
+  if [[ ! -r "$completion_script" ]]; then
+    echo "OpenCode completion script missing: $completion_script" >&2
+    return 0
+  fi
+
+  cd "$original_dir" || return 0
+
+  if ! bash "$completion_script" --repo "$repo_root"; then
+    local completion_exit="$?"
+    if [[ -d "$repo_root" ]]; then
+      cd "$repo_root" || true
+    fi
+    return "$completion_exit"
+  fi
 }

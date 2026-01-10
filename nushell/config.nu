@@ -956,6 +956,8 @@ def _o_set_window_title [title: string] {
 }
 
 def --wrapped o [...args: string] {
+    let original_dir = (pwd)
+
     if ($args | is-not-empty) and (($args | get 0) == "--here") {
         _o_set_window_title (pwd | path basename)
         _o_run ...($args | skip 1)
@@ -975,6 +977,7 @@ def --wrapped o [...args: string] {
     mut session_name = ""
     mut base_dir = (pwd)
     mut remaining = $args
+    mut worktree_branch = ""
 
     if ($remaining | is-not-empty) and (not (($remaining | get 0) | str starts-with "-")) {
         let candidate = ($remaining | get 0)
@@ -1000,7 +1003,9 @@ def --wrapped o [...args: string] {
         let out = (^bash $session_script $base_dir $branch | str trim)
         let parts = ($out | split row "\t")
         let target_dir = ($parts | get 0)
-        $session_name = ($parts | get -o 1 | default "")
+        let returned_branch = ($parts | get -o 1 | default "")
+        $session_name = $returned_branch
+        $worktree_branch = $returned_branch
         if ($target_dir | path exists) {
             cd $target_dir
         } else if ($base_dir | path exists) {
@@ -1019,7 +1024,38 @@ def --wrapped o [...args: string] {
     }
 
     _o_set_window_title $session_name
+
+    let repo_root = if ($worktree_branch | is-not-empty) and (which git | is-not-empty) {
+        let root = (do { ^git rev-parse --show-toplevel } | complete)
+        if $root.exit_code == 0 { $root.stdout | str trim } else { "" }
+    } else {
+        ""
+    }
+
     _o_run ...$remaining
+    let opencode_exit = $env.LAST_EXIT_CODE
+    if $opencode_exit != 0 {
+        return
+    }
+
+    if ($worktree_branch | is-empty) or ($repo_root | is-empty) {
+        return
+    }
+
+    let completion_script = ($nu.home-path | path join ".config" "opencode" "completion-workflow.sh")
+    if not ($completion_script | path exists) {
+        print $"(ansi yellow)OpenCode completion script missing: ($completion_script)(ansi reset)"
+        return
+    }
+
+    cd $original_dir
+    let completion = (do { ^bash $completion_script --repo $repo_root } | complete)
+    if $completion.exit_code != 0 {
+        print $"(ansi red)OpenCode completion workflow failed (exit ($completion.exit_code))(ansi reset)"
+        if ($completion.stderr | str trim | str length) > 0 {
+            print ($completion.stderr | str trim)
+        }
+    }
 }
 alias gi = gitingest . --output -
 
