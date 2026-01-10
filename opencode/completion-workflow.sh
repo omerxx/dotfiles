@@ -383,6 +383,7 @@ wait_for_pr_merge() {
 
   local last_status=""
   local status_line=""
+  local merge_state_norm=""
 
   while true; do
     local pr_info=""
@@ -398,6 +399,11 @@ wait_for_pr_merge() {
 
     if [[ "$pr_is_draft" == "true" ]]; then
       die "PR is a draft; cannot merge: ${pr_url:-#$pr}"
+    fi
+
+    merge_state_norm="$(echo "${pr_merge_state:-}" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]' || true)"
+    if [[ "$merge_state_norm" == "DIRTY" ]]; then
+      die "PR has merge conflicts; cannot auto-merge: ${pr_url:-#$pr}"
     fi
 
     if [[ "$pr_state" == "MERGED" && -n "$pr_merged_at" ]]; then
@@ -525,7 +531,19 @@ if git -C "$repo_root" remote get-url "$remote" >/dev/null 2>&1; then
   git -C "$repo_root" fetch "$remote" "$base_branch"
 
   ok "Rebasing onto $remote/$base_branch"
-  git -C "$repo_root" rebase "$remote/$base_branch"
+  if ! git -C "$repo_root" rebase "$remote/$base_branch"; then
+    warn "Rebase failed; aborting rebase and continuing without rebase"
+
+    if ! git -C "$repo_root" rebase --abort; then
+      die "Failed to abort rebase; manual intervention required in: $repo_root"
+    fi
+
+    actual_branch="$(git -C "$repo_root" rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
+    if [[ -z "$actual_branch" || "$actual_branch" == "HEAD" || "$actual_branch" != "$current_branch" ]]; then
+      warn "Returning to branch: $current_branch"
+      git -C "$repo_root" checkout "$current_branch" >/dev/null 2>&1 || die "Failed to return to branch: $current_branch"
+    fi
+  fi
 else
   warn "Remote '$remote' not found; skipping fetch/rebase"
 fi

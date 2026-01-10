@@ -77,6 +77,11 @@ If the configured remote exists:
 
 If the remote is missing, it skips fetch/rebase/push.
 
+If the rebase fails (typically due to conflicts), the workflow:
+
+- Aborts the rebase (`git rebase --abort`) so the worktree isn’t left in a broken rebase state
+- Continues without rebasing (it will still push the branch and open a PR)
+
 ## PR Creation
 
 Requires GitHub CLI: `gh`.
@@ -126,6 +131,7 @@ To support required checks and merge queues, the script polls `gh pr view` until
 Failure conditions:
 
 - PR is a draft → fail
+- PR has merge conflicts (`mergeStateStatus=DIRTY`) → fail fast (automation can’t resolve conflicts)
 - PR closes without merge → fail
 - Timeout exceeded → fail
 
