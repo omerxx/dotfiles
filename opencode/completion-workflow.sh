@@ -173,6 +173,60 @@ make_commit_message() {
 ok "Repo: $repo_root"
 ok "Branch: $current_branch (base: $base_branch)"
 
+merge_wait_timeout="${OPENCODE_MERGE_WAIT_TIMEOUT:-7200}"
+merge_poll_interval="${OPENCODE_MERGE_POLL_INTERVAL:-10}"
+
+wait_for_pr_merge() {
+  local pr="$1"
+  local start_ts
+  start_ts="$(date +%s)"
+
+  local last_status=""
+  local status_line=""
+
+  while true; do
+    local pr_info=""
+    pr_info="$(gh_in_repo pr view "$pr" --json state,mergedAt,mergeStateStatus,reviewDecision,isDraft,url --jq '[.state, (.mergedAt // ""), (.mergeStateStatus // ""), (.reviewDecision // ""), (.isDraft|tostring), .url] | @tsv' 2>/dev/null || true)"
+    if [[ -z "$pr_info" ]]; then
+      warn "Unable to fetch PR state; retrying..."
+      sleep "$merge_poll_interval"
+      continue
+    fi
+
+    local pr_state pr_merged_at pr_merge_state pr_review_decision pr_is_draft pr_url
+    IFS=$'\t' read -r pr_state pr_merged_at pr_merge_state pr_review_decision pr_is_draft pr_url <<<"$pr_info"
+
+    if [[ "$pr_is_draft" == "true" ]]; then
+      die "PR is a draft; cannot merge: ${pr_url:-#$pr}"
+    fi
+
+    if [[ "$pr_state" == "MERGED" && -n "$pr_merged_at" ]]; then
+      ok "Merge verified (state=$pr_state mergedAt=$pr_merged_at)"
+      return 0
+    fi
+
+    if [[ "$pr_state" == "CLOSED" ]]; then
+      die "PR closed without merge: ${pr_url:-#$pr}"
+    fi
+
+    status_line="state=$pr_state mergeState=${pr_merge_state:-?} review=${pr_review_decision:-?}"
+    if [[ "$status_line" != "$last_status" ]]; then
+      warn "Waiting for merge ($status_line) ${pr_url:-}"
+      last_status="$status_line"
+    fi
+
+    if [[ "$merge_wait_timeout" != "0" ]]; then
+      local now_ts
+      now_ts="$(date +%s)"
+      if (( now_ts - start_ts > merge_wait_timeout )); then
+        die "Timed out waiting for merge after ${merge_wait_timeout}s: ${pr_url:-#$pr}"
+      fi
+    fi
+
+    sleep "$merge_poll_interval"
+  done
+}
+
 find_main_worktree() {
   local repo="$1"
   local base="$2"
@@ -323,22 +377,16 @@ ok "PR: #$pr_number"
 
 merge_output=""
 merge_exit="0"
-if ! merge_output="$(gh_in_repo pr merge "$pr_number" --squash 2>&1)"; then
+if ! merge_output="$(gh_in_repo pr merge "$pr_number" --squash --auto 2>&1)"; then
   merge_exit="$?"
 fi
 
-pr_state="$(gh_in_repo pr view "$pr_number" --json state --jq '.state' 2>/dev/null || true)"
-pr_merged_at="$(gh_in_repo pr view "$pr_number" --json mergedAt --jq '.mergedAt' 2>/dev/null || true)"
-
-if [[ "$pr_state" != "MERGED" || -z "$pr_merged_at" || "$pr_merged_at" == "null" ]]; then
-  if [[ "$merge_exit" != "0" ]]; then
-    err "gh pr merge failed (exit $merge_exit):"
-    echo "$merge_output" >&2
-  fi
-  die "PR not merged (state=$pr_state mergedAt=$pr_merged_at)"
+if [[ "$merge_exit" != "0" ]]; then
+  warn "gh pr merge returned exit $merge_exit; continuing to verify via PR status"
+  echo "$merge_output" >&2
 fi
 
-ok "Merge verified (state=$pr_state mergedAt=$pr_merged_at)"
+wait_for_pr_merge "$pr_number"
 
 head_ref="$(gh_in_repo pr view "$pr_number" --json headRefName --jq '.headRefName' 2>/dev/null || true)"
 [[ -n "$head_ref" ]] || head_ref="$current_branch"
