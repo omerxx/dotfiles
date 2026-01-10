@@ -939,8 +939,25 @@ def _o_is_subcommand [cmd: string] {
     ]
 }
 
+def _o_set_window_title [title: string] {
+    if not (is-terminal --stdout) {
+        return
+    }
+
+    let esc = (char --integer 27)
+    let bel = (char bel)
+    let safe_title = (
+        $title
+        | str replace --all "\n" " "
+        | str replace --all "\r" " "
+    )
+
+    print --no-newline --raw $"($esc)]0;($safe_title)($bel)"
+}
+
 def --wrapped o [...args: string] {
     if ($args | is-not-empty) and (($args | get 0) == "--here") {
+        _o_set_window_title (pwd | path basename)
         _o_run ...($args | skip 1)
         return
     }
@@ -955,6 +972,7 @@ def --wrapped o [...args: string] {
         return
     }
 
+    mut session_name = ""
     mut base_dir = (pwd)
     mut remaining = $args
 
@@ -982,6 +1000,7 @@ def --wrapped o [...args: string] {
         let out = (^bash $session_script $base_dir $branch | str trim)
         let parts = ($out | split row "\t")
         let target_dir = ($parts | get 0)
+        $session_name = ($parts | get -o 1 | default "")
         if ($target_dir | path exists) {
             cd $target_dir
         } else if ($base_dir | path exists) {
@@ -991,6 +1010,15 @@ def --wrapped o [...args: string] {
         cd $base_dir
     }
 
+    if ($session_name | is-empty) and ($branch | is-not-empty) {
+        $session_name = $branch
+    }
+
+    if ($session_name | is-empty) {
+        $session_name = (pwd | path basename)
+    }
+
+    _o_set_window_title $session_name
     _o_run ...$remaining
 }
 alias gi = gitingest . --output -
