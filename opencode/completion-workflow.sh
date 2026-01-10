@@ -175,6 +175,7 @@ ok "Branch: $current_branch (base: $base_branch)"
 
 merge_wait_timeout="${OPENCODE_MERGE_WAIT_TIMEOUT:-7200}"
 merge_poll_interval="${OPENCODE_MERGE_POLL_INTERVAL:-10}"
+merge_method_preference="${OPENCODE_MERGE_METHOD:-}"
 
 wait_for_pr_merge() {
   local pr="$1"
@@ -352,6 +353,91 @@ gh_in_repo() {
   (cd "$repo_root" && gh "$@")
 }
 
+repo_merge_settings() {
+  gh_in_repo repo view --json rebaseMergeAllowed,squashMergeAllowed,mergeCommitAllowed,viewerDefaultMergeMethod --jq \
+    '[.rebaseMergeAllowed, .squashMergeAllowed, .mergeCommitAllowed, (.viewerDefaultMergeMethod // "")] | @tsv' 2>/dev/null || true
+}
+
+normalize_merge_method() {
+  local method="${1:-}"
+  method="$(echo "$method" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')"
+  case "$method" in
+    rebase|squash|merge|"") echo "$method" ;;
+    default) echo "" ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+select_merge_method() {
+  local requested_raw="${1:-}"
+  local requested=""
+  requested="$(normalize_merge_method "$requested_raw" 2>/dev/null || true)"
+  if [[ -n "$requested_raw" && -z "$requested" && "$requested_raw" != "default" ]]; then
+    die "Invalid OPENCODE_MERGE_METHOD: $requested_raw (use rebase|squash|merge|default)"
+  fi
+
+  local settings
+  settings="$(repo_merge_settings)"
+  if [[ -z "$settings" ]]; then
+    if [[ -n "$requested" ]]; then
+      echo "$requested"
+      return 0
+    fi
+    echo "rebase"
+    return 0
+  fi
+
+  local rebase_allowed squash_allowed merge_allowed viewer_default
+  IFS=$'\t' read -r rebase_allowed squash_allowed merge_allowed viewer_default <<<"$settings"
+
+  local default_norm=""
+  case "${viewer_default:-}" in
+    REBASE) default_norm="rebase" ;;
+    SQUASH) default_norm="squash" ;;
+    MERGE) default_norm="merge" ;;
+    *) default_norm="" ;;
+  esac
+
+  method_allowed() {
+    case "$1" in
+      rebase) [[ "$rebase_allowed" == "true" ]] ;;
+      squash) [[ "$squash_allowed" == "true" ]] ;;
+      merge) [[ "$merge_allowed" == "true" ]] ;;
+      *) return 1 ;;
+    esac
+  }
+
+  if [[ -n "$requested" ]]; then
+    method_allowed "$requested" || die "Merge method '$requested' is not allowed for this repo"
+    echo "$requested"
+    return 0
+  fi
+
+  if method_allowed "rebase"; then
+    echo "rebase"
+    return 0
+  fi
+
+  if [[ -n "$default_norm" ]] && method_allowed "$default_norm"; then
+    echo "$default_norm"
+    return 0
+  fi
+
+  if method_allowed "squash"; then
+    echo "squash"
+    return 0
+  fi
+
+  if method_allowed "merge"; then
+    echo "merge"
+    return 0
+  fi
+
+  die "No GitHub merge methods are allowed for this repo"
+}
+
 pr_number="$(gh_in_repo pr view --json number --jq '.number' 2>/dev/null || true)"
 if [[ -z "$pr_number" ]]; then
   pr_number="$(gh_in_repo pr list --head "$current_branch" --state open --json number --jq '.[0].number' 2>/dev/null || true)"
@@ -375,9 +461,19 @@ fi
 [[ -n "$pr_number" ]] || die "Failed to determine PR number"
 ok "PR: #$pr_number"
 
+merge_method="$(select_merge_method "$merge_method_preference")"
+ok "Merge method: $merge_method"
+
+merge_args=(--auto)
+case "$merge_method" in
+  rebase) merge_args+=(--rebase) ;;
+  squash) merge_args+=(--squash) ;;
+  merge) merge_args+=(--merge) ;;
+esac
+
 merge_output=""
 merge_exit="0"
-if ! merge_output="$(gh_in_repo pr merge "$pr_number" --squash --auto 2>&1)"; then
+if ! merge_output="$(gh_in_repo pr merge "$pr_number" "${merge_args[@]}" 2>&1)"; then
   merge_exit="$?"
 fi
 
