@@ -908,13 +908,90 @@ alias v = nvim
 alias hms = /nix/store/6kc5srg83nkyg21am089xx7pvq44kn2c-home-manager/bin/home-manager switch
 alias as = aerospace
 alias asr = atuin scripts run
-def --wrapped o [...args: string] {
+def --wrapped _o_run [...args: string] {
     let profiles_dir = ($nu.home-path | path join ".config" "opencode" "profiles")
     if (which ocx | is-not-empty) and ($profiles_dir | path exists) {
         ^ocx ghost opencode ...$args
     } else {
         ^opencode ...$args
     }
+}
+
+def _o_is_subcommand [cmd: string] {
+    $cmd in [
+        "completion"
+        "acp"
+        "attach"
+        "run"
+        "auth"
+        "agent"
+        "upgrade"
+        "uninstall"
+        "serve"
+        "web"
+        "models"
+        "stats"
+        "export"
+        "import"
+        "github"
+        "pr"
+        "session"
+    ]
+}
+
+def --wrapped o [...args: string] {
+    if ($args | is-not-empty) and (($args | get 0) == "--here") {
+        _o_run ...($args | skip 1)
+        return
+    }
+
+    if ($args | is-not-empty) and (_o_is_subcommand ($args | get 0)) {
+        _o_run ...$args
+        return
+    }
+
+    if ("--help" in $args) or ("-h" in $args) or ("--version" in $args) or ("-v" in $args) {
+        _o_run ...$args
+        return
+    }
+
+    mut base_dir = (pwd)
+    mut remaining = $args
+
+    if ($remaining | is-not-empty) and (not (($remaining | get 0) | str starts-with "-")) {
+        let candidate = ($remaining | get 0)
+        let is_dir = ($candidate | path type) == "dir"
+        if $is_dir {
+            $base_dir = $candidate
+            $remaining = ($remaining | skip 1)
+        }
+    }
+
+    mut branch = ""
+    if ($remaining | is-not-empty) and (not (($remaining | get 0) | str starts-with "-")) {
+        let candidate = ($remaining | get 0)
+        let is_dir = ($candidate | path type) == "dir"
+        if (not $is_dir) and (not (_o_is_subcommand $candidate)) {
+            $branch = $candidate
+            $remaining = ($remaining | skip 1)
+        }
+    }
+
+    let session_script = ($nu.home-path | path join ".config" "opencode" "worktree-session.sh")
+    if ($session_script | path exists) {
+        let out = (^bash $session_script $base_dir $branch | str trim)
+        let parts = ($out | split row "\t")
+        let target_dir = ($parts | get 0)
+        if ($target_dir | path exists) {
+            cd $target_dir
+        } else if ($base_dir | path exists) {
+            cd $base_dir
+        }
+    } else if ($base_dir | path exists) {
+        cd $base_dir
+    }
+
+    _o_run ...$remaining
 }
 alias gi = gitingest . --output -
 

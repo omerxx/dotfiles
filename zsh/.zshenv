@@ -58,12 +58,61 @@ unset OPENCODE_BIN_PATH
 # CLI Proxy API endpoint
 export CLIPROXYAPI_ENDPOINT="http://localhost:8317/v1"
 
-# OpenCode launcher: use OCX ghost mode when available/configured.
-o() {
+# OpenCode launcher: default to isolated git worktrees (fast parallel sessions).
+_opencode_run() {
   if command -v ocx >/dev/null 2>&1 && [[ -d "$HOME/.config/opencode/profiles" ]]; then
     ocx ghost opencode "$@"
     return $?
   fi
 
   opencode "$@"
+}
+
+_opencode_is_subcommand() {
+  case "${1:-}" in
+    completion|acp|attach|run|auth|agent|upgrade|uninstall|serve|web|models|stats|export|import|github|pr|session)
+      return 0
+      ;;
+  esac
+  return 1
+}
+
+o() {
+  if [[ "${1:-}" == "--here" ]]; then
+    shift
+    _opencode_run "$@"
+    return $?
+  fi
+
+  # Don't spawn worktrees for subcommands/help/version.
+  if _opencode_is_subcommand "${1:-}" || [[ " $* " == *" --help "* || " $* " == *" -h "* || " $* " == *" --version "* || " $* " == *" -v "* ]]; then
+    _opencode_run "$@"
+    return $?
+  fi
+
+  local base_dir="$PWD"
+  if [[ $# -gt 0 && "${1:-}" != -* && -d "${1:-}" ]]; then
+    base_dir="${1}"
+    shift
+  fi
+
+  local branch=""
+  if [[ $# -gt 0 && "${1:-}" != -* && ! -d "${1:-}" ]] && ! _opencode_is_subcommand "${1:-}"; then
+    branch="${1}"
+    shift
+  fi
+
+  local session_script="$HOME/.config/opencode/worktree-session.sh"
+  if [[ -r "$session_script" ]]; then
+    local out target_dir branch_used
+    out="$(bash "$session_script" "$base_dir" "$branch")" || return $?
+    IFS=$'\t' read -r target_dir branch_used <<<"$out"
+    if [[ -n "${target_dir:-}" && -d "${target_dir:-}" ]]; then
+      cd "$target_dir" || return $?
+    fi
+  else
+    cd "$base_dir" || return $?
+  fi
+
+  _opencode_run "$@"
 }
