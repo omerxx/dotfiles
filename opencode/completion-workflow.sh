@@ -120,24 +120,47 @@ commit_type_from_branch() {
   esac
 }
 
+is_opencode_session_branch() {
+  case "${1:-}" in
+    oc/*|oc-*|oc_*)
+      return 0
+      ;;
+  esac
+  return 1
+}
+
 commit_type_from_files() {
   local repo="$1"
-  local files
-  files="$(git -C "$repo" diff --cached --name-only | tr '\n' ' ')"
-  [[ -n "$files" ]] || return 1
+  local has_files="0"
+  local all_docs="1"
 
-  if [[ "$files" == *".md "* || "$files" == *".md" || "$files" == *".txt "* || "$files" == *".txt" ]]; then
-    if git -C "$repo" diff --cached --name-only | rg -qv '\.(md|txt)$'; then
-      return 1
-    fi
+  while IFS= read -r file; do
+    [[ -n "$file" ]] || continue
+    has_files="1"
+
+    case "$file" in
+      *.md|*.txt) ;;
+      *)
+        all_docs="0"
+        ;;
+    esac
+  done < <(git -C "$repo" diff --cached --name-only 2>/dev/null || true)
+
+  [[ "$has_files" == "1" ]] || return 1
+  if [[ "$all_docs" == "1" ]]; then
     echo "docs"
     return 0
   fi
 
-  if git -C "$repo" diff --cached --name-only | rg -qi '(^|/)(__tests__|tests?|specs?)(/|$)|(\.spec\.|\.test\.)'; then
-    echo "test"
-    return 0
-  fi
+  while IFS= read -r file; do
+    [[ -n "$file" ]] || continue
+    case "$file" in
+      */__tests__/*|*/test/*|*/tests/*|*/spec/*|*/specs/*|*.spec.*|*.test.*)
+        echo "test"
+        return 0
+        ;;
+    esac
+  done < <(git -C "$repo" diff --cached --name-only 2>/dev/null || true)
 
   return 1
 }
@@ -151,11 +174,6 @@ commit_desc_from_branch() {
   desc="${desc#${type}-}"
   desc="${desc#${type}_}"
 
-  if [[ "$branch" == oc/* || "$branch" == oc-* || "$branch" == oc_* ]]; then
-    echo "opencode session"
-    return 0
-  fi
-
   desc="${desc//\// }"
   desc="${desc//-/ }"
   desc="${desc//_/ }"
@@ -165,11 +183,110 @@ commit_desc_from_branch() {
   echo "$desc"
 }
 
-ensure_rg() {
-  if command -v rg >/dev/null 2>&1; then
+repo_has_code_changes() {
+  local repo="$1"
+
+  while IFS= read -r file; do
+    [[ -n "$file" ]] || continue
+    case "$file" in
+      *.ts|*.tsx|*.js|*.jsx|*.mjs|*.cjs|*.py|*.go|*.rs|*.java|*.kt|*.swift|*.c|*.cc|*.cpp|*.h|*.hpp|*.rb|*.php|*.cs|*.lua|*.sh|*.sql|*.proto|*.graphql|*.gql|Dockerfile|Makefile)
+        return 0
+        ;;
+    esac
+  done < <(git -C "$repo" diff --cached --name-only 2>/dev/null || true)
+
+  return 1
+}
+
+shorten_path_for_desc() {
+  local raw="${1:-}"
+  [[ -n "$raw" ]] || return 1
+
+  local file="$raw"
+  if [[ "$file" == *"=>"* ]]; then
+    file="$(echo "$file" | sed 's/.*=> //')"
+  fi
+
+  local base="${file##*/}"
+  local parent="${file%/*}"
+  if [[ "$parent" != "$file" && -n "$parent" ]]; then
+    local last_dir="${parent##*/}"
+    echo "${last_dir}/${base}"
     return 0
   fi
-  return 1
+
+  echo "$base"
+}
+
+primary_change_target() {
+  local repo="$1"
+
+  local top
+  top="$(git -C "$repo" diff --cached --dirstat=files,0 2>/dev/null | head -n 1 | sed -E 's/^[[:space:]]*[0-9.]+%[[:space:]]+//' || true)"
+  top="${top%/}"
+  if [[ -n "$top" && "$top" != "." ]]; then
+    echo "$top"
+    return 0
+  fi
+
+  local best_file=""
+  best_file="$(git -C "$repo" diff --cached --numstat 2>/dev/null | awk -F'\t' '
+    $1 ~ /^[0-9]+$/ && $2 ~ /^[0-9]+$/ {
+      score = $1 + $2
+      if (score > max) { max = score; best = $3 }
+    }
+    END { print best }
+  ' | sed 's/[[:space:]]*$//' || true)"
+
+  if [[ -n "$best_file" ]]; then
+    shorten_path_for_desc "$best_file"
+    return 0
+  fi
+
+  echo "changes"
+}
+
+commit_desc_from_diff() {
+  local repo="$1"
+
+  local count="0"
+  local only_file=""
+  while IFS= read -r file; do
+    [[ -n "$file" ]] || continue
+    count="$((count + 1))"
+    only_file="$file"
+    if [[ "$count" -gt 1 ]]; then
+      break
+    fi
+  done < <(git -C "$repo" diff --cached --name-only 2>/dev/null || true)
+
+  local verb="update"
+  local added="0"
+  local deleted="0"
+  local other="0"
+  while IFS=$'\t' read -r status _rest; do
+    [[ -n "$status" ]] || continue
+    case "$status" in
+      A*) added="1" ;;
+      D*) deleted="1" ;;
+      *) other="1" ;;
+    esac
+  done < <(git -C "$repo" diff --cached --name-status 2>/dev/null || true)
+
+  if [[ "$added" == "1" && "$deleted" == "0" && "$other" == "0" ]]; then
+    verb="add"
+  elif [[ "$deleted" == "1" && "$added" == "0" && "$other" == "0" ]]; then
+    verb="remove"
+  fi
+
+  if [[ "$count" == "1" ]]; then
+    echo "$verb $(shorten_path_for_desc "$only_file")"
+    return 0
+  fi
+
+  local target
+  target="$(primary_change_target "$repo")"
+  echo "$verb $target"
 }
 
 make_commit_message() {
@@ -177,15 +294,35 @@ make_commit_message() {
   local branch="$2"
 
   local type=""
-  if ensure_rg; then
-    type="$(commit_type_from_files "$repo" || true)"
+  type="$(commit_type_from_files "$repo" || true)"
+  if [[ -z "$type" ]]; then
+    if is_opencode_session_branch "$branch"; then
+      if repo_has_code_changes "$repo"; then
+        type="feat"
+      else
+        type="chore"
+      fi
+    else
+      type="$(commit_type_from_branch "$branch")"
+    fi
   fi
-  [[ -n "$type" ]] || type="$(commit_type_from_branch "$branch")"
 
   local desc
-  desc="$(commit_desc_from_branch "$branch" "$type")"
+  if is_opencode_session_branch "$branch"; then
+    desc="$(commit_desc_from_diff "$repo")"
+  else
+    desc="$(commit_desc_from_branch "$branch" "$type")"
+  fi
 
-  echo "${type}: ${desc}"
+  local msg="${type}: ${desc}"
+  msg="${msg%.}"
+  msg="$(echo "$msg" | tr -s ' ' | sed 's/^ *//; s/ *$//')"
+  if ((${#msg} > 72)); then
+    msg="${msg:0:72}"
+    msg="${msg% }"
+  fi
+
+  echo "$msg"
 }
 
 workflow_log_enabled="${OPENCODE_WORKFLOW_LOG:-1}"
