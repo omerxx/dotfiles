@@ -240,6 +240,10 @@
         "productdevbook/tap"
         "steipete/tap"
         "tw93/tap"
+        {
+          name = "chmouel/lazyworktree";
+          clone_target = "https://github.com/chmouel/lazyworktree";
+        }
       ];
 
       homebrew.casks = [
@@ -281,6 +285,7 @@
         "powershell"
         "warp"
         "karabiner-elements"
+        "chmouel/lazyworktree/lazyworktree"
       ];
 
       homebrew.brews = [

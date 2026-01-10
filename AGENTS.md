@@ -206,6 +206,46 @@ key = 'value'
    - Nix package: `pkgs.package-name` in `environment.systemPackages`
    - Homebrew: String in `homebrew.brews` or `homebrew.casks`
 2. Run `./setup.sh --update`
+3. **Verify CLI availability** in both shells:
+   ```bash
+   zsh -c 'command -v <tool>'
+   nu -c 'which <tool>'
+   ```
+
+### Adding Homebrew Taps with Custom URLs
+
+Some casks require taps with custom Git URLs. Use this format in `homebrew.taps`:
+
+```nix
+homebrew.taps = [
+  "standard/tap"                    # Standard tap (GitHub shorthand)
+  {
+    name = "owner/tap";             # Tap name
+    clone_target = "https://...";   # Custom Git URL
+  }
+];
+```
+
+Then reference the cask as `"owner/tap/cask-name"` in `homebrew.casks`.
+
+### Binary Location Reference
+
+After `./setup.sh --update`, verify where tools are installed:
+
+| Install Method | Binary Location | Already in PATH? |
+|----------------|-----------------|------------------|
+| Nix package | `/run/current-system/sw/bin/` | ✅ Yes |
+| Homebrew brew | `/opt/homebrew/bin/` | ✅ Yes |
+| Homebrew cask (with `binary`) | `/opt/homebrew/bin/` | ✅ Yes |
+| Homebrew cask (.app bundle) | `/Applications/*.app/Contents/MacOS/` | ❌ No - add to PATH |
+| npm global | `~/.npm-global/bin/` | ✅ Yes |
+| bun global | `~/.bun/bin/` | ✅ Yes |
+| cargo | `~/.cargo/bin/` | ✅ Yes |
+| go install | `~/go/bin/` | ✅ Yes |
+
+**If a cask installs a `.app` bundle with a CLI**, add the path to:
+- `nushell/env.nu` (in the PATH append block)
+- `zsh/.zshenv` (in the path_additions array)
 
 ### Version-Pinned Homebrew Cask
 
