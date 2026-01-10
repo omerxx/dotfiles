@@ -3,7 +3,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3000;
+const PORT = 3010;
 const SESSIONS_FILE = path.join(process.env.HOME, '.local/share/openportal/sessions.json');
 const HOSTNAME = process.env.HOSTNAME || 'm4-mini.tail09133d.ts.net';
 

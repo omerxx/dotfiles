@@ -321,7 +321,7 @@ OpenPortal enables remote access to OpenCode sessions from any device via Tailsc
 
 ### How It Works
 
-1. **Dashboard Service**: Runs at startup via launchd, accessible at `http://m4-mini.tail09133d.ts.net:3000`
+1. **Dashboard Service**: Runs at startup via launchd, accessible at `http://m4-mini.tail09133d.ts.net:3010`
 2. **Session Management**: Each project directory gets a unique port pair (web + OpenCode)
 3. **Session Persistence**: Sessions tracked in `~/.local/share/openportal/sessions.json`
 

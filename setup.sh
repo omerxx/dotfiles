@@ -541,7 +541,7 @@ setup_openportal_dashboard() {
     cp "$LAUNCHAGENT_SOURCE" "$LAUNCHAGENT_DEST"
     launchctl unload "$LAUNCHAGENT_DEST" 2>/dev/null || true
     launchctl load "$LAUNCHAGENT_DEST"
-    echo -e "  ${GREEN}✓${NC} Dashboard LaunchAgent loaded (port 3000)"
+    echo -e "  ${GREEN}✓${NC} Dashboard LaunchAgent loaded (port 3010)"
   else
     echo -e "  ${YELLOW}!${NC} LaunchAgent plist not found"
   fi
