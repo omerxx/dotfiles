@@ -908,7 +908,14 @@ alias v = nvim
 alias hms = /nix/store/6kc5srg83nkyg21am089xx7pvq44kn2c-home-manager/bin/home-manager switch
 alias as = aerospace
 alias asr = atuin scripts run
-alias o = opencode
+def --wrapped o [...args: string] {
+    let profiles_dir = ($nu.home-path | path join ".config" "opencode" "profiles")
+    if (which ocx | is-not-empty) and ($profiles_dir | path exists) {
+        ^ocx ghost opencode ...$args
+    } else {
+        ^opencode ...$args
+    }
+}
 alias gi = gitingest . --output -
 
 def oo [] {

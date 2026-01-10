@@ -57,3 +57,13 @@ unset OPENCODE_BIN_PATH
 
 # CLI Proxy API endpoint
 export CLIPROXYAPI_ENDPOINT="http://localhost:8317/v1"
+
+# OpenCode launcher: use OCX ghost mode when available/configured.
+o() {
+  if command -v ocx >/dev/null 2>&1 && [[ -d "$HOME/.config/opencode/profiles" ]]; then
+    ocx ghost opencode "$@"
+    return $?
+  fi
+
+  opencode "$@"
+}
