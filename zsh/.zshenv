@@ -123,7 +123,7 @@ o() {
   _opencode_run "$@"
   local opencode_exit="$?"
 
-  if [[ "$opencode_exit" -ne 0 ]]; then
+  if [[ "$opencode_exit" -ne 0 && "$opencode_exit" -ne 130 ]]; then
     return "$opencode_exit"
   fi
 
@@ -131,19 +131,13 @@ o() {
     return 0
   fi
 
-  local completion_script="$HOME/.config/opencode/completion-workflow.sh"
-  if [[ ! -r "$completion_script" ]]; then
-    echo "OpenCode completion script missing: $completion_script" >&2
+  local start_script="$HOME/.config/opencode/completion-workflow-start.sh"
+  if [[ ! -r "$start_script" ]]; then
+    echo "OpenCode completion start script missing: $start_script" >&2
     return 0
   fi
 
   cd "$original_dir" || return 0
 
-  if ! bash "$completion_script" --repo "$repo_root"; then
-    local completion_exit="$?"
-    if [[ -d "$repo_root" ]]; then
-      cd "$repo_root" || true
-    fi
-    return "$completion_exit"
-  fi
+  bash "$start_script" --repo "$repo_root" >/dev/null
 }

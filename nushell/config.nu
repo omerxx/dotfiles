@@ -1034,7 +1034,7 @@ def --wrapped o [...args: string] {
 
     _o_run ...$remaining
     let opencode_exit = $env.LAST_EXIT_CODE
-    if $opencode_exit != 0 {
+    if $opencode_exit != 0 and $opencode_exit != 130 {
         return
     }
 
@@ -1042,20 +1042,14 @@ def --wrapped o [...args: string] {
         return
     }
 
-    let completion_script = ($nu.home-path | path join ".config" "opencode" "completion-workflow.sh")
-    if not ($completion_script | path exists) {
-        print $"(ansi yellow)OpenCode completion script missing: ($completion_script)(ansi reset)"
+    let start_script = ($nu.home-path | path join ".config" "opencode" "completion-workflow-start.sh")
+    if not ($start_script | path exists) {
+        print $"(ansi yellow)OpenCode completion start script missing: ($start_script)(ansi reset)"
         return
     }
 
     cd $original_dir
-    let completion = (do { ^bash $completion_script --repo $repo_root } | complete)
-    if $completion.exit_code != 0 {
-        print $"(ansi red)OpenCode completion workflow failed (exit ($completion.exit_code))(ansi reset)"
-        if ($completion.stderr | str trim | str length) > 0 {
-            print ($completion.stderr | str trim)
-        }
-    }
+    ^bash $start_script --repo $repo_root | ignore
 }
 alias gi = gitingest . --output -
 
