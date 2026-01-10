@@ -13,7 +13,43 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
-    configuration = { pkgs, ... }: {
+    configuration = { pkgs, ... }:
+    let
+      ocxVersion = "1.2.2";
+      ocxAsset =
+        if pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64 then {
+          name = "ocx-darwin-arm64";
+          hash = "sha256-QH3DTgmC0JxjpDf/DkyFW5Op7AvP//omNzH9mVU0/Vo=";
+        } else if pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isx86_64 then {
+          name = "ocx-darwin-x64";
+          hash = "sha256-880yw6Ro9euwWfnMeBhAe8DFB+zyBx4ciI98I5FnR0Y=";
+        } else
+          throw "ocx is only packaged for macOS in this flake";
+
+      ocxSrc = pkgs.fetchurl {
+        url = "https://github.com/kdcokenny/ocx/releases/download/v${ocxVersion}/${ocxAsset.name}";
+        hash = ocxAsset.hash;
+      };
+
+      ocx = pkgs.stdenvNoCC.mkDerivation {
+        pname = "ocx";
+        version = ocxVersion;
+        src = ocxSrc;
+        dontUnpack = true;
+
+        installPhase = ''
+          install -Dm755 "$src" "$out/bin/ocx"
+        '';
+
+        meta = with pkgs.lib; {
+          description = "Package manager for OpenCode extensions";
+          homepage = "https://github.com/kdcokenny/ocx";
+          license = licenses.mit;
+          platforms = platforms.darwin;
+        };
+      };
+    in
+    {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages = [
@@ -55,6 +91,7 @@
 
         # Developer utilities
         pkgs.coreutils                       # GNU coreutils (timeout, etc.)
+        ocx
         pkgs.playwright-driver
         pkgs.pv
         pkgs.watch

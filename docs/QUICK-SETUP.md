@@ -135,6 +135,16 @@ opencode --version
 - User overrides: `~/.config/opencode/oh-my-opencode.json` (optional)
 - Project config: `.opencode/oh-my-opencode.json` (optional, per-project)
 
+#### OpenCode extensions (OCX)
+
+`ocx` is installed via `nix-darwin/flake.nix`. Use it to install project extensions like `opencode-worktree`:
+
+```bash
+ocx init
+ocx registry add --name kdco https://registry.kdco.dev
+ocx add kdco/worktree
+```
+
 #### Other AI CLI Tools (Optional)
 
 ```bash

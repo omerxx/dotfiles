@@ -67,6 +67,7 @@ verify_tools() {
     "bd:bd"
     # Developer utilities (nix)
     "aichat:aichat"
+    "ocx:ocx"
     "lazygit:lazygit"
     "uv:uv"
     "delta:delta"

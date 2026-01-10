@@ -10,6 +10,7 @@
     "ignore": [
       "**/node_modules/**",
       "**/.git/**",
+      "**/.opencode/worktrees/**",
       "**/dist/**",
       "**/build/**",
       "**/.next/**",
