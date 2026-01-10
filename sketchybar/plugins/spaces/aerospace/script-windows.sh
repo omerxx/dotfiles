@@ -163,7 +163,7 @@ render_workspace_icon_strip() {
 update_workspace_windows() {
     local workspace_id=$1
 
-    apps=$(aerospace list-windows --workspace "$workspace_id" --format '%{app-bundle-id}|%{app-name}' 2>/dev/null)
+    apps=$(aerospace list-windows --workspace "$workspace_id" --format '%{app-bundle-id}|%{app-name}|%{window-layout}' 2>/dev/null)
     FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused 2>/dev/null)
 
     if [ "${apps}" != "" ]; then
@@ -171,8 +171,12 @@ update_workspace_windows() {
         local app_names=()
         local seen_key=" "
 
-        while IFS='|' read -r bundle_id app_name; do
+        while IFS='|' read -r bundle_id app_name window_layout; do
             [ -n "${bundle_id:-}" ] || continue
+
+            if [ "${window_layout:-}" = "floating" ]; then
+                continue
+            fi
 
             if [ "$bundle_id" = "$GHOSTTY_BUNDLE_ID" ]; then
                 bundle_ids+=("$bundle_id")
