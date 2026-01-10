@@ -921,23 +921,21 @@ def oo [] {
     let web_port = (3010 + $port_offset)
     let oc_port = (4000 + $port_offset)
     let session_id = ($dir | hash md5 | str substring 0..8)
+
+    let instance = (
+        try {
+            openportal list
+            | lines
+            | where ($it | str ends-with $dir)
+            | parse -r '^(?P<id>\\S+)\\s+(?P<name>.+?)\\s+(?P<type>docker|process)\\s+(?P<webPort>\\d+|-)\\s+(?P<ocPort>\\d+)\\s+(?P<status>running|opencode|stopped|web\\s+only)\\s+(?P<directory>.+)$'
+            | first
+        } catch { null }
+    )
     
-    let oc_in_use = (do { lsof -i $":($oc_port)" } | complete | get exit_code) == 0
-    
-    if $oc_in_use {
+    if $instance != null and $instance.status == "running" {
         print $"(ansi yellow)Session already running, reconnecting...(ansi reset)"
-        let instance = (
-            try {
-                openportal list
-                | lines
-                | where ($it | str contains $dir)
-                | parse -r '^(?P<id>\\S+)\\s+(?P<name>\\S+)\\s+(?P<type>\\S+)\\s+(?P<webPort>\\d+)\\s+(?P<ocPort>\\d+)\\s+(?P<status>\\S+)\\s+(?P<directory>.+)$'
-                | where status == "running"
-                | first
-            } catch { null }
-        )
-        let web_port = if $instance != null { $instance.webPort | into int } else { $web_port }
-        let oc_port = if $instance != null { $instance.ocPort | into int } else { $oc_port }
+        let web_port = $instance.webPort | into int
+        let oc_port = $instance.ocPort | into int
         let session_url = $"http://($dashboard_host):($web_port)"
         let dashboard_url = $"http://($dashboard_host):($dashboard_port)"
 
@@ -950,10 +948,15 @@ def oo [] {
         opencode attach $"http://127.0.0.1:($oc_port)"
         return
     }
+
+    if $instance != null and $instance.status != "running" {
+        print $"(ansi yellow)Found stale OpenPortal state (($instance.status)), resetting...(ansi reset)"
+        do { openportal stop -d $dir } | complete | ignore
+    }
     
     print $"(ansi green)Starting session for: ($dir)(ansi reset)"
     let portal_pid = (
-        bash -c $"nohup openportal --no-browser --port ($web_port) --opencode-port ($oc_port) --directory '($dir)' > /tmp/openportal-($port_offset).log 2>&1 & echo $!"
+        bash -c $"nohup openportal --port ($web_port) --opencode-port ($oc_port) --directory '($dir)' > /tmp/openportal-($port_offset).log 2>&1 & echo $!"
         | str trim
     )
     
@@ -966,16 +969,46 @@ def oo [] {
     print $"(ansi cyan)Portal: ($session_url)(ansi reset)"
     print $"(ansi cyan)Dashboard: ($dashboard_url)(ansi reset)"
     print $"(ansi dark_gray)Waiting for servers...(ansi reset)"
-    sleep 8sec
+
+    mut oc_ready = false
+    for _ in 1..45 {
+        let oc_in_use = (do { lsof -i $":($oc_port)" } | complete | get exit_code) == 0
+        if $oc_in_use {
+            $oc_ready = true
+            break
+        }
+        sleep 1sec
+    }
+    if not $oc_ready {
+        print $"(ansi red)OpenCode didn't start on port ($oc_port). Check: /tmp/openportal-($port_offset).log(ansi reset)"
+        print $"(ansi dark_gray)Stopping session...(ansi reset)"
+        do { openportal stop -d $dir } | complete | ignore
+        try {
+            open $sessions_file
+            | reject $session_id
+            | to json
+            | save -f $sessions_file
+        } catch {}
+        return
+    }
     
     print $"(ansi dark_gray)Press Ctrl+C to exit(ansi reset)"
     print ""
     
-    do { opencode attach $"http://127.0.0.1:($oc_port)" } | complete
+    let attach = (do { opencode attach $"http://127.0.0.1:($oc_port)" } | complete)
     
     print $"(ansi dark_gray)Stopping session...(ansi reset)"
-    bash -c $"kill ($portal_pid) 2>/dev/null; pkill -f 'opencode serve --port ($oc_port)' 2>/dev/null"
-    bash -c $"jq --arg sid '($session_id)' 'del(.[$$sid])' '($sessions_file)' > '($sessions_file).tmp' 2>/dev/null && mv '($sessions_file).tmp' '($sessions_file)' || true"
+    if $attach.exit_code != 0 and ($attach.stderr | str trim | str length) > 0 {
+        print $"(ansi red)opencode attach failed (exit ($attach.exit_code)):(ansi reset)"
+        print ($attach.stderr | str trim)
+    }
+    do { openportal stop -d $dir } | complete | ignore
+    try {
+        open $sessions_file
+        | reject $session_id
+        | to json
+        | save -f $sessions_file
+    } catch {}
 }
 
 def ff [] {
