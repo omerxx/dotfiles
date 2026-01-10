@@ -62,7 +62,7 @@ is_floating_app() {
 
 get_window_info() {
     local window_id="$1"
-    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{workspace}%{tab}%{window-title}' 2>/dev/null |
+    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{workspace}%{tab}%{window-title}' 2>/dev/null |
         awk -F'\t' -v id="$window_id" '$1 == id { print $0; exit }'
 }
 
@@ -116,12 +116,97 @@ is_transient_window() {
     return 1
 }
 
-ensure_quotio_workspace() {
-    "$AEROSPACE" list-windows --monitor all --app-bundle-id "$QUOTIO_ID" --format '%{window-id}%{tab}%{workspace}' 2>/dev/null |
-        while IFS=$'\t' read -r wid ws; do
+workspace_for_pinned_app() {
+    local app_id="$1"
+    local app_name="${2:-}"
+
+    case "$app_id" in
+        # Workspace 2: Chrome, Obsidian, Spark
+        com.google.Chrome | com.google.Chrome.beta | com.google.Chrome.canary | md.obsidian | com.readdle.SparkDesktop-setapp | com.readdle.SparkDesktop)
+            echo "2"
+            return 0
+            ;;
+        # Workspace 3: Discord, Slack, Telegram
+        com.tinyspeck.slackmacgap | com.hnc.Discord | com.discord.Discord | ru.keepcoder.Telegram | org.telegram.desktop)
+            echo "3"
+            return 0
+            ;;
+        # Workspace 4: Cursor, Windsurf, Quotio
+        com.exafunction.windsurf | "$QUOTIO_ID")
+            echo "4"
+            return 0
+            ;;
+    esac
+
+    local name_lc=""
+    name_lc="$(printf '%s' "$app_name" | tr '[:upper:]' '[:lower:]')"
+    case "$name_lc" in
+        *chrome* | *obsidian* | *spark*)
+            echo "2"
+            return 0
+            ;;
+        *slack* | *discord* | *telegram*)
+            echo "3"
+            return 0
+            ;;
+        *cursor* | *windsurf* | *quotio*)
+            echo "4"
+            return 0
+            ;;
+    esac
+
+    return 1
+}
+
+enforce_pinned_app_workspaces() {
+    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{workspace}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r wid app_id app_name ws window_title; do
             [[ -n "$wid" ]] || continue
-            if [[ "$ws" != "$QUOTIO_WORKSPACE" ]]; then
-                "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$QUOTIO_WORKSPACE" 2>/dev/null || true
+
+            if is_transient_window "$app_id" "$window_title"; then
+                continue
+            fi
+
+            if is_floating_app "$app_id"; then
+                continue
+            fi
+
+            local target=""
+            target="$(workspace_for_pinned_app "$app_id" "$app_name" 2>/dev/null || true)"
+            [[ -n "$target" ]] || continue
+
+            if [[ "$ws" != "$target" ]]; then
+                "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$target" 2>/dev/null || true
+            fi
+        done
+}
+
+evict_non_ghostty_from_workspace_1() {
+    "$AEROSPACE" list-windows --workspace "$GHOSTTY_PRIMARY_WS" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r wid app_id app_name window_title; do
+            [[ -n "$wid" ]] || continue
+
+            if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
+                continue
+            fi
+
+            if is_transient_window "$app_id" "$window_title"; then
+                continue
+            fi
+
+            if is_floating_app "$app_id"; then
+                continue
+            fi
+
+            local dest=""
+            dest="$(workspace_for_pinned_app "$app_id" "$app_name" 2>/dev/null || true)"
+            if [[ -z "$dest" ]]; then
+                dest="$(find_first_workspace_with_capacity "$MAX_PER_WS" 2 3 4 2>/dev/null || true)"
+                [[ -n "$dest" ]] || dest="$NON_GHOSTTY_OVERFLOW_WS"
+            fi
+
+            if [[ "$dest" != "$GHOSTTY_PRIMARY_WS" ]]; then
+                "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$dest" 2>/dev/null || true
             fi
         done
 }
@@ -164,10 +249,13 @@ move_nontransient_windows_between_workspaces() {
     local src="$1"
     local dest="$2"
 
-    "$AEROSPACE" list-windows --workspace "$src" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null |
-        while IFS=$'\t' read -r wid app_id window_title; do
+    "$AEROSPACE" list-windows --workspace "$src" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r wid app_id app_name window_title; do
             [[ -n "$wid" ]] || continue
             if is_transient_window "$app_id" "$window_title"; then
+                continue
+            fi
+            if workspace_for_pinned_app "$app_id" "$app_name" >/dev/null 2>&1; then
                 continue
             fi
             "$AEROSPACE" move-node-to-workspace --window-id "$wid" "$dest" 2>/dev/null || true
@@ -239,8 +327,8 @@ find_first_workspace_with_capacity() {
 }
 
 evict_non_ghostty_from_workspace_5() {
-    "$AEROSPACE" list-windows --workspace "$GHOSTTY_OVERFLOW_WS" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null |
-        while IFS=$'\t' read -r other_id app_id window_title; do
+    "$AEROSPACE" list-windows --workspace "$GHOSTTY_OVERFLOW_WS" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r other_id app_id app_name window_title; do
             [[ -n "$other_id" ]] || continue
             if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
                 continue
@@ -248,7 +336,11 @@ evict_non_ghostty_from_workspace_5() {
             if is_onepassword_access_request_window "$app_id" "$window_title"; then
                 continue
             fi
-            dest="$(find_first_workspace_with_capacity "$MAX_PER_WS" "${NON_GHOSTTY_OVERFLOW_WORKSPACES[@]}")" || dest="$NON_GHOSTTY_OVERFLOW_WS"
+
+            dest="$(workspace_for_pinned_app "$app_id" "$app_name" 2>/dev/null || true)"
+            if [[ -z "$dest" ]]; then
+                dest="$(find_first_workspace_with_capacity "$MAX_PER_WS" "${NON_GHOSTTY_OVERFLOW_WORKSPACES[@]}")" || dest="$NON_GHOSTTY_OVERFLOW_WS"
+            fi
             "$AEROSPACE" move-node-to-workspace --window-id "$other_id" "$dest" 2>/dev/null || true
         done
 }
@@ -319,8 +411,8 @@ rebalance_workspace_window_caps() {
         extra=$((count - MAX_PER_WS))
 
         if [[ "$ws" == "$GHOSTTY_PRIMARY_WS" ]]; then
-            "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null |
-                while IFS=$'\t' read -r wid app_id window_title; do
+            "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-title}' 2>/dev/null |
+                while IFS=$'\t' read -r wid app_id app_name window_title; do
                     [[ -n "$wid" ]] || continue
                     if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
                         continue
@@ -329,6 +421,9 @@ rebalance_workspace_window_caps() {
                         continue
                     fi
                     if is_onepassword_access_request_window "$app_id" "$window_title"; then
+                        continue
+                    fi
+                    if workspace_for_pinned_app "$app_id" "$app_name" >/dev/null 2>&1; then
                         continue
                     fi
                     echo "$wid"
@@ -342,13 +437,16 @@ rebalance_workspace_window_caps() {
             continue
         fi
 
-        "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null |
-            while IFS=$'\t' read -r wid app_id window_title; do
+        "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-title}' 2>/dev/null |
+            while IFS=$'\t' read -r wid app_id app_name window_title; do
                 [[ -n "$wid" ]] || continue
                 if is_floating_app "$app_id"; then
                     continue
                 fi
                 if is_onepassword_access_request_window "$app_id" "$window_title"; then
+                    continue
+                fi
+                if workspace_for_pinned_app "$app_id" "$app_name" >/dev/null 2>&1; then
                     continue
                 fi
                 echo "$wid"
@@ -395,10 +493,11 @@ watch_for_window_changes() {
         if [[ "$sig" != "$last_sig" ]]; then
             last_sig="$sig"
             sleep 0.1
+            enforce_pinned_app_workspaces
             rebalance_ghostty_workspaces
+            evict_non_ghostty_from_workspace_1
             rebalance_workspace_window_caps
             compact_overflow_workspaces
-            ensure_quotio_workspace
             bounce_from_empty_overflow_workspace || true
             trigger_sketchybar_workspace_update
         else
@@ -416,10 +515,11 @@ enforce_workspace_window_cap_for_new_window() {
     info="$(get_window_info "$window_id")"
     [[ -n "$info" ]] || return 0
 
-    local app_id workspace window_title
+    local app_id app_name workspace window_title
     app_id="$(awk -F'\t' '{ print $2 }' <<<"$info")"
-    workspace="$(awk -F'\t' '{ print $3 }' <<<"$info")"
-    window_title="$(awk -F'\t' '{ print $4 }' <<<"$info")"
+    app_name="$(awk -F'\t' '{ print $3 }' <<<"$info")"
+    workspace="$(awk -F'\t' '{ print $4 }' <<<"$info")"
+    window_title="$(awk -F'\t' '{ print $5 }' <<<"$info")"
 
     if [[ "$app_id" == "$LOCAL_AUTH_UIAGENT_ID" ]]; then
         local focused_ws
@@ -449,6 +549,15 @@ enforce_workspace_window_cap_for_new_window() {
 
     if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
         place_ghostty_window "$window_id"
+        return 0
+    fi
+
+    local pinned_target=""
+    pinned_target="$(workspace_for_pinned_app "$app_id" "$app_name" 2>/dev/null || true)"
+    if [[ -n "$pinned_target" ]]; then
+        if [[ "$workspace" != "$pinned_target" ]]; then
+            "$AEROSPACE" move-node-to-workspace --window-id "$window_id" "$pinned_target" 2>/dev/null || true
+        fi
         return 0
     fi
 
@@ -555,10 +664,11 @@ rebalance_ghostty_workspaces() {
 
 case "$mode" in
     sweep)
+        enforce_pinned_app_workspaces
         rebalance_ghostty_workspaces
+        evict_non_ghostty_from_workspace_1
         rebalance_workspace_window_caps
         compact_overflow_workspaces
-        ensure_quotio_workspace
         trigger_sketchybar_workspace_update
         exit 0
         ;;
@@ -571,9 +681,10 @@ case "$mode" in
         [[ -n "$window_id" ]] || exit 0
         sleep 0.25
         enforce_workspace_window_cap_for_new_window "$window_id"
+        enforce_pinned_app_workspaces
+        evict_non_ghostty_from_workspace_1
         rebalance_workspace_window_caps
         compact_overflow_workspaces
-        ensure_quotio_workspace
         trigger_sketchybar_workspace_update
         exit 0
         ;;
