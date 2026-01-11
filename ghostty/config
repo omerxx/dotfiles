@@ -12,9 +12,4 @@ shell-integration-features = no-cursor
 auto-update-channel = tip
 scrollback-limit = 10000000
 
-# Word navigation: Ctrl+Arrow sends proper escape sequences
-# (Karabiner's Option remap doesn't work here due to macos-option-as-alt)
-keybind = ctrl+left=text:\x1bb
-keybind = ctrl+right=text:\x1bf
-keybind = ctrl+shift+left=text:\x1b[1;4D
-keybind = ctrl+shift+right=text:\x1b[1;4C
+
