@@ -38,6 +38,8 @@ NON_GHOSTTY_OVERFLOW_WORKSPACES=(6 7 8 9)
 mode="${1:-on-window-detected}"
 WATCH_INTERVAL_SECONDS="${WATCH_INTERVAL_SECONDS:-0.35}"
 GHOSTTY_ENSURE_COOLDOWN_SECONDS="${GHOSTTY_ENSURE_COOLDOWN_SECONDS:-5}"
+GHOSTTY_ENSURE_MIN_ABSENCE_SECONDS="${GHOSTTY_ENSURE_MIN_ABSENCE_SECONDS:-2}"
+GHOSTTY_ENSURE_FAILURE_BACKOFF_SECONDS="${GHOSTTY_ENSURE_FAILURE_BACKOFF_SECONDS:-60}"
 
 RUNTIME_STATE_DIR="/tmp"
 if [[ -n "${HOME:-}" ]]; then
@@ -49,6 +51,9 @@ if [[ -n "${HOME:-}" ]]; then
 fi
 
 GHOSTTY_ENSURE_LOCK_FILE="${RUNTIME_STATE_DIR}/aerospace-ghostty-workspace-balance.ensure.lock"
+GHOSTTY_ENSURE_BACKOFF_FILE="${RUNTIME_STATE_DIR}/aerospace-ghostty-workspace-balance.ensure.backoff"
+GHOSTTY_ZERO_SINCE_FILE="${RUNTIME_STATE_DIR}/aerospace-ghostty-workspace-balance.ghostty.zero_since"
+GHOSTTY_ENSURE_DISABLED_FILE="${RUNTIME_STATE_DIR}/disable-ghostty-ensure"
 WATCH_LOCK_FILE="${RUNTIME_STATE_DIR}/aerospace-ghostty-workspace-balance.watch.pid"
 
 trigger_sketchybar_workspace_update() {
@@ -339,6 +344,22 @@ count_app_windows_total() {
     "$AEROSPACE" list-windows --monitor all --app-bundle-id "$app_id" --count 2>/dev/null || echo 0
 }
 
+get_app_windows_total() {
+    local app_id="$1"
+    local count
+
+    if ! count="$("$AEROSPACE" list-windows --monitor all --app-bundle-id "$app_id" --count 2>/dev/null)"; then
+        return 1
+    fi
+
+    if [[ ! "$count" =~ ^[0-9]+$ ]]; then
+        return 1
+    fi
+
+    echo "$count"
+    return 0
+}
+
 wait_for_ghostty_window() {
     local attempts="${1:-15}"
     local sleep_seconds="${2:-0.1}"
@@ -346,9 +367,10 @@ wait_for_ghostty_window() {
     local i
     for ((i = 0; i < attempts; i++)); do
         local ghostty_total
-        ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
-        if [[ "$ghostty_total" -gt 0 ]]; then
-            return 0
+        if ghostty_total="$(get_app_windows_total "$GHOSTTY_ID")"; then
+            if [[ "$ghostty_total" -gt 0 ]]; then
+                return 0
+            fi
         fi
         sleep "$sleep_seconds"
     done
@@ -357,16 +379,48 @@ wait_for_ghostty_window() {
 }
 
 ensure_ghostty_window_present() {
+    if [[ -f "$GHOSTTY_ENSURE_DISABLED_FILE" ]]; then
+        return 0
+    fi
+
     local ghostty_total
-    ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
+    if ! ghostty_total="$(get_app_windows_total "$GHOSTTY_ID")"; then
+        return 0
+    fi
 
     if [[ "$ghostty_total" -gt 0 ]]; then
-        rm -f "$GHOSTTY_ENSURE_LOCK_FILE" >/dev/null 2>&1 || true
+        rm -f "$GHOSTTY_ENSURE_LOCK_FILE" "$GHOSTTY_ENSURE_BACKOFF_FILE" "$GHOSTTY_ZERO_SINCE_FILE" >/dev/null 2>&1 || true
         return 0
     fi
 
     local now
     now="$(date +%s)"
+
+    if [[ -f "$GHOSTTY_ENSURE_BACKOFF_FILE" ]]; then
+        local backoff_until
+        backoff_until="$(cat "$GHOSTTY_ENSURE_BACKOFF_FILE" 2>/dev/null || true)"
+        if [[ "$backoff_until" =~ ^[0-9]+$ ]] && [[ "$now" -lt "$backoff_until" ]]; then
+            return 0
+        fi
+    fi
+
+    if [[ ! -f "$GHOSTTY_ZERO_SINCE_FILE" ]]; then
+        echo "$now" >"$GHOSTTY_ZERO_SINCE_FILE" 2>/dev/null || true
+        return 0
+    fi
+
+    local zero_since
+    zero_since="$(cat "$GHOSTTY_ZERO_SINCE_FILE" 2>/dev/null || true)"
+    if [[ "$zero_since" =~ ^[0-9]+$ ]]; then
+        local absent_for
+        absent_for=$((now - zero_since))
+        if [[ "$absent_for" -lt "$GHOSTTY_ENSURE_MIN_ABSENCE_SECONDS" ]]; then
+            return 0
+        fi
+    else
+        echo "$now" >"$GHOSTTY_ZERO_SINCE_FILE" 2>/dev/null || true
+        return 0
+    fi
 
     if [[ -f "$GHOSTTY_ENSURE_LOCK_FILE" ]]; then
         local last
@@ -390,23 +444,12 @@ ensure_ghostty_window_present() {
         fi
     fi
 
-    if wait_for_ghostty_window 20 0.1; then
-        rm -f "$GHOSTTY_ENSURE_LOCK_FILE" >/dev/null 2>&1 || true
-        return 0
-    fi
-
-    if command -v open >/dev/null 2>&1; then
-        if [[ -d "$GHOSTTY_APP_PATH" ]]; then
-            open -g -n -a "$GHOSTTY_APP_PATH" >/dev/null 2>&1 || true
-        else
-            open -g -n -a "Ghostty" >/dev/null 2>&1 || true
-        fi
-    fi
-
     if wait_for_ghostty_window 30 0.1; then
-        rm -f "$GHOSTTY_ENSURE_LOCK_FILE" >/dev/null 2>&1 || true
+        rm -f "$GHOSTTY_ENSURE_LOCK_FILE" "$GHOSTTY_ENSURE_BACKOFF_FILE" "$GHOSTTY_ZERO_SINCE_FILE" >/dev/null 2>&1 || true
         return 0
     fi
+
+    echo $((now + GHOSTTY_ENSURE_FAILURE_BACKOFF_SECONDS)) >"$GHOSTTY_ENSURE_BACKOFF_FILE" 2>/dev/null || true
 
     return 0
 }
@@ -606,10 +649,11 @@ watch_for_window_changes() {
         local sig
         sig="$(current_windows_signature)"
 
+        ensure_ghostty_window_present
+
         if [[ "$sig" != "$last_sig" ]]; then
             last_sig="$sig"
             sleep 0.1
-            ensure_ghostty_window_present
             enforce_pinned_app_workspaces
             rebalance_ghostty_workspaces
             evict_non_ghostty_from_workspace_1
@@ -786,7 +830,6 @@ rebalance_ghostty_workspaces() {
 
 case "$mode" in
     sweep)
-        ensure_ghostty_window_present
         enforce_pinned_app_workspaces
         rebalance_ghostty_workspaces
         evict_non_ghostty_from_workspace_1
