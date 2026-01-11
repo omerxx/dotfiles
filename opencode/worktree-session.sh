@@ -128,9 +128,6 @@ case "$branch" in
     ;;
 esac
 
-worktree_path="${repo_root}/.opencode/worktrees/${branch}"
-mkdir -p "$(dirname "$worktree_path")"
-
 # Always fetch the latest remote default branch so new worktrees start from up-to-date code.
 remote="${OPENCODE_WORKTREE_REMOTE:-origin}"
 start_point="HEAD"
@@ -165,6 +162,12 @@ fi
 if [ -n "${base_branch:-}" ]; then
   update_base_worktree "$repo_root" "$remote" "$base_branch" || true
 fi
+
+anchor_root="$(find_base_worktree "$repo_root" "${base_branch:-}" 2>/dev/null || true)"
+[ -n "${anchor_root:-}" ] || anchor_root="$repo_root"
+
+worktree_path="${anchor_root}/.opencode/worktrees/${branch}"
+mkdir -p "$(dirname "$worktree_path")"
 
 # Hide worktrees from `git status` without touching tracked files.
 git_common_dir="$(git -C "$repo_root" rev-parse --git-common-dir 2>/dev/null || true)"
