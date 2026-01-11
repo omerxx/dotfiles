@@ -139,6 +139,11 @@ if git -C "$repo_root" remote get-url "$remote" >/dev/null 2>&1; then
   base_branch="${remote_head_ref##*/}"
 
   if [ -z "${base_branch:-}" ]; then
+    base_branch="$(git -C "$repo_root" remote show -n "$remote" 2>/dev/null | sed -n 's/^[[:space:]]*HEAD branch: //p' | head -n 1 || true)"
+    base_branch="${base_branch//[[:space:]]/}"
+  fi
+
+  if [ -z "${base_branch:-}" ]; then
     if git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/main" 2>/dev/null; then
       base_branch="main"
     elif git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/master" 2>/dev/null; then
@@ -148,7 +153,7 @@ if git -C "$repo_root" remote get-url "$remote" >/dev/null 2>&1; then
     fi
   fi
 
-  if git -C "$repo_root" fetch "$remote" "$base_branch" --quiet 2>/dev/null; then
+  if git -C "$repo_root" fetch "$remote" "$base_branch" --prune --quiet 2>/dev/null; then
     if git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/${base_branch}" 2>/dev/null; then
       start_point="${remote}/${base_branch}"
     fi
