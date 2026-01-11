@@ -6,6 +6,7 @@ AEROSPACE=/opt/homebrew/bin/aerospace
 MAX_PER_WS=3
 
 GHOSTTY_ID='com.mitchellh.ghostty'
+GHOSTTY_APP_PATH='/Applications/Ghostty.app'
 GHOSTTY_PRIMARY_WS='1'
 GHOSTTY_OVERFLOW_WS='5'
 NON_GHOSTTY_OVERFLOW_WS='6'
@@ -36,6 +37,8 @@ NON_GHOSTTY_OVERFLOW_WORKSPACES=(6 7 8 9)
 
 mode="${1:-on-window-detected}"
 WATCH_INTERVAL_SECONDS="${WATCH_INTERVAL_SECONDS:-0.35}"
+GHOSTTY_ENSURE_COOLDOWN_SECONDS="${GHOSTTY_ENSURE_COOLDOWN_SECONDS:-5}"
+GHOSTTY_ENSURE_LOCK_FILE="${TMPDIR:-/tmp}/aerospace-ghostty-workspace-balance.ensure.lock"
 
 trigger_sketchybar_workspace_update() {
     local sketchybar_bin="/opt/homebrew/bin/sketchybar"
@@ -325,6 +328,78 @@ count_app_windows_total() {
     "$AEROSPACE" list-windows --monitor all --app-bundle-id "$app_id" --count 2>/dev/null || echo 0
 }
 
+wait_for_ghostty_window() {
+    local attempts="${1:-15}"
+    local sleep_seconds="${2:-0.1}"
+
+    local i
+    for ((i = 0; i < attempts; i++)); do
+        local ghostty_total
+        ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
+        if [[ "$ghostty_total" -gt 0 ]]; then
+            return 0
+        fi
+        sleep "$sleep_seconds"
+    done
+
+    return 1
+}
+
+ensure_ghostty_window_present() {
+    local ghostty_total
+    ghostty_total="$(count_app_windows_total "$GHOSTTY_ID")"
+
+    if [[ "$ghostty_total" -gt 0 ]]; then
+        rm -f "$GHOSTTY_ENSURE_LOCK_FILE" >/dev/null 2>&1 || true
+        return 0
+    fi
+
+    local now
+    now="$(date +%s)"
+
+    if [[ -f "$GHOSTTY_ENSURE_LOCK_FILE" ]]; then
+        local last
+        last="$(cat "$GHOSTTY_ENSURE_LOCK_FILE" 2>/dev/null || true)"
+        if [[ "$last" =~ ^[0-9]+$ ]]; then
+            local age
+            age=$((now - last))
+            if [[ "$age" -lt "$GHOSTTY_ENSURE_COOLDOWN_SECONDS" ]]; then
+                return 0
+            fi
+        fi
+    fi
+
+    echo "$now" >"$GHOSTTY_ENSURE_LOCK_FILE" 2>/dev/null || true
+
+    if command -v open >/dev/null 2>&1; then
+        if [[ -d "$GHOSTTY_APP_PATH" ]]; then
+            open -g -a "$GHOSTTY_APP_PATH" >/dev/null 2>&1 || true
+        else
+            open -g -a "Ghostty" >/dev/null 2>&1 || true
+        fi
+    fi
+
+    if wait_for_ghostty_window 20 0.1; then
+        rm -f "$GHOSTTY_ENSURE_LOCK_FILE" >/dev/null 2>&1 || true
+        return 0
+    fi
+
+    if command -v open >/dev/null 2>&1; then
+        if [[ -d "$GHOSTTY_APP_PATH" ]]; then
+            open -g -n -a "$GHOSTTY_APP_PATH" >/dev/null 2>&1 || true
+        else
+            open -g -n -a "Ghostty" >/dev/null 2>&1 || true
+        fi
+    fi
+
+    if wait_for_ghostty_window 30 0.1; then
+        rm -f "$GHOSTTY_ENSURE_LOCK_FILE" >/dev/null 2>&1 || true
+        return 0
+    fi
+
+    return 0
+}
+
 find_first_workspace_with_capacity() {
     local max="$1"
     shift
@@ -516,6 +591,7 @@ watch_for_window_changes() {
         if [[ "$sig" != "$last_sig" ]]; then
             last_sig="$sig"
             sleep 0.1
+            ensure_ghostty_window_present
             enforce_pinned_app_workspaces
             rebalance_ghostty_workspaces
             evict_non_ghostty_from_workspace_1
@@ -692,6 +768,7 @@ rebalance_ghostty_workspaces() {
 
 case "$mode" in
     sweep)
+        ensure_ghostty_window_present
         enforce_pinned_app_workspaces
         rebalance_ghostty_workspaces
         evict_non_ghostty_from_workspace_1
