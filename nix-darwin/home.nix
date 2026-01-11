@@ -39,6 +39,7 @@
     enable = true;
     settings.user.name = "Claudio Canales";
     settings.user.email = "klaudioz@gmail.com";
+    settings.init.defaultBranch = "main";
   };
 
 
