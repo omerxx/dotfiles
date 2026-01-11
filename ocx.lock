@@ -1,0 +1,14 @@
+{
+  "lockVersion": 1,
+  "installed": {
+    "kdco/notify": {
+      "registry": "kdco",
+      "version": "1.0.0",
+      "hash": "1031d831c11b1ec9215c6e98f886d56c26d7827e7780d92e013c44d34c8a88ce",
+      "files": [
+        ".opencode/plugin/notify.ts"
+      ],
+      "installedAt": "2026-01-11T13:40:15.967Z"
+    }
+  }
+}
