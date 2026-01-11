@@ -327,6 +327,108 @@ make_commit_message() {
   echo "$msg"
 }
 
+sanitize_title() {
+  local title="${1:-}"
+  title="$(printf '%s' "$title" | tr '\r\n' '  ' | tr -s ' ' | sed 's/^ *//; s/ *$//')"
+  printf '%s' "$title"
+}
+
+is_default_session_title() {
+  local title="${1:-}"
+  case "$title" in
+    "New session - "*) return 0 ;;
+  esac
+  return 1
+}
+
+opencode_session_title_for_dir() {
+  local directory="${1:-}"
+  [[ -n "$directory" ]] || return 1
+
+  local session_dir="${XDG_DATA_HOME:-$HOME/.local/share}/opencode/storage/session"
+  [[ -d "$session_dir" ]] || return 1
+
+  command -v python3 >/dev/null 2>&1 || return 1
+
+  python3 - "$session_dir" "$directory" <<'PY' || return 1
+import json
+import os
+import sys
+
+session_dir = sys.argv[1]
+wanted_dir = sys.argv[2]
+
+best_title = ""
+best_updated = -1
+
+try:
+    project_dirs = os.listdir(session_dir)
+except Exception:
+    sys.exit(0)
+
+for project_id in project_dirs:
+    project_path = os.path.join(session_dir, project_id)
+    if not os.path.isdir(project_path):
+        continue
+
+    try:
+        session_files = os.listdir(project_path)
+    except Exception:
+        continue
+
+    for name in session_files:
+        if not name.endswith(".json"):
+            continue
+        path = os.path.join(project_path, name)
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                meta = json.load(f)
+        except Exception:
+            continue
+
+        if meta.get("directory") != wanted_dir:
+            continue
+
+        title = meta.get("title") or ""
+        updated = (meta.get("time") or {}).get("updated") or 0
+        if title and updated >= best_updated:
+            best_title = title
+            best_updated = updated
+
+if best_title:
+    print(best_title)
+PY
+}
+
+preferred_pr_title() {
+  local repo="$1"
+  local git_title=""
+  git_title="$(git -C "$repo" log -1 --pretty=%s 2>/dev/null || true)"
+
+  local title_override=""
+  title_override="$(sanitize_title "${OPENCODE_PR_TITLE:-}")"
+  if [[ -n "$title_override" ]]; then
+    echo "$title_override"
+    return 0
+  fi
+
+  local title_env=""
+  title_env="$(sanitize_title "${OPENCODE_SESSION_TITLE:-}")"
+  if [[ -n "$title_env" ]] && ! is_default_session_title "$title_env"; then
+    echo "$title_env"
+    return 0
+  fi
+
+  local session_title=""
+  session_title="$(sanitize_title "$(opencode_session_title_for_dir "$repo" 2>/dev/null || true)")"
+  if [[ -n "$session_title" ]] && ! is_default_session_title "$session_title"; then
+    echo "$session_title"
+    return 0
+  fi
+
+  echo "$(sanitize_title "$git_title")"
+}
+
 workflow_log_enabled="${OPENCODE_WORKFLOW_LOG:-1}"
 workflow_log_dir_default="${XDG_CACHE_HOME:-$HOME/.cache}/opencode/workflows"
 workflow_log_dir="${OPENCODE_WORKFLOW_LOG_DIR:-$workflow_log_dir_default}"
@@ -776,7 +878,7 @@ if [[ -z "$pr_number" ]]; then
 fi
 
 if [[ -z "$pr_number" ]]; then
-  title="$(git -C "$repo_root" log -1 --pretty=%s)"
+  title="$(preferred_pr_title "$repo_root")"
 
   body_commits="$(git -C "$repo_root" log --format='- %s' "${remote}/${base_branch}..HEAD" 2>/dev/null || git -C "$repo_root" log -1 --format='- %s')"
   body="$(cat <<EOF
