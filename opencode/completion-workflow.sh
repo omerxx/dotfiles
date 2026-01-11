@@ -101,7 +101,21 @@ current_branch="$(git -C "$repo_root" rev-parse --abbrev-ref HEAD 2>/dev/null ||
 if [[ -z "$base_branch" ]]; then
   origin_head_ref="$(git -C "$repo_root" symbolic-ref --quiet "refs/remotes/${remote}/HEAD" 2>/dev/null || true)"
   base_branch="${origin_head_ref##*/}"
-  [[ -n "$base_branch" ]] || base_branch="main"
+
+  if [[ -z "${base_branch:-}" ]]; then
+    base_branch="$(git -C "$repo_root" remote show -n "$remote" 2>/dev/null | sed -n 's/^[[:space:]]*HEAD branch: //p' | head -n 1 || true)"
+    base_branch="${base_branch//[[:space:]]/}"
+  fi
+
+  if [[ -z "${base_branch:-}" ]]; then
+    if git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/main" 2>/dev/null; then
+      base_branch="main"
+    elif git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/master" 2>/dev/null; then
+      base_branch="master"
+    else
+      base_branch="main"
+    fi
+  fi
 fi
 
 if [[ "$current_branch" == "$base_branch" ]]; then
@@ -647,10 +661,18 @@ cleanup_opencode_worktree() {
   fi
 
   ok "Updating main worktree: $main_worktree"
-  if git -C "$main_worktree" pull --ff-only "$remote_name" "$base" >/dev/null 2>&1; then
-    ok "Main worktree updated"
+  if git -C "$main_worktree" show-ref --verify --quiet "refs/remotes/${remote_name}/${base}" 2>/dev/null; then
+    if git -C "$main_worktree" merge --ff-only "${remote_name}/${base}" >/dev/null 2>&1; then
+      ok "Main worktree updated"
+    else
+      warn "Main worktree auto-update failed; run git pull manually in: $main_worktree"
+    fi
   else
-    warn "Main worktree auto-pull failed; run git pull manually in: $main_worktree"
+    if git -C "$main_worktree" pull --ff-only "$remote_name" "$base" >/dev/null 2>&1; then
+      ok "Main worktree updated"
+    else
+      warn "Main worktree auto-pull failed; run git pull manually in: $main_worktree"
+    fi
   fi
 }
 
@@ -752,21 +774,23 @@ fi
 
 if git -C "$repo_root" remote get-url "$remote" >/dev/null 2>&1; then
   ok "Fetching $remote/$base_branch"
-  git -C "$repo_root" fetch "$remote" "$base_branch"
+  if git -C "$repo_root" fetch "$remote" "$base_branch"; then
+    ok "Rebasing onto $remote/$base_branch"
+    if ! git -C "$repo_root" rebase "$remote/$base_branch"; then
+      warn "Rebase failed; aborting rebase and continuing without rebase"
 
-  ok "Rebasing onto $remote/$base_branch"
-  if ! git -C "$repo_root" rebase "$remote/$base_branch"; then
-    warn "Rebase failed; aborting rebase and continuing without rebase"
+      if ! git -C "$repo_root" rebase --abort; then
+        die "Failed to abort rebase; manual intervention required in: $repo_root"
+      fi
 
-    if ! git -C "$repo_root" rebase --abort; then
-      die "Failed to abort rebase; manual intervention required in: $repo_root"
+      actual_branch="$(git -C "$repo_root" rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
+      if [[ -z "$actual_branch" || "$actual_branch" == "HEAD" || "$actual_branch" != "$current_branch" ]]; then
+        warn "Returning to branch: $current_branch"
+        git -C "$repo_root" checkout "$current_branch" >/dev/null 2>&1 || die "Failed to return to branch: $current_branch"
+      fi
     fi
-
-    actual_branch="$(git -C "$repo_root" rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
-    if [[ -z "$actual_branch" || "$actual_branch" == "HEAD" || "$actual_branch" != "$current_branch" ]]; then
-      warn "Returning to branch: $current_branch"
-      git -C "$repo_root" checkout "$current_branch" >/dev/null 2>&1 || die "Failed to return to branch: $current_branch"
-    fi
+  else
+    warn "Fetch failed; skipping rebase"
   fi
 else
   warn "Remote '$remote' not found; skipping fetch/rebase"

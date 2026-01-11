@@ -36,7 +36,7 @@ Relevant entrypoints:
 
 - `--repo <path>`: Any path inside the target repo/worktree (defaults to `pwd`)
 - `--remote <name>`: Git remote name (default `origin`)
-- `--base <branch>`: Base branch name (default: remote HEAD branch; falls back to `main`)
+- `--base <branch>`: Base branch name (default: remote HEAD branch; falls back to `main`, then `master`)
 
 ## Early Exit Rules
 
