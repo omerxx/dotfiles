@@ -1,0 +1,40 @@
+{
+  "title": "Ctrl+Arrow to Word Jump (macOS)",
+  "rules": [
+    {
+      "description": "Ctrl+Left/Right Arrow to Option+Left/Right Arrow (word jump)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_arrow",
+            "modifiers": {
+              "mandatory": ["left_control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": ["left_option"]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_arrow",
+            "modifiers": {
+              "mandatory": ["left_control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow",
+              "modifiers": ["left_option"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
