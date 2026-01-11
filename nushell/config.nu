@@ -960,7 +960,30 @@ def --wrapped o [...args: string] {
 
     if ($args | is-not-empty) and (($args | get 0) == "--here") {
         _o_set_window_title (pwd | path basename)
-        _o_run ...($args | skip 1)
+
+        let remaining = ($args | skip 1)
+        if ($remaining | is-not-empty) and (_o_is_subcommand ($remaining | get 0)) {
+            _o_run ...$remaining
+            return
+        }
+
+        if ("--help" in $remaining) or ("-h" in $remaining) or ("--version" in $remaining) or ("-v" in $remaining) {
+            _o_run ...$remaining
+            return
+        }
+
+        if ($remaining | is-not-empty) and (not (($remaining | get 0) | str starts-with "-")) {
+            let candidate = ($remaining | get 0)
+            let is_dir = ($candidate | path type) == "dir"
+            if $is_dir {
+                _o_run ...$remaining
+                return
+            }
+        }
+
+        let project_root = (do { ^git rev-parse --show-toplevel } | complete)
+        let project_dir = if $project_root.exit_code == 0 { $project_root.stdout | str trim } else { (pwd) }
+        _o_run $project_dir ...$remaining
         return
     }
 
@@ -1032,7 +1055,9 @@ def --wrapped o [...args: string] {
         ""
     }
 
-    _o_run ...$remaining
+    let project_root = (do { ^git rev-parse --show-toplevel } | complete)
+    let project_dir = if $project_root.exit_code == 0 { $project_root.stdout | str trim } else { (pwd) }
+    _o_run $project_dir ...$remaining
     let opencode_exit = $env.LAST_EXIT_CODE
     if $opencode_exit != 0 and $opencode_exit != 130 {
         return

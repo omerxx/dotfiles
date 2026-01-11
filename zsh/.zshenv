@@ -82,7 +82,20 @@ o() {
 
   if [[ "${1:-}" == "--here" ]]; then
     shift
-    _opencode_run "$@"
+
+    # Respect explicit project path for `--here`.
+    if [[ $# -gt 0 && "${1:-}" != -* && -d "${1:-}" ]]; then
+      _opencode_run "$@"
+      return $?
+    fi
+
+    # Don't treat subcommands/help/version as a project path.
+    if _opencode_is_subcommand "${1:-}" || [[ " $* " == *" --help "* || " $* " == *" -h "* || " $* " == *" --version "* || " $* " == *" -v "* ]]; then
+      _opencode_run "$@"
+      return $?
+    fi
+
+    _opencode_run "$PWD" "$@"
     return $?
   fi
 
@@ -120,7 +133,7 @@ o() {
   local repo_root=""
   repo_root="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null || true)"
 
-  _opencode_run "$@"
+  _opencode_run "${repo_root:-$PWD}" "$@"
   local opencode_exit="$?"
 
   if [[ "$opencode_exit" -ne 0 && "$opencode_exit" -ne 130 ]]; then

@@ -8,6 +8,8 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 workflow_log_file=""
+salvage_main_worktree=""
+salvage_stash_oid=""
 
 log_line() {
   [[ -n "${workflow_log_file:-}" ]] || return 0
@@ -535,7 +537,87 @@ cleanup_opencode_worktree() {
   fi
 }
 
+find_stash_ref_by_oid() {
+  local repo="$1"
+  local oid="$2"
+  [[ -n "${repo:-}" && -n "${oid:-}" ]] || return 1
+
+  git -C "$repo" stash list --format='%gd%x09%H' 2>/dev/null | awk -F'\t' -v oid="$oid" '$2==oid {print $1; exit}'
+}
+
+maybe_salvage_main_worktree_changes() {
+  local session_repo="$1"
+  local base="$2"
+  local branch="$3"
+
+  [[ "$session_repo" == *"/.opencode/worktrees/"* ]] || return 0
+
+  local main_worktree=""
+  main_worktree="$(find_main_worktree "$session_repo" "$base" "$session_repo" || true)"
+  [[ -n "$main_worktree" ]] || return 0
+
+  local main_dirty=""
+  main_dirty="$(git -C "$main_worktree" status --porcelain 2>/dev/null || true)"
+  [[ -n "$main_dirty" ]] || return 0
+
+  warn "Session worktree is clean, but main worktree has changes; salvaging into $branch"
+  warn "Main worktree: $main_worktree"
+
+  while IFS= read -r line; do
+    [[ -n "$line" ]] || continue
+    echo "  $line"
+  done <<<"$main_dirty"
+
+  ok "Stashing main worktree changes"
+  if ! git -C "$main_worktree" stash push -u -m "opencode salvage: $branch" >/dev/null 2>&1; then
+    die "Failed to stash main worktree changes: $main_worktree"
+  fi
+
+  local stash_oid=""
+  stash_oid="$(git -C "$main_worktree" rev-parse -q --verify stash@{0} 2>/dev/null || true)"
+  [[ -n "$stash_oid" ]] || die "Stashed changes but failed to resolve stash@{0}"
+
+  local stash_ref=""
+  stash_ref="$(find_stash_ref_by_oid "$main_worktree" "$stash_oid" 2>/dev/null || true)"
+  [[ -n "$stash_ref" ]] || stash_ref="stash@{0}"
+
+  ok "Main worktree changes stashed: $stash_ref"
+
+  ok "Applying stash to session worktree"
+  if ! git -C "$session_repo" stash apply "$stash_ref" >/dev/null 2>&1; then
+    warn "Failed to apply salvage stash to session worktree; resetting session worktree"
+    git -C "$session_repo" reset --hard >/dev/null 2>&1 || true
+    git -C "$session_repo" clean -fd >/dev/null 2>&1 || true
+    warn "Recover changes with: git -C \"$main_worktree\" stash apply \"$stash_ref\""
+    die "Salvage failed; aborting completion workflow"
+  fi
+
+  salvage_main_worktree="$main_worktree"
+  salvage_stash_oid="$stash_oid"
+  ok "Salvage applied to session worktree"
+}
+
+drop_salvage_stash() {
+  [[ -n "${salvage_main_worktree:-}" && -n "${salvage_stash_oid:-}" ]] || return 0
+
+  local stash_ref=""
+  stash_ref="$(find_stash_ref_by_oid "$salvage_main_worktree" "$salvage_stash_oid" 2>/dev/null || true)"
+  if [[ -z "$stash_ref" ]]; then
+    warn "Salvage stash not found; leaving it in place (oid=$salvage_stash_oid)"
+    return 0
+  fi
+
+  ok "Dropping salvage stash: $stash_ref"
+  if ! git -C "$salvage_main_worktree" stash drop "$stash_ref" >/dev/null 2>&1; then
+    warn "Failed to drop salvage stash: $stash_ref"
+  fi
+}
+
 dirty="$(git -C "$repo_root" status --porcelain)"
+if [[ -z "$dirty" ]]; then
+  maybe_salvage_main_worktree_changes "$repo_root" "$base_branch" "$current_branch"
+  dirty="$(git -C "$repo_root" status --porcelain)"
+fi
 if [[ -n "$dirty" ]]; then
   ok "Staging changes"
   git -C "$repo_root" add -A
@@ -749,5 +831,7 @@ fi
 if [[ "$repo_root" == *"/.opencode/worktrees/"* ]]; then
   cleanup_opencode_worktree "$repo_root" "$remote" "$base_branch" "$head_ref"
 fi
+
+drop_salvage_stash
 
 ok "COMPLETION WORKFLOW FINISHED"
