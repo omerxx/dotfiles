@@ -141,3 +141,50 @@ o() {
 
   bash "$start_script" --repo "$repo_root" >/dev/null
 }
+
+# Tail the latest OpenCode completion workflow log.
+# Usage:
+#   t                 # tails last started workflow log (or newest log file)
+#   t <path/prefix>   # tails a specific log (supports prefix match in log dir)
+#   t -n 200          # tails last log with options
+t() {
+  local log_dir="${XDG_CACHE_HOME:-$HOME/.cache}/opencode/workflows"
+  local pointer_file="${log_dir}/last.logpath"
+  local target=""
+
+  local args=("$@")
+
+  if [[ ${#args[@]} -gt 0 ]]; then
+    local last_arg="${args[-1]}"
+    if [[ -f "$last_arg" ]]; then
+      target="$last_arg"
+      args=("${args[@]:0:${#args[@]}-1}")
+    elif [[ "$last_arg" != -* ]]; then
+      local match=""
+      match="$(ls -1t "$log_dir/${last_arg}"* 2>/dev/null | head -n 1 || true)"
+      if [[ -n "$match" ]]; then
+        target="$match"
+        args=("${args[@]:0:${#args[@]}-1}")
+      fi
+    fi
+  fi
+
+  if [[ -z "$target" && -f "$pointer_file" ]]; then
+    target="$(cat "$pointer_file" 2>/dev/null || true)"
+  fi
+
+  if [[ -z "$target" ]]; then
+    target="$(ls -1t "$log_dir"/*.log 2>/dev/null | head -n 1 || true)"
+  fi
+
+  if [[ -z "$target" || ! -f "$target" ]]; then
+    echo "No OpenCode workflow log found in: $log_dir" >&2
+    return 1
+  fi
+
+  if [[ " ${args[*]} " != *" -f "* && " ${args[*]} " != *" --follow "* ]]; then
+    args+=(-f)
+  fi
+
+  tail "${args[@]}" "$target"
+}

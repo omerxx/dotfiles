@@ -96,6 +96,9 @@ mkdir -p "$(dirname "$log_file")" 2>/dev/null || die "Failed to create log dir: 
 completion_script="$HOME/.config/opencode/completion-workflow.sh"
 [[ -r "$completion_script" ]] || die "Missing completion script: $completion_script"
 
+pointer_file="$(dirname "$log_file")/last.logpath"
+printf '%s\n' "$log_file" >"$pointer_file" 2>/dev/null || true
+
 ok "Starting completion workflow in background"
 ok "Log: $log_file"
 

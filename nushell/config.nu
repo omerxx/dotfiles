@@ -1051,6 +1051,66 @@ def --wrapped o [...args: string] {
     cd $original_dir
     ^bash $start_script --repo $repo_root | ignore
 }
+
+def --wrapped t [...args: string] {
+    let cache_root = ($env | get -o XDG_CACHE_HOME | default ($nu.home-path | path join ".cache"))
+    let log_dir = ($cache_root | path join "opencode" "workflows")
+    let pointer_file = ($log_dir | path join "last.logpath")
+
+    if not ($log_dir | path exists) {
+        print $"(ansi yellow)OpenCode workflow log dir not found: ($log_dir)(ansi reset)"
+        return
+    }
+
+    mut remaining = $args
+    mut target = ""
+
+    if ($remaining | is-not-empty) {
+        let last = ($remaining | last)
+        if not ($last | str starts-with "-") {
+            if ($last | path exists) {
+                $target = $last
+                let count = ($remaining | length)
+                $remaining = if $count > 1 { $remaining | first ($count - 1) } else { [] }
+            } else {
+                let matches = (
+                    ls $log_dir
+                    | where { |it| ($it.name | path basename | str starts-with $last) and ($it.name | str ends-with ".log") }
+                    | sort-by modified --reverse
+                )
+                if ($matches | is-not-empty) {
+                    $target = ($matches | get 0 | get name)
+                    let count = ($remaining | length)
+                    $remaining = if $count > 1 { $remaining | first ($count - 1) } else { [] }
+                }
+            }
+        }
+    }
+
+    if ($target | is-empty) and ($pointer_file | path exists) {
+        $target = (open $pointer_file | str trim)
+    }
+
+    if ($target | is-empty) {
+        let latest = (ls $log_dir | where { |it| $it.name | str ends-with ".log" } | sort-by modified --reverse | get -o 0)
+        if $latest != null {
+            $target = $latest.name
+        }
+    }
+
+    if ($target | is-empty) or (not ($target | path exists)) {
+        print $"(ansi yellow)No OpenCode workflow log found in: ($log_dir)(ansi reset)"
+        return
+    }
+
+    try {
+        if ($remaining | any { |it| $it == "-f" or $it == "--follow" }) {
+            ^tail ...$remaining $target
+        } else {
+            ^tail ...$remaining -f $target
+        }
+    } catch { }
+}
 alias gi = gitingest . --output -
 
 def oo [] {
