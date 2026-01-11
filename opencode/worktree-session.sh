@@ -75,8 +75,25 @@ update_base_worktree() {
     return 0
   fi
 
-  if ! git -C "$base_worktree" pull --ff-only "$remote" "$base_branch" >/dev/null 2>&1; then
-    warn "warning: unable to fast-forward pull $remote/$base_branch in $base_worktree"
+  if ! git -C "$base_worktree" show-ref --verify --quiet "refs/remotes/${remote}/${base_branch}" 2>/dev/null; then
+    return 0
+  fi
+
+  local local_head=""
+  local remote_head=""
+  local_head="$(git -C "$base_worktree" rev-parse "$base_branch" 2>/dev/null || true)"
+  remote_head="$(git -C "$base_worktree" rev-parse "${remote}/${base_branch}" 2>/dev/null || true)"
+
+  if [ -z "${local_head:-}" ] || [ -z "${remote_head:-}" ]; then
+    return 0
+  fi
+
+  if [ "$local_head" = "$remote_head" ]; then
+    return 0
+  fi
+
+  if ! git -C "$base_worktree" merge --ff-only "${remote}/${base_branch}" >/dev/null 2>&1; then
+    warn "warning: unable to fast-forward update $base_branch to $remote/$base_branch in $base_worktree"
   fi
 }
 
@@ -118,23 +135,25 @@ mkdir -p "$(dirname "$worktree_path")"
 remote="${OPENCODE_WORKTREE_REMOTE:-origin}"
 start_point="HEAD"
 if git -C "$repo_root" remote get-url "$remote" >/dev/null 2>&1; then
-  if git -C "$repo_root" fetch "$remote" --prune --quiet 2>/dev/null; then
-    remote_head_ref="$(git -C "$repo_root" symbolic-ref --quiet "refs/remotes/${remote}/HEAD" 2>/dev/null || true)"
-    base_branch="${remote_head_ref##*/}"
+  remote_head_ref="$(git -C "$repo_root" symbolic-ref --quiet "refs/remotes/${remote}/HEAD" 2>/dev/null || true)"
+  base_branch="${remote_head_ref##*/}"
 
-    if [ -z "${base_branch:-}" ]; then
-      if git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/main" 2>/dev/null; then
-        base_branch="main"
-      elif git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/master" 2>/dev/null; then
-        base_branch="master"
-      fi
+  if [ -z "${base_branch:-}" ]; then
+    if git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/main" 2>/dev/null; then
+      base_branch="main"
+    elif git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/master" 2>/dev/null; then
+      base_branch="master"
+    else
+      base_branch="main"
     fi
+  fi
 
-    if [ -n "${base_branch:-}" ] && git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/${base_branch}" 2>/dev/null; then
+  if git -C "$repo_root" fetch "$remote" "$base_branch" --quiet 2>/dev/null; then
+    if git -C "$repo_root" show-ref --verify --quiet "refs/remotes/${remote}/${base_branch}" 2>/dev/null; then
       start_point="${remote}/${base_branch}"
     fi
   else
-    warn "warning: failed to fetch $remote; worktree may be based on stale code"
+    warn "warning: failed to fetch $remote/$base_branch; worktree may be based on stale code"
   fi
 fi
 
