@@ -11,6 +11,75 @@ warn() {
   echo "opencode worktree-session: $1" >&2
 }
 
+find_base_worktree() {
+  local repo_root="$1"
+  local base_branch="$2"
+
+  local wt_path=""
+  local wt_branch=""
+  local fallback=""
+
+  while IFS= read -r line; do
+    case "$line" in
+      worktree\ *)
+        wt_path="${line#worktree }"
+        wt_branch=""
+        if [ -z "$fallback" ] && [ -n "$wt_path" ]; then
+          case "$wt_path" in
+            *"/.opencode/worktrees/"*) ;;
+            *) fallback="$wt_path" ;;
+          esac
+        fi
+        ;;
+      branch\ refs/heads/*)
+        wt_branch="${line#branch refs/heads/}"
+        if [ "$wt_branch" = "$base_branch" ] && [ -n "$wt_path" ]; then
+          case "$wt_path" in
+            *"/.opencode/worktrees/"*) ;;
+            *)
+              echo "$wt_path"
+              return 0
+              ;;
+          esac
+        fi
+        ;;
+    esac
+  done < <(git -C "$repo_root" worktree list --porcelain 2>/dev/null || true)
+
+  if [ -n "$fallback" ]; then
+    echo "$fallback"
+    return 0
+  fi
+
+  return 1
+}
+
+update_base_worktree() {
+  local repo_root="$1"
+  local remote="$2"
+  local base_branch="$3"
+
+  local base_worktree=""
+  base_worktree="$(find_base_worktree "$repo_root" "$base_branch" 2>/dev/null || true)"
+  [ -n "${base_worktree:-}" ] || return 0
+
+  local current_branch=""
+  current_branch="$(git -C "$base_worktree" rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
+  [ "$current_branch" = "$base_branch" ] || return 0
+
+  if [ -n "$(git -C "$base_worktree" status --porcelain 2>/dev/null)" ]; then
+    return 0
+  fi
+
+  if ! git -C "$base_worktree" remote get-url "$remote" >/dev/null 2>&1; then
+    return 0
+  fi
+
+  if ! git -C "$base_worktree" pull --ff-only "$remote" "$base_branch" >/dev/null 2>&1; then
+    warn "warning: unable to fast-forward pull $remote/$base_branch in $base_worktree"
+  fi
+}
+
 base_dir="${1:-}"
 branch="${2:-}"
 
@@ -67,6 +136,10 @@ if git -C "$repo_root" remote get-url "$remote" >/dev/null 2>&1; then
   else
     warn "warning: failed to fetch $remote; worktree may be based on stale code"
   fi
+fi
+
+if [ -n "${base_branch:-}" ]; then
+  update_base_worktree "$repo_root" "$remote" "$base_branch" || true
 fi
 
 # Hide worktrees from `git status` without touching tracked files.
