@@ -15,6 +15,7 @@ This document explains how `opencode/completion-workflow.sh` works and how it’
 7. Wait until the PR is actually merged
 8. Delete the remote branch
 9. If this is an OpenCode worktree, remove the worktree and delete the local branch
+10. If possible, fast-forward update the base branch in your “main” worktree (so your normal folder stays current)
 
 ## How It’s Invoked (Normal Usage)
 
@@ -148,6 +149,7 @@ If the repo path contains `/.opencode/worktrees/`, the script assumes it’s an 
 - Finds a “main” worktree (prefers the base branch worktree, otherwise any non-`.opencode/worktrees/` worktree)
 - Removes the OpenCode worktree (`git worktree remove --force`)
 - Deletes the local branch (`git branch -D <branch>`)
+- If the “main” worktree is on the base branch and clean, fast-forward pulls (`git pull --ff-only <remote> <base>`)
 
 ## Logs + Debugging
 

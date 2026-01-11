@@ -10,6 +10,7 @@ opencode/secrets.nu
 aerospace-source/
 mcp-typescript-sdk/
 yabai-repo/
+karabiner/automatic_backups/
 .tmp/
 __pycache__/
 *.pyc

@@ -487,8 +487,9 @@ find_main_worktree() {
 
 cleanup_opencode_worktree() {
   local repo="$1"
-  local base="$2"
-  local branch_to_delete="$3"
+  local remote_name="$2"
+  local base="$3"
+  local branch_to_delete="$4"
 
   if [[ "$repo" != *"/.opencode/worktrees/"* ]]; then
     return 0
@@ -507,6 +508,30 @@ cleanup_opencode_worktree() {
   if git -C "$main_worktree" show-ref --verify --quiet "refs/heads/$branch_to_delete" 2>/dev/null; then
     ok "Deleting local branch: $branch_to_delete"
     git -C "$main_worktree" branch -D "$branch_to_delete" >/dev/null
+  fi
+
+  local main_branch=""
+  main_branch="$(git -C "$main_worktree" rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
+  if [[ "$main_branch" != "$base" ]]; then
+    warn "Main worktree is on '$main_branch' (expected '$base'); skipping auto-pull"
+    return 0
+  fi
+
+  if [[ -n "$(git -C "$main_worktree" status --porcelain 2>/dev/null)" ]]; then
+    warn "Main worktree has uncommitted changes; skipping auto-pull"
+    return 0
+  fi
+
+  if ! git -C "$main_worktree" remote get-url "$remote_name" >/dev/null 2>&1; then
+    warn "Remote '$remote_name' not found in main worktree; skipping auto-pull"
+    return 0
+  fi
+
+  ok "Updating main worktree: $main_worktree"
+  if git -C "$main_worktree" pull --ff-only "$remote_name" "$base" >/dev/null 2>&1; then
+    ok "Main worktree updated"
+  else
+    warn "Main worktree auto-pull failed; run git pull manually in: $main_worktree"
   fi
 }
 
@@ -555,7 +580,7 @@ fi
 
 if [[ "$ahead_count" == "0" && -z "$(git -C "$repo_root" status --porcelain)" ]]; then
   warn "No commits ahead of $remote/$base_branch; nothing to PR/merge"
-  cleanup_opencode_worktree "$repo_root" "$base_branch" "$current_branch"
+  cleanup_opencode_worktree "$repo_root" "$remote" "$base_branch" "$current_branch"
   exit 0
 fi
 
@@ -722,7 +747,7 @@ if git -C "$repo_root" remote get-url "$remote" >/dev/null 2>&1; then
 fi
 
 if [[ "$repo_root" == *"/.opencode/worktrees/"* ]]; then
-  cleanup_opencode_worktree "$repo_root" "$base_branch" "$head_ref"
+  cleanup_opencode_worktree "$repo_root" "$remote" "$base_branch" "$head_ref"
 fi
 
 ok "Completion workflow finished"
