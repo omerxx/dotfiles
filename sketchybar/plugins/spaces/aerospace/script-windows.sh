@@ -14,6 +14,18 @@ ICON_PADDING=2
 
 GHOSTTY_BUNDLE_ID="com.mitchellh.ghostty"
 
+allowlisted_floating_bundle_id() {
+    local bundle_id=$1
+
+    case "$bundle_id" in
+        com.1password.* | com.apple.SecurityAgent | com.apple.authorizationhost | com.apple.LocalAuthentication.UIAgent | com.apple.coreservices.uiagent | com.apple.IOUIAgent | com.apple.NetAuthAgent)
+            return 0
+            ;;
+    esac
+
+    return 1
+}
+
 build_app_index_if_needed() {
     if [ -s "$APP_INDEX_FILE" ]; then
         return 0
@@ -177,7 +189,9 @@ update_workspace_windows() {
             [ -n "${bundle_id:-}" ] || continue
 
             if [ "${window_layout:-}" = "floating" ]; then
-                continue
+                if ! allowlisted_floating_bundle_id "$bundle_id"; then
+                    continue
+                fi
             fi
 
             if [ "$bundle_id" = "$GHOSTTY_BUNDLE_ID" ]; then

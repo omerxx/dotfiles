@@ -62,7 +62,7 @@ is_floating_app() {
 
 get_window_info() {
     local window_id="$1"
-    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{workspace}%{tab}%{window-title}' 2>/dev/null |
+    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{workspace}%{tab}%{window-layout}%{tab}%{window-title}' 2>/dev/null |
         awk -F'\t' -v id="$window_id" '$1 == id { print $0; exit }'
 }
 
@@ -70,11 +70,11 @@ is_onepassword_access_request_window() {
     local app_id="$1"
     local window_title="$2"
 
-    if [[ "$app_id" != "$ONEPASSWORD_ID" ]]; then
-        return 1
-    fi
+    local title_lc=""
+    title_lc="$(printf '%s' "${window_title:-}" | tr '[:upper:]' '[:lower:]')"
 
-    [[ "$window_title" =~ [1-9]Password[[:space:]]+[Aa]ccess[[:space:]]+[Rr]equested ]] || return 1
+    [[ "$title_lc" == *"1password"* ]] || return 1
+    [[ "$title_lc" == *"access requested"* ]] || return 1
     return 0
 }
 
@@ -86,17 +86,20 @@ count_windows_in_ws() {
 count_capped_windows_in_ws() {
     local ws="$1"
     local count=0
-    local app_id window_title
+    local app_id window_layout window_title
 
-    while IFS=$'\t' read -r app_id window_title; do
+    while IFS=$'\t' read -r app_id window_layout window_title; do
         [[ -n "$app_id" ]] || continue
+        if [[ "${window_layout:-}" == "floating" ]]; then
+            continue
+        fi
         if is_onepassword_access_request_window "$app_id" "$window_title"; then
             continue
         fi
         if ! is_floating_app "$app_id"; then
             count=$((count + 1))
         fi
-    done < <("$AEROSPACE" list-windows --workspace "$ws" --format '%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null || true)
+    done < <("$AEROSPACE" list-windows --workspace "$ws" --format '%{app-bundle-id}%{tab}%{window-layout}%{tab}%{window-title}' 2>/dev/null || true)
 
     echo "$count"
 }
@@ -159,11 +162,15 @@ workspace_for_pinned_app() {
 }
 
 enforce_pinned_app_workspaces() {
-    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{workspace}%{tab}%{window-title}' 2>/dev/null |
-        while IFS=$'\t' read -r wid app_id app_name ws window_title; do
+    "$AEROSPACE" list-windows --monitor all --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{workspace}%{tab}%{window-layout}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r wid app_id app_name ws window_layout window_title; do
             [[ -n "$wid" ]] || continue
 
             if is_transient_window "$app_id" "$window_title"; then
+                continue
+            fi
+
+            if [[ "${window_layout:-}" == "floating" ]]; then
                 continue
             fi
 
@@ -182,8 +189,8 @@ enforce_pinned_app_workspaces() {
 }
 
 evict_non_ghostty_from_workspace_1() {
-    "$AEROSPACE" list-windows --workspace "$GHOSTTY_PRIMARY_WS" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-title}' 2>/dev/null |
-        while IFS=$'\t' read -r wid app_id app_name window_title; do
+    "$AEROSPACE" list-windows --workspace "$GHOSTTY_PRIMARY_WS" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-layout}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r wid app_id app_name window_layout window_title; do
             [[ -n "$wid" ]] || continue
 
             if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
@@ -191,6 +198,10 @@ evict_non_ghostty_from_workspace_1() {
             fi
 
             if is_transient_window "$app_id" "$window_title"; then
+                continue
+            fi
+
+            if [[ "${window_layout:-}" == "floating" ]]; then
                 continue
             fi
 
@@ -214,15 +225,18 @@ evict_non_ghostty_from_workspace_1() {
 count_nontransient_windows_in_ws() {
     local ws="$1"
     local count=0
-    local app_id window_title
+    local app_id window_layout window_title
 
-    while IFS=$'\t' read -r app_id window_title; do
+    while IFS=$'\t' read -r app_id window_layout window_title; do
         [[ -n "$app_id" ]] || continue
+        if [[ "${window_layout:-}" == "floating" ]]; then
+            continue
+        fi
         if is_transient_window "$app_id" "$window_title"; then
             continue
         fi
         count=$((count + 1))
-    done < <("$AEROSPACE" list-windows --workspace "$ws" --format '%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null || true)
+    done < <("$AEROSPACE" list-windows --workspace "$ws" --format '%{app-bundle-id}%{tab}%{window-layout}%{tab}%{window-title}' 2>/dev/null || true)
 
     echo "$count"
 }
@@ -249,10 +263,13 @@ move_nontransient_windows_between_workspaces() {
     local src="$1"
     local dest="$2"
 
-    "$AEROSPACE" list-windows --workspace "$src" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-title}' 2>/dev/null |
-        while IFS=$'\t' read -r wid app_id app_name window_title; do
+    "$AEROSPACE" list-windows --workspace "$src" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-layout}%{tab}%{window-title}' 2>/dev/null |
+        while IFS=$'\t' read -r wid app_id app_name window_layout window_title; do
             [[ -n "$wid" ]] || continue
             if is_transient_window "$app_id" "$window_title"; then
+                continue
+            fi
+            if [[ "${window_layout:-}" == "floating" ]]; then
                 continue
             fi
             if workspace_for_pinned_app "$app_id" "$app_name" >/dev/null 2>&1; then
@@ -411,10 +428,13 @@ rebalance_workspace_window_caps() {
         extra=$((count - MAX_PER_WS))
 
         if [[ "$ws" == "$GHOSTTY_PRIMARY_WS" ]]; then
-            "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-title}' 2>/dev/null |
-                while IFS=$'\t' read -r wid app_id app_name window_title; do
+            "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-layout}%{tab}%{window-title}' 2>/dev/null |
+                while IFS=$'\t' read -r wid app_id app_name window_layout window_title; do
                     [[ -n "$wid" ]] || continue
                     if [[ "$app_id" == "$GHOSTTY_ID" ]]; then
+                        continue
+                    fi
+                    if [[ "${window_layout:-}" == "floating" ]]; then
                         continue
                     fi
                     if is_floating_app "$app_id"; then
@@ -437,9 +457,12 @@ rebalance_workspace_window_caps() {
             continue
         fi
 
-        "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-title}' 2>/dev/null |
-            while IFS=$'\t' read -r wid app_id app_name window_title; do
+        "$AEROSPACE" list-windows --workspace "$ws" --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{app-name}%{tab}%{window-layout}%{tab}%{window-title}' 2>/dev/null |
+            while IFS=$'\t' read -r wid app_id app_name window_layout window_title; do
                 [[ -n "$wid" ]] || continue
+                if [[ "${window_layout:-}" == "floating" ]]; then
+                    continue
+                fi
                 if is_floating_app "$app_id"; then
                     continue
                 fi
@@ -515,11 +538,12 @@ enforce_workspace_window_cap_for_new_window() {
     info="$(get_window_info "$window_id")"
     [[ -n "$info" ]] || return 0
 
-    local app_id app_name workspace window_title
+    local app_id app_name workspace window_layout window_title
     app_id="$(awk -F'\t' '{ print $2 }' <<<"$info")"
     app_name="$(awk -F'\t' '{ print $3 }' <<<"$info")"
     workspace="$(awk -F'\t' '{ print $4 }' <<<"$info")"
-    window_title="$(awk -F'\t' '{ print $5 }' <<<"$info")"
+    window_layout="$(awk -F'\t' '{ print $5 }' <<<"$info")"
+    window_title="$(awk -F'\t' '{ print $6 }' <<<"$info")"
 
     if [[ "$app_id" == "$LOCAL_AUTH_UIAGENT_ID" ]]; then
         local focused_ws
@@ -540,6 +564,10 @@ enforce_workspace_window_cap_for_new_window() {
             "$AEROSPACE" move-node-to-workspace --window-id "$window_id" --focus-follows-window "$focused_ws" 2>/dev/null || true
         fi
 
+        return 0
+    fi
+
+    if [[ "${window_layout:-}" == "floating" ]]; then
         return 0
     fi
 
