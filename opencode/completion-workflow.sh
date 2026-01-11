@@ -479,6 +479,21 @@ format_duration() {
   printf "%ds" "$s"
 }
 
+die_pr_merge_conflict() {
+  local pr_url="${1:-}"
+
+  err "PR has merge conflicts; cannot auto-merge: ${pr_url:-}"
+  err "Resolve locally:"
+  err "  cd \"$repo_root\""
+  err "  git fetch \"$remote\" \"$base_branch\""
+  err "  git rebase \"$remote/$base_branch\""
+  err "  # resolve conflicts, then:"
+  err "  git add -A"
+  err "  git rebase --continue"
+  err "  git push --force-with-lease"
+  exit 1
+}
+
 wait_for_pr_merge() {
   local pr="$1"
   local start_ts
@@ -491,7 +506,7 @@ wait_for_pr_merge() {
 
   while true; do
     local pr_info=""
-    pr_info="$(gh_in_repo pr view "$pr" --json state,mergedAt,mergeStateStatus,reviewDecision,isDraft,url --jq '[.state, (.mergedAt // ""), (.mergeStateStatus // ""), (.reviewDecision // ""), (.isDraft|tostring), .url] | @tsv' 2>/dev/null || true)"
+    pr_info="$(gh_in_repo pr view "$pr" --json state,mergedAt,mergeStateStatus,reviewDecision,isDraft,url --jq '[.state, (.mergedAt // ""), (.mergeStateStatus // ""), (.reviewDecision // ""), (.isDraft|tostring), .url] | join("\u001f")' 2>/dev/null || true)"
     if [[ -z "$pr_info" ]]; then
       warn "Unable to fetch PR state; retrying..."
       sleep "$merge_poll_interval"
@@ -499,7 +514,7 @@ wait_for_pr_merge() {
     fi
 
     local pr_state pr_merged_at pr_merge_state pr_review_decision pr_is_draft pr_url
-    IFS=$'\t' read -r pr_state pr_merged_at pr_merge_state pr_review_decision pr_is_draft pr_url <<<"$pr_info"
+    IFS=$'\x1f' read -r pr_state pr_merged_at pr_merge_state pr_review_decision pr_is_draft pr_url <<<"$pr_info"
 
     if [[ "$pr_is_draft" == "true" ]]; then
       die "PR is a draft; cannot merge: ${pr_url:-#$pr}"
@@ -507,7 +522,7 @@ wait_for_pr_merge() {
 
     merge_state_norm="$(echo "${pr_merge_state:-}" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]' || true)"
     if [[ "$merge_state_norm" == "DIRTY" ]]; then
-      die "PR has merge conflicts; cannot auto-merge: ${pr_url:-#$pr}"
+      die_pr_merge_conflict "${pr_url:-#$pr}"
     fi
 
     if [[ "$pr_state" == "MERGED" && -n "$pr_merged_at" ]]; then
@@ -789,7 +804,7 @@ gh_in_repo() {
 
 repo_merge_settings() {
   gh_in_repo repo view --json rebaseMergeAllowed,squashMergeAllowed,mergeCommitAllowed,viewerDefaultMergeMethod --jq \
-    '[.rebaseMergeAllowed, .squashMergeAllowed, .mergeCommitAllowed, (.viewerDefaultMergeMethod // "")] | @tsv' 2>/dev/null || true
+    '[.rebaseMergeAllowed|tostring, .squashMergeAllowed|tostring, .mergeCommitAllowed|tostring, (.viewerDefaultMergeMethod // "")] | join("\u001f")' 2>/dev/null || true
 }
 
 normalize_merge_method() {
@@ -824,7 +839,7 @@ select_merge_method() {
   fi
 
   local rebase_allowed squash_allowed merge_allowed viewer_default
-  IFS=$'\t' read -r rebase_allowed squash_allowed merge_allowed viewer_default <<<"$settings"
+  IFS=$'\x1f' read -r rebase_allowed squash_allowed merge_allowed viewer_default <<<"$settings"
 
   local default_norm=""
   case "${viewer_default:-}" in
@@ -896,14 +911,27 @@ fi
 pr_url="$(gh_in_repo pr view "$pr_number" --json url --jq '.url' 2>/dev/null || true)"
 ok "PR: #$pr_number ${pr_url:-}"
 
+pr_info="$(gh_in_repo pr view "$pr_number" --json state,mergedAt,mergeStateStatus,reviewDecision,isDraft,url,autoMergeRequest --jq '[.state, (.mergedAt // ""), (.mergeStateStatus // ""), (.reviewDecision // ""), (.isDraft|tostring), .url, ((.autoMergeRequest != null)|tostring)] | join("\u001f")' 2>/dev/null || true)"
+if [[ -n "$pr_info" ]]; then
+  IFS=$'\x1f' read -r pr_state pr_merged_at pr_merge_state pr_review_decision pr_is_draft pr_url pr_auto_merge <<<"$pr_info"
+  if [[ "$pr_is_draft" == "true" ]]; then
+    die "PR is a draft; cannot merge: ${pr_url:-#$pr_number}"
+  fi
+
+  merge_state_norm="$(echo "${pr_merge_state:-}" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]' || true)"
+  if [[ "$merge_state_norm" == "DIRTY" ]]; then
+    die_pr_merge_conflict "${pr_url:-#$pr_number}"
+  fi
+fi
+
 merge_method="$(select_merge_method "$merge_method_preference")"
 ok "Merge method: $merge_method"
 
-merge_args=(--auto)
+merge_args=()
 case "$merge_method" in
-  rebase) merge_args+=(--rebase) ;;
-  squash) merge_args+=(--squash) ;;
-  merge) merge_args+=(--merge) ;;
+  rebase) merge_args=(--rebase) ;;
+  squash) merge_args=(--squash) ;;
+  merge) merge_args=(--merge) ;;
 esac
 
 merge_output=""
@@ -916,8 +944,49 @@ if [[ -n "$merge_output" ]]; then
   echo "$merge_output"
 fi
 
+pr_info="$(gh_in_repo pr view "$pr_number" --json state,mergedAt,mergeStateStatus,reviewDecision,isDraft,url,autoMergeRequest --jq '[.state, (.mergedAt // ""), (.mergeStateStatus // ""), (.reviewDecision // ""), (.isDraft|tostring), .url, ((.autoMergeRequest != null)|tostring)] | join("\u001f")' 2>/dev/null || true)"
+if [[ -n "$pr_info" ]]; then
+  IFS=$'\x1f' read -r pr_state pr_merged_at pr_merge_state pr_review_decision pr_is_draft pr_url pr_auto_merge <<<"$pr_info"
+  merge_state_norm="$(echo "${pr_merge_state:-}" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]' || true)"
+  if [[ "$merge_state_norm" == "DIRTY" ]]; then
+    die_pr_merge_conflict "${pr_url:-#$pr_number}"
+  fi
+  if [[ "$pr_state" == "MERGED" && -n "$pr_merged_at" ]]; then
+    ok "Merge verified (state=$pr_state mergedAt=$pr_merged_at)"
+    wait_for_pr_merge "$pr_number"
+  fi
+fi
+
 if [[ "$merge_exit" != "0" ]]; then
-  warn "gh pr merge returned exit $merge_exit; continuing to verify via PR status"
+  warn "Direct merge failed; attempting auto-merge"
+
+  merge_output=""
+  merge_exit="0"
+  if ! merge_output="$(gh_in_repo pr merge "$pr_number" --auto "${merge_args[@]}" 2>&1)"; then
+    merge_exit="$?"
+  fi
+
+  if [[ -n "$merge_output" ]]; then
+    echo "$merge_output"
+  fi
+
+  pr_info="$(gh_in_repo pr view "$pr_number" --json state,mergedAt,mergeStateStatus,reviewDecision,isDraft,url,autoMergeRequest --jq '[.state, (.mergedAt // ""), (.mergeStateStatus // ""), (.reviewDecision // ""), (.isDraft|tostring), .url, ((.autoMergeRequest != null)|tostring)] | join("\u001f")' 2>/dev/null || true)"
+  if [[ -n "$pr_info" ]]; then
+    IFS=$'\x1f' read -r pr_state pr_merged_at pr_merge_state pr_review_decision pr_is_draft pr_url pr_auto_merge <<<"$pr_info"
+    merge_state_norm="$(echo "${pr_merge_state:-}" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]' || true)"
+    if [[ "$merge_state_norm" == "DIRTY" ]]; then
+      die_pr_merge_conflict "${pr_url:-#$pr_number}"
+    fi
+
+    if [[ "$pr_state" == "MERGED" && -n "$pr_merged_at" ]]; then
+      ok "Merge verified (state=$pr_state mergedAt=$pr_merged_at)"
+      wait_for_pr_merge "$pr_number"
+    fi
+
+    if [[ "${pr_auto_merge:-false}" != "true" ]]; then
+      die "Auto-merge is not enabled; merge PR manually: ${pr_url:-#$pr_number}"
+    fi
+  fi
 fi
 
 wait_for_pr_merge "$pr_number"
