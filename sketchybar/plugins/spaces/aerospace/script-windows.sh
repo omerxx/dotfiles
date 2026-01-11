@@ -163,12 +163,14 @@ render_workspace_icon_strip() {
 update_workspace_windows() {
     local workspace_id=$1
 
-    apps=$(aerospace list-windows --workspace "$workspace_id" --format '%{app-bundle-id}|%{app-name}|%{window-layout}' 2>/dev/null)
+    local apps_raw
+    apps_raw=$(aerospace list-windows --workspace "$workspace_id" --format '%{app-bundle-id}|%{app-name}|%{window-layout}' 2>/dev/null)
     FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused 2>/dev/null)
 
-    if [ "${apps}" != "" ]; then
-        local bundle_ids=()
-        local app_names=()
+    local bundle_ids=()
+    local app_names=()
+
+    if [ "${apps_raw}" != "" ]; then
         local seen_key=" "
 
         while IFS='|' read -r bundle_id app_name window_layout; do
@@ -189,7 +191,10 @@ update_workspace_windows() {
                 app_names+=("$app_name")
                 seen_key+=" $bundle_id "
             fi
-        done <<<"${apps}"
+        done <<<"${apps_raw}"
+    fi
+
+    if [ "${#bundle_ids[@]}" -gt 0 ]; then
 
         local icon_paths=()
         local all_icons_available=true
