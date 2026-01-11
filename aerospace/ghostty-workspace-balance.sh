@@ -38,7 +38,18 @@ NON_GHOSTTY_OVERFLOW_WORKSPACES=(6 7 8 9)
 mode="${1:-on-window-detected}"
 WATCH_INTERVAL_SECONDS="${WATCH_INTERVAL_SECONDS:-0.35}"
 GHOSTTY_ENSURE_COOLDOWN_SECONDS="${GHOSTTY_ENSURE_COOLDOWN_SECONDS:-5}"
-GHOSTTY_ENSURE_LOCK_FILE="${TMPDIR:-/tmp}/aerospace-ghostty-workspace-balance.ensure.lock"
+
+RUNTIME_STATE_DIR="/tmp"
+if [[ -n "${HOME:-}" ]]; then
+    candidate_dir="${HOME}/Library/Caches/aerospace"
+    mkdir -p "$candidate_dir" >/dev/null 2>&1 || true
+    if [[ -d "$candidate_dir" ]]; then
+        RUNTIME_STATE_DIR="$candidate_dir"
+    fi
+fi
+
+GHOSTTY_ENSURE_LOCK_FILE="${RUNTIME_STATE_DIR}/aerospace-ghostty-workspace-balance.ensure.lock"
+WATCH_LOCK_FILE="${RUNTIME_STATE_DIR}/aerospace-ghostty-workspace-balance.watch.pid"
 
 trigger_sketchybar_workspace_update() {
     local sketchybar_bin="/opt/homebrew/bin/sketchybar"
@@ -565,9 +576,14 @@ current_windows_signature() {
         true
 }
 
+cleanup_watch_lock() {
+    rm -f "$WATCH_LOCK_FILE" >/dev/null 2>&1 || true
+}
+
 watch_for_window_changes() {
-    local lock_file="${TMPDIR:-/tmp}/aerospace-ghostty-workspace-balance.watch.pid"
-    if [[ -f "$lock_file" ]]; then
+    local lock_file="$WATCH_LOCK_FILE"
+
+    if ! (set -C; echo "$$" >"$lock_file") 2>/dev/null; then
         local existing_pid
         existing_pid="$(cat "$lock_file" 2>/dev/null || true)"
         if [[ "$existing_pid" =~ ^[0-9]+$ ]] && kill -0 "$existing_pid" 2>/dev/null; then
@@ -577,11 +593,13 @@ watch_for_window_changes() {
                 exit 0
             fi
         fi
+
         rm -f "$lock_file" >/dev/null 2>&1 || true
+        (set -C; echo "$$" >"$lock_file") 2>/dev/null || exit 0
     fi
 
-    echo "$$" >"$lock_file"
-    trap 'rm -f "$lock_file"' EXIT INT TERM
+    trap cleanup_watch_lock EXIT
+    trap 'cleanup_watch_lock; exit 0' INT TERM
 
     local last_sig=""
     while true; do
