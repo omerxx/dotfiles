@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "notifyChildSessions": false,
+  "suppressWhenFocused": true,
+  "sounds": {
+    "idle": "Glass",
+    "error": "Basso",
+    "permission": "Submarine"
+  }
+}

@@ -750,4 +750,4 @@ if [[ "$repo_root" == *"/.opencode/worktrees/"* ]]; then
   cleanup_opencode_worktree "$repo_root" "$remote" "$base_branch" "$head_ref"
 fi
 
-ok "Completion workflow finished"
+ok "COMPLETION WORKFLOW FINISHED"
