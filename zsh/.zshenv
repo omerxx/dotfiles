@@ -133,6 +133,16 @@ o() {
   local repo_root=""
   repo_root="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null || true)"
 
+  if command -v takopi >/dev/null 2>&1; then
+    local takopi_proj=""
+    takopi_proj="$(basename "${repo_root:-$PWD}")"
+    if [[ -n "${branch_used:-}" ]]; then
+      echo "takopi: /${takopi_proj} @${branch_used}" >&2
+    else
+      echo "takopi: /${takopi_proj}" >&2
+    fi
+  fi
+
   _opencode_run "${repo_root:-$PWD}" "$@"
   local opencode_exit="$?"
 

@@ -218,7 +218,6 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | Tool | Description |
 |------|-------------|
 | `sqlit-tui` | SQLite database TUI |
-| `takopi` | CLI tool |
 
 ### Bun Global Packages
 
@@ -347,6 +346,14 @@ The `oo` command:
 |------|-------------|
 | `launchagents/com.klaudioz.openportal-dashboard.plist` | Dashboard service definition |
 | `nushell/config.nu` (`oo` function) | Session launcher command |
+
+---
+
+## Takopi (Telegram Agent Bridge)
+
+Takopi lets you control coding agents via Telegram (remote prompts, worktrees, resume).
+
+See `TAKOPI.md` for setup and the `/finish` workflow.
 
 ---
 
