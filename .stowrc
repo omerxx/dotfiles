@@ -5,5 +5,4 @@
 --ignore=vscode/*
 --ignore=chrome/*
 --ignore=launchagents/*
---ignore=takopi-plugins/*
 --ignore=^zsh$

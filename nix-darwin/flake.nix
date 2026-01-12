@@ -229,7 +229,7 @@
         sudo -u klaudioz ${pkgs.gh}/bin/gh extension install dlvhdr/gh-dash 2>/dev/null || true
 
         # Install takopi via uv (Telegram bridge for agent CLIs)
-        sudo -u klaudioz ${pkgs.uv}/bin/uv tool install -U takopi --no-cache --with-editable /Users/klaudioz/dotfiles/takopi-plugins/takopi-dotfiles 2>/dev/null || true
+        sudo -u klaudioz ${pkgs.uv}/bin/uv tool install -U takopi 2>/dev/null || true
       '';
 
       # Homebrew needs to be installed on its own!

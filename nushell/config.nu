@@ -1057,16 +1057,6 @@ def --wrapped o [...args: string] {
 
     let project_root = (do { ^git rev-parse --show-toplevel } | complete)
     let project_dir = if $project_root.exit_code == 0 { $project_root.stdout | str trim } else { (pwd) }
-
-    if (which takopi | is-not-empty) {
-        let takopi_proj = ($project_dir | path basename)
-        if ($worktree_branch | is-not-empty) {
-            print $"takopi: /($takopi_proj) @($worktree_branch)"
-        } else {
-            print $"takopi: /($takopi_proj)"
-        }
-    }
-
     _o_run $project_dir ...$remaining
     let opencode_exit = $env.LAST_EXIT_CODE
     if $opencode_exit != 0 and $opencode_exit != 130 {
