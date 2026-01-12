@@ -218,6 +218,7 @@ See [Quick Setup Guide](docs/QUICK-SETUP.md) for detailed instructions.
 | Tool | Description |
 |------|-------------|
 | `sqlit-tui` | SQLite database TUI |
+| `takopi` | CLI tool |
 
 ### Bun Global Packages
 
