@@ -71,6 +71,7 @@ verify_tools() {
     "lazygit:lazygit"
     "uv:uv"
     "delta:delta"
+    "takopi:takopi"
     # Cloud CLIs (nix)
     "kubectl:kubectl"
     "aws:awscli"
@@ -408,6 +409,16 @@ install_uv_tools() {
   )
 
   for tool in "${tools[@]}"; do
+    if [[ "$tool" == "takopi" ]]; then
+      local plugin_dir="$SCRIPT_DIR/takopi-plugins/takopi-dotfiles"
+      if [[ -d "$plugin_dir" ]]; then
+        "$UV" tool install -U takopi --no-cache --with-editable "$plugin_dir" 2>/dev/null && \
+          echo -e "  ${GREEN}✓${NC} takopi (with plugins)" || \
+          echo -e "  ${YELLOW}!${NC} takopi (may already be installed)"
+        continue
+      fi
+    fi
+
     "$UV" tool install "$tool" 2>/dev/null && \
       echo -e "  ${GREEN}✓${NC} $tool" || \
       echo -e "  ${YELLOW}!${NC} $tool (may already be installed)"
@@ -543,6 +554,39 @@ setup_openportal_dashboard() {
     launchctl unload "$LAUNCHAGENT_DEST" 2>/dev/null || true
     launchctl load "$LAUNCHAGENT_DEST"
     echo -e "  ${GREEN}✓${NC} Dashboard LaunchAgent loaded (port 3010)"
+  else
+    echo -e "  ${YELLOW}!${NC} LaunchAgent plist not found"
+  fi
+
+  echo ""
+}
+
+setup_takopi_service() {
+  echo -e "${YELLOW}Setting up Takopi LaunchAgent...${NC}"
+
+  TAKOPI_CONFIG="$HOME/.takopi/takopi.toml"
+  if [[ ! -f "$TAKOPI_CONFIG" ]]; then
+    echo -e "  ${YELLOW}!${NC} takopi not configured yet (missing $TAKOPI_CONFIG)"
+    echo -e "  ${YELLOW}!${NC} run: takopi --onboard"
+    echo ""
+    return
+  fi
+
+  if [[ ! -x "$HOME/.local/bin/takopi" ]]; then
+    echo -e "  ${YELLOW}!${NC} takopi not installed at ~/.local/bin/takopi, skipping LaunchAgent"
+    echo ""
+    return
+  fi
+
+  LAUNCHAGENT_SOURCE="$SCRIPT_DIR/launchagents/com.klaudioz.takopi.plist"
+  LAUNCHAGENT_DEST="$HOME/Library/LaunchAgents/com.klaudioz.takopi.plist"
+
+  if [ -f "$LAUNCHAGENT_SOURCE" ]; then
+    mkdir -p "$HOME/Library/LaunchAgents"
+    cp "$LAUNCHAGENT_SOURCE" "$LAUNCHAGENT_DEST"
+    launchctl unload "$LAUNCHAGENT_DEST" 2>/dev/null || true
+    launchctl load "$LAUNCHAGENT_DEST"
+    echo -e "  ${GREEN}✓${NC} Takopi LaunchAgent loaded"
   else
     echo -e "  ${YELLOW}!${NC} LaunchAgent plist not found"
   fi
@@ -728,6 +772,7 @@ run_update() {
   setup_pm2_startup
   install_cmatrix_wallpaper
   setup_openportal_dashboard
+  setup_takopi_service
   setup_bettermouse_config
 
   echo ""

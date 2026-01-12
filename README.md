@@ -349,6 +349,14 @@ The `oo` command:
 
 ---
 
+## Takopi (Telegram Agent Bridge)
+
+Takopi lets you control coding agents via Telegram (remote prompts, worktrees, resume).
+
+See `TAKOPI.md` for setup and the `/finish` workflow.
+
+---
+
 ## External Repositories (Auto-Updated)
 
 | Repo | Location | Description |

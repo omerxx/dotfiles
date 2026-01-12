@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "takopi-dotfiles"
+version = "0.1.0"
+description = "Takopi plugins for klaudioz/dotfiles"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = ["takopi>=0.16,<0.17"]
+
+[project.entry-points."takopi.command_backends"]
+finish = "takopi_dotfiles.finish:BACKEND"
+
+[tool.hatch.build.targets.wheel]
+packages = ["takopi_dotfiles"]
+
