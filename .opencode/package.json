@@ -5,8 +5,5 @@
   "devDependencies": {
     "node-notifier": "10.0.1",
     "detect-terminal": "2.0.0"
-  },
-  "dependencies": {
-    "@opencode-ai/plugin": "1.1.10"
   }
 }

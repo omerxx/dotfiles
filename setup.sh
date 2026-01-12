@@ -405,7 +405,6 @@ install_uv_tools() {
   tools=(
     "sqlit-tui"
     "py-clob-client"
-    "takopi"
   )
 
   for tool in "${tools[@]}"; do
