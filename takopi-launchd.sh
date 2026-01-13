@@ -17,6 +17,7 @@ log_error() {
 HOME_DIR="${HOME:-/Users/klaudioz}"
 TAKOPI_CONFIG="${HOME_DIR}/.takopi/takopi.toml"
 TAKOPI_BIN="${HOME_DIR}/.local/bin/takopi"
+OPENCODE_SECRETS="${HOME_DIR}/.config/opencode/secrets.zsh"
 
 if [[ ! -f "$TAKOPI_CONFIG" ]]; then
   log_warn "takopi config not found: $TAKOPI_CONFIG"
@@ -45,6 +46,16 @@ done
 
 export PATH
 
+if [[ -f "$OPENCODE_SECRETS" ]]; then
+  # shellcheck source=/dev/null
+  source "$OPENCODE_SECRETS"
+fi
+
+[[ -n "${QUOTIO_API_KEY:-}" ]] && export QUOTIO_API_KEY
+export CLIPROXYAPI_ENDPOINT="http://localhost:8317/v1"
+export OPENCODE_CONFIG_CONTENT='{"model":"quotio/gemini-claude-sonnet-4-5","small_model":"quotio/gemini-3-flash-preview"}'
+unset OPENCODE_BIN_PATH
+
 if [[ ! -x "$TAKOPI_BIN" ]]; then
   log_warn "takopi not found at: $TAKOPI_BIN"
   exit 0
@@ -60,4 +71,4 @@ fi
 # Keep that contained to ~/.takopi to avoid polluting $HOME.
 cd "${HOME_DIR}/.takopi" 2>/dev/null || cd "$HOME_DIR"
 
-exec "$TAKOPI_BIN"
+exec "$TAKOPI_BIN" opencode
