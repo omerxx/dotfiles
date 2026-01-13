@@ -4,7 +4,7 @@ Takopi lets you run agent CLIs (Codex / Claude Code / OpenCode / Pi) from Telegr
 It complements (does not replace) OpenPortal:
 
 - **OpenPortal (`oo`)**: Tailscale + web UI for OpenCode sessions (ports, browser access).
-- **Takopi (`takopi`)**: Telegram control plane for running/continuing agent work across repos/branches (no port 3000).
+- **Takopi (`takopi`)**: Telegram control plane for running/continuing OpenCode work across repos/branches (no port 3000).
 
 This repo also installs a custom Takopi command plugin:
 
@@ -26,7 +26,7 @@ This will:
 
 - ask you to create a bot token via `@BotFather`
 - capture your `chat_id` (you send the bot a message once)
-- choose a default engine
+- choose a default engine (use OpenCode)
 
 Config is stored at `~/.takopi/takopi.toml` (not in this repo, because it contains secrets).
 
@@ -36,12 +36,17 @@ For each repo you want to control from Telegram:
 
 ```bash
 cd ~/dev/my-repo
-takopi init my-repo
+takopi init my-repo            # optional: add --default for your main repo
 ```
 
-Recommended for compatibility with your existing `o`/worktree + cleanup automation:
+Recommended for compatibility with your existing `o` worktree + cleanup automation:
 
-- set `worktrees_dir = ".opencode/worktrees"` for that project in `~/.takopi/takopi.toml`
+- set `worktrees_dir = ".opencode/worktrees"` for that project in `~/.takopi/takopi.toml` (same directory `o` uses)
+
+Optional quality-of-life settings (for iPhone-first usage):
+
+- set `default_project = "my-repo"` so you can omit `/my-repo` in messages
+- set `[transports.telegram] session_mode = "chat"` so follow-ups can auto-resume without replying (reset with `/new`)
 
 ### 3) Run Takopi in the background (recommended)
 
@@ -55,6 +60,7 @@ It runs `~/dotfiles/takopi-launchd.sh` and logs to:
 - `/tmp/com.klaudioz.takopi.err`
 
 After `./setup.sh --update`, it should be loaded automatically (if `~/.takopi/takopi.toml` exists).
+The LaunchAgent always starts `takopi opencode` and sources `~/.config/opencode/secrets.zsh` so OpenCode has the same env as your terminal.
 
 ---
 
@@ -63,7 +69,7 @@ After `./setup.sh --update`, it should be loaded automatically (if `~/.takopi/ta
 ### Start a run
 
 - Send a message to your bot:
-  - `/my-repo do the thing`
+  - `/my-repo do the thing` (always include a task after `/my-repo`)
   - `/my-repo @feat/branch do the thing in a worktree`
 - Reply to the bot’s messages to continue the same thread (Takopi preserves context via a `ctx:` footer).
 
@@ -94,6 +100,24 @@ It will reply with the log file path. If you enable Takopi file transfer, you ca
 
 ## Local workflow integration
 
+### Resume on Mac (from Telegram → `o`)
+
+Takopi’s OpenCode runner prints a resume line like:
+
+```
+opencode --session ses_XXX
+```
+
+On your Mac, paste it as:
+
+```bash
+o --session ses_XXX
+```
+
+`o` will auto-cd into the session’s original repo/worktree before launching OpenCode, so resume works from any directory.
+
+### Start on Mac (from `o` → Telegram)
+
 When you start an OpenCode session locally with `o`, the wrapper prints a hint like:
 
 ```
@@ -101,4 +125,3 @@ takopi: /repo-name @oc/20260112-...
 ```
 
 That’s a ready-to-paste starting point for Telegram (after you’ve registered the project with `takopi init repo-name`).
-
