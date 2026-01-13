@@ -83,6 +83,15 @@ o() {
   if [[ "${1:-}" == "--here" ]]; then
     shift
 
+    for arg in "$@"; do
+      case "$arg" in
+        --session|-s|--continue|-c)
+          _opencode_run "$@"
+          return $?
+          ;;
+      esac
+    done
+
     # Respect explicit project path for `--here`.
     if [[ $# -gt 0 && "${1:-}" != -* && -d "${1:-}" ]]; then
       _opencode_run "$@"
@@ -98,6 +107,15 @@ o() {
     _opencode_run "$PWD" "$@"
     return $?
   fi
+
+  for arg in "$@"; do
+    case "$arg" in
+      --session|-s|--continue|-c)
+        _opencode_run "$@"
+        return $?
+        ;;
+    esac
+  done
 
   # Don't spawn worktrees for subcommands/help/version.
   if _opencode_is_subcommand "${1:-}" || [[ " $* " == *" --help "* || " $* " == *" -h "* || " $* " == *" --version "* || " $* " == *" -v "* ]]; then

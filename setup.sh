@@ -564,6 +564,13 @@ setup_openportal_dashboard() {
 setup_takopi_service() {
   echo -e "${YELLOW}Setting up Takopi LaunchAgent...${NC}"
 
+  TAKOPI_SCRIPT="$SCRIPT_DIR/takopi-launchd.sh"
+  if [ ! -f "$TAKOPI_SCRIPT" ]; then
+    echo -e "  ${YELLOW}!${NC} takopi-launchd.sh not found"
+    echo ""
+    return
+  fi
+
   TAKOPI_CONFIG="$HOME/.takopi/takopi.toml"
   if [[ ! -f "$TAKOPI_CONFIG" ]]; then
     echo -e "  ${YELLOW}!${NC} takopi not configured yet (missing $TAKOPI_CONFIG)"
@@ -582,6 +589,7 @@ setup_takopi_service() {
   LAUNCHAGENT_DEST="$HOME/Library/LaunchAgents/com.klaudioz.takopi.plist"
 
   if [ -f "$LAUNCHAGENT_SOURCE" ]; then
+    chmod +x "$TAKOPI_SCRIPT" 2>/dev/null || true
     mkdir -p "$HOME/Library/LaunchAgents"
     cp "$LAUNCHAGENT_SOURCE" "$LAUNCHAGENT_DEST"
     launchctl unload "$LAUNCHAGENT_DEST" 2>/dev/null || true

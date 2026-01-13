@@ -19,9 +19,6 @@
     <false/>
   </dict>
 
-  <key>WorkingDirectory</key>
-  <string>/Users/klaudioz</string>
-
   <key>StandardOutPath</key>
   <string>/tmp/com.klaudioz.takopi.out</string>
 
@@ -29,4 +26,3 @@
   <string>/tmp/com.klaudioz.takopi.err</string>
 </dict>
 </plist>
-

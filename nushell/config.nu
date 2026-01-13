@@ -962,6 +962,10 @@ def --wrapped o [...args: string] {
         _o_set_window_title (pwd | path basename)
 
         let remaining = ($args | skip 1)
+        if ("--session" in $remaining) or ("-s" in $remaining) or ("--continue" in $remaining) or ("-c" in $remaining) {
+            _o_run ...$remaining
+            return
+        }
         if ($remaining | is-not-empty) and (_o_is_subcommand ($remaining | get 0)) {
             _o_run ...$remaining
             return
@@ -993,6 +997,12 @@ def --wrapped o [...args: string] {
     }
 
     if ("--help" in $args) or ("-h" in $args) or ("--version" in $args) or ("-v" in $args) {
+        _o_run ...$args
+        return
+    }
+
+    if ("--session" in $args) or ("-s" in $args) or ("--continue" in $args) or ("-c" in $args) {
+        _o_set_window_title (pwd | path basename)
         _o_run ...$args
         return
     }
