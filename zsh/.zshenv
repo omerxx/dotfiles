@@ -77,20 +77,96 @@ _opencode_is_subcommand() {
   return 1
 }
 
+_opencode_extract_session_id() {
+  local arg=""
+  while [[ $# -gt 0 ]]; do
+    arg="$1"
+    case "$arg" in
+      --session|-s)
+        shift
+        [[ $# -gt 0 ]] && echo "$1"
+        return 0
+        ;;
+      --session=*)
+        echo "${arg#*=}"
+        return 0
+        ;;
+    esac
+    shift
+  done
+  return 1
+}
+
+_opencode_has_continue_flag() {
+  local arg=""
+  for arg in "$@"; do
+    case "$arg" in
+      --continue|-c)
+        return 0
+        ;;
+    esac
+  done
+  return 1
+}
+
+_opencode_session_dir() {
+  local session_id="${1:-}"
+  [[ -n "$session_id" ]] || return 1
+
+  local data_dir="${XDG_DATA_HOME:-$HOME/.local/share}"
+  local sessions_dir="${data_dir}/opencode/storage/session"
+  [[ -d "$sessions_dir" ]] || return 1
+
+  local session_file=""
+  session_file="$(command find "$sessions_dir" -maxdepth 3 -type f -name "${session_id}.json" 2>/dev/null | head -n 1 || true)"
+  [[ -n "$session_file" ]] || return 1
+
+  local session_dir=""
+  if command -v jq >/dev/null 2>&1; then
+    session_dir="$(jq -r '.directory // empty' "$session_file" 2>/dev/null || true)"
+  elif command -v python3 >/dev/null 2>&1; then
+    session_dir="$(python3 - "$session_file" <<'PY'
+import json
+import sys
+
+try:
+    data = json.load(open(sys.argv[1]))
+    print(data.get("directory", "") or "")
+except Exception:
+    pass
+PY
+)"
+  fi
+
+  [[ -n "$session_dir" ]] || return 1
+  echo "$session_dir"
+}
+
 o() {
   local original_dir="$PWD"
 
   if [[ "${1:-}" == "--here" ]]; then
     shift
 
-    for arg in "$@"; do
-      case "$arg" in
-        --session|-s|--continue|-c)
-          _opencode_run "$@"
-          return $?
-          ;;
-      esac
-    done
+    local session_id=""
+    session_id="$(_opencode_extract_session_id "$@")" || session_id=""
+    if [[ -n "$session_id" ]]; then
+      local session_dir=""
+      session_dir="$(_opencode_session_dir "$session_id" 2>/dev/null || true)"
+      if [[ -n "$session_dir" && -d "$session_dir" ]]; then
+        cd "$session_dir" || return $?
+      fi
+
+      _opencode_run "$@"
+      local opencode_exit="$?"
+      cd "$original_dir" 2>/dev/null || true
+      return "$opencode_exit"
+    fi
+
+    if _opencode_has_continue_flag "$@"; then
+      _opencode_run "$@"
+      return $?
+    fi
 
     # Respect explicit project path for `--here`.
     if [[ $# -gt 0 && "${1:-}" != -* && -d "${1:-}" ]]; then
@@ -108,14 +184,25 @@ o() {
     return $?
   fi
 
-  for arg in "$@"; do
-    case "$arg" in
-      --session|-s|--continue|-c)
-        _opencode_run "$@"
-        return $?
-        ;;
-    esac
-  done
+  local session_id=""
+  session_id="$(_opencode_extract_session_id "$@")" || session_id=""
+  if [[ -n "$session_id" ]]; then
+    local session_dir=""
+    session_dir="$(_opencode_session_dir "$session_id" 2>/dev/null || true)"
+    if [[ -n "$session_dir" && -d "$session_dir" ]]; then
+      cd "$session_dir" || return $?
+    fi
+
+    _opencode_run "$@"
+    local opencode_exit="$?"
+    cd "$original_dir" 2>/dev/null || true
+    return "$opencode_exit"
+  fi
+
+  if _opencode_has_continue_flag "$@"; then
+    _opencode_run "$@"
+    return $?
+  fi
 
   # Don't spawn worktrees for subcommands/help/version.
   if _opencode_is_subcommand "${1:-}" || [[ " $* " == *" --help "* || " $* " == *" -h "* || " $* " == *" --version "* || " $* " == *" -v "* ]]; then

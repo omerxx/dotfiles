@@ -955,6 +955,50 @@ def _o_set_window_title [title: string] {
     print --no-newline --raw $"($esc)]0;($safe_title)($bel)"
 }
 
+def _o_session_id_from_args [args: list<string>] {
+    let with_equals = ($args | where { |it| $it | str starts-with "--session=" } | get -o 0 | default "")
+    if ($with_equals | is-not-empty) {
+        return ($with_equals | str replace "--session=" "")
+    }
+
+    let idx = (
+        $args
+        | enumerate
+        | where { |it| $it.item == "--session" or $it.item == "-s" }
+        | get -o 0.index
+    )
+    if $idx == null {
+        return ""
+    }
+
+    $args | get -o ($idx + 1) | default ""
+}
+
+def _o_has_continue_flag [args: list<string>] {
+    ("--continue" in $args) or ("-c" in $args)
+}
+
+def _o_session_dir [session_id: string] {
+    if ($session_id | is-empty) {
+        return ""
+    }
+
+    let data_dir = ($env | get -o XDG_DATA_HOME | default ($nu.home-path | path join ".local" "share"))
+    let sessions_dir = ($data_dir | path join "opencode" "storage" "session")
+    if not ($sessions_dir | path exists) {
+        return ""
+    }
+
+    let pattern = $"($sessions_dir)/**/($session_id).json"
+    let matches = (glob $pattern)
+    if ($matches | is-empty) {
+        return ""
+    }
+
+    let session_file = ($matches | get 0)
+    open $session_file | get -o directory | default ""
+}
+
 def --wrapped o [...args: string] {
     let original_dir = (pwd)
 
@@ -962,7 +1006,20 @@ def --wrapped o [...args: string] {
         _o_set_window_title (pwd | path basename)
 
         let remaining = ($args | skip 1)
-        if ("--session" in $remaining) or ("-s" in $remaining) or ("--continue" in $remaining) or ("-c" in $remaining) {
+        let session_id = (_o_session_id_from_args $remaining)
+        if ($session_id | is-not-empty) {
+            let session_dir = (_o_session_dir $session_id)
+            if ($session_dir | is-not-empty) and (($session_dir | path type) == "dir") {
+                cd $session_dir
+                _o_set_window_title ($session_dir | path basename)
+            }
+
+            _o_run ...$remaining
+            cd $original_dir
+            return
+        }
+
+        if (_o_has_continue_flag $remaining) {
             _o_run ...$remaining
             return
         }
@@ -1001,7 +1058,22 @@ def --wrapped o [...args: string] {
         return
     }
 
-    if ("--session" in $args) or ("-s" in $args) or ("--continue" in $args) or ("-c" in $args) {
+    let session_id = (_o_session_id_from_args $args)
+    if ($session_id | is-not-empty) {
+        let session_dir = (_o_session_dir $session_id)
+        if ($session_dir | is-not-empty) and (($session_dir | path type) == "dir") {
+            cd $session_dir
+            _o_set_window_title ($session_dir | path basename)
+        } else {
+            _o_set_window_title (pwd | path basename)
+        }
+
+        _o_run ...$args
+        cd $original_dir
+        return
+    }
+
+    if (_o_has_continue_flag $args) {
         _o_set_window_title (pwd | path basename)
         _o_run ...$args
         return
