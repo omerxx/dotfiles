@@ -123,6 +123,13 @@ Use `/o` (or `/my-repo @oc/...`) so the run happens in an isolated worktree bran
 
 ---
 
+## Troubleshooting
+
+- **"Anthropic API key is missing"**: you’re running the `claude` engine. Start Takopi as `takopi opencode` (LaunchAgent does this) or set OpenCode as the default in `~/.takopi/takopi.toml`.
+- **Agent works in `/Users/klaudioz`**: you’re not in a registered project context. Run `takopi init <project>` from the repo and start with `/o /<project> ...` (or set `default_project`).
+
+---
+
 ## Local workflow integration
 
 ### Resume on Mac (from Telegram → `o`)
