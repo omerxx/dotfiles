@@ -62,6 +62,7 @@ It runs `~/dotfiles/takopi-launchd.sh` and logs to:
 
 After `./setup.sh --update`, it should be loaded automatically (if `~/.takopi/takopi.toml` exists).
 The LaunchAgent always starts `takopi opencode` and sources `~/.config/opencode/secrets.zsh` so OpenCode has the same env as your terminal.
+`./setup.sh --update` also upgrades Takopi via `uv tool install -U takopi` so you stay current with upstream releases.
 
 ---
 
