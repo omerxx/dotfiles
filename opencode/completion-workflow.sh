@@ -52,7 +52,7 @@ Runs a worktree-safe "commit → rebase → push → PR → merge → verify →
 
 Notes:
 - Does NOT use `gh pr merge --delete-branch` to avoid git-worktree checkout issues.
-- If the worktree lives under `.opencode/worktrees/`, it removes the worktree and deletes the local branch after merge.
+- If the worktree lives under `.opencode/worktrees/` or `.worktrees/`, it removes the worktree and deletes the local branch after merge.
 EOF
 }
 
@@ -139,6 +139,15 @@ commit_type_from_branch() {
 is_opencode_session_branch() {
   case "${1:-}" in
     oc/*|oc-*|oc_*)
+      return 0
+      ;;
+  esac
+  return 1
+}
+
+is_disposable_worktree_path() {
+  case "${1:-}" in
+    *"/.opencode/worktrees/"*|*"/.worktrees/"*)
       return 0
       ;;
   esac
@@ -607,7 +616,7 @@ find_main_worktree() {
     case "$line" in
       worktree\ *)
         wt_path="${line#worktree }"
-        if [[ "$wt_path" != "$current" && "$wt_path" != *"/.opencode/worktrees/"* ]]; then
+        if [[ "$wt_path" != "$current" ]] && ! is_disposable_worktree_path "$wt_path"; then
           echo "$wt_path"
           return 0
         fi
@@ -624,7 +633,7 @@ cleanup_opencode_worktree() {
   local base="$3"
   local branch_to_delete="$4"
 
-  if [[ "$repo" != *"/.opencode/worktrees/"* ]]; then
+  if ! is_disposable_worktree_path "$repo"; then
     return 0
   fi
 
@@ -689,7 +698,7 @@ maybe_salvage_main_worktree_changes() {
   local base="$2"
   local branch="$3"
 
-  [[ "$session_repo" == *"/.opencode/worktrees/"* ]] || return 0
+  is_disposable_worktree_path "$session_repo" || return 0
 
   local main_worktree=""
   main_worktree="$(find_main_worktree "$session_repo" "$base" "$session_repo" || true)"
@@ -1023,7 +1032,7 @@ if git -C "$repo_root" remote get-url "$remote" >/dev/null 2>&1; then
   git -C "$repo_root" push "$remote" --delete "$head_ref" >/dev/null 2>&1 || warn "Remote branch already deleted (or no permission)"
 fi
 
-if [[ "$repo_root" == *"/.opencode/worktrees/"* ]]; then
+if is_disposable_worktree_path "$repo_root"; then
   cleanup_opencode_worktree "$repo_root" "$remote" "$base_branch" "$head_ref"
 fi
 
