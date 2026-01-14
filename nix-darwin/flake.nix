@@ -250,6 +250,7 @@
         "productdevbook/tap"
         "steipete/tap"
         "tw93/tap"
+        "unhappychoice/tap"
         {
           name = "chmouel/lazyworktree";
           clone_target = "https://github.com/chmouel/lazyworktree";
@@ -315,6 +316,7 @@
         "felixkratz/formulae/borders"
         "joncrangle/tap/sketchybar-system-stats"
         "tailspin"
+        "unhappychoice/tap/gitlogue"
       ];
     };
   in
