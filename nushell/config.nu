@@ -955,6 +955,86 @@ def _o_set_window_title [title: string] {
     print --no-newline --raw $"($esc)]0;($safe_title)($bel)"
 }
 
+def _o_session_id_from_args [args: list<string>] {
+    let with_equals = ($args | where { |it| $it | str starts-with "--session=" } | get -o 0 | default "")
+    if ($with_equals | is-not-empty) {
+        return ($with_equals | str replace "--session=" "")
+    }
+
+    let idx = (
+        $args
+        | enumerate
+        | where { |it| $it.item == "--session" or $it.item == "-s" }
+        | get -o 0.index
+    )
+    if $idx == null {
+        return ""
+    }
+
+    $args | get -o ($idx + 1) | default ""
+}
+
+def _o_has_continue_flag [args: list<string>] {
+    ("--continue" in $args) or ("-c" in $args)
+}
+
+def _o_session_dir [session_id: string] {
+    if ($session_id | is-empty) {
+        return ""
+    }
+
+    let data_dir = ($env | get -o XDG_DATA_HOME | default ($nu.home-path | path join ".local" "share"))
+    let sessions_dir = ($data_dir | path join "opencode" "storage" "session")
+    if not ($sessions_dir | path exists) {
+        return ""
+    }
+
+    let pattern = $"($sessions_dir)/**/($session_id).json"
+    let matches = (glob $pattern)
+    if ($matches | is-empty) {
+        return ""
+    }
+
+    let session_file = ($matches | get 0)
+    let session_data = (open $session_file)
+    let session_dir = ($session_data | get -o directory | default "")
+
+    if ($session_dir | is-not-empty) and (($session_dir | path type) == "dir") {
+        return $session_dir
+    }
+
+    if ($session_dir | str contains "/.opencode/worktrees/") {
+        let root = ($session_dir | split row "/.opencode/worktrees/" | get 0)
+        if ($root | is-not-empty) and (($root | path type) == "dir") {
+            return $root
+        }
+    }
+
+    if ($session_dir | str contains "/.worktrees/") {
+        let root = ($session_dir | split row "/.worktrees/" | get 0)
+        if ($root | is-not-empty) and (($root | path type) == "dir") {
+            return $root
+        }
+    }
+
+    let project_id = ($session_data | get -o projectID | default "")
+    if ($project_id | is-empty) {
+        return ""
+    }
+
+    let project_file = ($data_dir | path join "opencode" "storage" "project" $"($project_id).json")
+    if not ($project_file | path exists) {
+        return ""
+    }
+
+    let worktree_dir = (open $project_file | get -o worktree | default "")
+    if ($worktree_dir | is-not-empty) and (($worktree_dir | path type) == "dir") {
+        return $worktree_dir
+    }
+
+    ""
+}
+
 def --wrapped o [...args: string] {
     let original_dir = (pwd)
 
