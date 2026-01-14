@@ -173,15 +173,8 @@ class OCommand:
 
         await ctx.executor.run_one(RunRequest(prompt=prompt, context=run_ctx))
 
-        if not _config_bool(ctx.plugin_config, "auto_finish", False):
-            return CommandResult(
-                text=(
-                    f"o: worktree kept for `{project}` @ `{branch}`\n"
-                    "tip: resume locally with `o --session <ses_...>` "
-                    "(OpenCode sessions are cwd-sensitive)\n"
-                    "when ready to PR/merge/cleanup: reply `/finish`"
-                )
-            )
+        if not _config_bool(ctx.plugin_config, "auto_finish", True):
+            return None
 
         script = Path.home() / ".config" / "opencode" / "completion-workflow-start.sh"
         if not script.exists():

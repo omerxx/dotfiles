@@ -4,11 +4,11 @@ Takopi lets you run agent CLIs (Codex / Claude Code / OpenCode / Pi) from Telegr
 It complements (does not replace) OpenPortal:
 
 - **OpenPortal (`oo`)**: Tailscale + web UI for OpenCode sessions (ports, browser access).
-- **Takopi (`takopi`)**: Telegram control plane for running/continuing agent work across repos/branches (no port 3000).
+- **Takopi (`takopi`)**: Telegram control plane for running/continuing OpenCode work across repos/branches (no port 3000).
 
-This repo also installs custom Takopi command plugins:
+This repo also installs a custom Takopi command plugin:
 
-- **`/o`**: OpenCode-style worktree session (auto branch). Keeps the worktree so you can continue; reply with `/finish` when ready to PR/merge/cleanup.
+- **`/o`**: OpenCode-style worktree session (auto branch) + completion workflow (PR → merge → cleanup).
 - **`/finish`**: cancel the in-flight run (Ctrl‑C equivalent) and start the OpenCode completion workflow (PR → merge → cleanup).
 
 ---
@@ -37,12 +37,12 @@ For each repo you want to control from Telegram:
 
 ```bash
 cd ~/dev/my-repo
-takopi init my-repo
+takopi init my-repo            # optional: add --default for your main repo
 ```
 
-Recommended for compatibility with your existing `o`/worktree + cleanup automation:
+Recommended for compatibility with your existing `o` worktree + cleanup automation:
 
-- set `worktrees_dir = ".opencode/worktrees"` for that project in `~/.takopi/takopi.toml`
+- set `worktrees_dir = ".opencode/worktrees"` for that project in `~/.takopi/takopi.toml` (same directory `o` uses)
 
 Optional quality-of-life settings (for iPhone-first usage):
 
@@ -70,11 +70,10 @@ The LaunchAgent always starts `takopi opencode` and sources `~/.config/opencode/
 
 ### Start a run
 
-- Recommended (matches local `o`): use `/o` so every run gets its own worktree branch.
+- Recommended (matches local `o`): use `/o` so every run gets its own worktree branch and results in a PR.
   - `/o do the thing` (uses `default_project`, otherwise falls back to `dot`)
   - `/o /my-repo do the thing`
   - `/o /my-repo @feat/branch do the thing in a named worktree branch`
-- When you’re ready to land it, reply to the progress message with `/finish` to run PR automation (PR → merge → cleanup).
 - If you run a project command directly (e.g. `/my-repo ...`) **without** `@branch`, Takopi runs in the main checkout (can lead to direct pushes to `master`/`main`).
 - Reply to the bot’s messages to continue the same thread (Takopi preserves context via a `ctx:` footer).
 
@@ -88,11 +87,6 @@ The LaunchAgent always starts `takopi opencode` and sources `~/.config/opencode/
 - Reply to the *progress message* with:
   - `/finish`
 
-Common mistake:
-
-- ❌ `/o /my-repo /finish` (this starts a new run and sends the literal text `/finish` to OpenCode)
-- ✅ reply to the progress message with `/finish` (Takopi command), or send `/finish /my-repo @oc/...`
-
 This triggers the dotfiles Takopi plugin (`takopi-dotfiles`) which:
 
 1. requests cancellation of the in-flight run (best-effort)
@@ -101,15 +95,6 @@ This triggers the dotfiles Takopi plugin (`takopi-dotfiles`) which:
 It will reply with the log file path. If you enable Takopi file transfer, you can fetch it:
 
 - `/file get <log-path>`
-
-### Optional: auto-finish `/o`
-
-If you want `/o` to automatically start the completion workflow when the run completes (one-shot mode), add this to `~/.takopi/takopi.toml`:
-
-```toml
-[plugins.o]
-auto_finish = true
-```
 
 ---
 
@@ -125,13 +110,6 @@ Use `/o` (or `/my-repo @oc/...`) so the run happens in an isolated worktree bran
 ### Start a fresh thread
 
 - Don’t reply (send a new message), or use topics + `/new` if you enabled them in Takopi.
-
----
-
-## Troubleshooting
-
-- **"Anthropic API key is missing"**: you’re running the `claude` engine. Start Takopi as `takopi opencode` (LaunchAgent does this) or set OpenCode as the default in `~/.takopi/takopi.toml`.
-- **Agent works in `/Users/klaudioz`**: you’re not in a registered project context. Run `takopi init <project>` from the repo and start with `/o /<project> ...` (or set `default_project`).
 
 ---
 
@@ -151,8 +129,7 @@ On your Mac, paste it as:
 o --session ses_XXX
 ```
 
-`o` will auto-cd into the session’s original repo/worktree before launching OpenCode.
-If you run `opencode --session ...` directly from a random folder, OpenCode may show “Session not found” (it’s cwd-sensitive).
+`o` will auto-cd into the session’s original repo/worktree before launching OpenCode, so resume works from any directory.
 
 ### Start on Mac (from `o` → Telegram)
 

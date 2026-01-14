@@ -122,10 +122,8 @@ _opencode_session_dir() {
   [[ -n "$session_file" ]] || return 1
 
   local session_dir=""
-  local project_id=""
   if command -v jq >/dev/null 2>&1; then
     session_dir="$(jq -r '.directory // empty' "$session_file" 2>/dev/null || true)"
-    project_id="$(jq -r '.projectID // empty' "$session_file" 2>/dev/null || true)"
   elif command -v python3 >/dev/null 2>&1; then
     session_dir="$(python3 - "$session_file" <<'PY'
 import json
@@ -138,69 +136,10 @@ except Exception:
     pass
 PY
 )"
-
-    project_id="$(python3 - "$session_file" <<'PY'
-import json
-import sys
-
-try:
-    data = json.load(open(sys.argv[1]))
-    print(data.get("projectID", "") or "")
-except Exception:
-    pass
-PY
-)"
   fi
 
-  if [[ -n "$session_dir" && -d "$session_dir" ]]; then
-    echo "$session_dir"
-    return 0
-  fi
-
-  # If the worktree was cleaned up, fall back to the repo root.
-  local fallback=""
-  case "${session_dir:-}" in
-    *"/.opencode/worktrees/"*)
-      fallback="${session_dir%%/.opencode/worktrees/*}"
-      ;;
-    *"/.worktrees/"*)
-      fallback="${session_dir%%/.worktrees/*}"
-      ;;
-  esac
-  if [[ -n "$fallback" && -d "$fallback" ]]; then
-    echo "$fallback"
-    return 0
-  fi
-
-  # Last resort: use the project registry to find the worktree root.
-  if [[ -n "$project_id" ]]; then
-    local project_file="${data_dir}/opencode/storage/project/${project_id}.json"
-    if [[ -f "$project_file" ]]; then
-      local worktree_dir=""
-      if command -v jq >/dev/null 2>&1; then
-        worktree_dir="$(jq -r '.worktree // empty' "$project_file" 2>/dev/null || true)"
-      elif command -v python3 >/dev/null 2>&1; then
-        worktree_dir="$(python3 - "$project_file" <<'PY'
-import json
-import sys
-
-try:
-    data = json.load(open(sys.argv[1]))
-    print(data.get("worktree", "") or "")
-except Exception:
-    pass
-PY
-)"
-      fi
-
-      if [[ -n "$worktree_dir" && -d "$worktree_dir" ]]; then
-        echo "$worktree_dir"
-        return 0
-      fi
-    fi
-  fi
-
-  return 1
+  [[ -n "$session_dir" ]] || return 1
+  echo "$session_dir"
 }
 
 o() {

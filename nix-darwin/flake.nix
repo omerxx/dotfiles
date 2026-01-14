@@ -314,6 +314,7 @@
         "felixkratz/formulae/sketchybar"
         "felixkratz/formulae/borders"
         "joncrangle/tap/sketchybar-system-stats"
+        "tailspin"
       ];
     };
   in

@@ -996,43 +996,7 @@ def _o_session_dir [session_id: string] {
     }
 
     let session_file = ($matches | get 0)
-    let session_data = (open $session_file)
-    let session_dir = ($session_data | get -o directory | default "")
-
-    if ($session_dir | is-not-empty) and (($session_dir | path type) == "dir") {
-        return $session_dir
-    }
-
-    if ($session_dir | str contains "/.opencode/worktrees/") {
-        let root = ($session_dir | split row "/.opencode/worktrees/" | get 0)
-        if ($root | is-not-empty) and (($root | path type) == "dir") {
-            return $root
-        }
-    }
-
-    if ($session_dir | str contains "/.worktrees/") {
-        let root = ($session_dir | split row "/.worktrees/" | get 0)
-        if ($root | is-not-empty) and (($root | path type) == "dir") {
-            return $root
-        }
-    }
-
-    let project_id = ($session_data | get -o projectID | default "")
-    if ($project_id | is-empty) {
-        return ""
-    }
-
-    let project_file = ($data_dir | path join "opencode" "storage" "project" $"($project_id).json")
-    if not ($project_file | path exists) {
-        return ""
-    }
-
-    let worktree_dir = (open $project_file | get -o worktree | default "")
-    if ($worktree_dir | is-not-empty) and (($worktree_dir | path type) == "dir") {
-        return $worktree_dir
-    }
-
-    ""
+    open $session_file | get -o directory | default ""
 }
 
 def --wrapped o [...args: string] {
@@ -1042,6 +1006,23 @@ def --wrapped o [...args: string] {
         _o_set_window_title (pwd | path basename)
 
         let remaining = ($args | skip 1)
+        let session_id = (_o_session_id_from_args $remaining)
+        if ($session_id | is-not-empty) {
+            let session_dir = (_o_session_dir $session_id)
+            if ($session_dir | is-not-empty) and (($session_dir | path type) == "dir") {
+                cd $session_dir
+                _o_set_window_title ($session_dir | path basename)
+            }
+
+            _o_run ...$remaining
+            cd $original_dir
+            return
+        }
+
+        if (_o_has_continue_flag $remaining) {
+            _o_run ...$remaining
+            return
+        }
         if ($remaining | is-not-empty) and (_o_is_subcommand ($remaining | get 0)) {
             _o_run ...$remaining
             return
@@ -1073,6 +1054,27 @@ def --wrapped o [...args: string] {
     }
 
     if ("--help" in $args) or ("-h" in $args) or ("--version" in $args) or ("-v" in $args) {
+        _o_run ...$args
+        return
+    }
+
+    let session_id = (_o_session_id_from_args $args)
+    if ($session_id | is-not-empty) {
+        let session_dir = (_o_session_dir $session_id)
+        if ($session_dir | is-not-empty) and (($session_dir | path type) == "dir") {
+            cd $session_dir
+            _o_set_window_title ($session_dir | path basename)
+        } else {
+            _o_set_window_title (pwd | path basename)
+        }
+
+        _o_run ...$args
+        cd $original_dir
+        return
+    }
+
+    if (_o_has_continue_flag $args) {
+        _o_set_window_title (pwd | path basename)
         _o_run ...$args
         return
     }
