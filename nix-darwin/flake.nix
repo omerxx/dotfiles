@@ -131,6 +131,10 @@
         pkgs.gh
         pkgs.wrangler
         pkgs.supabase-cli
+
+        # Database tools
+        pkgs.sqlite
+        pkgs.sqlite-utils
       ];
       nix.enable = false;  # Let Determinate Systems manage Nix
       programs.zsh.enable = true;  # default shell on catalina
@@ -230,6 +234,9 @@
 
         # Install takopi via uv (Telegram bridge for agent CLIs)
         sudo -u klaudioz ${pkgs.uv}/bin/uv tool install -U takopi --no-cache --with-editable /Users/klaudioz/dotfiles/takopi-plugins/takopi-dotfiles 2>/dev/null || true
+
+        # Install sqlite-tui via uv (SQLite database TUI)
+        sudo -u klaudioz ${pkgs.uv}/bin/uv tool install -U sqlite-tui 2>/dev/null || true
       '';
 
       # Homebrew needs to be installed on its own!
