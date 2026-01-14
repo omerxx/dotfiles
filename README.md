@@ -353,7 +353,7 @@ The `oo` command:
 
 Takopi lets you control coding agents via Telegram (remote prompts, worktrees, resume).
 
-See `docs/TAKOPI.md` for setup and the `/finish` workflow.
+See `TAKOPI.md` for setup and the `/finish` workflow.
 
 ---
 

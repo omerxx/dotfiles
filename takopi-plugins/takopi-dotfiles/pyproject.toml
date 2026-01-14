@@ -12,7 +12,7 @@ dependencies = ["takopi>=0.16,<0.17"]
 
 [project.entry-points."takopi.command_backends"]
 finish = "takopi_dotfiles.finish:BACKEND"
-o = "takopi_dotfiles.o:BACKEND"
 
 [tool.hatch.build.targets.wheel]
 packages = ["takopi_dotfiles"]
+
