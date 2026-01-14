@@ -8,6 +8,7 @@ It complements (does not replace) OpenPortal:
 
 This repo also installs a custom Takopi command plugin:
 
+- **`/o`**: OpenCode-style worktree session (auto branch) + completion workflow (PR → merge → cleanup).
 - **`/finish`**: cancel the in-flight run (Ctrl‑C equivalent) and start the OpenCode completion workflow (PR → merge → cleanup).
 
 ---
@@ -68,9 +69,11 @@ The LaunchAgent always starts `takopi opencode` and sources `~/.config/opencode/
 
 ### Start a run
 
-- Send a message to your bot:
-  - `/my-repo do the thing` (always include a task after `/my-repo`)
-  - `/my-repo @feat/branch do the thing in a worktree`
+- Recommended (matches local `o`): use `/o` so every run gets its own worktree branch and results in a PR.
+  - `/o do the thing` (uses `default_project`, otherwise falls back to `dot`)
+  - `/o /my-repo do the thing`
+  - `/o /my-repo @feat/branch do the thing in a named worktree branch`
+- If you run a project command directly (e.g. `/my-repo ...`) **without** `@branch`, Takopi runs in the main checkout (can lead to direct pushes to `master`/`main`).
 - Reply to the bot’s messages to continue the same thread (Takopi preserves context via a `ctx:` footer).
 
 ### Cancel a run
@@ -91,6 +94,17 @@ This triggers the dotfiles Takopi plugin (`takopi-dotfiles`) which:
 It will reply with the log file path. If you enable Takopi file transfer, you can fetch it:
 
 - `/file get <log-path>`
+
+---
+
+## Why did Telegram push to `master` instead of opening a PR?
+
+That happens when the Takopi run context shows `ctx: dot` (no `@branch`):
+
+- Takopi ran inside the **main checkout** on the base branch.
+- The agent followed this repo’s “commit + push after changes” rule, so it pushed directly to the base branch.
+
+Use `/o` (or `/my-repo @oc/...`) so the run happens in an isolated worktree branch; then the completion workflow can open a PR.
 
 ### Start a fresh thread
 
