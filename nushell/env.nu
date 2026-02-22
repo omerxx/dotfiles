@@ -1,9 +1,10 @@
+#
 # Nushell Environment Config File
 #
 # version = "0.95.0"
 
 def create_left_prompt [] {
-    let dir = match (do --ignore-shell-errors { $env.PWD | path relative-to $nu.home-path }) {
+    let dir = match (do -i { $env.PWD | path relative-to $nu.home-path }) {
         null => $env.PWD
         '' => '~'
         $relative_pwd => ([~ $relative_pwd] | path join)
@@ -91,30 +92,11 @@ $env.NU_PLUGIN_DIRS = [
 # An alternate way to add entries to $env.PATH is to use the custom command `path add`
 # which is built into the nushell stdlib:
 use std "path add"
-# $env.PATH = ($env.PATH | split row (char esep))
-# path add /some/path
-# path add ($env.CARGO_HOME | path join "bin")
-# path add ($env.HOME | path join ".local" "bin")
-# $env.PATH = ($env.PATH | uniq)
-
-if 'IN_NIX_SHELL' not-in $env and 'DEVBOX_SHELL_ENABLED' not-in $env {
-    $env.PATH = ($env.PATH | append [
-        /opt/homebrew/bin
-        /run/current-system/sw/bin
-        /Users/omerxx/.local/bin
-        /opt/homebrew/opt/ruby/bin
-        /opt/homebrew/sbin
-        /Users/omerxx/.opencode/bin
-    ])
-}
-
-devbox global shellenv --format nushell --preserve-path-stack -r
-  | lines 
-  | parse "$env.{name} = \"{value}\""
-  | where name != null 
-  | transpose -r 
-  | into record 
-  | load-env
+path add "/opt/homebrew/bin"
+path add "/opt/homebrew/sbin"
+path add ($env.HOME | path join ".turso")
+path add ($env.HOME | path join ".local/share/mise/shims")
+path add "/Users/omerxx/.local/bin"
 
 
 # To load from a custom file you can use:
@@ -123,9 +105,10 @@ devbox global shellenv --format nushell --preserve-path-stack -r
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 zoxide init nushell | save -f ~/.zoxide.nu
+mkdir ~/.cache/mise
+^mise activate nu | save -f ~/.cache/mise/init.nu
 
-$env.STARSHIP_CONFIG = /Users/omerxx/.config/starship/starship.toml
-$env.NIX_CONF_DIR = /Users/omerxx/.config/nix
+$env.STARSHIP_CONFIG = "/Users/omerxx/.config/starship/starship.toml"
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
