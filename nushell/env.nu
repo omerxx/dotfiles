@@ -1,9 +1,10 @@
+#
 # Nushell Environment Config File
 #
 # version = "0.110.0"
 
 def create_left_prompt [] {
-    let dir = match (do --ignore-errors { $env.PWD | path relative-to $nu.home-dir }) {
+    let dir = match (do -i { $env.PWD | path relative-to $nu.home-path }) {
         null => $env.PWD
         '' => '~'
         $relative_pwd => ([~ $relative_pwd] | path join)
@@ -91,50 +92,12 @@ $env.NU_PLUGIN_DIRS = [
 # An alternate way to add entries to $env.PATH is to use the custom command `path add`
 # which is built into the nushell stdlib:
 use std "path add"
+path add "/opt/homebrew/bin"
+path add "/opt/homebrew/sbin"
+path add ($env.HOME | path join ".turso")
+path add ($env.HOME | path join ".local/share/mise/shims")
+path add "/Users/omerxx/.local/bin"
 
-# Conditional PATH additions (only outside nix/devbox shells)
-if 'IN_NIX_SHELL' not-in $env and 'DEVBOX_SHELL_ENABLED' not-in $env {
-    # Build paths dynamically
-    let additional_paths = [
-        "/opt/homebrew/bin"
-        "/run/current-system/sw/bin"
-        ($nu.home-dir | path join ".local" "bin")
-        "/opt/homebrew/opt/ruby/bin"
-        "/opt/homebrew/sbin"
-        ($nu.home-dir | path join ".opencode" "bin")
-    ]
-    
-    # Only add paths that exist
-    $env.PATH = ($env.PATH | append ($additional_paths | where { $in | path exists }))
-}
-
-# ============================================================================
-# Tool Initialization
-# ============================================================================
-# These tools generate init scripts that must exist before config.nu sources them.
-# We create empty files as fallback if tools are not installed.
-
-# Cache directories
-let cache_dir = ($nu.home-dir | path join ".cache")
-let starship_cache = ($cache_dir | path join "starship")
-let carapace_cache = ($cache_dir | path join "carapace")
-
-# Ensure cache directories exist
-mkdir $starship_cache
-mkdir $carapace_cache
-
-# Init file paths
-let zoxide_init = ($nu.home-dir | path join ".zoxide.nu")
-let starship_init = ($starship_cache | path join "init.nu")
-let carapace_init = ($carapace_cache | path join "init.nu")
-
-# Starship
-if (which starship | is-not-empty) {
-    starship init nu | save -f $starship_init
-} else {
-    # Create empty file so source doesn't fail
-    "" | save -f $starship_init
-}
 
 # Zoxide
 if (which zoxide | is-not-empty) {
@@ -143,18 +106,16 @@ if (which zoxide | is-not-empty) {
     "" | save -f $zoxide_init
 }
 
-# Carapace
-if (which carapace | is-not-empty) {
-    $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
-    carapace _carapace nushell | save -f $carapace_init
-} else {
-    "" | save -f $carapace_init
-}
+mkdir ~/.cache/starship
+starship init nu | save -f ~/.cache/starship/init.nu
+zoxide init nushell | save -f ~/.zoxide.nu
+mkdir ~/.cache/mise
+^mise activate nu | save -f ~/.cache/mise/init.nu
 
-# ============================================================================
-# Environment Variables (using dynamic paths)
-# ============================================================================
-let config_dir = ($nu.home-dir | path join ".config")
+$env.STARSHIP_CONFIG = "/Users/omerxx/.config/starship/starship.toml"
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+mkdir ~/.cache/carapace
+carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 
 $env.STARSHIP_CONFIG = ($config_dir | path join "starship" "starship.toml")
 $env.NIX_CONF_DIR = ($config_dir | path join "nix")
