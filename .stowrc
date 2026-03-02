@@ -1,4 +1,7 @@
 --target=~/.config
---ignore=.stowrc
+--ignore=\.stowrc
 --ignore=DS_Store
---ignore=atuin/*
+--ignore=^atuin$
+--ignore=^setup\.sh$
+--ignore=^ssh$
+--ignore=^zshrc$
