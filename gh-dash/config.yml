@@ -83,12 +83,14 @@ keybindings:
       command: >
         cd {{.RepoPath}}; lazygit
   prs:
+    - key: F
+      name: handle pr feedback
+      command: >
+        wt switch {{.HeadRefName}} -x "opencode --prompt 'use the handle-pr-feedback skill'"
     - key: C
       name: code review
       command: >
-        tmux new-window -n "PR-{{.PrNumber}}" 
-        'wt switch pr:{{.PrNumber}} -x "opencode --prompt `@code-reviewer: review-pr-for-this-branch`"'
-
+        wt switch pr:{{.PrNumber}} -x "opencode --prompt 'use the nextgen-code-review skill to review PR:{{.PrNumber}} against main.'"
 theme:
   colors:
     text:
