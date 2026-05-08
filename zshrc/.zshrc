@@ -1,191 +1,113 @@
-# Path to your oh-my-zsh installation.
-# Reevaluate the prompt string each time it's displaying a prompt
-setopt prompt_subst
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit
-compinit
-if (( $+commands[kubectl] )); then
-  source <(kubectl completion zsh)
-fi
-if [ -x /usr/local/bin/aws_completer ]; then
-  complete -C '/usr/local/bin/aws_completer' aws
-fi
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.luaver/luarocks/5.1/bin:$HOME/.luaver/lua/5.1/bin:$PATH"
 
-typeset -g _zsh_autosuggestions_script=""
-if (( $+commands[brew] )); then
-  _zsh_autosuggestions_script="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-fi
-if [ -z "$_zsh_autosuggestions_script" ] || [ ! -f "$_zsh_autosuggestions_script" ]; then
-  _zsh_autosuggestions_script="$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-fi
-if [ -f "$_zsh_autosuggestions_script" ]; then
-  source "$_zsh_autosuggestions_script"
-  bindkey '^w' autosuggest-execute
-  bindkey '^e' autosuggest-accept
-  bindkey '^u' autosuggest-toggle
-fi
-unset _zsh_autosuggestions_script
-bindkey '^L' vi-forward-word
-bindkey '^k' up-line-or-search
-bindkey '^j' down-line-or-search
+# Add Poetry to PATH
+export PATH="$HOME/.poetry/bin:$PATH"
 
-eval "$(starship init zsh)"
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+# Aliases for eza
+alias ls='eza --icons=always'
+alias ll='eza -lh --icons=always'
+alias la='eza -lha --icons=always'
+alias lt='eza --tree --icons=always'
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# ---- Zoxide (better cd)
+eval "$(zoxide init zsh)"
 
-if [ -x "$HOME/.nix-profile/bin/nvim" ]; then
-  export EDITOR="$HOME/.nix-profile/bin/nvim"
-elif [ -x /opt/homebrew/bin/nvim ]; then
-  export EDITOR=/opt/homebrew/bin/nvim
-else
-  export EDITOR=nvim
-fi
+# Aliases for Zoxide
+alias cd="z"
+alias zi="zoxide add"         # Add a directory to zoxide
+alias zq="zoxide query"       # Query zoxide's database
+alias zr="zoxide remove"      # Remove a directory from zoxide
 
-alias la=tree
-alias cat=bat
+# Aliases for worktrunk
+alias wtl='wt list'                          # List all worktrees
+alias wtlf='wt list --full'                  # List with CI status + LLM summaries
+alias wts='wt switch'                        # Switch worktrees (opens interactive picker if no arg)
+alias wtc='wt switch --create'               # Create new branch+worktree from main
+alias wtr='wt remove'                        # Remove current worktree+branch
+alias wtm='wt merge'                         # Local merge back to main + cleanup
+alias wtd='wt step diff'                     # Show all changes since branching
+alias wtcom='wt step commit'                 # Stage + LLM commit message
+alias wtpush='wt step push'                  # Fast-forward push
+alias wtco='wt switch --create -x opencode'  # Create worktree + launch opencode
 
-# Git
-alias gc="git commit -m"
-alias gca="git commit -a -m"
-alias gp="git push origin HEAD"
-alias gpu="git pull origin"
-alias gst="git status"
-alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
-alias gdiff="git diff"
-alias gco="git checkout"
-alias gb='git branch'
-alias gba='git branch -a'
-alias gadd='git add'
-alias ga='git add -p'
-alias gcoall='git checkout -- .'
-alias gr='git remote'
-alias gre='git reset'
+export GPG_TTY=$(tty)
 
-# Docker
-alias dco="docker compose"
-alias dps="docker ps"
-alias dpa="docker ps -a"
-alias dl="docker ps -l -q"
-alias dx="docker exec -it"
+alias wez="code ~/.wezterm.lua"
+alias zshrc="code ~/.zshrc"
+alias pip=pip3
+alias grep="rg"
 
-# Dirs
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
+source ~/.luaver
 
-# GO
-export GOPATH="${GOPATH:-$HOME/go}"
+PATH=~/.console-ninja/.bin:$PATH
 
-# VIM
-if [ -x "$HOME/.nix-profile/bin/nvim" ]; then
-  alias v="$HOME/.nix-profile/bin/nvim"
-else
-  alias v="nvim"
-fi
+# Volta Configuration
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
-# Nmap
-alias nm="nmap -sC -sV -oN nmap"
+# opencode
+export PATH=/Users/L.Fitzpatrick/.opencode/bin:$PATH
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.vimpkg/bin:${GOPATH}/bin:$HOME/.cargo/bin
+# Prefer Homebrew bin first (added by Agent Mode)
+export PATH="/opt/homebrew/bin:$PATH"
 
-alias cl='clear'
+export PATH="$HOME/bin:$PATH"
 
-# K8S
-export KUBECONFIG=~/.kube/config
-alias k="kubectl"
-alias ka="kubectl apply -f"
-alias kg="kubectl get"
-alias kd="kubectl describe"
-alias kdel="kubectl delete"
-alias kl="kubectl logs"
-alias kgpo="kubectl get pod"
-alias kgd="kubectl get deployments"
-alias kc="kubectx"
-alias kns="kubens"
-alias kl="kubectl logs -f"
-alias ke="kubectl exec -it"
-alias kcns='kubectl config set-context --current --namespace'
-alias podname=''
-
-# HTTP requests with xh!
-alias http="xh"
-
-# VI Mode!!!
-bindkey jj vi-cmd-mode
-
-# Eza
-alias l="eza -l --icons --git -a"
-alias lt="eza --tree --level=2 --long --icons --git"
-alias ltree="eza --tree --level=2  --icons --git"
-
-# SEC STUFF
-alias gobust='gobuster dir --wordlist ~/security/wordlists/diccnoext.txt --wildcard --url'
-alias dirsearch='python dirsearch.py -w db/dicc.txt -b -u'
-alias massdns='~/hacking/tools/massdns/bin/massdns -r ~/hacking/tools/massdns/lists/resolvers.txt -t A -o S bf-targets.txt -w livehosts.txt -s 4000'
-alias server='python -m http.server 4445'
-alias tunnel='ngrok http 4445'
-alias fuzz='ffuf -w ~/hacking/SecLists/content_discovery_all.txt -mc all -u'
-alias gr='~/go/src/github.com/tomnomnom/gf/gf'
-
-### FZF ###
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if [ -d /opt/homebrew/bin ]; then
-  export PATH=/opt/homebrew/bin:$PATH
-fi
-if [ -d /home/linuxbrew/.linuxbrew/bin ]; then
-  export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
-fi
-
-alias mat='osascript -e "tell application \"System Events\" to key code 126 using {command down}" && tmux neww "cmatrix"'
-
-# Nix!
-export NIX_CONF_DIR=$HOME/.config/nix
-export PATH=/run/current-system/sw/bin:$PATH
-
-function ranger {
-	local IFS=$'\t\n'
-	local tempfile="$(mktemp -t tmp.XXXXXX)"
-	local ranger_cmd=(
-		command
-		ranger
-		--cmd="map Q chain shell echo %d > "$tempfile"; quitall"
-	)
-
-	${ranger_cmd[@]} "$@"
-	if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
-		cd -- "$(cat "$tempfile")" || return
-	fi
-	command rm -f -- "$tempfile" 2>/dev/null
+# --- Custom test helpers ---
+function test:central() {
+  if [ $# -lt 1 ]; then
+    echo "Usage: test:central <path-to-test-or-dir> [additional vitest args]" >&2
+    return 1
+  fi
+  TZ='America/Chicago' npm exec vitest -- --reporter=verbose "$@"
 }
-alias rr='ranger'
 
-# navigation
-cx() { cd "$@" && l; }
-fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && l; }
-f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
-fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
+# Google Cloud SDK
+source "/opt/homebrew/share/google-cloud-sdk/path.zsh.inc"
+source "/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc"
 
- # Nix
- if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-	 . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
- fi
- # End Nix
+# bun completions
+[ -s "/Users/L.Fitzpatrick/.bun/_bun" ] && source "/Users/L.Fitzpatrick/.bun/_bun"
 
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 
-if (( $+commands[zoxide] )); then
-  eval "$(zoxide init zsh)"
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# Vite+ bin (https://viteplus.dev)
+. "$HOME/.vite-plus/env"
+
+# you-should-use (direct install, no oh-my-zsh wrapper)
+if [[ -f "$HOME/.zsh/zsh-you-should-use/you-should-use.plugin.zsh" ]]; then
+  source "$HOME/.zsh/zsh-you-should-use/you-should-use.plugin.zsh"
 fi
-if (( $+commands[atuin] )); then
-  eval "$(atuin init zsh)"
+
+# bat-based man/help highlighting
+if command -v bat >/dev/null 2>&1; then
+  export MANPAGER="bat -plman"
+  alias bathelp='bat --plain --language=help'
+  help() {
+    "$@" --help 2>&1 | bathelp
+  }
 fi
-if (( $+commands[direnv] )); then
-  eval "$(direnv hook zsh)"
+
+export EDITOR='zed --wait'
+export VISUAL='zed --wait'
+
+# Terminal-specific configuration
+if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
+  if [[ -f "$HOME/.zshrc_warp" ]]; then
+    source "$HOME/.zshrc_warp"
+  fi
+else
+  if [[ -f "$HOME/.zshrc_ide" ]]; then
+    source "$HOME/.zshrc_ide"
+  fi
 fi

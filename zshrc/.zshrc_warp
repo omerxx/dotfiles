@@ -1,0 +1,8 @@
+# Warp-specific: no Oh My Zsh. Keep explicit high-use git aliases only.
+alias ga='git add'
+alias gco='git checkout'
+alias gm='git merge'
+alias gl='git pull'
+alias gp='git push'
+alias gcmsg='git commit --message'
+alias gst='git status'
