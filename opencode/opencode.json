@@ -1,7 +1,108 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "opencode/kimi-k2.5",
   "autoupdate": true,
-  "plugin": ["@warp-dot-dev/opencode-warp"]
+  "model": "github-copilot/gpt-5.4-mini",
+  "small_model": "github-copilot/gemini-3-flash-preview",
+  "share": "disabled",
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "ctx7sk-2df45dd0-d7e2-4b85-acd0-5aedee4801f9"
+      },
+      "enabled": true
+    },
+    "mcp-obsidian": {
+      "type": "local",
+      "command": [
+        "uv",
+        "run",
+        "--directory",
+        "/Users/L.Fitzpatrick/code/mcp-obsidian",
+        "mcp-obsidian"
+      ],
+      "enabled": false,
+      "environment": {
+        "OBSIDIAN_API_KEY": "b2e703c005e5b3fac963386d47ac96acdbd80c2f338f7ec4c334640ed3a2262a",
+        "OBSIDIAN_HOST": "127.0.0.1",
+        "OBSIDIAN_PORT": "27124"
+      }
+    },
+    "figma": {
+      "type": "remote",
+      "url": "http://127.0.0.1:3845/mcp",
+      "enabled": false
+    },
+    "MCP_DOCKER": {
+      "type": "local",
+      "command": [
+        "docker",
+        "mcp",
+        "gateway",
+        "run"
+      ],
+      "enabled": false
+    }
+  },
+  "permission": {
+    "skill": {
+      "atlassian-mcp-tools": "deny"
+    }
+  },
+  "provider": {
+    "opencode": {
+      "blacklist": [
+        "gpt-5.5-pro",
+        "gpt-5.4-pro",
+        "gpt-5.2",
+        "gpt-5.2-codex",
+        "gpt-5.1",
+        "gpt-5.1-codex",
+        "gpt-5.1-codex-max",
+        "gpt-5.1-codex-mini",
+        "gpt-5",
+        "gpt-5-codex",
+        "gpt-5-nano",
+        "glm-5",
+        "claude-opus-4-1",
+        "claude-opus-4-5",
+        "claude-sonnet-4",
+        "claude-sonnet-4-5",
+        "claude-3-5-haiku",
+        "gemini-3.1-pro"
+      ]
+    }
+  },
+  "plugin": [
+    "@warp-dot-dev/opencode-warp",
+    "oh-my-opencode-slim"
+  ],
+  "agent": {
+    "atlassian-ops-manager": {
+      "permission": {
+        "skill": {
+          "atlassian-mcp-tools": "allow"
+        }
+      }
+    },
+    "explore": {
+      "disable": true
+    },
+    "general": {
+      "disable": true
+    }
+  },
+  "lsp": {
+    "python": {
+      "command": [
+        "/Users/L.Fitzpatrick/Library/Caches/pypoetry/virtualenvs/people-b8nAdtZe-py3.14/bin/python",
+        "-m",
+        "pylsp"
+      ],
+      "extensions": [
+        ".py"
+      ]
+    }
+  }
 }
-

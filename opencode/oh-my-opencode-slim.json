@@ -1,0 +1,247 @@
+{
+  "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
+  "preset": "zeus",
+  "presets": {
+    "zeus": {
+      "orchestrator": {
+        "model": "github-copilot/gpt-5.4",
+        "variant": "medium",
+        "skills": ["*"],
+        "mcps": ["*", "!context7"]
+      },
+      "oracle": {
+        "model": "github-copilot/gpt-5.4",
+        "variant": "medium",
+        "skills": ["simplify"],
+        "mcps": []
+      },
+      "librarian": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "low",
+        "skills": [],
+        "mcps": ["websearch", "context7", "grep_app"]
+      },
+      "explorer": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "medium",
+        "skills": ["agent-browser"],
+        "mcps": []
+      },
+      "fixer": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "hermes": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "low",
+        "skills": ["agent-browser"],
+        "mcps": []
+      }
+    },
+    "zen-max": {
+      "orchestrator": {
+        "model": "opencode/claude-sonnet-4-6",
+        "skills": ["*"],
+        "mcps": ["*", "!context7"]
+      },
+      "oracle": {
+        "model": "opencode/gpt-5.5",
+        "variant": "low",
+        "skills": ["simplify"],
+        "mcps": []
+      },
+      "librarian": {
+        "model": "opencode/gpt-5.4-nano",
+        "variant": "low",
+        "skills": [],
+        "mcps": ["websearch", "context7", "grep_app"]
+      },
+      "explorer": {
+        "model": "opencode/gpt-5.3-codex-spark",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "opencode/gpt-5.4",
+        "variant": "medium",
+        "skills": ["agent-browser"],
+        "mcps": []
+      },
+      "fixer": {
+        "model": "opencode/gpt-5.3-codex",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "hermes": {
+        "model": "opencode/gpt-5.4-nano",
+        "variant": "low",
+        "skills": [],
+        "mcps": [],
+        "prompt": "You are Hermes, a fast lightweight technical reviewer. Your job is to catch obvious correctness, maintainability, scope, and implementation risks before expensive review is needed. Be concise. Focus on high-signal issues only. Do not implement code. Prefer concrete file/line references. Escalate to Oracle when the change involves architecture, security, data integrity, concurrency, persistence, cross-module behavior, or when you are uncertain.",
+        "orchestratorPrompt": "@hermes\n- Role: Fast lightweight reviewer for frequent low-cost review passes\n- Stats: cheaper and faster than @oracle, lower depth, best for early issue detection\n- Capabilities: quick code review, OpenSpec task/spec sanity checks, obvious bug spotting, maintainability concerns, scope drift detection\n- **Delegate when:** after small/medium implementation steps • before /opsx:verify • before deciding whether @oracle is needed • reviewing routine changes where full Oracle review may be overkill\n- **Don't delegate when:** high-risk architecture/security/data-integrity decisions • complex debugging • persistent failures • final review for major changes • deep simplification/YAGNI review\n- **Escalate to @oracle when:** findings are uncertain, risk is high, multiple subsystems are involved, or the change affects auth, permissions, persistence, concurrency, public APIs, or durable architecture"
+      }
+    },
+    "zen-balanced": {
+      "orchestrator": {
+        "model": "opencode/gpt-5.3-codex",
+        "skills": ["*"],
+        "mcps": ["*", "!context7"]
+      },
+      "oracle": {
+        "model": "opencode/glm-5.1",
+        "variant": "high",
+        "skills": ["simplify"],
+        "mcps": []
+      },
+      "librarian": {
+        "model": "opencode/gemini-3-flash",
+        "variant": "low",
+        "skills": [],
+        "mcps": ["websearch", "context7", "grep_app"]
+      },
+      "explorer": {
+        "model": "opencode/claude-haiku-4-5",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "opencode/qwen-3.5-plus",
+        "variant": "medium",
+        "skills": ["agent-browser"],
+        "mcps": []
+      },
+      "fixer": {
+        "model": "opencode/claude-haiku-4-5",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "hermes": {
+        "model": "opencode/gpt-5.4-nano",
+        "variant": "low",
+        "skills": [],
+        "mcps": [],
+        "prompt": "You are Hermes, a fast lightweight technical reviewer. Your job is to catch obvious correctness, maintainability, scope, and implementation risks before expensive review is needed. Be concise. Focus on high-signal issues only. Do not implement code. Prefer concrete file/line references. Escalate to Oracle when the change involves architecture, security, data integrity, concurrency, persistence, cross-module behavior, or when you are uncertain.",
+        "orchestratorPrompt": "@hermes\n- Role: Fast lightweight reviewer for frequent low-cost review passes\n- Stats: cheaper and faster than @oracle, lower depth, best for early issue detection\n- Capabilities: quick code review, OpenSpec task/spec sanity checks, obvious bug spotting, maintainability concerns, scope drift detection\n- **Delegate when:** after small/medium implementation steps • before /opsx:verify • before deciding whether @oracle is needed • reviewing routine changes where full Oracle review may be overkill\n- **Don't delegate when:** high-risk architecture/security/data-integrity decisions • complex debugging • persistent failures • final review for major changes • deep simplification/YAGNI review\n- **Escalate to @oracle when:** findings are uncertain, risk is high, multiple subsystems are involved, or the change affects auth, permissions, persistence, concurrency, public APIs, or durable architecture"
+      }
+    },
+    "zen-open-tier": {
+      "orchestrator": {
+        "model": "opencode/kimi-k2.6",
+        "skills": ["*"],
+        "mcps": ["*", "!context7"]
+      },
+      "oracle": {
+        "model": "opencode/glm-5.1",
+        "variant": "high",
+        "skills": ["simplify"],
+        "mcps": []
+      },
+      "council": {
+        "model": "opencode/glm-5",
+        "variant": "high",
+        "skills": [],
+        "mcps": []
+      },
+      "librarian": {
+        "model": "opencode/minimax-m2.7",
+        "variant": "low",
+        "skills": [],
+        "mcps": ["websearch", "context7", "grep_app"]
+      },
+      "explorer": {
+        "model": "opencode/minimax-m2.5",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "opencode/qwen-3.6-plus",
+        "variant": "medium",
+        "skills": ["agent-browser"],
+        "mcps": []
+      },
+      "fixer": {
+        "model": "opencode/qwen-3.5-plus",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "hermes": {
+        "model": "opencode/gpt-5.4-nano",
+        "variant": "low",
+        "skills": [],
+        "mcps": [],
+        "prompt": "You are Hermes, a fast lightweight technical reviewer. Your job is to catch obvious correctness, maintainability, scope, and implementation risks before expensive review is needed. Be concise. Focus on high-signal issues only. Do not implement code. Prefer concrete file/line references. Escalate to Oracle when the change involves architecture, security, data integrity, concurrency, persistence, cross-module behavior, or when you are uncertain.",
+        "orchestratorPrompt": "@hermes\n- Role: Fast lightweight reviewer for frequent low-cost review passes\n- Stats: cheaper and faster than @oracle, lower depth, best for early issue detection\n- Capabilities: quick code review, OpenSpec task/spec sanity checks, obvious bug spotting, maintainability concerns, scope drift detection\n- **Delegate when:** after small/medium implementation steps • before /opsx:verify • before deciding whether @oracle is needed • reviewing routine changes where full Oracle review may be overkill\n- **Don't delegate when:** high-risk architecture/security/data-integrity decisions • complex debugging • persistent failures • final review for major changes • deep simplification/YAGNI review\n- **Escalate to @oracle when:** findings are uncertain, risk is high, multiple subsystems are involved, or the change affects auth, permissions, persistence, concurrency, public APIs, or durable architecture"
+      }
+    },
+    "zen-maximum-savings": {
+      "orchestrator": {
+        "model": "opencode/ling-2.6-flash-free",
+        "skills": ["*"],
+        "mcps": ["*", "!context7"]
+      },
+      "oracle": {
+        "model": "opencode/minimax-m2.5-free",
+        "variant": "high",
+        "skills": ["simplify"],
+        "mcps": []
+      },
+      "librarian": {
+        "model": "opencode/hy3-preview-free",
+        "variant": "low",
+        "skills": [],
+        "mcps": ["websearch", "context7", "grep_app"]
+      },
+      "explorer": {
+        "model": "opencode/nemotron-3-super-free",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "opencode/ling-2.6-flash-free",
+        "variant": "medium",
+        "skills": ["agent-browser"],
+        "mcps": []
+      },
+      "fixer": {
+        "model": "opencode/big-pickle",
+        "variant": "low",
+        "skills": [],
+        "mcps": []
+      },
+      "hermes": {
+        "model": "opencode/gpt-5.4-nano",
+        "variant": "low",
+        "skills": [],
+        "mcps": [],
+        "prompt": "You are Hermes, a fast lightweight technical reviewer. Your job is to catch obvious correctness, maintainability, scope, and implementation risks before expensive review is needed. Be concise. Focus on high-signal issues only. Do not implement code. Prefer concrete file/line references. Escalate to Oracle when the change involves architecture, security, data integrity, concurrency, persistence, cross-module behavior, or when you are uncertain.",
+        "orchestratorPrompt": "@hermes\n- Role: Fast lightweight reviewer for frequent low-cost review passes\n- Stats: cheaper and faster than @oracle, lower depth, best for early issue detection\n- Capabilities: quick code review, OpenSpec task/spec sanity checks, obvious bug spotting, maintainability concerns, scope drift detection\n- **Delegate when:** after small/medium implementation steps • before /opsx:verify • before deciding whether @oracle is needed • reviewing routine changes where full Oracle review may be overkill\n- **Don't delegate when:** high-risk architecture/security/data-integrity decisions • complex debugging • persistent failures • final review for major changes • deep simplification/YAGNI review\n- **Escalate to @oracle when:** findings are uncertain, risk is high, multiple subsystems are involved, or the change affects auth, permissions, persistence, concurrency, public APIs, or durable architecture"
+      }
+    }
+  },
+  "disabled_agents": [],
+  "agents": {
+    "hermes": {
+      "model": "opencode/gpt-5.4-nano",
+      "variant": "low",
+      "skills": [],
+      "mcps": [],
+      "prompt": "You are Hermes, a fast lightweight technical reviewer. Your job is to catch obvious correctness, maintainability, scope, and implementation risks before expensive review is needed. Be concise. Focus on high-signal issues only. Do not implement code. Prefer concrete file/line references. Escalate to Oracle when the change involves architecture, security, data integrity, concurrency, persistence, cross-module behavior, or when you are uncertain.",
+      "orchestratorPrompt": "@hermes\n- Role: Fast lightweight reviewer for frequent low-cost review passes\n- Stats: cheaper and faster than @oracle, lower depth, best for early issue detection\n- Capabilities: quick code review, OpenSpec task/spec sanity checks, obvious bug spotting, maintainability concerns, scope drift detection\n- **Delegate when:** after small/medium implementation steps • before /opsx:verify • before deciding whether @oracle is needed • reviewing routine changes where full Oracle review may be overkill\n- **Don't delegate when:** high-risk architecture/security/data-integrity decisions • complex debugging • persistent failures • final review for major changes • deep simplification/YAGNI review\n- **Escalate to @oracle when:** findings are uncertain, risk is high, multiple subsystems are involved, or the change affects auth, permissions, persistence, concurrency, public APIs, or durable architecture"
+    }
+  }
+}
