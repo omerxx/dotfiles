@@ -1,0 +1,1 @@
+This file will be symlinked to C:\Users\pdlou\AppData\Local\warp\WarpPreview\config\settings.toml or something similar depending on if Warp or WarpPreview is getting used and if we are on a Mac, Linux or Windows machine.

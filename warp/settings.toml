@@ -1,0 +1,103 @@
+[appearance]
+
+[appearance.vertical_tabs]
+enabled = true
+
+[appearance.themes]
+theme = {
+  custom = {
+    name = "Catppuccin Mocha",
+    path = 'C:\Users\pdlou\AppData\Roaming\warp\WarpPreview\data\themes\catppuccin_mocha.yaml',
+  },
+}
+system_theme = false
+
+[appearance.text]
+font_name = "Lilex"
+font_size = 16.0
+notebook_font_size = 14.0
+ai_font_name = "Lilex"
+match_ai_font = true
+
+[appearance.window]
+override_blur_texture = true
+
+[agents]
+cloud_conversation_storage_enabled = true
+
+[agents.voice]
+voice_input_toggle_key = "shift_right"
+
+[agents.warp_agent]
+
+[agents.warp_agent.input]
+nld_in_terminal_enabled = true
+ai_auto_detection_enabled = true
+
+[agents.profiles]
+agent_mode_coding_permissions = "always_allow_reading"
+
+[terminal]
+
+[terminal.input]
+honor_ps1 = false
+input_box_type_setting = "universal"
+
+[notifications]
+toast_duration_secs = 8
+
+[notifications.preferences]
+is_agent_task_completed_enabled = true
+is_long_running_enabled = true
+is_needs_attention_enabled = true
+is_password_prompt_enabled = true
+long_running_threshold = 30
+mode = "dismissed"
+play_notification_sound = true
+
+[privacy]
+crash_reporting_enabled = true
+telemetry_enabled = true
+custom_secret_regex_list = [
+  { name = "IPv4 Address", pattern = '\b((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}\b' },
+  {
+    name = "IPv6 Address",
+    pattern = '\b((([0-9A-Fa-f]{1,4}:){1,6}:)|(([0-9A-Fa-f]{1,4}:){7}))([0-9A-Fa-f]{1,4})\b',
+  },
+  { name = "Slack App Token", pattern = '\bxapp-[0-9]+-[A-Za-z0-9_]+-[0-9]+-[a-f0-9]+\b' },
+  { name = "Phone Number", pattern = '\b(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b' },
+  {
+    name = "AWS Access ID",
+    pattern = '\b(AKIA|A3T|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{12,}\b',
+  },
+  {
+    name = "MAC Address",
+    pattern = '\b((([a-zA-z0-9]{2}[-:]){5}([a-zA-z0-9]{2}))|(([a-zA-z0-9]{2}:){5}([a-zA-z0-9]{2})))\b',
+  },
+  { name = "Google API Key", pattern = '\bAIza[0-9A-Za-z-_]{35}\b' },
+  { name = "Google OAuth ID", pattern = '\b[0-9]+-[0-9A-Za-z_]{32}\.apps\.googleusercontent\.com\b' },
+  { name = "GitHub Classic Personal Access Token", pattern = '\bghp_[A-Za-z0-9_]{36}\b' },
+  { name = "GitHub Fine-Grained Personal Access Token", pattern = '\bgithub_pat_[A-Za-z0-9_]{82}\b' },
+  { name = "GitHub OAuth Access Token", pattern = '\bgho_[A-Za-z0-9_]{36}\b' },
+  { name = "GitHub User-to-Server Token", pattern = '\bghu_[A-Za-z0-9_]{36}\b' },
+  { name = "GitHub Server-to-Server Token", pattern = '\bghs_[A-Za-z0-9_]{36}\b' },
+  { name = "Stripe Key", pattern = '\b(?:r|s)k_(test|live)_[0-9a-zA-Z]{24}\b' },
+  { name = "Firebase Auth Domain", pattern = '\b([a-z0-9-]){1,30}(\.firebaseapp\.com)\b' },
+  { name = "JWT", pattern = '\b(ey[a-zA-z0-9_\-=]{10,}\.){2}[a-zA-z0-9_\-=]{10,}\b' },
+  { name = "OpenAI API Key", pattern = '\bsk-[a-zA-Z0-9]{48}\b' },
+  { name = "Anthropic API Key", pattern = '\bsk-ant-api\d{0,2}-[a-zA-Z0-9\-]{80,120}\b' },
+  { name = "Generic SK API Key", pattern = '\bsk-[a-zA-Z0-9\-]{10,100}\b' },
+  { name = "Fireworks API Key", pattern = '\bfw_[a-zA-Z0-9]{24}\b' },
+]
+
+[account]
+is_settings_sync_enabled = true
+
+[code]
+
+[code.indexing]
+agent_mode_codebase_context_auto_indexing = true
+
+[general]
+show_warning_before_quitting = false
+
