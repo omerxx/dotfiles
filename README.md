@@ -1,66 +1,53 @@
 # Dotfiles Overview
+This repository is organized around explicit GNU Stow package roots so home-level and XDG config files are linked to the correct destinations.
 
-This repository is organized as **GNU Stow packages**. Each top-level directory is a package that can be symlinked into your machine.
+## Layout
+- `home/`
+  - Files that should land directly in `~` (for example `.zshrc`, `.bashrc`, `.ssh/config`, `.tmux.conf`).
+- `config/`
+  - Directories that should land under `~/.config` (for example `nvim`, `ghostty`, `starship`, `zellij`).
+- `disabled/`
+  - Packages kept in-repo but not automatically stowed by `setup.sh` (platform-specific or legacy content).
 
-## How setup currently works
+## Setup
 
-### `.stowrc`
-
-Current options:
-
-- `--target=~/.config`
-  - Stow writes symlinks into `~/.config`.
-- `--ignore=.stowrc`
-  - Prevents Stow from trying to link the Stow config itself.
-- `--ignore=DS_Store`
-  - Ignores macOS metadata files.
-- `--ignore=atuin/*`
-  - Ignores everything inside `atuin/`.
-
-### `setup.sh`
-
-`setup.sh` currently runs:
+Use `setup.sh` instead of running `stow .` manually:
 
 ```bash
-stow .
+./setup.sh [apply|dry-run|restow|delete]
 ```
 
-Because `.stowrc` sets `--target=~/.config`, this attempts to link package contents into `~/.config`.
+Modes:
+- `apply` (default): create links
+- `dry-run`: preview only
+- `restow`: recreate links
+- `delete`: remove links created by stow
 
-## Top-level directories and what they do
+What `setup.sh` does:
+- stows `home` into `~`
+- stows `config` into `~/.config`
 
-- `aerospace/` — AeroSpace window manager config.
-- `atuin/` — Atuin shell history config.
-- `gh-dash/` — GitHub dashboard (`gh-dash`) config.
-- `ghostty/` — Ghostty terminal config + shader assets.
-- `hammerspoon/` — Hammerspoon automation scripts and local Spoons.
-- `karabiner/` — Karabiner-Elements key remapping config.
-- `kindavim/` — KindaVim macOS preference plist.
-- `nix/` — Nix daemon/client config.
-- `nix-darwin/` — Nix-Darwin flake and Home Manager config.
-- `nushell/` — Nushell environment and shell config.
-- `nvim/` — Neovim distribution/configuration.
-- `opencode/` — OpenCode tool configuration, agents, and skills.
-- `sketchybar/` — SketchyBar status bar config and helper plugin code.
-- `skhd/` — skhd hotkey config and AppleScripts.
-- `ssh/` — SSH client config.
-- `starship/` — Starship prompt config.
-- `television/` — Television launcher config and cable sources.
-- `tmux/` — tmux configuration and helper scripts.
-- `wezterm/` — WezTerm terminal config.
-- `zellij/` — Zellij terminal multiplexer config and themes.
-- `zshrc/` — Zsh shell startup file.
+## `.stowrc`
+Global Stow ignores live in `.stowrc`:
 
-## Potentially unused or mis-targeted in the current setup
+- `--ignore=.stowrc`
+- `--ignore=DS_Store`
+- `--ignore=disabled/*`
 
-Because target is `~/.config`, files link into that folder directly (for example, `ghostty/config` => `~/.config/config`). Some tools expect different locations. Notable suspects:
+## Adding dotfiles
 
-- `atuin/` is explicitly ignored by `.stowrc` and will not be linked.
-- `ghostty/config` likely needs to be under `~/.config/ghostty/config`, not `~/.config/config`.
-- `ssh/ssh-config` likely needs to be `~/.ssh/config` (or include file), not `~/.config/ssh-config`.
-- `zshrc/.zshrc` likely needs to be `~/.zshrc`, not `~/.config/.zshrc`.
-- `karabiner/karabiner.json` and `kindavim/*.plist` usually live in app-specific macOS paths, not `~/.config`.
-- `nix/nix.conf` is commonly `/etc/nix/nix.conf` or `~/.config/nix/nix.conf`; current target would be `~/.config/nix.conf`.
-- `sketchybar/`, `skhd/`, `hammerspoon/` often expect app-specific paths and may require explicit launch arguments or extra symlinks.
+1. Place the file/directory in the correct package root:
+   - `home/` for `~`
+   - `config/` for `~/.config`
+2. Run `./setup.sh dry-run` and resolve conflicts.
+3. Run `./setup.sh apply`.
 
-See each directory README for deeper detail.
+## Conflict handling
+
+If `dry-run` reports conflicts:
+- Back up existing files/directories.
+- Remove or move the conflicting target.
+- Re-run `./setup.sh dry-run` until clean.
+- Apply with `./setup.sh apply`.
+
+Avoid running `stow .` at repo root, since this layout is designed to be managed through `setup.sh`.

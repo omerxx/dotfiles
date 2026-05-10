@@ -1,88 +1,51 @@
 # Working with Dotfiles and Stow
+GNU Stow is used here with two package roots so home-level files and XDG config files go to different targets cleanly.
 
-GNU Stow is a symlink farm manager. It creates symbolic links from your dotfiles repo into a target directory (`~/.config`), letting you track config files in git while they appear in their normal locations.
+## Repository layout
 
-## How `.stowrc` Works
+- `home/` → stowed to `~`
+- `config/` → stowed to `~/.config`
+- `disabled/` → packages kept in-repo but not auto-stowed
 
-The `.stowrc` file in the repo root sets default options so you don't have to pass flags manually:
+## Use `setup.sh` (recommended)
 
-```
---target=~/.config
---ignore=.stowrc
---ignore=DS_Store
-```
-
-This means `stow .` always targets `~/.config`, so each top-level directory in the repo (e.g. `nvim/`, `tmux/`) maps to `~/.config/nvim/`, `~/.config/tmux/`, etc.
-
-## Initial Setup
-
-Check for conflicts before stowing:
+Run from repo root:
 
 ```sh
-stow -nv . 2>&1 | grep -i "conflict\|existing\|cannot"
+./setup.sh [apply|dry-run|restow|delete]
 ```
 
-Back up any conflicting directories:
+Modes:
+- `apply` (default): create links
+- `dry-run`: simulate only
+- `restow`: remove and recreate links
+- `delete`: remove links
+
+`setup.sh` runs:
+- `stow ... --target="$HOME" home`
+- `stow ... --target="$HOME/.config" config`
+
+## Conflict workflow
+
+Preview first:
 
 ```sh
-cp -r ~/.config/TOOL ~/.config/TOOL.bak
+./setup.sh dry-run
 ```
 
-Remove the conflicting file so stow can symlink it:
+If conflicts are reported:
+1. Back up existing files/directories.
+2. Remove or move conflicting targets.
+3. Re-run `./setup.sh dry-run`.
+4. Apply with `./setup.sh apply`.
 
-```sh
-rm ~/.config/TOOL/config-file
-```
+## Adding new files
 
-Stow everything:
+- For files that belong directly in home (like `.zshrc`), add them under `home/`.
+- For app config directories (like `nvim`, `ghostty`), add them under `config/`.
+- For platform-specific or archived packages, place them under `disabled/`.
 
-```sh
-stow .
-```
+## Notes
 
-## Adding a New Config to the Repo
-
-Move the config from `~/.config` into the dotfiles repo:
-
-```sh
-mv ~/.config/TOOL ~/code/omerxx-dotfiles/TOOL
-```
-
-Restow to create the symlink back:
-
-```sh
-stow -R .
-```
-
-Commit it to git:
-
-```sh
-git add TOOL && git commit -m "Add TOOL config"
-```
-
-## Common Commands
-
-| Command | Description |
-|---|---|
-| `stow -nv .` | Dry-run — simulate without making changes |
-| `stow .` | Stow all packages |
-| `stow -D PACKAGE` | Unstow a package (remove its symlinks) |
-| `stow -R PACKAGE` | Restow a package (remove and re-create symlinks) |
-
-Find what's in `~/.config` but not yet tracked in the repo:
-
-```sh
-ls ~/.config/ | grep -vxFf <(ls ~/code/omerxx-dotfiles/)
-```
-
-Check which symlinks already point to the dotfiles repo:
-
-```sh
-find ~ -type l -lname '*omerxx-dotfiles*'
-```
-
-Find broken symlinks (targets no longer exist):
-
-```sh
-find ~ -xtype l
-```
+- `.stowrc` contains global ignore rules (including `disabled/*`).
+- Avoid `stow .` at repo root; use `setup.sh` so both targets are handled correctly.
