@@ -7,6 +7,10 @@ alias gp='git push'
 alias gcmsg='git commit --message'
 alias gst='git status'
 
+if [[ -f "$HOME/.config/starship/starship.toml" ]]; then
+  export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+fi
+
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi

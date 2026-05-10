@@ -34,11 +34,8 @@ Do not add heavyweight prompt frameworks, autosuggestion plugins, completion fra
 This file configures richer shell ergonomics for non-Warp terminals. It currently handles:
 
 - OpenSpec completions
-- Powerlevel10k instant prompt
-- Oh My Zsh with a reduced plugin set
-- A correction to keep `gk` available for the GitKraken CLI instead of the Oh My Zsh git plugin alias
-- Powerlevel10k theme loading
-- `.p10k.zsh` prompt customization loading
+- Explicit high-use git aliases
+- Starship prompt initialization
 - zsh-autosuggestions
 
 This file may assume interactive terminal use, but it still needs guards around optional dependencies so a missing package does not break shell startup.
@@ -75,7 +72,7 @@ Current normal-workflow tools include:
 - `zed` as `EDITOR` and `VISUAL`
 - `bat` for highlighted `man` and help output
 - OpenSpec completions
-- Powerlevel10k, Oh My Zsh, and zsh-autosuggestions in IDE terminals
+- Starship and zsh-autosuggestions in IDE terminals
 - Vite+ environment setup
 
 These tools should be treated as important to preserve, but not all of them should be unconditional requirements. Prefer graceful degradation: if a tool is missing, skip its integration rather than breaking the shell.
@@ -104,7 +101,7 @@ Do not preserve this helper unless the user reverses that decision.
 - Keep startup fast. Avoid expensive commands during shell initialization.
 - Keep terminal-specific behavior in the terminal-specific files where possible.
 - Use comments to explain non-obvious compatibility checks, not every PATH addition.
-- Do not assume Oh My Zsh is available outside `.zshrc_ide`.
+- Do not assume Oh My Zsh is available in active shell startup files.
 - Do not add tool initialization that requires interactive prompts during startup.
 - Preserve `GPG_TTY=$(tty)` unless there is a concrete reason to change it.
 - Prefer idempotent PATH handling when adding new directories, especially if a shell may source files more than once.
@@ -134,8 +131,7 @@ Suggested package families for a fully featured setup:
 - Volta
 - Bun
 - Google Cloud SDK
-- Oh My Zsh
-- Powerlevel10k
+- Starship
 - zsh-autosuggestions
 
 Keep exact install commands out of this file unless the repo gains a platform-aware bootstrap script.
