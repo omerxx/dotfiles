@@ -3,3 +3,4 @@ background-blur-radius = 20
 mouse-hide-while-typing = true
 window-decoration = false
 macos-option-as-alt = true
+theme = "Catppuccin Mocha"

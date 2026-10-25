@@ -22,7 +22,7 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-export EDITOR=/opt/homebrew/bin/nvim
+export EDITOR="nvim"
 
 alias la=tree
 alias cat=bat
@@ -59,15 +59,15 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
 # GO
-export GOPATH='/Users/omerxx/go'
+export GOPATH="$HOME/go"
 
 # VIM
-alias v="/Users/omerxx/.nix-profile/bin/nvim"
+alias v="nvim"
 
 # Nmap
 alias nm="nmap -sC -sV -oN nmap"
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/omer/.vimpkg/bin:${GOPATH}/bin:/Users/omerxx/.cargo/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${GOPATH}/bin:$HOME/.cargo/bin
 
 alias cl='clear'
 
@@ -112,7 +112,7 @@ alias gr='~/go/src/github.com/tomnomnom/gf/gf'
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH=/opt/homebrew/bin:$PATH
+[ -d /opt/homebrew/bin ] && export PATH=/opt/homebrew/bin:$PATH
 
 alias mat='osascript -e "tell application \"System Events\" to key code 126 using {command down}" && tmux neww "cmatrix"'
 
@@ -149,7 +149,7 @@ fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
  fi
  # End Nix
 
-export XDG_CONFIG_HOME="/Users/omerxx/.config"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
